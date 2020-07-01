@@ -24,7 +24,7 @@ typedef i16 Id
 typedef bool IsSingle
 typedef i16 Int
 typedef string Name
-typedef String Path
+typedef string Path
 
 /**
 *   This file describes the definitions of the model which encapsulates
@@ -205,7 +205,7 @@ exception SErrorUserException {
 exception SErrorSystemException{
     1: required SErrorType  error_code
     2: string               message
-    3  i32                  rateLimitDuration
+    3: i32                  rateLimitDuration
 }
 
 /** 
@@ -229,5 +229,5 @@ exception SErrorNotFoundException{
 *   message: ontains the associated error message.
 */
 exception SErrorInvalidRequestException{
-    1: String               message
+    1: string               message
 }
