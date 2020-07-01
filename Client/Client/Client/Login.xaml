@@ -1,0 +1,104 @@
+﻿<Window x:Class="Client.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="Spotifake" Height="617.492" Width="780.594" Icon="Resources/LogoSpotifake.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FF181818">
+        <TextBox x:Name="textBox_Email" HorizontalAlignment="Left" Height="30" Margin="148,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="470" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
+        <TextBlock HorizontalAlignment="Left" Margin="328,166,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.022"/>
+                    <TranslateTransform X="0.499" Y="-0.03"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="284,273,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.022"/>
+                    <TranslateTransform X="-0.481" Y="0.002"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <PasswordBox x:Name="passwordBox_Password" HorizontalAlignment="Left" Margin="148,320,0,0" VerticalAlignment="Top" Height="30" Width="470" Background="#FF4B4B4B" BorderBrush="{x:Null}" SelectionBrush="#FF1DB954" FontSize="15" Foreground="White" FontFamily="Gotham Medium" VerticalContentAlignment="Center"/>
+        <Button x:Name="button_Login" Content="LOGIN" Margin="147.8,398.7,0,0" VerticalAlignment="Top" Width="470" Click="button_Login_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}"></Button>
+        <Button x:Name="button_SignUp" Content="SIGN UP" HorizontalAlignment="Left" Margin="148,491,0,0" VerticalAlignment="Top" Width="470" Click="button_SignUp_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}">
+            <Button.Resources>
+                <Style x:Key="FocusVisual">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+                <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF1CC357"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF1CC357"/>
+                <SolidColorBrush x:Key="Button.Pressed.Background" Color="Green"/>
+                <SolidColorBrush x:Key="Button.Pressed.Border" Color="Green"/>
+                <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+                <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+                <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+                <Style x:Key="Example" TargetType="{x:Type Button}">
+                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                    <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Image HorizontalAlignment="Left" Height="136" Margin="66,10,0,0" VerticalAlignment="Top" Width="639" Source="Resources/SPOTIFAKE.png"/>
+        <TextBlock HorizontalAlignment="Left" Margin="243,456,0,0" TextWrapping="Wrap" Text="You do not have an account?" VerticalAlignment="Top" Foreground="White" Width="307" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.496"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+    </Grid>
+</Window>
