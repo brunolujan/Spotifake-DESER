@@ -4,4 +4,6 @@ from SQLConnection.sqlServer_consumer import SqlServerConsumer
 
 query: SqlServerConsumer = SqlServerConsumer()
 
-query.GetConsumerById(1)
+query.GetConsumerById(2)
+
+#query.DeleteConsumer("bruno1529@live.com.mx")
