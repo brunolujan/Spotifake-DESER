@@ -1,5 +1,7 @@
 import pyodbc
-from config import DATABASE_SERVER_IP, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD
+import sys
+sys.path.append("..")
+from configuration import DATABASE_SERVER_IP, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD
 
 class SQLConnection:
 
@@ -14,9 +16,8 @@ class SQLConnection:
         self.server, self.database,self.username,self.password)
 
     def open(self):
-        try:
-            self.connection = pyodbc.connect(self.connectionQuery)
-            self.cursor = self.connection.cursor()
+        self.connection = pyodbc.connect(self.connectionQuery)
+        self.cursor = self.connection.cursor()
 
     def close(self):
         self.cursor.close()

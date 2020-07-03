@@ -3,20 +3,45 @@ import SpotifakeServer
 sys.path.append("gen-py")
 from SpotifakeService import SpotifakeService
 from SpotifakeService .ttypes import *
-from SQLConenection.connection import SQLConnection
+sys.path.append("../SQLConnection")
+from connection import SQLConnection
 
 class SpotifakeServerHandler(SpotifakeService.Iface):
 
     def __init__(self):
         
-        self.connection = ConnectionSQL()
+        self.connection = SQLConnection()
 
-    def GetConsumerById(idConsumer):
-
+    def DeleteConsumer(self, email):
         self.connection.open()
+        sql = """
+            DECLARE     @return_value int,
+                    @estado int,
+                    @salida nvarchar(1000)
 
-        self.save()
+            EXEC        @return_value = [dbo].[SPD_DeleteConsumer]
+                    @idConsumer = ?,
+                    @estado = @estado OUTPUT,
+                    @salida = @salida OUTPUT
+        """
+        params = (email)
+        self.connection.cursor.execute(sql, params)
+        row = self.connection.cursor.rowcount
+        print (row)
+               
 
-        self.close()
+
+
+
+
+
+
+    #def GetConsumerById(idConsumer):
+
+        #self.connection.open()
+
+        #self.save()
+
+        #self.close()
 
         return 1
