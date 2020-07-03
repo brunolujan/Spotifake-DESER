@@ -1,5 +1,5 @@
 import pyodbc
-from config import DATABASE_SERVER_IP, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD
+from configuration import DATABASE_SERVER_IP, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD
 
 class SQLConnection:
 
@@ -14,9 +14,12 @@ class SQLConnection:
         self.server, self.database,self.username,self.password)
 
     def open(self):
-        try:
+        try :
+            print(self.connectionQuery)
             self.connection = pyodbc.connect(self.connectionQuery)
             self.cursor = self.connection.cursor()
+        except Exception:
+            raise Exception("Error database connection")
 
     def close(self):
         self.cursor.close()

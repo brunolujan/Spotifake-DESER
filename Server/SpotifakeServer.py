@@ -1,9 +1,9 @@
 import sys
-import SpotifakeServerHandler
-sys.path.append("gen-py")
+sys.path.append("../")
+from Server.SpotifakeServerHandler import SpotifakeServerHandler
 from thrift.transport import TSocket
 from thrift.server import TServer
-from SpotifakeService import SpotifakeService
+from Thrift.SpotifakeService import SpotifakeService
 from SpotifakeService.ttypes import *
 
 if __name__ == "__main__":

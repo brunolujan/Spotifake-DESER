@@ -1,22 +1,15 @@
 import sys
 import SpotifakeServer
-sys.path.append("gen-py")
-from SpotifakeService import SpotifakeService
+from Thrift.SpotifakeService import SpotifakeService
 from SpotifakeService .ttypes import *
-from SQLConenection.connection import SQLConnection
+from SQLConnection.sqlServer_consumer import SqlServerConsumer
 
 class SpotifakeServerHandler(SpotifakeService.Iface):
 
     def __init__(self):
-        
-        self.connection = ConnectionSQL()
+        pass
 
-    def GetConsumerById(idConsumer):
-
-        self.connection.open()
-
-        self.save()
-
-        self.close()
-
-        return 1
+    def GetConsumerById(self, idConsumer):
+        repo: SqlServerConsumer = SqlServerConsumer()
+        result = repo.save(consumer)
+        pass
