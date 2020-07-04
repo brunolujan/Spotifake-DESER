@@ -2,7 +2,7 @@ import sys
 import SpotifakeServer
 from Thrift.SpotifakeService import SpotifakeService
 from SpotifakeService .ttypes import *
-from SQLConnection.sqlServer_consumer import SqlServerConsumer
+from SQLConnection.sqlServer_consumer import SqlServerConsumerManagement
 
 class SpotifakeServerHandler(SpotifakeService.Iface):
 
@@ -10,5 +10,5 @@ class SpotifakeServerHandler(SpotifakeService.Iface):
         pass
 
     def GetConsumerById(self, idConsumer):
-        repo: SqlServerConsumer = SqlServerConsumer()
+        repo: SqlServerConsumerManagement = SqlServerConsumerManagement()
         pass

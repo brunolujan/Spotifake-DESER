@@ -1,6 +1,6 @@
 from SQLConnection.connection import SQLConnection
 
-class SqlServerConsumer:
+class SqlServerConsumerManagement:
     def __init__(self):
         self.connection: SQLConnection = SQLConnection()
 
@@ -25,11 +25,16 @@ class SqlServerConsumer:
     def UpdateConsumerName(self, email:str, currrentPassword:str, newName:str, newLastName:str):
         self.connection.open()
         sql = """
-            UPDATE FROM Consumer 
+            UPDATE Consumer 
             SET name = ?, lastName = ?
             Where email = ? AND password = ?
         """
-        self.connection.cursor.execute(sql,)
+        params = (newName, newLastName, email, currrentPassword)
+
+        self.connection.cursor.execute(sql, params)
+        print("Consumer " + newName + " " + newLastName + " has been update")
+        self.connection.save()
+        self.connection.close()
         
 
 
