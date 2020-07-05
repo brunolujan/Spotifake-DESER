@@ -1,7 +1,8 @@
 import sys
-import SpotifakeServer
-from Thrift.SpotifakeService import SpotifakeService
-from SpotifakeService .ttypes import *
+sys.path.append("../")
+sys.path.append("gen-py")
+from SpotifakeService import SpotifakeService
+from SpotifakeService.ttypes import *
 from SQLConnection.sqlServer_consumer import SqlServerConsumerManagement
 
 class SpotifakeServerHandler(SpotifakeService.Iface):
