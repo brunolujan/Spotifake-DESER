@@ -4,6 +4,7 @@ from SQLConnection.sqlServer_consumer import SqlServerConsumerManagement
 from SQLConnection.sqlServer_contentCreator import SqlServerContentCreatorManagement
 from SQLConnection.sqlServer_album import SqlServerAlbumManagement
 from SQLConnection.sqlServer_track import SqlServerTrackManagement
+from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #CONSUMER MANAGEMENT
@@ -54,4 +55,14 @@ from SQLConnection.sqlServer_track import SqlServerTrackManagement
 #query.UpdateAlbumTrackTitle(1,2, "Everglow")
 
 #query.GetTrackByTitle("Everglow")
+
+
+#PLAYLIST MANAGEMENT
+query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
+
+#query.GetPlaylistByTitle("DESER")
+
+#query.UpdatePlaylistTitle(1,"EEE")
+
+#query.UpdatePlaylistDescription(1,"Ya me canséeeee")
 
