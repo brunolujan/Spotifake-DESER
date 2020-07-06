@@ -1,6 +1,10 @@
 import os
 
+<<<<<<< HEAD
 DATABASE_SERVER_IP = '192.168.0.16' 
+=======
+DATABASE_SERVER_IP = '192.168.0.4' 
+>>>>>>> b5d25661ec0aecb8304a6a2139449a131a532183
 DATABASE_NAME = 'Spotifake'
 DATABASE_USERNAME = 'userSpotifake'
 DATABASE_PASSWORD = 'Spotifake2020'

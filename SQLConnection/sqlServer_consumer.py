@@ -11,7 +11,9 @@ class SqlServerConsumerManagement:
         """
         self.connection.cursor.execute(sql, idConsumer)
         row = self.connection.cursor.fetchall()
+        self.connection.save()
         print(row[0].name, row[0].email)
+        self.connection.close()
 
     def DeleteConsumer(self, email:str):
         self.connection.open()
@@ -32,8 +34,22 @@ class SqlServerConsumerManagement:
         params = (newName, newLastName, email, currrentPassword)
 
         self.connection.cursor.execute(sql, params)
-        print("Consumer " + newName + " " + newLastName + " has been update")
         self.connection.save()
+        print("Consumer " + newName + " " + newLastName + " has been updated")
+        self.connection.close()
+
+    def UpdateConsumerPassword(self, email:str, currrentPassword:str, newPassword:str):
+        self.connection.open()
+        sql = """
+            UPDATE Consumer
+            SET password = ?
+            Where email = ? AND password = ?
+        """
+        params = (newPassword, email, currrentPassword )
+
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Your password has been updated")
         self.connection.close()
         
 
