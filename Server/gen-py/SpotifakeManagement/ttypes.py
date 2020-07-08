@@ -474,76 +474,6 @@ class ExceptionUser(TException):
         return not (self == other)
 
 
-class Interpreter(object):
-    """
-    Attributes:
-     - idInterpreter
-     - name
-
-    """
-
-
-    def __init__(self, idInterpreter=None, name=None,):
-        self.idInterpreter = idInterpreter
-        self.name = name
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idInterpreter = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.name = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('Interpreter')
-        if self.idInterpreter is not None:
-            oprot.writeFieldBegin('idInterpreter', TType.I16, 1)
-            oprot.writeI16(self.idInterpreter)
-            oprot.writeFieldEnd()
-        if self.name is not None:
-            oprot.writeFieldBegin('name', TType.STRING, 2)
-            oprot.writeString(self.name.encode('utf-8') if sys.version_info[0] == 2 else self.name)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        if self.idInterpreter is None:
-            raise TProtocolException(message='Required field idInterpreter is unset!')
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
 class Track(object):
     """
     Attributes:
@@ -610,7 +540,7 @@ class Track(object):
                     iprot.skip(ftype)
             elif fid == 7:
                 if ftype == TType.STRUCT:
-                    self.interpreter = Interpreter()
+                    self.interpreter = ContentCreator()
                     self.interpreter.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -1777,12 +1707,6 @@ ExceptionUser.thrift_spec = (
     (1, TType.STRING, 'message', 'UTF8', None, ),  # 1
     (2, TType.I16, 'error_code', None, None, ),  # 2
 )
-all_structs.append(Interpreter)
-Interpreter.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idInterpreter', None, None, ),  # 1
-    (2, TType.STRING, 'name', 'UTF8', None, ),  # 2
-)
 all_structs.append(Track)
 Track.thrift_spec = (
     None,  # 0
@@ -1792,7 +1716,7 @@ Track.thrift_spec = (
     (4, TType.STRING, 'storagePath', 'UTF8', None, ),  # 4
     (5, TType.STRING, 'title', 'UTF8', None, ),  # 5
     (6, TType.I32, 'gender', None, None, ),  # 6
-    (7, TType.STRUCT, 'interpreter', [Interpreter, None], None, ),  # 7
+    (7, TType.STRUCT, 'interpreter', [ContentCreator, None], None, ),  # 7
     (8, TType.STRING, 'featuring', 'UTF8', None, ),  # 8
 )
 all_structs.append(Date)

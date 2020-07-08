@@ -1940,7 +1940,7 @@ class UpdateAlbumTrackFeaturing_args(object):
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.STRUCT:
-                    self.newFeaturing = SpotifakeManagement.ttypes.Interpreter()
+                    self.newFeaturing = SpotifakeManagement.ttypes.ContentCreator()
                     self.newFeaturing.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -1987,7 +1987,7 @@ UpdateAlbumTrackFeaturing_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idAlbum', None, None, ),  # 1
     (2, TType.I16, 'trackNumber', None, None, ),  # 2
-    (3, TType.STRUCT, 'newFeaturing', [SpotifakeManagement.ttypes.Interpreter, None], None, ),  # 3
+    (3, TType.STRUCT, 'newFeaturing', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 3
 )
 
 

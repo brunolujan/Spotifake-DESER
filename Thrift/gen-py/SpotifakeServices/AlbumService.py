@@ -88,7 +88,7 @@ class Iface(object):
         """
         pass
 
-    def UpdateAlbumCover(self, idAlbum, newImageStoragePath):
+    def UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
         """
          
         Update previously registered Album cover.
@@ -102,26 +102,7 @@ class Iface(object):
 
         Parameters:
          - idAlbum
-         - newImageStoragePath
-
-        """
-        pass
-
-    def UpdateAlbumFeaturing(self, idAlbum, newFeaturing):
-        """
-         
-        Update previously registered Album featuring.
-
-        @param idAlbum
-            The Album Id of the Album which require an update featuring.
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - newFeaturing
+         - newCoverStoragePath
 
         """
         pass
@@ -361,7 +342,7 @@ class Client(Iface):
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumTitle failed: unknown result")
 
-    def UpdateAlbumCover(self, idAlbum, newImageStoragePath):
+    def UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
         """
          
         Update previously registered Album cover.
@@ -375,17 +356,17 @@ class Client(Iface):
 
         Parameters:
          - idAlbum
-         - newImageStoragePath
+         - newCoverStoragePath
 
         """
-        self.send_UpdateAlbumCover(idAlbum, newImageStoragePath)
+        self.send_UpdateAlbumCover(idAlbum, newCoverStoragePath)
         return self.recv_UpdateAlbumCover()
 
-    def send_UpdateAlbumCover(self, idAlbum, newImageStoragePath):
+    def send_UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
         self._oprot.writeMessageBegin('UpdateAlbumCover', TMessageType.CALL, self._seqid)
         args = UpdateAlbumCover_args()
         args.idAlbum = idAlbum
-        args.newImageStoragePath = newImageStoragePath
+        args.newCoverStoragePath = newCoverStoragePath
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -410,56 +391,6 @@ class Client(Iface):
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumCover failed: unknown result")
-
-    def UpdateAlbumFeaturing(self, idAlbum, newFeaturing):
-        """
-         
-        Update previously registered Album featuring.
-
-        @param idAlbum
-            The Album Id of the Album which require an update featuring.
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - newFeaturing
-
-        """
-        self.send_UpdateAlbumFeaturing(idAlbum, newFeaturing)
-        return self.recv_UpdateAlbumFeaturing()
-
-    def send_UpdateAlbumFeaturing(self, idAlbum, newFeaturing):
-        self._oprot.writeMessageBegin('UpdateAlbumFeaturing', TMessageType.CALL, self._seqid)
-        args = UpdateAlbumFeaturing_args()
-        args.idAlbum = idAlbum
-        args.newFeaturing = newFeaturing
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_UpdateAlbumFeaturing(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = UpdateAlbumFeaturing_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumFeaturing failed: unknown result")
 
     def AddAlbumToLibrary(self, idLibrary, newAlbum):
         """
@@ -568,7 +499,6 @@ class Processor(Iface, TProcessor):
         self._processMap["DeleteAlbum"] = Processor.process_DeleteAlbum
         self._processMap["UpdateAlbumTitle"] = Processor.process_UpdateAlbumTitle
         self._processMap["UpdateAlbumCover"] = Processor.process_UpdateAlbumCover
-        self._processMap["UpdateAlbumFeaturing"] = Processor.process_UpdateAlbumFeaturing
         self._processMap["AddAlbumToLibrary"] = Processor.process_AddAlbumToLibrary
         self._processMap["DeleteLibraryAlbum"] = Processor.process_DeleteLibraryAlbum
         self._on_message_begin = None
@@ -721,7 +651,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = UpdateAlbumCover_result()
         try:
-            result.success = self._handler.UpdateAlbumCover(args.idAlbum, args.newImageStoragePath)
+            result.success = self._handler.UpdateAlbumCover(args.idAlbum, args.newCoverStoragePath)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -743,38 +673,6 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("UpdateAlbumCover", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_UpdateAlbumFeaturing(self, seqid, iprot, oprot):
-        args = UpdateAlbumFeaturing_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = UpdateAlbumFeaturing_result()
-        try:
-            result.success = self._handler.UpdateAlbumFeaturing(args.idAlbum, args.newFeaturing)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
-            msg_type = TMessageType.REPLY
-            result.sErrorInvalidRequestE = sErrorInvalidRequestE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateAlbumFeaturing", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1479,14 +1377,14 @@ class UpdateAlbumCover_args(object):
     """
     Attributes:
      - idAlbum
-     - newImageStoragePath
+     - newCoverStoragePath
 
     """
 
 
-    def __init__(self, idAlbum=None, newImageStoragePath=None,):
+    def __init__(self, idAlbum=None, newCoverStoragePath=None,):
         self.idAlbum = idAlbum
-        self.newImageStoragePath = newImageStoragePath
+        self.newCoverStoragePath = newCoverStoragePath
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1504,7 +1402,7 @@ class UpdateAlbumCover_args(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.newImageStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.newCoverStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1521,9 +1419,9 @@ class UpdateAlbumCover_args(object):
             oprot.writeFieldBegin('idAlbum', TType.I16, 1)
             oprot.writeI16(self.idAlbum)
             oprot.writeFieldEnd()
-        if self.newImageStoragePath is not None:
-            oprot.writeFieldBegin('newImageStoragePath', TType.STRING, 2)
-            oprot.writeString(self.newImageStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newImageStoragePath)
+        if self.newCoverStoragePath is not None:
+            oprot.writeFieldBegin('newCoverStoragePath', TType.STRING, 2)
+            oprot.writeString(self.newCoverStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newCoverStoragePath)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1545,7 +1443,7 @@ all_structs.append(UpdateAlbumCover_args)
 UpdateAlbumCover_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.STRING, 'newImageStoragePath', 'UTF8', None, ),  # 2
+    (2, TType.STRING, 'newCoverStoragePath', 'UTF8', None, ),  # 2
 )
 
 
@@ -1643,182 +1541,6 @@ class UpdateAlbumCover_result(object):
         return not (self == other)
 all_structs.append(UpdateAlbumCover_result)
 UpdateAlbumCover_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
-)
-
-
-class UpdateAlbumFeaturing_args(object):
-    """
-    Attributes:
-     - idAlbum
-     - newFeaturing
-
-    """
-
-
-    def __init__(self, idAlbum=None, newFeaturing=None,):
-        self.idAlbum = idAlbum
-        self.newFeaturing = newFeaturing
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newFeaturing = SpotifakeManagement.ttypes.Interpreter()
-                    self.newFeaturing.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumFeaturing_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        if self.newFeaturing is not None:
-            oprot.writeFieldBegin('newFeaturing', TType.STRUCT, 2)
-            self.newFeaturing.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumFeaturing_args)
-UpdateAlbumFeaturing_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.STRUCT, 'newFeaturing', [SpotifakeManagement.ttypes.Interpreter, None], None, ),  # 2
-)
-
-
-class UpdateAlbumFeaturing_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-     - sErrorInvalidRequestE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Album()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumFeaturing_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumFeaturing_result)
-UpdateAlbumFeaturing_result.thrift_spec = (
     (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2

@@ -28,8 +28,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Album AddAlbum(Album newAlbum)')
     print('  Id DeleteAlbum(Id idAlbum)')
     print('  Album UpdateAlbumTitle(Id idAlbum, string newAlbumTitle)')
-    print('  Album UpdateAlbumCover(Id idAlbum, string newImageStoragePath)')
-    print('  Album UpdateAlbumFeaturing(Id idAlbum, Interpreter newFeaturing)')
+    print('  Album UpdateAlbumCover(Id idAlbum, string newCoverStoragePath)')
     print('  Album AddAlbumToLibrary(Id idLibrary, Album newAlbum)')
     print('  Id DeleteLibraryAlbum(Id idLibrary, Id idAlbum)')
     print('')
@@ -140,12 +139,6 @@ elif cmd == 'UpdateAlbumCover':
         print('UpdateAlbumCover requires 2 args')
         sys.exit(1)
     pp.pprint(client.UpdateAlbumCover(eval(args[0]), args[1],))
-
-elif cmd == 'UpdateAlbumFeaturing':
-    if len(args) != 2:
-        print('UpdateAlbumFeaturing requires 2 args')
-        sys.exit(1)
-    pp.pprint(client.UpdateAlbumFeaturing(eval(args[0]), eval(args[1]),))
 
 elif cmd == 'AddAlbumToLibrary':
     if len(args) != 2:

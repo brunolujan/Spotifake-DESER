@@ -100,7 +100,7 @@ struct Track {
     4: Path             storagePath
     5: string           title
     6: MusicGender      gender
-    7: Interpreter      interpreter
+    7: ContentCreator      interpreter
     8: optional string  featuring
 }
 
