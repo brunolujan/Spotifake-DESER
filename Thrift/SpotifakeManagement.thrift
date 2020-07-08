@@ -59,13 +59,6 @@ exception ExceptionUser {
     2: Int              error_code
 }
 
-
-struct Interpreter {
-    1: required Id      idInterpreter
-    2: string           name
-}
-
-
 enum MusicGender {
     Pop         =       1,
     Rock        =       2,

@@ -5,6 +5,7 @@ from types import *
 SEPARATOR = ":"
 
 class TMultiplexedProcessor(TProcessor):
+
 	def __init__(self):
 		self.services = {}
 
@@ -12,17 +13,17 @@ class TMultiplexedProcessor(TProcessor):
 		self.services[serviceName] = processor
 
 	def process(self, iprot, oprot):
-		(name, type, seqid) = iprot.readMessageBegin()
+		(name, type, seqid) = iprot.readMessageBegin();
 		if type != TMessageType.CALL & type != TMessageType.ONEWAY:
 			raise Exception("This should not have happened!?")
 
 		index = name.find(SEPARATOR)
 		if index < 0:
-			raise Exception("Service name not found in message name: " + message.name + ". Did you forget to use a TMultiplexProtocol in your client?")
+			raise Exception("Did you forget to use a TMultiplexProtocol in your client?")
 
 		serviceName = name[0:index]
 		call = name[index+len(SEPARATOR):]
-		if not self.services.has_key(serviceName):
+		if not serviceName in self.services:
 			raise Exception("Service name not found: " + serviceName + ". Did you forget to call registerProcessor()?")
 
 		standardMessage = (
@@ -33,17 +34,20 @@ class TMultiplexedProcessor(TProcessor):
 		return self.services[serviceName].process(StoredMessageProtocol(iprot, standardMessage), oprot)
 
 class TProtocolDecorator():
+
 	def __init__(self, protocol):
 		TProtocolBase(protocol)
 		self.protocol = protocol;
+
 	def __getattr__(self, name):
 		if hasattr(self.protocol, name):
 			member = getattr(self.protocol, name)
-			if type(member) in [MethodType, UnboundMethodType, FunctionType, LambdaType, BuiltinFunctionType, BuiltinMethodType]:
+			if type(member) in [MethodType, FunctionType, LambdaType, BuiltinFunctionType, BuiltinMethodType]:
 				return lambda *args, **kwargs: self._wrap(member, args, kwargs)
 			else:
 				return member
 		raise AttributeError(name)
+
 	def _wrap(self, func, args, kwargs):
 		if type(func) == MethodType:
 			result = func(*args, **kwargs)
@@ -52,9 +56,11 @@ class TProtocolDecorator():
 		return result
 
 class TMultiplexedProtocol(TProtocolDecorator):
+
 	def __init__(self, protocol, serviceName):
 		TProtocolDecorator.__init__(self, protocol)
 		self.serviceName = serviceName
+
 	def writeMessageBegin(self, name, type, seqid):
 		if (type == TMessageType.CALL or
 		    type == TMessageType.ONEWAY):
@@ -65,12 +71,12 @@ class TMultiplexedProtocol(TProtocolDecorator):
 			)
 		else:
 			self.protocol.writeMessageBegin(name, type, seqid)
-            
+
 class StoredMessageProtocol(TProtocolDecorator):
+
 	def __init__(self, protocol, messageBegin):
 		TProtocolDecorator.__init__(self, protocol)
 		self.messageBegin = messageBegin
 
 	def readMessageBegin(self):
 		return self.messageBegin
-

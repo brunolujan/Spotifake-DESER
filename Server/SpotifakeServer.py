@@ -1,15 +1,35 @@
 import sys
 sys.path.append("gen-py")
-from SpotifakeServerHandler import SpotifakeServerHandler
+from SpotifakeServer_ConsumerHandler import SpotifakeServerConsumerHandler
+from SpotifakeServer_ContentCreatorHandler import SpotifakeServerContentCreatorHandler
+from SpotifakeServer_TrackHandler import SpotifakeServerTrackHandler
+from SpotifakeServer_AlbumHandler import SpotifakeServerAlbumHandler
+from SpotifakeServer_PlaylistHandler import SpotifakeServerPlaylistHandler
 from thrift.transport import TSocket
 from thrift.server import TServer
-from SpotifakeService import SpotifakeService
-from SpotifakeService.ttypes import *
+from SpotifakeServices import ConsumerService
+from SpotifakeServices import ContentCreatorService
+from SpotifakeServices import TrackService
+from SpotifakeServices import AlbumService
+from SpotifakeServices import PlaylistService
+from SpotifakeServices.ttypes import *
+from Server.TMultiplexedProcessor import TMultiplexedProcessor
 
 if __name__ == "__main__":
+
+    processor: TMultiplexedProcessor = TMultiplexedProcessor()
+
+    processor.registerProcessor("ConsumerService", ConsumerService.Processor(SpotifakeServerConsumerHandler()))
+    processor.registerProcessor("ContentCreatorService", ContentCreatorService.Processor(SpotifakeServerContentCreatorHandler()))
+    processor.registerProcessor("TrackService", TrackService.Processor(SpotifakeServerTrackHandler()))
+    processor.registerProcessor("AlbumService", AlbumService.Processor(SpotifakeServerAlbumHandler()))
+    processor.registerProcessor("PlaylistService", PlaylistService.Processor(SpotifakeServerPlaylistHandler()))
+
     serverTransport = TSocket.TServerSocket(port=5000)
-    processor = SpotifakeService.Processor(SpotifakeServerHandler())
     server = TServer.TSimpleServer(processor, serverTransport)
+
     print("Starting service...")
+
     server.serve()
+    
     print("Spotifake Service started.")

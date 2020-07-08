@@ -28,8 +28,26 @@ include "SpotifakeManagement.thrift"
 *   manage Consumer and Content Creator users and Content. 
 **/
 
-service SpotifakeService {
-    
+service ContentService {
+
+    /**
+    *   Get Content 
+    *
+    *   @param query
+    *       The query introduced by user
+    *
+    *   @return RelatedResult
+    *       Related result to the query    
+    **/
+
+    SpotifakeManagement.RelatedResult getRelatedContent(1: string query) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+}
+
+service ConsumerService {
+
     /**
     *   Get Consumer by Id
     *
@@ -45,41 +63,15 @@ service SpotifakeService {
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
-    *   Get ContentCreator by Id
+    *   Register a Consumer.
     *
-    *   @param idContentCreator
-    *       The ContentCreator Id to be obtained.
-    *
-    *   @return ContentCreator
-    *       ContentCreator object  
-    **/
-
-    SpotifakeManagement.ContentCreator GetContentCreatorById(1: SpotifakeManagement.Id idContentCreator)
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-
-    /**
-    * Register a Consumer.
-    *
-    * @param newconsumer
+    *   @param newconsumer
     * 
-    * @return Consumer
-    *   Consumer object added
+    *   @return Consumer
+    *       Consumer object added
     **/
 
     SpotifakeManagement.Consumer AddConsumer(1: SpotifakeManagement.Consumer newConsumer) 
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE)
-
-    /**
-    * Register a Content Creator.
-    *
-    * @param newContentCreator
-    * 
-    * @return ContentCreator
-    *   ContentCreator object added
-    **/
-
-    SpotifakeManagement.ContentCreator AddConContentCreator(1:SpotifakeManagement.ContentCreator newContentCreator) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE)
 
     /**
@@ -95,21 +87,6 @@ service SpotifakeService {
     SpotifakeManagement.Id DeleteConsumer(1: string email) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE, 
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-    
-    /**
-    *   Delete a ContentCreator
-    *
-    *   @param email
-    *       The Content Creator email of the Content Creator to be deleted.
-    *
-    *   @return Id
-    *       The Content Creator Id of the Content Creator deleted.
-    **/
-    
-    SpotifakeManagement.Id DeleteContentCreator(1: string email)
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
@@ -127,7 +104,7 @@ service SpotifakeService {
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-    
+
     /**
     *    
     *   Update previously registered Consumer password.
@@ -161,6 +138,68 @@ service SpotifakeService {
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
+    *   Allows the login of a consumer
+    *
+    *   @param email
+    *       The Consumer email
+    *
+    *   @param password 
+    *       The Email password of the consumer
+    *
+    *   @return Consumer
+    *       Consumer object
+    **/
+
+    SpotifakeManagement.Consumer LoginConsumer(1: string email, 2: string password) 
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE,
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+}
+
+service ContentCreatorService {
+
+    /**
+    *   Get ContentCreator by Id
+    *
+    *   @param idContentCreator
+    *       The ContentCreator Id to be obtained.
+    *
+    *   @return ContentCreator
+    *       ContentCreator object  
+    **/
+
+    SpotifakeManagement.ContentCreator GetContentCreatorById(1: SpotifakeManagement.Id idContentCreator)
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Register a Content Creator.
+    *
+    *   @param newContentCreator
+    * 
+    *   @return ContentCreator
+    *       ContentCreator object added
+    **/
+
+    SpotifakeManagement.ContentCreator AddContentCreator(1:SpotifakeManagement.ContentCreator newContentCreator) 
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE)
+
+    /**
+    *   Delete a ContentCreator
+    *
+    *   @param email
+    *       The Content Creator email of the Content Creator to be deleted.
+    *
+    *   @return Id
+    *       The Content Creator Id of the Content Creator deleted.
+    **/
+    
+    SpotifakeManagement.Id DeleteContentCreator(1: string email)
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
     *    
     *   Update previously registered Content Creator name.
     *
@@ -175,7 +214,7 @@ service SpotifakeService {
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-   
+
     /**
     *    
     *   Update previously registered Content Creator password.
@@ -241,37 +280,6 @@ service SpotifakeService {
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
-    *   Verify if User is a Consumer
-    *
-    *   @param email
-    *       The User email
-    *
-    *   @return boolean
-    *       True / False
-    **/
-
-    bool isConsumer(1: string email) 
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE,
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
-    
-    /**
-    *   Allows the login of a consumer
-    *
-    *   @param email
-    *       The Consumer email
-    *
-    *   @param password 
-    *       The Email password of the consumer
-    *
-    *   @return Consumer
-    *       Consumer object
-    **/
-
-    SpotifakeManagement.Consumer LoginConsumer(1: string email, 2: string password) 
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE,
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
     *   Allows the login of a content creator
     *
     *   @param email
@@ -289,19 +297,39 @@ service SpotifakeService {
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
-    *   Get Album by Title
+    *   Add a ContentCreator to Library.
     *
-    *   @param title
-    *       The Album Title to be obtained
+    *   @param idLibrary
+    *       The Library Id to which a content creator will be added
+    * 
+    *   @param newContentCreator
     *
-    *   @return Album
-    *       Album object 
+    *   @return ContentCreator
+    *       ContentCreator object added
+    **/
+    SpotifakeManagement.ContentCreator AddContentCreatorToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.ContentCreator newContentCreator) 
+        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+    
+    /**
+    *   Delete a Content Creator from a Library
+    *
+    *   @param idLibrary
+    *       The Library Id which a content creator will be deleted.
+    *
+    *   @param idContentCreator
+    *       The Content Creator Id which will be deleted
+    *
+    *   @return Id
+    *       The Content Creator Id of the Content Creator deleted.
     **/
 
-    SpotifakeManagement.Album GetAlbumByTitle(1: string title) 
+    SpotifakeManagement.Id DeleteLibraryContentCreator(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idContentCreator) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+}
+
+service TrackService {
 
     /**
     *   Get Track by Title
@@ -316,97 +344,6 @@ service SpotifakeService {
     SpotifakeManagement.Track GetTrackByTitle(1: string title) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    
-    /**
-    *   Get Playlist by Title
-    *
-    *   @param title
-    *       The Playlist Title to be obtained
-    *
-    *   @return Playlist
-    *       Playlist object 
-    **/
-
-    SpotifakeManagement.Playlist GetPlaylistByTitle(1: string title) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2: SpotifakeManagement.SErrorSystemException sErrorSystem,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-
-
-    /**
-    * Register an Album.
-    *
-    * @param newAlbum
-    * 
-    * @return Album
-    *   Album object added
-    **/
-    SpotifakeManagement.Album AddAlbum(1: SpotifakeManagement.Album newAlbum) 
-        throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
-    *   Delete a Album
-    *
-    *   @param idAlbum
-    *       The Album Id of the Album to be deleted.
-    *
-    *   @return Id
-    *       The Album Id of the Album deleted.
-    **/
-
-    SpotifakeManagement.Id DeleteAlbum(1: SpotifakeManagement.Id idAlbum) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-
-    /**
-    *    
-    *   Update previously registered Album title.
-    *
-    *   @param idAlbum
-    *       The Album Id of the Album which require an update title.
-    *
-    *   @return Album
-    *       Modified Album obejct.
-    **/
-
-    SpotifakeManagement.Album UpdateAlbumTitle(1: SpotifakeManagement.Id idAlbum, 2: string newAlbumTitle) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-    
-    /**
-    *    
-    *   Update previously registered Album cover.
-    *
-    *   @param idAlbum
-    *       The Album Id of the Album which require an update cover.
-    *
-    *   @return Album
-    *       Modified Album obejct.
-    **/
-
-    SpotifakeManagement.Album UpdateAlbumCover(1: SpotifakeManagement.Id idAlbum, 2: string newImageStoragePath) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-    
-    /**
-    *    
-    *   Update previously registered Album featuring.
-    *
-    *   @param idAlbum
-    *       The Album Id of the Album which require an update featuring.
-    *
-    *   @return Album
-    *       Modified Album obejct.
-    **/
-
-    SpotifakeManagement.Album UpdateAlbumFeaturing(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Interpreter newFeaturing) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
     *   Add a Track to an Album.
@@ -474,7 +411,7 @@ service SpotifakeService {
     *       Modified Album obejct.
     **/
 
-    SpotifakeManagement.Track UpdateAlbumTrackFeaturing(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Int trackNumber, 3: SpotifakeManagement.Interpreter newFeaturing) 
+    SpotifakeManagement.Track UpdateAlbumTrackFeaturing(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Int trackNumber, 3: SpotifakeManagement.ContentCreator newFeaturing) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
@@ -512,6 +449,162 @@ service SpotifakeService {
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
+    *   Add a Track to Playlist.
+    *
+    *   @param idPlaylist
+    *       The Playlist Id to which a track will be added
+    * 
+    *   @param newTrack 
+    *
+    *   @return Track
+    *       Track object added
+    **/
+
+    SpotifakeManagement.Track AddTrackToPlaylist(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Track newtrack) 
+        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Delete a Track from a Playlist
+    *
+    *   @param idPlaylist
+    *       The Playlist Id which a track will be deleted.
+    *
+    *   @param trackNumber
+    *       The Track number which will be deleted
+    *
+    *   @return Id
+    *       The Track Id of the Track deleted.
+    **/
+
+    SpotifakeManagement.Id DeletePlaylistTrack(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Int trackNumber) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Add a Track to PlayQueue.
+    *
+    *   @param idPlayQueue
+    *       The PlayQueue Id to which a track will be added
+    * 
+    *   @param newTrack 
+    *
+    *   @return Track
+    *       Track object added
+    **/
+
+    SpotifakeManagement.Track AddTrackToPlayQueue(1: SpotifakeManagement.Id idPlayQueu, 2: SpotifakeManagement.Track newTrack) 
+        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Delete a Track from a PlayQueue
+    *
+    *   @param idPlayQueue
+    *       The PlayQueue Id which a track will be deleted.
+    *
+    *   @param trackNumber
+    *       The Track number which will be deleted
+    *
+    *   @return Id
+    *       The Track Id of the Track deleted.
+    **/
+   
+    SpotifakeManagement.Id DeletePlayQueueTrack(1: SpotifakeManagement.Id idPlayQueu, 2: SpotifakeManagement.Int trackNumber) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Generate a Radio Station
+    *
+    *   @param gender
+    *       The gender which the radio station will be generated.
+    *
+    *   @return tracks
+    *       List of tracks which belong to the gender entered.
+    **/
+
+    list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.MusicGender gender) 
+         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+}
+
+service AlbumService {
+
+    /**
+    *   Get Album by Title
+    *
+    *   @param title
+    *       The Album Title to be obtained
+    *
+    *   @return Album
+    *       Album object 
+    **/
+
+    SpotifakeManagement.Album GetAlbumByTitle(1: string title) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    * Register an Album.
+    *
+    * @param newAlbum
+    * 
+    * @return Album
+    *   Album object added
+    **/
+    
+    SpotifakeManagement.Album AddAlbum(1: SpotifakeManagement.Album newAlbum) 
+        throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Delete a Album
+    *
+    *   @param idAlbum
+    *       The Album Id of the Album to be deleted.
+    *
+    *   @return Id
+    *       The Album Id of the Album deleted.
+    **/
+
+    SpotifakeManagement.Id DeleteAlbum(1: SpotifakeManagement.Id idAlbum) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *    
+    *   Update previously registered Album title.
+    *
+    *   @param idAlbum
+    *       The Album Id of the Album which require an update title.
+    *
+    *   @return Album
+    *       Modified Album obejct.
+    **/
+
+    SpotifakeManagement.Album UpdateAlbumTitle(1: SpotifakeManagement.Id idAlbum, 2: string newAlbumTitle) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+    
+    /**
+    *    
+    *   Update previously registered Album cover.
+    *
+    *   @param idAlbum
+    *       The Album Id of the Album which require an update cover.
+    *
+    *   @return Album
+    *       Modified Album obejct.
+    **/
+
+    SpotifakeManagement.Album UpdateAlbumCover(1: SpotifakeManagement.Id idAlbum, 2: string newCoverStoragePath) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+    
+
+    /**
     *   Add an Album to Library.
     *
     *   @param idLibrary
@@ -542,6 +635,24 @@ service SpotifakeService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+}
+
+service PlaylistService {
+
+    /**
+    *   Get Playlist by Title
+    *
+    *   @param title
+    *       The Playlist Title to be obtained
+    *
+    *   @return Playlist
+    *       Playlist object 
+    **/
+
+    SpotifakeManagement.Playlist GetPlaylistByTitle(1: string title) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystem,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
     *   Add a Playlist to Library.
@@ -576,51 +687,6 @@ service SpotifakeService {
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
-    *   Add a ContentCreator to Library.
-    *
-    *   @param idLibrary
-    *       The Library Id to which a content creator will be added
-    * 
-    *   @param newContentCreator
-    *
-    *   @return ContentCreator
-    *       ContentCreator object added
-    **/
-    SpotifakeManagement.ContentCreator AddContentCreatorToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.ContentCreator newContentCreator) 
-        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-    
-    /**
-    *   Delete a Content Creator from a Library
-    *
-    *   @param idLibrary
-    *       The Library Id which a content creator will be deleted.
-    *
-    *   @param idContentCreator
-    *       The Content Creator Id which will be deleted
-    *
-    *   @return Id
-    *       The Content Creator Id of the Content Creator deleted.
-    **/
-
-    SpotifakeManagement.Id DeleteLibraryContentCreator(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idContentCreator) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
-    *   Get Content 
-    *
-    *   @param query
-    *       The query introduced by user
-    *
-    *   @return RelatedResult
-    *       Related result to the query    
-    **/
-
-    SpotifakeManagement.RelatedResult getContent(1: string query) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
     *    
     *   Update previously registered Playlist title.
     *
@@ -646,7 +712,7 @@ service SpotifakeService {
     *       Modified Playlist obejct.
     **/
 
-    SpotifakeManagement.Album UpdatePlaylistCover(1: SpotifakeManagement.Id idPlaylist, 2: string newImageStoragePath) 
+    SpotifakeManagement.Playlist UpdatePlaylistCover(1: SpotifakeManagement.Id idPlaylist, 2: string newImageStoragePath) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
@@ -664,80 +730,5 @@ service SpotifakeService {
     SpotifakeManagement.Playlist UpdatePlaylistDescription(1: SpotifakeManagement.Id idPlaylist, 2: string newDescription) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-    
-    /**
-    *   Add a Track to Playlist.
-    *
-    *   @param idPlaylist
-    *       The Playlist Id to which a track will be added
-    * 
-    *   @param newTrack 
-    *
-    *   @return Track
-    *       Track object added
-    **/
 
-    SpotifakeManagement.Track AddTrackToPlaylist(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Track newtrack) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-    
-    /**
-    *   Delete a Track from a Playlist
-    *
-    *   @param idPlaylist
-    *       The Playlist Id which a track will be deleted.
-    *
-    *   @param trackNumber
-    *       The Track number which will be deleted
-    *
-    *   @return Id
-    *       The Track Id of the Track deleted.
-    **/
-
-    SpotifakeManagement.Id DeletePlaylistTrack(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Int trackNumber) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
-    *   Add a Track to PlayQueue.
-    *
-    *   @param idPlayQueue
-    *       The PlayQueue Id to which a track will be added
-    * 
-    *   @param newTrack 
-    *
-    *   @return Track
-    *       Track object added
-    **/
-
-    SpotifakeManagement.Track AddTrackToPlayQueue(1: SpotifakeManagement.Id idPlayQueu, 2: SpotifakeManagement.Track newTrack) 
-        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-   
-    /**
-    *   Delete a Track from a PlayQueue
-    *
-    *   @param idPlayQueue
-    *       The PlayQueue Id which a track will be deleted.
-    *
-    *   @param trackNumber
-    *       The Track number which will be deleted
-    *
-    *   @return Id
-    *       The Track Id of the Track deleted.
-    **/
-   
-    SpotifakeManagement.Id DeletePlayQueueTrack(1: SpotifakeManagement.Id idPlayQueu, 2: SpotifakeManagement.Int trackNumber) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-    /**
-    *   Generate a Radio Station
-    *
-    *   @param gender
-    *       The gender which the radio station will be generated.
-    *
-    *   @return tracks
-    *       List of tracks which belong to the gender entered.
-    **/
-
-    list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.MusicGender gender) 
-         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
