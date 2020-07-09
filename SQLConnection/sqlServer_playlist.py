@@ -45,3 +45,15 @@ class SqlServerPlaylistManagement:
         self.connection.save()
         print("Playlist description has been updated")
         self.connection.close()
+
+    
+    def DeleteLibraryPlaylist(self, idLibrary:int, idPlaylist:int):
+        self.connection.open()
+        sql = """
+            DELETE FROM LibraryPlaylist WHERE idLibrary = ? AND idPlaylist = ?
+        """
+        params = (idLibrary, idPlaylist)
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Playlist has been deleted")
+        self.connection.close()

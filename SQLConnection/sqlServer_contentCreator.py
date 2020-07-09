@@ -74,8 +74,18 @@ class SqlServerContentCreatorManagement:
             Where email = ? AND password = ?
         """
         params = (newDescription, email, currrentPassword)
-
         self.connection.cursor.execute(sql, params)
         self.connection.save()
         print("ContentCreator description has been updated")
+        self.connection.close()
+
+    def DeleteLibraryContentCreator(self, idLibrary:int, idContentCreator:int):
+        self.connection.open()
+        sql = """
+            DELETE FROM LibraryContentCreator WHERE idLibrary = ? AND idContentCreator = ?
+        """
+        params = (idLibrary, idContentCreator)
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Content Creator has been deleted")
         self.connection.close()

@@ -14,7 +14,7 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.DeleteConsumer("bruno1529@live.com.mx")
 
-#query.UpdateConsumerName("majohdezmol@gmail.com", "12345", "Victor", "Niño")
+#query.UpdateConsumerName("majohdezmol@gmail.com", "majojojo", "Majo", "Molinos")
 
 #query.UpdateConsumerPassword("majohdezmol@gmail.com", "12345", "majojojo")
 
@@ -35,6 +35,8 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.UpdateContentCreatorDescription("coldplay@gmail.com","coldplay_22", "My description has been updated")
 
+#query.DeleteLibraryContentCreator(1,1)
+
 
 
 #ALBUM MANAGEMENT
@@ -46,6 +48,8 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.UpdateAlbumTitle(1, "Head Full Of Dreams")
 
+#query.DeleteLibraryAlbum(1,1)
+
 
 #TRACK MANAGEMENT
 #query: SqlServerTrackManagement = SqlServerTrackManagement()
@@ -56,6 +60,11 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.GetTrackByTitle("Everglow")
 
+#query.DeleteLibraryTrack(1,2)
+
+#query.DeletePlaylistTrack(1,2)
+
+
 
 #PLAYLIST MANAGEMENT
 query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
@@ -65,4 +74,6 @@ query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
 #query.UpdatePlaylistTitle(1,"EEE")
 
 #query.UpdatePlaylistDescription(1,"Ya me canséeeee")
+
+query.DeleteLibraryPlaylist(1,1)
 

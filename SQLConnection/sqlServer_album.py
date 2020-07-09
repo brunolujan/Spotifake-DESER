@@ -41,5 +41,16 @@ class SqlServerAlbumManagement:
         self.connection.save()
         print("Album title has been updated")
         self.connection.close()
+
+    def DeleteLibraryAlbum(self, idLibrary:int, idAlbum:int):
+        self.connection.open()
+        sql = """
+            DELETE FROM LibraryAlbum WHERE idLibrary = ? AND idAlbum = ?
+        """
+        params = (idLibrary, idAlbum)
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Album has been deleted")
+        self.connection.close()
     
 

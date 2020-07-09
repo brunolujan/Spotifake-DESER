@@ -42,3 +42,29 @@ class SqlServerTrackManagement:
         self.connection.save()
         print(row)
         self.connection.close()
+
+    def DeleteLibraryTrack(self, idLibrary:int, idTrack:int):
+        self.connection.open()
+        sql = """
+            DELETE FROM LibraryTrack WHERE idLibrary = ? AND idTrack = ?
+        """
+        params = (idLibrary, idTrack)
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Track has been deleted")
+        self.connection.close()
+
+    def DeletePlaylistTrack(self, idPlaylist:int, idTrack:int):
+        self.connection.open()
+        sql = """
+            DELETE FROM LibraryTrack WHERE idPlaylist = ? AND idTrack = ?
+        """
+        params = (idPlaylist, idTrack)
+        self.connection.cursor.execute(sql, params)
+        self.connection.save()
+        print("Track has been deleted")
+        self.connection.close()
+
+    
+
+    
