@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Thrift.Protocol;
 using Thrift.Transport;
+using Thrift.Transport.Client;
 
 namespace Client
 {
@@ -24,19 +25,15 @@ namespace Client
         {
             InitializeComponent();
 
-            TSocket transport = new TSocket("localhost", 5000);
-            transport.Open();
-            
+            TTransport transport = new TSocketTransport("localhost", 5000);
+
             TBinaryProtocol protocol = new TBinaryProtocol(transport);
-            
+
             TMultiplexedProtocol multiplexedProtocolConsumer = new TMultiplexedProtocol(protocol, "Consumer");
-            ConsumerService .Client service = new Calculator.Client(mp);
-            
+            ConsumerService.Client consumerService = new ConsumerService.Client(multiplexedProtocolConsumer);
+
             TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreator");
-            WeatherReport.Client service2 = new WeatherReport.Client(mp2);
-            
-            System.out.println(service.add(2, 2));
-            System.out.println(service2.getTemperature());
+            ContentCreatorService.Client contentCreatorService = new ContentCreatorService.Client(multiplexedProtocolContentCreator);
         }
 
         private void button_Login_Click(object sender, RoutedEventArgs e)
