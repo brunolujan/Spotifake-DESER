@@ -12,17 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Thrift.Protocol;
+using Thrift.Transport;
 
 namespace Client
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
+
     public partial class Login : Window
     {
         public Login()
         {
             InitializeComponent();
+
+            TSocket transport = new TSocket("localhost", 5000);
+            transport.Open();
+            
+            TBinaryProtocol protocol = new TBinaryProtocol(transport);
+            
+            TMultiplexedProtocol multiplexedProtocolConsumer = new TMultiplexedProtocol(protocol, "Consumer");
+            ConsumerService .Client service = new Calculator.Client(mp);
+            
+            TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreator");
+            WeatherReport.Client service2 = new WeatherReport.Client(mp2);
+            
+            System.out.println(service.add(2, 2));
+            System.out.println(service2.getTemperature());
         }
 
         private void button_Login_Click(object sender, RoutedEventArgs e)
