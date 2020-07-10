@@ -15,6 +15,21 @@ class SqlServerConsumerManagement:
         print(row[0].name, row[0].email)
         self.connection.close()
 
+    def GetConsumerByEmailPassword(self, email:str, password:str):
+        self.connection.open()
+        sql = """
+            SELECT * FROM Consumer WHERE email = ? AND password = ?
+        """
+        params = (email, password )
+        self.connection.cursor.execute(sql, params)
+        row = self.connection.cursor.fetchone()
+        if (row != None):
+            print(row.email, row.password)
+            self.connection.close()
+            return row
+        self.connection.close()
+        return None
+
     def DeleteConsumer(self, email:str):
         self.connection.open()
         sql = """

@@ -8,9 +8,11 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #CONSUMER MANAGEMENT
-#query: SqlServerConsumerManagement = SqlServerConsumerManagement()
+query: SqlServerConsumerManagement = SqlServerConsumerManagement()
 
 #query.GetConsumerById(2)
+
+query.GetConsumerByEmailPassword("bechecita@bechecita.bechecita","bechecita")
 
 #query.DeleteConsumer("bruno1529@live.com.mx")
 
@@ -67,7 +69,7 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #PLAYLIST MANAGEMENT
-query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
+#query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
 
 #query.GetPlaylistByTitle("DESER")
 
@@ -75,5 +77,5 @@ query: SqlServerPlaylistManagement = SqlServerPlaylistManagement()
 
 #query.UpdatePlaylistDescription(1,"Ya me canséeeee")
 
-query.DeleteLibraryPlaylist(1,1)
+#query.DeleteLibraryPlaylist(1,1)
 
