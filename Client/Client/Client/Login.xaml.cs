@@ -21,26 +21,28 @@ namespace Client
 
     public partial class Login : Window
     {
+        ConsumerService.Client consumerService;
+        ContentCreatorService.Client contentCreatorService;
+
         public Login()
         {
-            InitializeComponent();
-
+            
             TTransport transport = new TSocketTransport("localhost", 5000);
 
             TBinaryProtocol protocol = new TBinaryProtocol(transport);
 
-            TMultiplexedProtocol multiplexedProtocolConsumer = new TMultiplexedProtocol(protocol, "Consumer");
-            ConsumerService.Client consumerService = new ConsumerService.Client(multiplexedProtocolConsumer);
+            TMultiplexedProtocol multiplexedProtocolConsumer = new TMultiplexedProtocol(protocol, "ConsumerService");
+            consumerService = new ConsumerService.Client(multiplexedProtocolConsumer);
 
-            TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreator");
-            ContentCreatorService.Client contentCreatorService = new ContentCreatorService.Client(multiplexedProtocolContentCreator);
+            TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreatorService");
+            contentCreatorService = new ContentCreatorService.Client(multiplexedProtocolContentCreator);
+
+            InitializeComponent();
         }
 
         private void button_Login_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            this.Close();
-            mainWindow.Show();
+            LoginConsumer();
         }
 
         private void button_SignUp_Click(object sender, RoutedEventArgs e)
@@ -50,9 +52,29 @@ namespace Client
             singUpWindow.Show();
         }
 
-        private void textBox_Email_TextChanged(object sender, TextChangedEventArgs e)
+        private async void LoginConsumer()
         {
-
+            try
+            {
+                if (textBox_Email.Text != "" && passwordBox_Password.Password != "")
+                {
+                    Consumer ConsumerLog = await consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
+                    if (ConsumerLog != null)
+                    {
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    textBlock_Message.Text = "Complete all fields";
+                }
+            }
+            catch (Exception ex)
+            {
+                textBlock_Message.Text = "Email or password is wrong";
+            }
         }
     }
 }
