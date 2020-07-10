@@ -23,128 +23,110 @@ using Thrift.Transport.Server;
 using Thrift.Processor;
 
 
-public partial class ConsumerService
+public partial class AlbumService
 {
   public interface IAsync
   {
     /// <summary>
-    /// Get Consumer by Id
+    /// Get Album by Title
     /// 
-    /// @param idConsumer
-    ///     The Consumer Id to be obtained.
+    /// @param title
+    ///     The Album Title to be obtained
     /// 
-    /// @return Consumer
-    ///     Consumer object
-    /// 
-    /// </summary>
-    /// <param name="idConsumer"></param>
-    Task<Consumer> GetConsumerByIdAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken));
-
-    /// <summary>
-    /// Get Consumer by email and password
-    /// 
-    /// @param email
-    ///     The Consumer email to be obtained.
-    /// @param password
-    ///     The Consumer password to be obtained.
-    /// 
-    /// @return Consumer
-    ///     Consumer object
+    /// @return Album
+    ///     Album object
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    Task<Consumer> GetConsumerByEmailPasswordAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="title"></param>
+    Task<Album> GetAlbumByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    /// Register a Consumer.
+    /// Register an Album.
     /// 
-    /// @param newconsumer
+    /// @param newAlbum
     /// 
-    /// @return Consumer
-    ///     Consumer object added
+    /// @return Album
+    ///   Album object added
     /// 
     /// </summary>
-    /// <param name="newConsumer"></param>
-    Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="newAlbum"></param>
+    Task<Album> AddAlbumAsync(Album newAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    /// Delete a Consumer
+    /// Delete a Album
     /// 
-    /// @param email
-    ///     The Consumer email of the Consumer to be deleted.
+    /// @param idAlbum
+    ///     The Album Id of the Album to be deleted.
     /// 
     /// @return Id
-    ///     The Consumer Id of the Consumer deleted.
+    ///     The Album Id of the Album deleted.
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    Task<short> DeleteConsumerAsync(string email, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idAlbum"></param>
+    Task<short> DeleteAlbumAsync(short idAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     ///  
-    /// Update previously registered Consumer name.
+    /// Update previously registered Album title.
     /// 
-    /// @param email
-    ///     The Consumer Email of the Consumer which require an update name.
+    /// @param idAlbum
+    ///     The Album Id of the Album which require an update title.
     /// 
-    /// @return Consumer
-    ///     Modified Consumer obejct.
+    /// @return Album
+    ///     Modified Album obejct.
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    /// <param name="currentPassword"></param>
-    /// <param name="newName"></param>
-    /// <param name="newLastName"></param>
-    Task<Consumer> UpdateConsumerNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idAlbum"></param>
+    /// <param name="newAlbumTitle"></param>
+    Task<Album> UpdateAlbumTitleAsync(short idAlbum, string newAlbumTitle, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     ///  
-    /// Update previously registered Consumer password.
+    /// Update previously registered Album cover.
     /// 
-    /// @param email
-    ///     The Consumer Email of the Consumer which require an update password.
+    /// @param idAlbum
+    ///     The Album Id of the Album which require an update cover.
     /// 
-    /// @return Consumer
-    ///     Modified Consumer obejct.
+    /// @return Album
+    ///     Modified Album obejct.
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    /// <param name="currentPassword"></param>
-    /// <param name="newPassword"></param>
-    Task<Consumer> UpdateConsumerPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idAlbum"></param>
+    /// <param name="newCoverStoragePath"></param>
+    Task<Album> UpdateAlbumCoverAsync(short idAlbum, string newCoverStoragePath, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    ///  
-    /// Update previously registered Consumer image.
+    /// Add an Album to Library.
     /// 
-    /// @param email
-    ///     The Consumer Email of the Consumer which require an update image.
+    /// @param idLibrary
+    ///     The Library Id to which an album will be added
     /// 
-    /// @return Consumer
-    ///     Modified Consumer obejct.
+    /// @param newAlbum
+    /// 
+    /// @return Album
+    ///     Album object added
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    /// <param name="newImageStoragePath"></param>
-    Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idLibrary"></param>
+    /// <param name="newAlbum"></param>
+    Task<Album> AddAlbumToLibraryAsync(short idLibrary, Album newAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    /// Allows the login of a consumer
+    /// Delete an Album from a Library
     /// 
-    /// @param email
-    ///     The Consumer email
+    /// @param idLibrary
+    ///     The Library Id which an album will be deleted.
     /// 
-    /// @param password
-    ///     The Email password of the consumer
+    /// @param idAlbum
+    ///     The Album Id which will be deleted
     /// 
-    /// @return Consumer
-    ///     Consumer object
+    /// @return Id
+    ///     The Album Id of the Album deleted.
     /// 
     /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    Task<Consumer> LoginConsumerAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idLibrary"></param>
+    /// <param name="idAlbum"></param>
+    Task<short> DeleteLibraryAlbumAsync(short idLibrary, short idAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
   }
 
@@ -157,12 +139,12 @@ public partial class ConsumerService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
-    public async Task<Consumer> GetConsumerByIdAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> GetAlbumByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetAlbumByTitle", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new GetConsumerByIdArgs();
-      args.IdConsumer = idConsumer;
+      var args = new GetAlbumByTitleArgs();
+      args.Title = title;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -176,123 +158,7 @@ public partial class ConsumerService
         throw x;
       }
 
-      var result = new GetConsumerByIdResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
-      }
-      if (result.__isset.sErrorNotFoundE)
-      {
-        throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorInvalidRequestE)
-      {
-        throw result.SErrorInvalidRequestE;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerById failed: unknown result");
-    }
-
-    public async Task<Consumer> GetConsumerByEmailPasswordAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new GetConsumerByEmailPasswordArgs();
-      args.Email = email;
-      args.Password = password;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new GetConsumerByEmailPasswordResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
-      }
-      if (result.__isset.sErrorNotFoundE)
-      {
-        throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorInvalidRequestE)
-      {
-        throw result.SErrorInvalidRequestE;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerByEmailPassword failed: unknown result");
-    }
-
-    public async Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new AddConsumerArgs();
-      args.NewConsumer = newConsumer;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new AddConsumerResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddConsumer failed: unknown result");
-    }
-
-    public async Task<short> DeleteConsumerAsync(string email, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new DeleteConsumerArgs();
-      args.Email = email;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new DeleteConsumerResult();
+      var result = new GetAlbumByTitleResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
@@ -311,18 +177,15 @@ public partial class ConsumerService
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteConsumer failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetAlbumByTitle failed: unknown result");
     }
 
-    public async Task<Consumer> UpdateConsumerNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> AddAlbumAsync(Album newAlbum, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdateConsumerNameArgs();
-      args.Email = email;
-      args.CurrentPassword = currentPassword;
-      args.NewName = newName;
-      args.NewLastName = newLastName;
+      var args = new AddAlbumArgs();
+      args.NewAlbum = newAlbum;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -336,16 +199,45 @@ public partial class ConsumerService
         throw x;
       }
 
-      var result = new UpdateConsumerNameResult();
+      var result = new AddAlbumResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
-      if (result.__isset.sErrorUserE)
+      if (result.__isset.sErrorSystemE)
       {
-        throw result.SErrorUserE;
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddAlbum failed: unknown result");
+    }
+
+    public async Task<short> DeleteAlbumAsync(short idAlbum, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteAlbum", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new DeleteAlbumArgs();
+      args.IdAlbum = idAlbum;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new DeleteAlbumResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
       }
       if (result.__isset.sErrorNotFoundE)
       {
@@ -359,17 +251,16 @@ public partial class ConsumerService
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerName failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteAlbum failed: unknown result");
     }
 
-    public async Task<Consumer> UpdateConsumerPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> UpdateAlbumTitleAsync(short idAlbum, string newAlbumTitle, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateAlbumTitle", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdateConsumerPasswordArgs();
-      args.Email = email;
-      args.CurrentPassword = currentPassword;
-      args.NewPassword = newPassword;
+      var args = new UpdateAlbumTitleArgs();
+      args.IdAlbum = idAlbum;
+      args.NewAlbumTitle = newAlbumTitle;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -383,16 +274,12 @@ public partial class ConsumerService
         throw x;
       }
 
-      var result = new UpdateConsumerPasswordResult();
+      var result = new UpdateAlbumTitleResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
       }
       if (result.__isset.sErrorNotFoundE)
       {
@@ -406,16 +293,16 @@ public partial class ConsumerService
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerPassword failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateAlbumTitle failed: unknown result");
     }
 
-    public async Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> UpdateAlbumCoverAsync(short idAlbum, string newCoverStoragePath, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateAlbumCover", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdateConsumerImageArgs();
-      args.Email = email;
-      args.NewImageStoragePath = newImageStoragePath;
+      var args = new UpdateAlbumCoverArgs();
+      args.IdAlbum = idAlbum;
+      args.NewCoverStoragePath = newCoverStoragePath;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -429,16 +316,12 @@ public partial class ConsumerService
         throw x;
       }
 
-      var result = new UpdateConsumerImageResult();
+      var result = new UpdateAlbumCoverResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
       }
       if (result.__isset.sErrorNotFoundE)
       {
@@ -452,16 +335,16 @@ public partial class ConsumerService
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerImage failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateAlbumCover failed: unknown result");
     }
 
-    public async Task<Consumer> LoginConsumerAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> AddAlbumToLibraryAsync(short idLibrary, Album newAlbum, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddAlbumToLibrary", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new LoginConsumerArgs();
-      args.Email = email;
-      args.Password = password;
+      var args = new AddAlbumToLibraryArgs();
+      args.IdLibrary = idLibrary;
+      args.NewAlbum = newAlbum;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -475,22 +358,56 @@ public partial class ConsumerService
         throw x;
       }
 
-      var result = new LoginConsumerResult();
+      var result = new AddAlbumToLibraryResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
-      if (result.__isset.sErrorUserE)
+      if (result.__isset.sErrorSystemE)
       {
-        throw result.SErrorUserE;
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddAlbumToLibrary failed: unknown result");
+    }
+
+    public async Task<short> DeleteLibraryAlbumAsync(short idLibrary, short idAlbum, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteLibraryAlbum", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new DeleteLibraryAlbumArgs();
+      args.IdLibrary = idLibrary;
+      args.IdAlbum = idAlbum;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new DeleteLibraryAlbumResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorNotFoundE)
+      {
+        throw result.SErrorNotFoundE;
       }
       if (result.__isset.sErrorSystemE)
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "LoginConsumer failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteLibraryAlbum failed: unknown result");
     }
 
   }
@@ -504,14 +421,13 @@ public partial class ConsumerService
       if (iAsync == null) throw new ArgumentNullException(nameof(iAsync));
 
       _iAsync = iAsync;
-      processMap_["GetConsumerById"] = GetConsumerById_ProcessAsync;
-      processMap_["GetConsumerByEmailPassword"] = GetConsumerByEmailPassword_ProcessAsync;
-      processMap_["AddConsumer"] = AddConsumer_ProcessAsync;
-      processMap_["DeleteConsumer"] = DeleteConsumer_ProcessAsync;
-      processMap_["UpdateConsumerName"] = UpdateConsumerName_ProcessAsync;
-      processMap_["UpdateConsumerPassword"] = UpdateConsumerPassword_ProcessAsync;
-      processMap_["UpdateConsumerImage"] = UpdateConsumerImage_ProcessAsync;
-      processMap_["LoginConsumer"] = LoginConsumer_ProcessAsync;
+      processMap_["GetAlbumByTitle"] = GetAlbumByTitle_ProcessAsync;
+      processMap_["AddAlbum"] = AddAlbum_ProcessAsync;
+      processMap_["DeleteAlbum"] = DeleteAlbum_ProcessAsync;
+      processMap_["UpdateAlbumTitle"] = UpdateAlbumTitle_ProcessAsync;
+      processMap_["UpdateAlbumCover"] = UpdateAlbumCover_ProcessAsync;
+      processMap_["AddAlbumToLibrary"] = AddAlbumToLibrary_ProcessAsync;
+      processMap_["DeleteLibraryAlbum"] = DeleteLibraryAlbum_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -554,138 +470,17 @@ public partial class ConsumerService
       return true;
     }
 
-    public async Task GetConsumerById_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task GetAlbumByTitle_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new GetConsumerByIdArgs();
+      var args = new GetAlbumByTitleArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new GetConsumerByIdResult();
+      var result = new GetAlbumByTitleResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.GetConsumerByIdAsync(args.IdConsumer, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
-        }
-        catch (SErrorNotFoundException sErrorNotFoundE)
-        {
-          result.SErrorNotFoundE = sErrorNotFoundE;
-        }
-        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
-        {
-          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
-        }
-        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Reply, seqid), cancellationToken); 
-        await result.WriteAsync(oprot, cancellationToken);
-      }
-      catch (TTransportException)
-      {
-        throw;
-      }
-      catch (Exception ex)
-      {
-        Console.Error.WriteLine("Error occurred in processor:");
-        Console.Error.WriteLine(ex.ToString());
-        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Exception, seqid), cancellationToken);
-        await x.WriteAsync(oprot, cancellationToken);
-      }
-      await oprot.WriteMessageEndAsync(cancellationToken);
-      await oprot.Transport.FlushAsync(cancellationToken);
-    }
-
-    public async Task GetConsumerByEmailPassword_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
-    {
-      var args = new GetConsumerByEmailPasswordArgs();
-      await args.ReadAsync(iprot, cancellationToken);
-      await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new GetConsumerByEmailPasswordResult();
-      try
-      {
-        try
-        {
-          result.Success = await _iAsync.GetConsumerByEmailPasswordAsync(args.Email, args.Password, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
-        }
-        catch (SErrorNotFoundException sErrorNotFoundE)
-        {
-          result.SErrorNotFoundE = sErrorNotFoundE;
-        }
-        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
-        {
-          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
-        }
-        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Reply, seqid), cancellationToken); 
-        await result.WriteAsync(oprot, cancellationToken);
-      }
-      catch (TTransportException)
-      {
-        throw;
-      }
-      catch (Exception ex)
-      {
-        Console.Error.WriteLine("Error occurred in processor:");
-        Console.Error.WriteLine(ex.ToString());
-        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Exception, seqid), cancellationToken);
-        await x.WriteAsync(oprot, cancellationToken);
-      }
-      await oprot.WriteMessageEndAsync(cancellationToken);
-      await oprot.Transport.FlushAsync(cancellationToken);
-    }
-
-    public async Task AddConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
-    {
-      var args = new AddConsumerArgs();
-      await args.ReadAsync(iprot, cancellationToken);
-      await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new AddConsumerResult();
-      try
-      {
-        try
-        {
-          result.Success = await _iAsync.AddConsumerAsync(args.NewConsumer, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
-        }
-        await oprot.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Reply, seqid), cancellationToken); 
-        await result.WriteAsync(oprot, cancellationToken);
-      }
-      catch (TTransportException)
-      {
-        throw;
-      }
-      catch (Exception ex)
-      {
-        Console.Error.WriteLine("Error occurred in processor:");
-        Console.Error.WriteLine(ex.ToString());
-        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Exception, seqid), cancellationToken);
-        await x.WriteAsync(oprot, cancellationToken);
-      }
-      await oprot.WriteMessageEndAsync(cancellationToken);
-      await oprot.Transport.FlushAsync(cancellationToken);
-    }
-
-    public async Task DeleteConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
-    {
-      var args = new DeleteConsumerArgs();
-      await args.ReadAsync(iprot, cancellationToken);
-      await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new DeleteConsumerResult();
-      try
-      {
-        try
-        {
-          result.Success = await _iAsync.DeleteConsumerAsync(args.Email, cancellationToken);
+          result.Success = await _iAsync.GetAlbumByTitleAsync(args.Title, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -699,7 +494,7 @@ public partial class ConsumerService
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("GetAlbumByTitle", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -711,28 +506,59 @@ public partial class ConsumerService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("GetAlbumByTitle", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdateConsumerName_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task AddAlbum_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdateConsumerNameArgs();
+      var args = new AddAlbumArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdateConsumerNameResult();
+      var result = new AddAlbumResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdateConsumerNameAsync(args.Email, args.CurrentPassword, args.NewName, args.NewLastName, cancellationToken);
+          result.Success = await _iAsync.AddAlbumAsync(args.NewAlbum, cancellationToken);
         }
-        catch (SErrorUserException sErrorUserE)
+        catch (SErrorSystemException sErrorSystemE)
         {
-          result.SErrorUserE = sErrorUserE;
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task DeleteAlbum_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new DeleteAlbumArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new DeleteAlbumResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.DeleteAlbumAsync(args.IdAlbum, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -746,7 +572,7 @@ public partial class ConsumerService
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteAlbum", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -758,28 +584,24 @@ public partial class ConsumerService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteAlbum", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdateConsumerPassword_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task UpdateAlbumTitle_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdateConsumerPasswordArgs();
+      var args = new UpdateAlbumTitleArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdateConsumerPasswordResult();
+      var result = new UpdateAlbumTitleResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdateConsumerPasswordAsync(args.Email, args.CurrentPassword, args.NewPassword, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
+          result.Success = await _iAsync.UpdateAlbumTitleAsync(args.IdAlbum, args.NewAlbumTitle, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -793,7 +615,7 @@ public partial class ConsumerService
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateAlbumTitle", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -805,28 +627,24 @@ public partial class ConsumerService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateAlbumTitle", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdateConsumerImage_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task UpdateAlbumCover_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdateConsumerImageArgs();
+      var args = new UpdateAlbumCoverArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdateConsumerImageResult();
+      var result = new UpdateAlbumCoverResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdateConsumerImageAsync(args.Email, args.NewImageStoragePath, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
+          result.Success = await _iAsync.UpdateAlbumCoverAsync(args.IdAlbum, args.NewCoverStoragePath, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -840,7 +658,7 @@ public partial class ConsumerService
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateAlbumCover", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -852,34 +670,30 @@ public partial class ConsumerService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateAlbumCover", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task LoginConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task AddAlbumToLibrary_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new LoginConsumerArgs();
+      var args = new AddAlbumToLibraryArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new LoginConsumerResult();
+      var result = new AddAlbumToLibraryResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.LoginConsumerAsync(args.Email, args.Password, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
+          result.Success = await _iAsync.AddAlbumToLibraryAsync(args.IdLibrary, args.NewAlbum, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("AddAlbumToLibrary", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -891,7 +705,46 @@ public partial class ConsumerService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("AddAlbumToLibrary", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task DeleteLibraryAlbum_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new DeleteLibraryAlbumArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new DeleteLibraryAlbumResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.DeleteLibraryAlbumAsync(args.IdLibrary, args.IdAlbum, cancellationToken);
+        }
+        catch (SErrorNotFoundException sErrorNotFoundE)
+        {
+          result.SErrorNotFoundE = sErrorNotFoundE;
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteLibraryAlbum", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteLibraryAlbum", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -901,20 +754,20 @@ public partial class ConsumerService
   }
 
 
-  public partial class GetConsumerByIdArgs : TBase
+  public partial class GetAlbumByTitleArgs : TBase
   {
-    private short _idConsumer;
+    private string _title;
 
-    public short IdConsumer
+    public string Title
     {
       get
       {
-        return _idConsumer;
+        return _title;
       }
       set
       {
-        __isset.idConsumer = true;
-        this._idConsumer = value;
+        __isset.title = true;
+        this._title = value;
       }
     }
 
@@ -922,10 +775,737 @@ public partial class ConsumerService
     public Isset __isset;
     public struct Isset
     {
-      public bool idConsumer;
+      public bool title;
     }
 
-    public GetConsumerByIdArgs()
+    public GetAlbumByTitleArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.String)
+              {
+                Title = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetAlbumByTitle_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (Title != null && __isset.title)
+        {
+          field.Name = "title";
+          field.Type = TType.String;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(Title, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetAlbumByTitleArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.title == other.__isset.title) && ((!__isset.title) || (System.Object.Equals(Title, other.Title))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.title)
+          hashcode = (hashcode * 397) + Title.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetAlbumByTitle_args(");
+      bool __first = true;
+      if (Title != null && __isset.title)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Title: ");
+        sb.Append(Title);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetAlbumByTitleResult : TBase
+  {
+    private Album _success;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorSystemException _sErrorSystemE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
+
+    public Album Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorNotFoundE;
+      public bool sErrorSystemE;
+      public bool sErrorInvalidRequestE;
+    }
+
+    public GetAlbumByTitleResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct)
+              {
+                Success = new Album();
+                await Success.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetAlbumByTitle_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await Success.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetAlbumByTitleResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetAlbumByTitle_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddAlbumArgs : TBase
+  {
+    private Album _newAlbum;
+
+    public Album NewAlbum
+    {
+      get
+      {
+        return _newAlbum;
+      }
+      set
+      {
+        __isset.newAlbum = true;
+        this._newAlbum = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool newAlbum;
+    }
+
+    public AddAlbumArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                NewAlbum = new Album();
+                await NewAlbum.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddAlbum_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (NewAlbum != null && __isset.newAlbum)
+        {
+          field.Name = "newAlbum";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await NewAlbum.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddAlbumArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.newAlbum == other.__isset.newAlbum) && ((!__isset.newAlbum) || (System.Object.Equals(NewAlbum, other.NewAlbum))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.newAlbum)
+          hashcode = (hashcode * 397) + NewAlbum.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddAlbum_args(");
+      bool __first = true;
+      if (NewAlbum != null && __isset.newAlbum)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("NewAlbum: ");
+        sb.Append(NewAlbum== null ? "<null>" : NewAlbum.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddAlbumResult : TBase
+  {
+    private Album _success;
+    private SErrorSystemException _sErrorSystemE;
+
+    public Album Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorSystemE;
+    }
+
+    public AddAlbumResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct)
+              {
+                Success = new Album();
+                await Success.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddAlbum_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await Success.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddAlbumResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddAlbum_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class DeleteAlbumArgs : TBase
+  {
+    private short _idAlbum;
+
+    public short IdAlbum
+    {
+      get
+      {
+        return _idAlbum;
+      }
+      set
+      {
+        __isset.idAlbum = true;
+        this._idAlbum = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool idAlbum;
+    }
+
+    public DeleteAlbumArgs()
     {
     }
 
@@ -949,7 +1529,7 @@ public partial class ConsumerService
             case 1:
               if (field.Type == TType.I16)
               {
-                IdConsumer = await iprot.ReadI16Async(cancellationToken);
+                IdAlbum = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -977,16 +1557,16 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("GetConsumerById_args");
+        var struc = new TStruct("DeleteAlbum_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idConsumer)
+        if (__isset.idAlbum)
         {
-          field.Name = "idConsumer";
+          field.Name = "idAlbum";
           field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdConsumer, cancellationToken);
+          await oprot.WriteI16Async(IdAlbum, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -1000,31 +1580,31 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as GetConsumerByIdArgs;
+      var other = that as DeleteAlbumArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idConsumer == other.__isset.idConsumer) && ((!__isset.idConsumer) || (System.Object.Equals(IdConsumer, other.IdConsumer))));
+      return ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idConsumer)
-          hashcode = (hashcode * 397) + IdConsumer.GetHashCode();
+        if(__isset.idAlbum)
+          hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("GetConsumerById_args(");
+      var sb = new StringBuilder("DeleteAlbum_args(");
       bool __first = true;
-      if (__isset.idConsumer)
+      if (__isset.idAlbum)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdConsumer: ");
-        sb.Append(IdConsumer);
+        sb.Append("IdAlbum: ");
+        sb.Append(IdAlbum);
       }
       sb.Append(")");
       return sb.ToString();
@@ -1032,1189 +1612,7 @@ public partial class ConsumerService
   }
 
 
-  public partial class GetConsumerByIdResult : TBase
-  {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
-    private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorInvalidRequestException _sErrorInvalidRequestE;
-
-    public Consumer Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorInvalidRequestException SErrorInvalidRequestE
-    {
-      get
-      {
-        return _sErrorInvalidRequestE;
-      }
-      set
-      {
-        __isset.sErrorInvalidRequestE = true;
-        this._sErrorInvalidRequestE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorUserE;
-      public bool sErrorNotFoundE;
-      public bool sErrorInvalidRequestE;
-    }
-
-    public GetConsumerByIdResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Struct)
-              {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Struct)
-              {
-                SErrorInvalidRequestE = new SErrorInvalidRequestException();
-                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetConsumerById_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorInvalidRequestE)
-        {
-          if (SErrorInvalidRequestE != null)
-          {
-            field.Name = "SErrorInvalidRequestE";
-            field.Type = TType.Struct;
-            field.ID = 3;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetConsumerByIdResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorInvalidRequestE)
-          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetConsumerById_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorInvalidRequestE: ");
-        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetConsumerByEmailPasswordArgs : TBase
-  {
-    private string _email;
-    private string _password;
-
-    public string Email
-    {
-      get
-      {
-        return _email;
-      }
-      set
-      {
-        __isset.email = true;
-        this._email = value;
-      }
-    }
-
-    public string Password
-    {
-      get
-      {
-        return _password;
-      }
-      set
-      {
-        __isset.password = true;
-        this._password = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool email;
-      public bool password;
-    }
-
-    public GetConsumerByEmailPasswordArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.String)
-              {
-                Email = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.String)
-              {
-                Password = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetConsumerByEmailPassword_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (Email != null && __isset.email)
-        {
-          field.Name = "email";
-          field.Type = TType.String;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (Password != null && __isset.password)
-        {
-          field.Name = "password";
-          field.Type = TType.String;
-          field.ID = 2;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Password, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetConsumerByEmailPasswordArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.password == other.__isset.password) && ((!__isset.password) || (System.Object.Equals(Password, other.Password))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.password)
-          hashcode = (hashcode * 397) + Password.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetConsumerByEmailPassword_args(");
-      bool __first = true;
-      if (Email != null && __isset.email)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
-      }
-      if (Password != null && __isset.password)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Password: ");
-        sb.Append(Password);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetConsumerByEmailPasswordResult : TBase
-  {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
-    private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorInvalidRequestException _sErrorInvalidRequestE;
-
-    public Consumer Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorInvalidRequestException SErrorInvalidRequestE
-    {
-      get
-      {
-        return _sErrorInvalidRequestE;
-      }
-      set
-      {
-        __isset.sErrorInvalidRequestE = true;
-        this._sErrorInvalidRequestE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorUserE;
-      public bool sErrorNotFoundE;
-      public bool sErrorInvalidRequestE;
-    }
-
-    public GetConsumerByEmailPasswordResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Struct)
-              {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Struct)
-              {
-                SErrorInvalidRequestE = new SErrorInvalidRequestException();
-                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetConsumerByEmailPassword_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorInvalidRequestE)
-        {
-          if (SErrorInvalidRequestE != null)
-          {
-            field.Name = "SErrorInvalidRequestE";
-            field.Type = TType.Struct;
-            field.ID = 3;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetConsumerByEmailPasswordResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorInvalidRequestE)
-          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetConsumerByEmailPassword_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorInvalidRequestE: ");
-        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class AddConsumerArgs : TBase
-  {
-    private Consumer _newConsumer;
-
-    public Consumer NewConsumer
-    {
-      get
-      {
-        return _newConsumer;
-      }
-      set
-      {
-        __isset.newConsumer = true;
-        this._newConsumer = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool newConsumer;
-    }
-
-    public AddConsumerArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                NewConsumer = new Consumer();
-                await NewConsumer.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("AddConsumer_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (NewConsumer != null && __isset.newConsumer)
-        {
-          field.Name = "newConsumer";
-          field.Type = TType.Struct;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewConsumer.WriteAsync(oprot, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as AddConsumerArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.newConsumer == other.__isset.newConsumer) && ((!__isset.newConsumer) || (System.Object.Equals(NewConsumer, other.NewConsumer))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.newConsumer)
-          hashcode = (hashcode * 397) + NewConsumer.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("AddConsumer_args(");
-      bool __first = true;
-      if (NewConsumer != null && __isset.newConsumer)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewConsumer: ");
-        sb.Append(NewConsumer== null ? "<null>" : NewConsumer.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class AddConsumerResult : TBase
-  {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
-
-    public Consumer Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorUserE;
-    }
-
-    public AddConsumerResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Struct)
-              {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("AddConsumer_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as AddConsumerResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("AddConsumer_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class DeleteConsumerArgs : TBase
-  {
-    private string _email;
-
-    public string Email
-    {
-      get
-      {
-        return _email;
-      }
-      set
-      {
-        __isset.email = true;
-        this._email = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool email;
-    }
-
-    public DeleteConsumerArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.String)
-              {
-                Email = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("DeleteConsumer_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (Email != null && __isset.email)
-        {
-          field.Name = "email";
-          field.Type = TType.String;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as DeleteConsumerArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("DeleteConsumer_args(");
-      bool __first = true;
-      if (Email != null && __isset.email)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class DeleteConsumerResult : TBase
+  public partial class DeleteAlbumResult : TBase
   {
     private short _success;
     private SErrorNotFoundException _sErrorNotFoundE;
@@ -2283,7 +1681,7 @@ public partial class ConsumerService
       public bool sErrorInvalidRequestE;
     }
 
-    public DeleteConsumerResult()
+    public DeleteAlbumResult()
     {
     }
 
@@ -2368,7 +1766,7 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("DeleteConsumer_result");
+        var struc = new TStruct("DeleteAlbum_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -2428,7 +1826,7 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as DeleteConsumerResult;
+      var other = that as DeleteAlbumResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
@@ -2454,7 +1852,7 @@ public partial class ConsumerService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("DeleteConsumer_result(");
+      var sb = new StringBuilder("DeleteAlbum_result(");
       bool __first = true;
       if (__isset.success)
       {
@@ -2490,62 +1888,34 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerNameArgs : TBase
+  public partial class UpdateAlbumTitleArgs : TBase
   {
-    private string _email;
-    private string _currentPassword;
-    private string _newName;
-    private string _newLastName;
+    private short _idAlbum;
+    private string _newAlbumTitle;
 
-    public string Email
+    public short IdAlbum
     {
       get
       {
-        return _email;
+        return _idAlbum;
       }
       set
       {
-        __isset.email = true;
-        this._email = value;
+        __isset.idAlbum = true;
+        this._idAlbum = value;
       }
     }
 
-    public string CurrentPassword
+    public string NewAlbumTitle
     {
       get
       {
-        return _currentPassword;
+        return _newAlbumTitle;
       }
       set
       {
-        __isset.currentPassword = true;
-        this._currentPassword = value;
-      }
-    }
-
-    public string NewName
-    {
-      get
-      {
-        return _newName;
-      }
-      set
-      {
-        __isset.newName = true;
-        this._newName = value;
-      }
-    }
-
-    public string NewLastName
-    {
-      get
-      {
-        return _newLastName;
-      }
-      set
-      {
-        __isset.newLastName = true;
-        this._newLastName = value;
+        __isset.newAlbumTitle = true;
+        this._newAlbumTitle = value;
       }
     }
 
@@ -2553,13 +1923,11 @@ public partial class ConsumerService
     public Isset __isset;
     public struct Isset
     {
-      public bool email;
-      public bool currentPassword;
-      public bool newName;
-      public bool newLastName;
+      public bool idAlbum;
+      public bool newAlbumTitle;
     }
 
-    public UpdateConsumerNameArgs()
+    public UpdateAlbumTitleArgs()
     {
     }
 
@@ -2581,9 +1949,9 @@ public partial class ConsumerService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.String)
+              if (field.Type == TType.I16)
               {
-                Email = await iprot.ReadStringAsync(cancellationToken);
+                IdAlbum = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2593,27 +1961,7 @@ public partial class ConsumerService
             case 2:
               if (field.Type == TType.String)
               {
-                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.String)
-              {
-                NewName = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 4:
-              if (field.Type == TType.String)
-              {
-                NewLastName = await iprot.ReadStringAsync(cancellationToken);
+                NewAlbumTitle = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -2641,43 +1989,25 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdateConsumerName_args");
+        var struc = new TStruct("UpdateAlbumTitle_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (Email != null && __isset.email)
+        if (__isset.idAlbum)
         {
-          field.Name = "email";
-          field.Type = TType.String;
+          field.Name = "idAlbum";
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
+          await oprot.WriteI16Async(IdAlbum, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (CurrentPassword != null && __isset.currentPassword)
+        if (NewAlbumTitle != null && __isset.newAlbumTitle)
         {
-          field.Name = "currentPassword";
+          field.Name = "newAlbumTitle";
           field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (NewName != null && __isset.newName)
-        {
-          field.Name = "newName";
-          field.Type = TType.String;
-          field.ID = 3;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewName, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (NewLastName != null && __isset.newLastName)
-        {
-          field.Name = "newLastName";
-          field.Type = TType.String;
-          field.ID = 4;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewLastName, cancellationToken);
+          await oprot.WriteStringAsync(NewAlbumTitle, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -2691,61 +2021,41 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdateConsumerNameArgs;
+      var other = that as UpdateAlbumTitleArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
-        && ((__isset.newName == other.__isset.newName) && ((!__isset.newName) || (System.Object.Equals(NewName, other.NewName))))
-        && ((__isset.newLastName == other.__isset.newLastName) && ((!__isset.newLastName) || (System.Object.Equals(NewLastName, other.NewLastName))));
+      return ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))))
+        && ((__isset.newAlbumTitle == other.__isset.newAlbumTitle) && ((!__isset.newAlbumTitle) || (System.Object.Equals(NewAlbumTitle, other.NewAlbumTitle))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.currentPassword)
-          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
-        if(__isset.newName)
-          hashcode = (hashcode * 397) + NewName.GetHashCode();
-        if(__isset.newLastName)
-          hashcode = (hashcode * 397) + NewLastName.GetHashCode();
+        if(__isset.idAlbum)
+          hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
+        if(__isset.newAlbumTitle)
+          hashcode = (hashcode * 397) + NewAlbumTitle.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdateConsumerName_args(");
+      var sb = new StringBuilder("UpdateAlbumTitle_args(");
       bool __first = true;
-      if (Email != null && __isset.email)
+      if (__isset.idAlbum)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
+        sb.Append("IdAlbum: ");
+        sb.Append(IdAlbum);
       }
-      if (CurrentPassword != null && __isset.currentPassword)
+      if (NewAlbumTitle != null && __isset.newAlbumTitle)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("CurrentPassword: ");
-        sb.Append(CurrentPassword);
-      }
-      if (NewName != null && __isset.newName)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewName: ");
-        sb.Append(NewName);
-      }
-      if (NewLastName != null && __isset.newLastName)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewLastName: ");
-        sb.Append(NewLastName);
+        sb.Append("NewAlbumTitle: ");
+        sb.Append(NewAlbumTitle);
       }
       sb.Append(")");
       return sb.ToString();
@@ -2753,15 +2063,14 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerNameResult : TBase
+  public partial class UpdateAlbumTitleResult : TBase
   {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
+    private Album _success;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
     private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Consumer Success
+    public Album Success
     {
       get
       {
@@ -2771,19 +2080,6 @@ public partial class ConsumerService
       {
         __isset.success = true;
         this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
       }
     }
 
@@ -2831,13 +2127,12 @@ public partial class ConsumerService
     public struct Isset
     {
       public bool success;
-      public bool sErrorUserE;
       public bool sErrorNotFoundE;
       public bool sErrorSystemE;
       public bool sErrorInvalidRequestE;
     }
 
-    public UpdateConsumerNameResult()
+    public UpdateAlbumTitleResult()
     {
     }
 
@@ -2861,7 +2156,7 @@ public partial class ConsumerService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Consumer();
+                Success = new Album();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -2872,17 +2167,6 @@ public partial class ConsumerService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
                 SErrorNotFoundE = new SErrorNotFoundException();
                 await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
               }
@@ -2891,7 +2175,7 @@ public partial class ConsumerService
                 await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               }
               break;
-            case 3:
+            case 2:
               if (field.Type == TType.Struct)
               {
                 SErrorSystemE = new SErrorSystemException();
@@ -2902,7 +2186,7 @@ public partial class ConsumerService
                 await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               }
               break;
-            case 4:
+            case 3:
               if (field.Type == TType.Struct)
               {
                 SErrorInvalidRequestE = new SErrorInvalidRequestException();
@@ -2934,7 +2218,7 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdateConsumerName_result");
+        var struc = new TStruct("UpdateAlbumTitle_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -2950,25 +2234,13 @@ public partial class ConsumerService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
         else if(this.__isset.sErrorNotFoundE)
         {
           if (SErrorNotFoundE != null)
           {
             field.Name = "SErrorNotFoundE";
             field.Type = TType.Struct;
-            field.ID = 2;
+            field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -2980,7 +2252,7 @@ public partial class ConsumerService
           {
             field.Name = "SErrorSystemE";
             field.Type = TType.Struct;
-            field.ID = 3;
+            field.ID = 2;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorSystemE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -2992,7 +2264,7 @@ public partial class ConsumerService
           {
             field.Name = "SErrorInvalidRequestE";
             field.Type = TType.Struct;
-            field.ID = 4;
+            field.ID = 3;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -3009,11 +2281,10 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdateConsumerNameResult;
+      var other = that as UpdateAlbumTitleResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
         && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
         && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
@@ -3024,8 +2295,6 @@ public partial class ConsumerService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorNotFoundE)
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
         if(__isset.sErrorSystemE)
@@ -3038,7 +2307,7 @@ public partial class ConsumerService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdateConsumerName_result(");
+      var sb = new StringBuilder("UpdateAlbumTitle_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -3046,13 +2315,6 @@ public partial class ConsumerService
         __first = false;
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
       }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {
@@ -3081,48 +2343,34 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerPasswordArgs : TBase
+  public partial class UpdateAlbumCoverArgs : TBase
   {
-    private string _email;
-    private string _currentPassword;
-    private string _newPassword;
+    private short _idAlbum;
+    private string _newCoverStoragePath;
 
-    public string Email
+    public short IdAlbum
     {
       get
       {
-        return _email;
+        return _idAlbum;
       }
       set
       {
-        __isset.email = true;
-        this._email = value;
+        __isset.idAlbum = true;
+        this._idAlbum = value;
       }
     }
 
-    public string CurrentPassword
+    public string NewCoverStoragePath
     {
       get
       {
-        return _currentPassword;
+        return _newCoverStoragePath;
       }
       set
       {
-        __isset.currentPassword = true;
-        this._currentPassword = value;
-      }
-    }
-
-    public string NewPassword
-    {
-      get
-      {
-        return _newPassword;
-      }
-      set
-      {
-        __isset.newPassword = true;
-        this._newPassword = value;
+        __isset.newCoverStoragePath = true;
+        this._newCoverStoragePath = value;
       }
     }
 
@@ -3130,12 +2378,11 @@ public partial class ConsumerService
     public Isset __isset;
     public struct Isset
     {
-      public bool email;
-      public bool currentPassword;
-      public bool newPassword;
+      public bool idAlbum;
+      public bool newCoverStoragePath;
     }
 
-    public UpdateConsumerPasswordArgs()
+    public UpdateAlbumCoverArgs()
     {
     }
 
@@ -3157,9 +2404,9 @@ public partial class ConsumerService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.String)
+              if (field.Type == TType.I16)
               {
-                Email = await iprot.ReadStringAsync(cancellationToken);
+                IdAlbum = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -3169,17 +2416,7 @@ public partial class ConsumerService
             case 2:
               if (field.Type == TType.String)
               {
-                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.String)
-              {
-                NewPassword = await iprot.ReadStringAsync(cancellationToken);
+                NewCoverStoragePath = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -3207,34 +2444,25 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdateConsumerPassword_args");
+        var struc = new TStruct("UpdateAlbumCover_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (Email != null && __isset.email)
+        if (__isset.idAlbum)
         {
-          field.Name = "email";
-          field.Type = TType.String;
+          field.Name = "idAlbum";
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
+          await oprot.WriteI16Async(IdAlbum, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (CurrentPassword != null && __isset.currentPassword)
+        if (NewCoverStoragePath != null && __isset.newCoverStoragePath)
         {
-          field.Name = "currentPassword";
+          field.Name = "newCoverStoragePath";
           field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (NewPassword != null && __isset.newPassword)
-        {
-          field.Name = "newPassword";
-          field.Type = TType.String;
-          field.ID = 3;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewPassword, cancellationToken);
+          await oprot.WriteStringAsync(NewCoverStoragePath, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -3248,51 +2476,41 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdateConsumerPasswordArgs;
+      var other = that as UpdateAlbumCoverArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
-        && ((__isset.newPassword == other.__isset.newPassword) && ((!__isset.newPassword) || (System.Object.Equals(NewPassword, other.NewPassword))));
+      return ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))))
+        && ((__isset.newCoverStoragePath == other.__isset.newCoverStoragePath) && ((!__isset.newCoverStoragePath) || (System.Object.Equals(NewCoverStoragePath, other.NewCoverStoragePath))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.currentPassword)
-          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
-        if(__isset.newPassword)
-          hashcode = (hashcode * 397) + NewPassword.GetHashCode();
+        if(__isset.idAlbum)
+          hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
+        if(__isset.newCoverStoragePath)
+          hashcode = (hashcode * 397) + NewCoverStoragePath.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdateConsumerPassword_args(");
+      var sb = new StringBuilder("UpdateAlbumCover_args(");
       bool __first = true;
-      if (Email != null && __isset.email)
+      if (__isset.idAlbum)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
+        sb.Append("IdAlbum: ");
+        sb.Append(IdAlbum);
       }
-      if (CurrentPassword != null && __isset.currentPassword)
+      if (NewCoverStoragePath != null && __isset.newCoverStoragePath)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("CurrentPassword: ");
-        sb.Append(CurrentPassword);
-      }
-      if (NewPassword != null && __isset.newPassword)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewPassword: ");
-        sb.Append(NewPassword);
+        sb.Append("NewCoverStoragePath: ");
+        sb.Append(NewCoverStoragePath);
       }
       sb.Append(")");
       return sb.ToString();
@@ -3300,15 +2518,14 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerPasswordResult : TBase
+  public partial class UpdateAlbumCoverResult : TBase
   {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
+    private Album _success;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
     private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Consumer Success
+    public Album Success
     {
       get
       {
@@ -3318,19 +2535,6 @@ public partial class ConsumerService
       {
         __isset.success = true;
         this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
       }
     }
 
@@ -3378,13 +2582,12 @@ public partial class ConsumerService
     public struct Isset
     {
       public bool success;
-      public bool sErrorUserE;
       public bool sErrorNotFoundE;
       public bool sErrorSystemE;
       public bool sErrorInvalidRequestE;
     }
 
-    public UpdateConsumerPasswordResult()
+    public UpdateAlbumCoverResult()
     {
     }
 
@@ -3408,7 +2611,7 @@ public partial class ConsumerService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Consumer();
+                Success = new Album();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -3419,17 +2622,6 @@ public partial class ConsumerService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
                 SErrorNotFoundE = new SErrorNotFoundException();
                 await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
               }
@@ -3438,7 +2630,7 @@ public partial class ConsumerService
                 await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               }
               break;
-            case 3:
+            case 2:
               if (field.Type == TType.Struct)
               {
                 SErrorSystemE = new SErrorSystemException();
@@ -3449,7 +2641,7 @@ public partial class ConsumerService
                 await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               }
               break;
-            case 4:
+            case 3:
               if (field.Type == TType.Struct)
               {
                 SErrorInvalidRequestE = new SErrorInvalidRequestException();
@@ -3481,7 +2673,7 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdateConsumerPassword_result");
+        var struc = new TStruct("UpdateAlbumCover_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -3497,25 +2689,13 @@ public partial class ConsumerService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
         else if(this.__isset.sErrorNotFoundE)
         {
           if (SErrorNotFoundE != null)
           {
             field.Name = "SErrorNotFoundE";
             field.Type = TType.Struct;
-            field.ID = 2;
+            field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -3527,7 +2707,7 @@ public partial class ConsumerService
           {
             field.Name = "SErrorSystemE";
             field.Type = TType.Struct;
-            field.ID = 3;
+            field.ID = 2;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorSystemE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -3539,7 +2719,7 @@ public partial class ConsumerService
           {
             field.Name = "SErrorInvalidRequestE";
             field.Type = TType.Struct;
-            field.ID = 4;
+            field.ID = 3;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -3556,11 +2736,10 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdateConsumerPasswordResult;
+      var other = that as UpdateAlbumCoverResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
         && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
         && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
@@ -3571,8 +2750,6 @@ public partial class ConsumerService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorNotFoundE)
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
         if(__isset.sErrorSystemE)
@@ -3585,7 +2762,7 @@ public partial class ConsumerService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdateConsumerPassword_result(");
+      var sb = new StringBuilder("UpdateAlbumCover_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -3593,13 +2770,6 @@ public partial class ConsumerService
         __first = false;
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
       }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {
@@ -3628,34 +2798,34 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerImageArgs : TBase
+  public partial class AddAlbumToLibraryArgs : TBase
   {
-    private string _email;
-    private string _newImageStoragePath;
+    private short _idLibrary;
+    private Album _newAlbum;
 
-    public string Email
+    public short IdLibrary
     {
       get
       {
-        return _email;
+        return _idLibrary;
       }
       set
       {
-        __isset.email = true;
-        this._email = value;
+        __isset.idLibrary = true;
+        this._idLibrary = value;
       }
     }
 
-    public string NewImageStoragePath
+    public Album NewAlbum
     {
       get
       {
-        return _newImageStoragePath;
+        return _newAlbum;
       }
       set
       {
-        __isset.newImageStoragePath = true;
-        this._newImageStoragePath = value;
+        __isset.newAlbum = true;
+        this._newAlbum = value;
       }
     }
 
@@ -3663,11 +2833,11 @@ public partial class ConsumerService
     public Isset __isset;
     public struct Isset
     {
-      public bool email;
-      public bool newImageStoragePath;
+      public bool idLibrary;
+      public bool newAlbum;
     }
 
-    public UpdateConsumerImageArgs()
+    public AddAlbumToLibraryArgs()
     {
     }
 
@@ -3689,9 +2859,9 @@ public partial class ConsumerService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.String)
+              if (field.Type == TType.I16)
               {
-                Email = await iprot.ReadStringAsync(cancellationToken);
+                IdLibrary = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -3699,9 +2869,10 @@ public partial class ConsumerService
               }
               break;
             case 2:
-              if (field.Type == TType.String)
+              if (field.Type == TType.Struct)
               {
-                NewImageStoragePath = await iprot.ReadStringAsync(cancellationToken);
+                NewAlbum = new Album();
+                await NewAlbum.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -3729,25 +2900,25 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdateConsumerImage_args");
+        var struc = new TStruct("AddAlbumToLibrary_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (Email != null && __isset.email)
+        if (__isset.idLibrary)
         {
-          field.Name = "email";
-          field.Type = TType.String;
+          field.Name = "idLibrary";
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
+          await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewImageStoragePath != null && __isset.newImageStoragePath)
+        if (NewAlbum != null && __isset.newAlbum)
         {
-          field.Name = "newImageStoragePath";
-          field.Type = TType.String;
+          field.Name = "newAlbum";
+          field.Type = TType.Struct;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewImageStoragePath, cancellationToken);
+          await NewAlbum.WriteAsync(oprot, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -3761,41 +2932,41 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdateConsumerImageArgs;
+      var other = that as AddAlbumToLibraryArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.newImageStoragePath == other.__isset.newImageStoragePath) && ((!__isset.newImageStoragePath) || (System.Object.Equals(NewImageStoragePath, other.NewImageStoragePath))));
+      return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
+        && ((__isset.newAlbum == other.__isset.newAlbum) && ((!__isset.newAlbum) || (System.Object.Equals(NewAlbum, other.NewAlbum))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.newImageStoragePath)
-          hashcode = (hashcode * 397) + NewImageStoragePath.GetHashCode();
+        if(__isset.idLibrary)
+          hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
+        if(__isset.newAlbum)
+          hashcode = (hashcode * 397) + NewAlbum.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdateConsumerImage_args(");
+      var sb = new StringBuilder("AddAlbumToLibrary_args(");
       bool __first = true;
-      if (Email != null && __isset.email)
+      if (__isset.idLibrary)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
+        sb.Append("IdLibrary: ");
+        sb.Append(IdLibrary);
       }
-      if (NewImageStoragePath != null && __isset.newImageStoragePath)
+      if (NewAlbum != null && __isset.newAlbum)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewImageStoragePath: ");
-        sb.Append(NewImageStoragePath);
+        sb.Append("NewAlbum: ");
+        sb.Append(NewAlbum== null ? "<null>" : NewAlbum.ToString());
       }
       sb.Append(")");
       return sb.ToString();
@@ -3803,15 +2974,12 @@ public partial class ConsumerService
   }
 
 
-  public partial class UpdateConsumerImageResult : TBase
+  public partial class AddAlbumToLibraryResult : TBase
   {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
-    private SErrorNotFoundException _sErrorNotFoundE;
+    private Album _success;
     private SErrorSystemException _sErrorSystemE;
-    private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Consumer Success
+    public Album Success
     {
       get
       {
@@ -3821,32 +2989,6 @@ public partial class ConsumerService
       {
         __isset.success = true;
         this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
       }
     }
 
@@ -3863,31 +3005,15 @@ public partial class ConsumerService
       }
     }
 
-    public SErrorInvalidRequestException SErrorInvalidRequestE
-    {
-      get
-      {
-        return _sErrorInvalidRequestE;
-      }
-      set
-      {
-        __isset.sErrorInvalidRequestE = true;
-        this._sErrorInvalidRequestE = value;
-      }
-    }
-
 
     public Isset __isset;
     public struct Isset
     {
       public bool success;
-      public bool sErrorUserE;
-      public bool sErrorNotFoundE;
       public bool sErrorSystemE;
-      public bool sErrorInvalidRequestE;
     }
 
-    public UpdateConsumerImageResult()
+    public AddAlbumToLibraryResult()
     {
     }
 
@@ -3911,7 +3037,7 @@ public partial class ConsumerService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Consumer();
+                Success = new Album();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -3920,490 +3046,6 @@ public partial class ConsumerService
               }
               break;
             case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Struct)
-              {
-                SErrorSystemE = new SErrorSystemException();
-                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 4:
-              if (field.Type == TType.Struct)
-              {
-                SErrorInvalidRequestE = new SErrorInvalidRequestException();
-                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("UpdateConsumerImage_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorSystemE)
-        {
-          if (SErrorSystemE != null)
-          {
-            field.Name = "SErrorSystemE";
-            field.Type = TType.Struct;
-            field.ID = 3;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorInvalidRequestE)
-        {
-          if (SErrorInvalidRequestE != null)
-          {
-            field.Name = "SErrorInvalidRequestE";
-            field.Type = TType.Struct;
-            field.ID = 4;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as UpdateConsumerImageResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
-        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorSystemE)
-          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
-        if(__isset.sErrorInvalidRequestE)
-          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("UpdateConsumerImage_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorSystemE != null && __isset.sErrorSystemE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorSystemE: ");
-        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
-      }
-      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorInvalidRequestE: ");
-        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class LoginConsumerArgs : TBase
-  {
-    private string _email;
-    private string _password;
-
-    public string Email
-    {
-      get
-      {
-        return _email;
-      }
-      set
-      {
-        __isset.email = true;
-        this._email = value;
-      }
-    }
-
-    public string Password
-    {
-      get
-      {
-        return _password;
-      }
-      set
-      {
-        __isset.password = true;
-        this._password = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool email;
-      public bool password;
-    }
-
-    public LoginConsumerArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.String)
-              {
-                Email = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.String)
-              {
-                Password = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("LoginConsumer_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (Email != null && __isset.email)
-        {
-          field.Name = "email";
-          field.Type = TType.String;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (Password != null && __isset.password)
-        {
-          field.Name = "password";
-          field.Type = TType.String;
-          field.ID = 2;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Password, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as LoginConsumerArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.password == other.__isset.password) && ((!__isset.password) || (System.Object.Equals(Password, other.Password))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.password)
-          hashcode = (hashcode * 397) + Password.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("LoginConsumer_args(");
-      bool __first = true;
-      if (Email != null && __isset.email)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
-      }
-      if (Password != null && __isset.password)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Password: ");
-        sb.Append(Password);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class LoginConsumerResult : TBase
-  {
-    private Consumer _success;
-    private SErrorUserException _sErrorUserE;
-    private SErrorSystemException _sErrorSystemE;
-
-    public Consumer Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-    public SErrorSystemException SErrorSystemE
-    {
-      get
-      {
-        return _sErrorSystemE;
-      }
-      set
-      {
-        __isset.sErrorSystemE = true;
-        this._sErrorSystemE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorUserE;
-      public bool sErrorSystemE;
-    }
-
-    public LoginConsumerResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Struct)
-              {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
               if (field.Type == TType.Struct)
               {
                 SErrorSystemE = new SErrorSystemException();
@@ -4435,7 +3077,7 @@ public partial class ConsumerService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("LoginConsumer_result");
+        var struc = new TStruct("AddAlbumToLibrary_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -4451,25 +3093,13 @@ public partial class ConsumerService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
         else if(this.__isset.sErrorSystemE)
         {
           if (SErrorSystemE != null)
           {
             field.Name = "SErrorSystemE";
             field.Type = TType.Struct;
-            field.ID = 2;
+            field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorSystemE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -4486,11 +3116,10 @@ public partial class ConsumerService
 
     public override bool Equals(object that)
     {
-      var other = that as LoginConsumerResult;
+      var other = that as AddAlbumToLibraryResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
     }
 
@@ -4499,8 +3128,6 @@ public partial class ConsumerService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorSystemE)
           hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
       }
@@ -4509,7 +3136,7 @@ public partial class ConsumerService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("LoginConsumer_result(");
+      var sb = new StringBuilder("AddAlbumToLibrary_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -4518,12 +3145,408 @@ public partial class ConsumerService
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
       }
-      if (SErrorUserE != null && __isset.sErrorUserE)
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class DeleteLibraryAlbumArgs : TBase
+  {
+    private short _idLibrary;
+    private short _idAlbum;
+
+    public short IdLibrary
+    {
+      get
+      {
+        return _idLibrary;
+      }
+      set
+      {
+        __isset.idLibrary = true;
+        this._idLibrary = value;
+      }
+    }
+
+    public short IdAlbum
+    {
+      get
+      {
+        return _idAlbum;
+      }
+      set
+      {
+        __isset.idAlbum = true;
+        this._idAlbum = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool idLibrary;
+      public bool idAlbum;
+    }
+
+    public DeleteLibraryAlbumArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I16)
+              {
+                IdLibrary = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.I16)
+              {
+                IdAlbum = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("DeleteLibraryAlbum_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (__isset.idLibrary)
+        {
+          field.Name = "idLibrary";
+          field.Type = TType.I16;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdLibrary, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (__isset.idAlbum)
+        {
+          field.Name = "idAlbum";
+          field.Type = TType.I16;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdAlbum, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as DeleteLibraryAlbumArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
+        && ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.idLibrary)
+          hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
+        if(__isset.idAlbum)
+          hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("DeleteLibraryAlbum_args(");
+      bool __first = true;
+      if (__isset.idLibrary)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdLibrary: ");
+        sb.Append(IdLibrary);
+      }
+      if (__isset.idAlbum)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdAlbum: ");
+        sb.Append(IdAlbum);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class DeleteLibraryAlbumResult : TBase
+  {
+    private short _success;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorSystemException _sErrorSystemE;
+
+    public short Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorNotFoundE;
+      public bool sErrorSystemE;
+    }
+
+    public DeleteLibraryAlbumResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.I16)
+              {
+                Success = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("DeleteLibraryAlbum_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as DeleteLibraryAlbumResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("DeleteLibraryAlbum_result(");
+      bool __first = true;
+      if (__isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

@@ -62,6 +62,22 @@ service ConsumerService {
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
+        /**
+    *   Get Consumer by email and password
+    *
+    *   @param email
+    *       The Consumer email to be obtained.
+    *   @param password
+    *       The Consumer password to be obtained.
+
+    *   @return Consumer
+    *       Consumer object  
+    **/
+
+    SpotifakeManagement.Consumer GetConsumerByEmailPassword(1: string email, 2: string password) 
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
     /**
     *   Register a Consumer.
     *
