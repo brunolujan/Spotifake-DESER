@@ -25,11 +25,11 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
 
     def LoginConsumer(self, email, password):
         consumer = Consumer()
-        consumerFound = connection.GetConsumerByEmailPassword(email, password)
+        consumerFound = SqlServerConsumerManagement.GetConsumerByEmailPassword(self, email, password)
         if (consumerFound != None):
-            consumer.idConsumer = consumerFound.idConsumer
-            consumer.givenName = consumerFound.givenName
-            consumer.lastName = consumerFound.lastName
+            consumer.idConsumer = consumerFound.IdConsumer
+            consumer.givenName = consumerFound.name
+            consumer.lastName = consumerFound.lastname
             consumer.email = consumerFound.email
             consumer.password = consumerFound.password
             consumer.imageStoragePath = consumerFound.imageStoragePath

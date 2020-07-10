@@ -2,7 +2,8 @@ from SQLConnection.connection import SQLConnection
 
 class SqlServerConsumerManagement:
     def __init__(self):
-        self.connection: SQLConnection = SQLConnection()
+        connection: SQLConnection = SQLConnection()
+
 
     def GetConsumerById(self, idConsumer:int):
         self.connection.open()
@@ -16,19 +17,20 @@ class SqlServerConsumerManagement:
         self.connection.close()
 
     def GetConsumerByEmailPassword(self, email:str, password:str):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             SELECT * FROM Consumer WHERE email = ? AND password = ?
         """
         params = (email, password )
-        self.connection.cursor.execute(sql, params)
-        row = self.connection.cursor.fetchone()
+        connection.cursor.execute(sql, params)
+        row = connection.cursor.fetchone()
         if (row != None):
             print(row.email, row.password)
-            self.connection.close()
             return row
-        self.connection.close()
+            connection.close()
         return None
+        connection.close()
 
     def DeleteConsumer(self, email:str):
         self.connection.open()
