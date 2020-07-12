@@ -81,7 +81,6 @@
             <ComboBoxItem>Consumer</ComboBoxItem>
             <ComboBoxItem>Content creator</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="textBox_Email" HorizontalAlignment="Left" Height="30" Margin="26,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
         <TextBlock HorizontalAlignment="Left" Margin="120,300,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -102,8 +101,6 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <PasswordBox x:Name="passwordBox_Password" HorizontalAlignment="Left" Margin="26,434,0,0" VerticalAlignment="Top" Height="30" Width="319" Background="#FF4B4B4B" BorderBrush="{x:Null}" SelectionBrush="#FF1DB954" FontSize="15" Foreground="White" FontFamily="Gotham Medium" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="textBox_ConfirmEmail" HorizontalAlignment="Left" Height="30" Margin="424,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
         <TextBlock HorizontalAlignment="Left" Margin="433,300,0,0" TextWrapping="Wrap" Text="Confirm Email" VerticalAlignment="Top" Foreground="White" Width="296" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -135,6 +132,9 @@
             </TextBlock.RenderTransform>
         </TextBlock>
         <TextBox x:Name="textBox_LastName" HorizontalAlignment="Left" Height="30" Margin="424,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen"/>
+        <TextBox x:Name="textBox_Email" HorizontalAlignment="Left" Height="30" Margin="26,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
+        <TextBox x:Name="textBox_ConfirmEmail" HorizontalAlignment="Left" Height="30" Margin="424,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
+        <PasswordBox x:Name="passwordBox_Password" HorizontalAlignment="Left" Margin="26,434,0,0" VerticalAlignment="Top" Height="30" Width="319" Background="#FF4B4B4B" BorderBrush="{x:Null}" SelectionBrush="#FF1DB954" FontSize="15" Foreground="White" FontFamily="Gotham Medium" VerticalContentAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Margin="473,212,0,0" TextWrapping="Wrap" Text="Last name" VerticalAlignment="Top" Foreground="White" Width="216" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -145,8 +145,18 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <TextBox x:Name="textBox_StageName" HorizontalAlignment="Left" Height="30" Margin="424,434,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email" ScrollViewer.CanContentScroll="True" Visibility="Visible"/>
         <Button x:Name="button_SignUp" Content="SIGN UP" Margin="294.4,511,0,0" VerticalAlignment="Top" Width="470" Click="button_SignUp_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}"/>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="299,478,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.496"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="textBox_StageName" HorizontalAlignment="Left" Height="30" Margin="424,434,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
 
     </Grid>
 </Window>

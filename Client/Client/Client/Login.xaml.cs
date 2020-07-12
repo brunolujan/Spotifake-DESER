@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,31 +15,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Thrift.Protocol;
 using Thrift.Transport;
 using Thrift.Transport.Client;
 
 namespace Client
 {
-
     public partial class Login : Window
     {
-        ConsumerService.Client consumerService;
-        ContentCreatorService.Client contentCreatorService;
-
         public Login()
         {
-            
-            TTransport transport = new TSocketTransport("localhost", 5000);
-
-            TBinaryProtocol protocol = new TBinaryProtocol(transport);
-
-            TMultiplexedProtocol multiplexedProtocolConsumer = new TMultiplexedProtocol(protocol, "ConsumerService");
-            consumerService = new ConsumerService.Client(multiplexedProtocolConsumer);
-
-            TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreatorService");
-            contentCreatorService = new ContentCreatorService.Client(multiplexedProtocolContentCreator);
-
             InitializeComponent();
         }
 
@@ -58,22 +47,29 @@ namespace Client
             {
                 if (textBox_Email.Text != "" && passwordBox_Password.Password != "")
                 {
-                    Consumer ConsumerLog = await consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
-                    if (ConsumerLog != null)
+                    try
                     {
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        this.Close();
+                        Consumer ConsumerLog = await session.serverConnection.consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
+                        if (ConsumerLog != null)
+                        {
+                            MainWindow mainWindow = new MainWindow(ConsumerLog);
+                            mainWindow.Show();
+                            this.Hide();
+                        }
+                    } catch (NullReferenceException ex)
+                    {
+                        textBlock_Message.Text = "*Service error, please close and try again";
+                        Console.WriteLine(ex);
                     }
                 }
                 else
                 {
-                    textBlock_Message.Text = "Complete all fields";
+                    textBlock_Message.Text = "*Complete all fields";
                 }
             }
             catch (Exception ex)
             {
-                textBlock_Message.Text = "Email or password is wrong";
+                textBlock_Message.Text = "*Email or password is wrong";
             }
         }
     }

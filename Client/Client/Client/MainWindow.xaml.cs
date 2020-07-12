@@ -19,9 +19,14 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        Consumer thisConsumer;
+
+        public MainWindow(Consumer consumer)
         {
+            thisConsumer = consumer;
             InitializeComponent();
+            textBlock_NameUser.Text = thisConsumer.GivenName + " " + thisConsumer.LastName;
         }
 
         private void button_Logout_Click(object sender, RoutedEventArgs e)

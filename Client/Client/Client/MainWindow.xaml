@@ -80,6 +80,16 @@
         <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Albums_Click"/>
         <Button x:Name="button_Singles" Content="Singles" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Singles_Click"/>
         <Rectangle Fill="#FF282828" HorizontalAlignment="Left" Height="153" Margin="0,639,0,0" VerticalAlignment="Top" Width="1468"/>
+        <TextBlock x:Name="textBlock_NameUser" HorizontalAlignment="Left" Margin="891,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.496"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
     </Grid>
 
 </Window>
