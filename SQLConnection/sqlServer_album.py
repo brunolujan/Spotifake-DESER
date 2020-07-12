@@ -52,5 +52,31 @@ class SqlServerAlbumManagement:
         self.connection.save()
         print("Album has been deleted")
         self.connection.close()
+
+    def AddAlbum(self, newAlbum):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+		            @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_Album]
+                    @idAlbum = ?,
+                    @title = ?,
+                    @type = ?,
+                    @releaseDate = ?,
+                    @coverPath = ?,
+                    @idContentCreator = ?,
+                    @idGenre = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        params = (newAlbum.idAlbum, newAlbum.title, newAlbum.isSingle, newAlbum.releaseDate, newAlbum.coverPath,
+                    newAlbum.idContentCreator, newAlbum.gender)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(newAlbum.title, newAlbum.releaseDate)
     
 

@@ -8,11 +8,11 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #CONSUMER MANAGEMENT
-query: SqlServerConsumerManagement = SqlServerConsumerManagement()
+#query: SqlServerConsumerManagement = SqlServerConsumerManagement()
 
 #query.GetConsumerById(2)
 
-query.GetConsumerByEmailPassword("bechecita@bechecita.bechecita","bechecita")
+#query.GetConsumerByEmailPassword("bechecita@bechecita.bechecita","bechecita")
 
 #query.DeleteConsumer("bruno1529@live.com.mx")
 
@@ -20,12 +20,16 @@ query.GetConsumerByEmailPassword("bechecita@bechecita.bechecita","bechecita")
 
 #query.UpdateConsumerPassword("majohdezmol@gmail.com", "12345", "majojojo")
 
+#query.AddConsumer(5,"Mariana", "Hernandez", "mariana@gmail","ana678","ppppp")
+
 
 
 #CONTENT CREATOR MANAGEMENT
 #query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
 
 #query.GetContentCreatorById(5)
+
+#query.GetContentCreatorByEmailPassword("coldplay@gmail.com","coldplay_22")
 
 #query.DeleteContentCreator("winehouse@gmail.com")
 
@@ -35,9 +39,11 @@ query.GetConsumerByEmailPassword("bechecita@bechecita.bechecita","bechecita")
 
 #query.UpdateContentCreatorStageName("coldplay@gmail.com", "coldplay_22", "COLDPLAY")
 
-#query.UpdateContentCreatorDescription("coldplay@gmail.com","coldplay_22", "My description has been updated")
+#query.UpdateContentCreatorDescription("coldplay@gmail.com","coldplay_22", "LALALALA")
 
 #query.DeleteLibraryContentCreator(1,1)
+
+#query.AddContentCreator()
 
 
 

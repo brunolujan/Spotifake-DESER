@@ -15,6 +15,22 @@ class SqlServerContentCreatorManagement:
         print(row[0].name, row[0].email)
         self.connection.close()
 
+    def GetContentCreatorByEmailPassword(self, email:str, password:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM ContentCreator WHERE email = ? AND password = ?
+        """
+        params = (email, password )
+        connection.cursor.execute(sql, params)
+        row = connection.cursor.fetchone()
+        if (row != None):
+            print(row.email, row.password)
+            return row
+            connection.close()
+        return None
+        connection.close()
+
     def DeleteContentCreator(self, email:str):
         self.connection.open()
         sql = """
@@ -94,16 +110,22 @@ class SqlServerContentCreatorManagement:
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
-            INSERT INTO ContentCreator
-            (name
-           ,lastname
-           ,stageName
-           ,password
-           ,email
-           ,description
-           ,imageStoragePath)
-            VALUES
-           (?,?,?,?,?,?,?)
+           DECLARE	@return_value int,
+		            @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_ContentCreator]
+                    @idContentCreator = ?,
+                    @name = ?,
+                    @lastname = ?,
+                    @stageName = ?,
+                    @email = ?,
+                    @password = ?,
+                    @description = ?,
+                    @imageStoragePath = ?,
+                    @idGenre = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
         """
         params = (newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName, 
         newContentCreator.password, newContentCreator.email, newContentCreator.description, newContentCreator.imageStoragePath)

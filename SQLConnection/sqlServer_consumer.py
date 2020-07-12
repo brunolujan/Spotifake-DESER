@@ -73,16 +73,22 @@ class SqlServerConsumerManagement:
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
-            INSERT INTO Consumer
-            (name
-           ,lastname
-           ,email
-           ,password
-           ,imageStoragePath)
-            VALUES
-           (?,?,?,?,?)
+            DECLARE	@return_value int,
+		            @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_Consumer]
+                    @idConsumer = ?,
+                    @name = ?,
+                    @lastname = ?,
+                    @email = ?,
+                    @password = ?,
+                    @imageStoragePath = ?,
+                    @salida = @salida OUTPUT
+        
+            SELECT	@salida as N'@salida'
         """
-        params = (newConsumer.givenName, newConsumer.lastName, newConsumer.email, newConsumer.password, newConsumer.imageStoragePath)
+        params = (newConsumer.idConsumer, newConsumer.givenName, newConsumer.lastName, newConsumer.email, 
+                    newConsumer.password, newConsumer.imageStoragePath)
         connection.cursor.execute(sql, params)
         connection.save()
         connection.close()

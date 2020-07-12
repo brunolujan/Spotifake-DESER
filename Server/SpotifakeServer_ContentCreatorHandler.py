@@ -17,5 +17,28 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
     def __init__(self):
         pass
 
+    def GetContentCreatorById(self, idContentCreator):
+        connection.GetContentCreatorById(idContentCreator)
+
+    def GetContentCreatorByEmailPassword(self, email, password):
+        connection.GetContentCreatorByEmailPassword(email, password)
+
+    def LoginContentCreator(self, email, password):
+        contentCreator = ContentCreator()
+        contentCreatorFound = SqlServerContentCreatorManagement.GetContentCreatorByEmailPassword(self, email, password)
+        if (contentCreatorFound != None):
+            contentCreator.idConsumer = contentCreatorFound.IdConsumer
+            contentCreator.givenName = contentCreatorFound.name
+            contentCreator.lastName = contentCreatorFound.lastname
+            contentCreator.stageName = contentCreatorFound.stageName
+            contentCreator.password = contentCreatorFound.password
+            contentCreator.email = contentCreatorFound.email
+            contentCreator.description = contentCreatorFound.description
+            contentCreator.imageStoragePath = contentCreatorFound.imageStoragePath
+            
+            return contentCreator
+        else:
+            return None
+
     def AddContentCreator(self, newContentCreator):
         SqlServerContentCreatorManagement.AddContentCreator(self, newContentCreator)
