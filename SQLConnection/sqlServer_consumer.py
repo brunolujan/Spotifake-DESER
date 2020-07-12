@@ -69,5 +69,21 @@ class SqlServerConsumerManagement:
         print("Your password has been updated")
         self.connection.close()
         
-
-
+    def AddConsumer(self, newConsumer):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            INSERT INTO Consumer
+            (name
+           ,lastname
+           ,email
+           ,password
+           ,imageStoragePath)
+            VALUES
+           (?,?,?,?,?)
+        """
+        params = (newConsumer.givenName, newConsumer.lastName, newConsumer.email, newConsumer.password, newConsumer.imageStoragePath)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(newConsumer.givenName, newConsumer.lastName)

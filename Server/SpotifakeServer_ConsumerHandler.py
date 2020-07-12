@@ -37,3 +37,6 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
             return consumer
         else:
             return None
+
+    def AddConsumer(self, newConsumer):
+        SqlServerConsumerManagement.AddConsumer(self, newConsumer)
