@@ -25,7 +25,7 @@ if __name__ == "__main__":
     processor.registerProcessor("AlbumService", AlbumService.Processor(SpotifakeServerAlbumHandler()))
     processor.registerProcessor("PlaylistService", PlaylistService.Processor(SpotifakeServerPlaylistHandler()))
 
-    serverTransport = TSocket.TServerSocket(port=5000)
+    serverTransport = TSocket.TServerSocket(host="localhost", port=5000)
     server = TServer.TSimpleServer(processor, serverTransport)
 
     print("Starting service...")

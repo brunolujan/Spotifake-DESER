@@ -89,3 +89,25 @@ class SqlServerContentCreatorManagement:
         self.connection.save()
         print("Content Creator has been deleted")
         self.connection.close()
+
+    def AddContentCreator(self, newContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            INSERT INTO ContentCreator
+            (name
+           ,lastname
+           ,stageName
+           ,password
+           ,email
+           ,description
+           ,imageStoragePath)
+            VALUES
+           (?,?,?,?,?,?,?)
+        """
+        params = (newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName, 
+        newContentCreator.password, newContentCreator.email, newContentCreator.description, newContentCreator.imageStoragePath)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName)
