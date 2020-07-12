@@ -49,7 +49,7 @@ namespace Client
                 {
                     try
                     {
-                        Consumer ConsumerLog = await session.serverConnection.consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
+                        Consumer ConsumerLog = await Session.serverConnection.consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
                         if (ConsumerLog != null)
                         {
                             MainWindow mainWindow = new MainWindow(ConsumerLog);

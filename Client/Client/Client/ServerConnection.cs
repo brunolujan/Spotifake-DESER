@@ -11,8 +11,8 @@ namespace Client
 {
     class ServerConnection
     {
-        public static ConsumerService.Client consumerService;
-        public static ContentCreatorService.Client contentCreatorService;
+        public ConsumerService.Client consumerService;
+        public ContentCreatorService.Client contentCreatorService;
 
         public ServerConnection()
         {

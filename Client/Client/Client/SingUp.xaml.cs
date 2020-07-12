@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace Client
 {
-    /// <summary>
-    /// Lógica de interacción para SingUp.xaml
-    /// </summary>
+        
     public partial class SingUp : Window
     {
 
@@ -174,7 +172,7 @@ namespace Client
                 newConsumer.Email = textBox_Email.Text;
                 newConsumer.Password = passwordBox_Password.Password;
                 newConsumer.ImageStoragePath = null;
-                Session.serverConnection.AddConsumerAsync(newConsumer);
+                Session.serverConnection.consumerService.AddConsumerAsync(newConsumer);
                 return true;
             } catch (Exception ex)
             {
@@ -195,7 +193,7 @@ namespace Client
                 newContentCreator.Email = textBox_Email.Text;
                 newContentCreator.Description = null;
                 newContentCreator.ImageStoragePath = null;
-                Session.serverConnection.AddContentCreatorAsync(newContentCreator);
+                Session.serverConnection.contentCreatorService.AddContentCreatorAsync(newContentCreator);
                 return true;
             } catch (Exception ex)
             {
