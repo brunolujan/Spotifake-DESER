@@ -77,7 +77,6 @@ class SqlServerConsumerManagement:
 		            @salida nvarchar(1000)
 
             EXEC	@return_value = [dbo].[SPI_Consumer]
-                    @idConsumer = ?,
                     @name = ?,
                     @lastname = ?,
                     @email = ?,

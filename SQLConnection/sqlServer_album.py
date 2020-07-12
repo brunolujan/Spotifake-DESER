@@ -58,10 +58,9 @@ class SqlServerAlbumManagement:
         connection.open()
         sql = """
             DECLARE	@return_value int,
-		            @salida nvarchar(1000)
+                    @salida nvarchar(1000)
 
             EXEC	@return_value = [dbo].[SPI_Album]
-                    @idAlbum = ?,
                     @title = ?,
                     @type = ?,
                     @releaseDate = ?,
@@ -71,7 +70,7 @@ class SqlServerAlbumManagement:
                     @salida = @salida OUTPUT
 
             SELECT	@salida as N'@salida'
-        """
+                    """
         params = (newAlbum.idAlbum, newAlbum.title, newAlbum.isSingle, newAlbum.releaseDate, newAlbum.coverPath,
                     newAlbum.idContentCreator, newAlbum.gender)
         connection.cursor.execute(sql, params)

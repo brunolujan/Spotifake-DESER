@@ -110,11 +110,10 @@ class SqlServerContentCreatorManagement:
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
-           DECLARE	@return_value int,
-		            @salida nvarchar(1000)
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
 
             EXEC	@return_value = [dbo].[SPI_ContentCreator]
-                    @idContentCreator = ?,
                     @name = ?,
                     @lastname = ?,
                     @stageName = ?,
@@ -125,7 +124,8 @@ class SqlServerContentCreatorManagement:
                     @idGenre = ?,
                     @salida = @salida OUTPUT
 
-            SELECT	@salida as N'@salida'
+            SELECT	@salida as N'@salida 
+                    
         """
         params = (newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName, 
         newContentCreator.password, newContentCreator.email, newContentCreator.description, newContentCreator.imageStoragePath)
