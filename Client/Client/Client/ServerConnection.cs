@@ -32,7 +32,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex + " in Session class");
             }
         }
     }

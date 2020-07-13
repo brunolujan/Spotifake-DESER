@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Spotifake" Height="617.492" Width="780.594" ResizeMode="CanMinimize" Icon="Resources/LogoSpotifake.png" Background="#FF181818" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="button_Logout" Content="BACK" HorizontalAlignment="Left" Margin="10,511,0,0" VerticalAlignment="Top" Width="189" Click="button_Logout_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}">
+        <Button x:Name="button_Back" Content="BACK" HorizontalAlignment="Left" Margin="10,511,0,0" VerticalAlignment="Top" Width="189" Click="button_Back_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
                     <Setter Property="Control.Template">
@@ -145,7 +145,7 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_SignUp" Content="SIGN UP" Margin="294.4,511,0,0" VerticalAlignment="Top" Width="470" Click="button_SignUp_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}"/>
+        <Button x:Name="button_SignUp" Content="SIGN UP" Margin="272.4,511,0,0" VerticalAlignment="Top" Width="470" Click="button_SignUp_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}"/>
         <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="299,478,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>

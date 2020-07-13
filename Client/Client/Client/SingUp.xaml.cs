@@ -33,7 +33,7 @@ namespace Client
             button_SignUp.Visibility = Visibility.Hidden;
         }
 
-        private void button_Logout_Click(object sender, RoutedEventArgs e)
+        private void button_Back_Click(object sender, RoutedEventArgs e)
         {
             Login loginWindow = new Login();
             this.Close();
@@ -176,7 +176,7 @@ namespace Client
                 return true;
             } catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex + " in SingUp Send Consumer");
                 return false;
             }
 
@@ -188,7 +188,7 @@ namespace Client
             {
                 newContentCreator.GivenName = textBox_Name.Text;
                 newContentCreator.LastName = textBox_LastName.Text;
-                newContentCreator.StageName = textBlock_StageName.Text;
+                newContentCreator.StageName = textBox_StageName.Text;
                 newContentCreator.Password = passwordBox_Password.Password;
                 newContentCreator.Email = textBox_Email.Text;
                 newContentCreator.Description = null;
@@ -197,7 +197,7 @@ namespace Client
                 return true;
             } catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex + " in SingUp SendContentCreator");
                 return false;
             }
         }

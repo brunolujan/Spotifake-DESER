@@ -31,13 +31,26 @@ namespace Client
 
         private void button_Login_Click(object sender, RoutedEventArgs e)
         {
-            LoginConsumer();
+            if (comboBox_UserType.SelectedIndex == -1)
+            {
+                textBlock_Message.Text = "*Select user type";
+            } else
+            {
+                if (comboBox_UserType.SelectedIndex == 0)
+                {
+                    LoginConsumer();
+                }
+                else
+                {
+                    LoginContentCreator();
+                }
+            }
         }
 
         private void button_SignUp_Click(object sender, RoutedEventArgs e)
         {
             SingUp singUpWindow = new SingUp();
-            this.Hide();
+            this.Close();
             singUpWindow.Show();
         }
 
@@ -54,12 +67,12 @@ namespace Client
                         {
                             MainWindow mainWindow = new MainWindow(ConsumerLog);
                             mainWindow.Show();
-                            this.Hide();
+                            this.Close();
                         }
                     } catch (NullReferenceException ex)
                     {
                         textBlock_Message.Text = "*Service error, please close and try again";
-                        Console.WriteLine(ex);
+                        Console.WriteLine(ex + " in Login loginConsumer");
                     }
                 }
                 else
@@ -70,6 +83,41 @@ namespace Client
             catch (Exception ex)
             {
                 textBlock_Message.Text = "*Email or password is wrong";
+                Console.WriteLine(ex + " in Login LoginConsumer");
+            }
+        }
+
+        private async void LoginContentCreator()
+        {
+            try
+            {
+                if (textBox_Email.Text != "" && passwordBox_Password.Password != "")
+                {
+                    try
+                    {
+                        ContentCreator ContentCreatorLog = await Session.serverConnection.contentCreatorService.LoginContentCreatorAsync(textBox_Email.Text, passwordBox_Password.Password);
+                        if (ContentCreatorLog != null)
+                        {
+                            MainWindowContentCreator mainWindowCC = new MainWindowContentCreator(ContentCreatorLog);
+                            mainWindowCC.Show();
+                            this.Close();
+                        }
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        textBlock_Message.Text = "*Service error, please close and try again";
+                        Console.WriteLine(ex + " in Login LoginContentCreator");
+                    }
+                }
+                else
+                {
+                    textBlock_Message.Text = "*Complete all fields";
+                }
+            }
+            catch (Exception ex)
+            {
+                textBlock_Message.Text = "*Email or password is wrong";
+                Console.WriteLine(ex + " in Login LoginContentCreator");
             }
         }
     }

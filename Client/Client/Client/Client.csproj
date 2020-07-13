@@ -210,6 +210,9 @@
     <Compile Include="gen-netstd\SErrorUserException.cs" />
     <Compile Include="gen-netstd\Track.cs" />
     <Compile Include="gen-netstd\TrackService.cs" />
+    <Compile Include="MainWindowContentCreator.xaml.cs">
+      <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServerConnection.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SingUp.xaml.cs">
@@ -228,6 +231,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindowContentCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
