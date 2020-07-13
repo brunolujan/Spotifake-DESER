@@ -23,6 +23,9 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
     def GetConsumerByEmailPassword(self, email, password):
         connection.GetConsumerByEmailPassword(email, password)
 
+    def AddConsumer(self, newConsumer):
+        SqlServerConsumerManagement.AddConsumer(self, newConsumer)
+
     def LoginConsumer(self, email, password):
         consumer = Consumer()
         consumerFound = SqlServerConsumerManagement.GetConsumerByEmailPassword(self, email, password)
@@ -37,6 +40,3 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
             return consumer
         else:
             return None
-
-    def AddConsumer(self, newConsumer):
-        SqlServerConsumerManagement.AddConsumer(self, newConsumer)
