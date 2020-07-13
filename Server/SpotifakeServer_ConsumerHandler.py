@@ -40,3 +40,9 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
             return consumer
         else:
             return None
+
+    def GetConsumerByEmail(self, email):
+        if(SqlServerConsumerManagement.GetConsumerByEmail(self, email) != None):
+            return True
+        else:
+            return False

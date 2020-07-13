@@ -42,3 +42,15 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
             return contentCreator
         else:
             return None
+
+    def GetContentCreatorByEmail(self, email):
+        if(SqlServerContentCreatorManagement.GetContentCreatorByEmail(self, email) != None):
+            return True
+        else:
+            return False
+
+    def GetContentCreatorByStageName(self, stageName):
+        if(SqlServerContentCreatorManagement.GetContentCreatorByStageName(self, stageName) != None):
+            return True
+        else:
+            return False
