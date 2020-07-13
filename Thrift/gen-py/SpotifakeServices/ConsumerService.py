@@ -36,6 +36,23 @@ class Iface(object):
         """
         pass
 
+    def GetConsumerByEmail(self, email):
+        """
+        Get Consumer by email
+
+        @param email
+            The Consumer email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        pass
+
     def GetConsumerByEmailPassword(self, email, password):
         """
         Get Consumer by email and password
@@ -224,6 +241,53 @@ class Client(Iface):
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerById failed: unknown result")
+
+    def GetConsumerByEmail(self, email):
+        """
+        Get Consumer by email
+
+        @param email
+            The Consumer email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        self.send_GetConsumerByEmail(email)
+        return self.recv_GetConsumerByEmail()
+
+    def send_GetConsumerByEmail(self, email):
+        self._oprot.writeMessageBegin('GetConsumerByEmail', TMessageType.CALL, self._seqid)
+        args = GetConsumerByEmail_args()
+        args.email = email
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetConsumerByEmail(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetConsumerByEmail_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerByEmail failed: unknown result")
 
     def GetConsumerByEmailPassword(self, email, password):
         """
@@ -583,6 +647,7 @@ class Processor(Iface, TProcessor):
         self._handler = handler
         self._processMap = {}
         self._processMap["GetConsumerById"] = Processor.process_GetConsumerById
+        self._processMap["GetConsumerByEmail"] = Processor.process_GetConsumerByEmail
         self._processMap["GetConsumerByEmailPassword"] = Processor.process_GetConsumerByEmailPassword
         self._processMap["AddConsumer"] = Processor.process_AddConsumer
         self._processMap["DeleteConsumer"] = Processor.process_DeleteConsumer
@@ -640,6 +705,38 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetConsumerById", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetConsumerByEmail(self, seqid, iprot, oprot):
+        args = GetConsumerByEmail_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetConsumerByEmail_result()
+        try:
+            result.success = self._handler.GetConsumerByEmail(args.email)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetConsumerByEmail", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1028,6 +1125,168 @@ class GetConsumerById_result(object):
 all_structs.append(GetConsumerById_result)
 GetConsumerById_result.thrift_spec = (
     (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetConsumerByEmail_args(object):
+    """
+    Attributes:
+     - email
+
+    """
+
+
+    def __init__(self, email=None,):
+        self.email = email
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetConsumerByEmail_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetConsumerByEmail_args)
+GetConsumerByEmail_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+)
+
+
+class GetConsumerByEmail_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetConsumerByEmail_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetConsumerByEmail_result)
+GetConsumerByEmail_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3

@@ -15,6 +15,36 @@ class SqlServerContentCreatorManagement:
         print(row[0].name, row[0].email)
         self.connection.close()
 
+    def GetContentCreatorByEmail(self, email:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM ContentCreator WHERE email = ?
+        """
+        connection.cursor.execute(sql, email)
+        row = connection.cursor.fetchone()
+        if (row != None):
+            print(row.email)
+            return row.email
+            connection.close()
+        return None
+        connection.close()
+
+    def GetContentCreatorByStageName(self, stageName:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM ContentCreator WHERE stageName = ?
+        """
+        connection.cursor.execute(sql, stageName)
+        row = connection.cursor.fetchone()
+        if (row != None):
+            print(row.stageName)
+            return row.stageName
+            connection.close()
+        return None
+        connection.close()
+
     def GetContentCreatorByEmailPassword(self, email:str, password:str):
         connection: SQLConnection = SQLConnection()
         connection.open()
@@ -117,19 +147,18 @@ class SqlServerContentCreatorManagement:
                     @name = ?,
                     @lastname = ?,
                     @stageName = ?,
-                    @email = ?,
                     @password = ?,
+                    @email = ?,
                     @description = ?,
                     @imageStoragePath = ?,
-                    @idGenre = ?,
+                    @IdGenre = ?,
                     @salida = @salida OUTPUT
 
-            SELECT	@salida as N'@salida 
-                    
+            SELECT	@salida as N'@salida'         
         """
         params = (newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName, 
-        newContentCreator.password, newContentCreator.email, newContentCreator.description, newContentCreator.imageStoragePath)
+            newContentCreator.password, newContentCreator.email, newContentCreator.description, newContentCreator.imageStoragePath, None)
         connection.cursor.execute(sql, params)
         connection.save()
         connection.close()
-        print(newContentCreator.givenName, newContentCreator.lastName, newContentCreator.stageName)
+        print(newContentCreator.stageName, newContentCreator.password)

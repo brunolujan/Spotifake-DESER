@@ -16,6 +16,21 @@ class SqlServerConsumerManagement:
         print(row[0].name, row[0].email)
         self.connection.close()
 
+    def GetConsumerByEmail(self, email:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM Consumer WHERE email = ?
+        """
+        connection.cursor.execute(sql, email)
+        row = connection.cursor.fetchone()
+        if (row != None):
+            print(row.email)
+            return row.email
+            connection.close()
+        return None
+        connection.close()
+
     def GetConsumerByEmailPassword(self, email:str, password:str):
         connection: SQLConnection = SQLConnection()
         connection.open()
@@ -86,8 +101,8 @@ class SqlServerConsumerManagement:
         
             SELECT	@salida as N'@salida'
         """
-        params = (newConsumer.idConsumer, newConsumer.givenName, newConsumer.lastName, newConsumer.email, 
-                    newConsumer.password, newConsumer.imageStoragePath)
+        params = (newConsumer.givenName, newConsumer.lastName, newConsumer.email, 
+            newConsumer.password, newConsumer.imageStoragePath)
         connection.cursor.execute(sql, params)
         connection.save()
         connection.close()

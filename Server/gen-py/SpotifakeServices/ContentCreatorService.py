@@ -36,6 +36,40 @@ class Iface(object):
         """
         pass
 
+    def GetContentCreatorByEmail(self, email):
+        """
+        Get ContentCreator by email
+
+        @param email
+            The ContentCreator email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        pass
+
+    def GetContentCreatorByStageName(self, email):
+        """
+        Get ConstentCreator by email
+
+        @param email
+            The ContentCreator email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        pass
+
     def AddContentCreator(self, newContentCreator):
         """
         Register a Content Creator.
@@ -285,6 +319,100 @@ class Client(Iface):
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorById failed: unknown result")
+
+    def GetContentCreatorByEmail(self, email):
+        """
+        Get ContentCreator by email
+
+        @param email
+            The ContentCreator email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        self.send_GetContentCreatorByEmail(email)
+        return self.recv_GetContentCreatorByEmail()
+
+    def send_GetContentCreatorByEmail(self, email):
+        self._oprot.writeMessageBegin('GetContentCreatorByEmail', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByEmail_args()
+        args.email = email
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetContentCreatorByEmail(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetContentCreatorByEmail_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByEmail failed: unknown result")
+
+    def GetContentCreatorByStageName(self, email):
+        """
+        Get ConstentCreator by email
+
+        @param email
+            The ContentCreator email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        self.send_GetContentCreatorByStageName(email)
+        return self.recv_GetContentCreatorByStageName()
+
+    def send_GetContentCreatorByStageName(self, email):
+        self._oprot.writeMessageBegin('GetContentCreatorByStageName', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByStageName_args()
+        args.email = email
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetContentCreatorByStageName(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetContentCreatorByStageName_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByStageName failed: unknown result")
 
     def AddContentCreator(self, newContentCreator):
         """
@@ -798,6 +926,8 @@ class Processor(Iface, TProcessor):
         self._handler = handler
         self._processMap = {}
         self._processMap["GetContentCreatorById"] = Processor.process_GetContentCreatorById
+        self._processMap["GetContentCreatorByEmail"] = Processor.process_GetContentCreatorByEmail
+        self._processMap["GetContentCreatorByStageName"] = Processor.process_GetContentCreatorByStageName
         self._processMap["AddContentCreator"] = Processor.process_AddContentCreator
         self._processMap["DeleteContentCreator"] = Processor.process_DeleteContentCreator
         self._processMap["UpdateContentCreatorName"] = Processor.process_UpdateContentCreatorName
@@ -858,6 +988,70 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetContentCreatorById", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetContentCreatorByEmail(self, seqid, iprot, oprot):
+        args = GetContentCreatorByEmail_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetContentCreatorByEmail_result()
+        try:
+            result.success = self._handler.GetContentCreatorByEmail(args.email)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetContentCreatorByEmail", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetContentCreatorByStageName(self, seqid, iprot, oprot):
+        args = GetContentCreatorByStageName_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetContentCreatorByStageName_result()
+        try:
+            result.success = self._handler.GetContentCreatorByStageName(args.email)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetContentCreatorByStageName", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1339,6 +1533,330 @@ class GetContentCreatorById_result(object):
 all_structs.append(GetContentCreatorById_result)
 GetContentCreatorById_result.thrift_spec = (
     (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetContentCreatorByEmail_args(object):
+    """
+    Attributes:
+     - email
+
+    """
+
+
+    def __init__(self, email=None,):
+        self.email = email
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorByEmail_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorByEmail_args)
+GetContentCreatorByEmail_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+)
+
+
+class GetContentCreatorByEmail_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorByEmail_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorByEmail_result)
+GetContentCreatorByEmail_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetContentCreatorByStageName_args(object):
+    """
+    Attributes:
+     - email
+
+    """
+
+
+    def __init__(self, email=None,):
+        self.email = email
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorByStageName_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorByStageName_args)
+GetContentCreatorByStageName_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+)
+
+
+class GetContentCreatorByStageName_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorByStageName_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorByStageName_result)
+GetContentCreatorByStageName_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3

@@ -62,6 +62,21 @@ service ConsumerService {
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
+    /**
+    *   Get Consumer by email
+    *
+    *   @param email
+    *       The Consumer email to be obtained.
+    *
+    *   @return bool
+    *       bool object  
+    **/
+
+    bool GetConsumerByEmail(1: string email) 
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+
         /**
     *   Get Consumer by email and password
     *
@@ -185,6 +200,34 @@ service ContentCreatorService {
     **/
 
     SpotifakeManagement.ContentCreator GetContentCreatorById(1: SpotifakeManagement.Id idContentCreator)
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Get ContentCreator by email
+    *
+    *   @param email
+    *       The ContentCreator email to be obtained.
+    *
+    *   @return bool
+    *       bool object  
+    **/
+
+    bool GetContentCreatorByEmail(1: string email) 
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Get ConstentCreator by email
+    *
+    *   @param email
+    *       The ContentCreator email to be obtained.
+    *
+    *   @return bool
+    *       bool object  
+    **/
+
+    bool GetContentCreatorByStageName(1: string email) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
