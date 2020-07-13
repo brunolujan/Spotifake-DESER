@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -63,20 +65,10 @@ namespace Client
                 if (comboBox_UserType.SelectedIndex == 0)
                 {
                     if (ValidateBlankSpacesConsumer(textBox_Name.Text,textBox_LastName.Text, textBox_Email.Text, textBox_ConfirmEmail.Text, passwordBox_Password.Password))
-                    { 
+                    {
                         if (textBox_Email.Text == textBox_ConfirmEmail.Text)
                         {
-                            bool aux = SendConsumer();
-                            if (aux)
-                            {
-                                Login loginWindow = new Login();
-                                this.Close();
-                                loginWindow.Show();
-                            }
-                            else
-                            {
-                                textBlock_Message.Text = "*Service error, please close and try again";
-                            }
+                            ValidateConsumerEmail(textBox_Email.Text);
                         } else
                         {
                             textBlock_Message.Text = "*Email have to be the same";
@@ -91,17 +83,7 @@ namespace Client
                     {
                         if (textBox_Email.Text == textBox_ConfirmEmail.Text)
                         {
-                            bool aux = SendContentCreator();
-                            if (aux)
-                            {
-                                Login loginWindow = new Login();
-                                this.Close();
-                                loginWindow.Show();
-                            }
-                            else
-                            {
-                                textBlock_Message.Text = "*Service error, please close and try again";
-                            }
+                            ValidateContentCreatorEmail(textBox_Email.Text);
                         } else
                         {
                             textBlock_Message.Text = "*Email have to be the same";
@@ -163,7 +145,7 @@ namespace Client
             }
         }
 
-        private bool SendConsumer()
+        private void SendConsumer()
         {
             try
             {
@@ -173,16 +155,14 @@ namespace Client
                 newConsumer.Password = passwordBox_Password.Password;
                 newConsumer.ImageStoragePath = null;
                 Session.serverConnection.consumerService.AddConsumerAsync(newConsumer);
-                return true;
             } catch (Exception ex)
             {
                 Console.WriteLine(ex + " in SingUp Send Consumer");
-                return false;
             }
 
         }
 
-        private bool SendContentCreator()
+        private void SendContentCreator()
         {
             try
             {
@@ -194,11 +174,76 @@ namespace Client
                 newContentCreator.Description = null;
                 newContentCreator.ImageStoragePath = null;
                 Session.serverConnection.contentCreatorService.AddContentCreatorAsync(newContentCreator);
-                return true;
             } catch (Exception ex)
             {
                 Console.WriteLine(ex + " in SingUp SendContentCreator");
-                return false;
+            }
+        }
+
+        private async void ValidateConsumerEmail(string email)
+        {
+            try
+            {
+                bool consumerAux = await Session.serverConnection.consumerService.GetConsumerByEmailAsync(textBox_Email.Text);
+                if (consumerAux == true)
+                {
+                    textBlock_Message.Text = "*Email already exists in Spotifake";
+                }
+                else
+                {
+                    SendConsumer();
+                    Login loginWindow = new Login();
+                    this.Close();
+                    loginWindow.Show();
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex + " in SingUp ValidateConsumerEmail");
+                textBlock_Message.Text = "*Service error, please close and try again";
+            }
+        }
+
+        private async void ValidateContentCreatorEmail(string email)
+        {
+            try
+            {
+                bool consumerAux = await Session.serverConnection.contentCreatorService.GetContentCreatorByEmailAsync(textBox_Email.Text);
+                if (consumerAux == true)
+                {
+                    textBlock_Message.Text = "*Email already exists in Spotifake";
+                }
+                else
+                {
+                    ValidateContentCreatorStageName(textBox_StageName.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex + " in SingUp ValidateContentCreatorEmail");
+                textBlock_Message.Text = "*Service error, please close and try again";
+            }
+        }
+
+        private async void ValidateContentCreatorStageName(string stageName)
+        {
+            try
+            {
+                bool contentCreatorAux = await Session.serverConnection.contentCreatorService.GetContentCreatorByStageNameAsync(textBox_StageName.Text);
+                if (contentCreatorAux == true)
+                {
+                    textBlock_Message.Text = "*Stage name already exists in Spotifake";
+                }
+                else
+                {
+                    SendContentCreator();
+                    Login loginWindow = new Login();
+                    this.Close();
+                    loginWindow.Show();
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex + "in SingUn ValidateContentCreatorStageName");
+                textBlock_Message.Text = "*Server error, please close and try again";
             }
         }
     }
