@@ -48,5 +48,10 @@ namespace Client
         {
 
         }
+
+        private void button_Configuration_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -282,12 +282,14 @@
   <ItemGroup>
     <Resource Include="Resources\Button_Loop.png" />
     <Resource Include="Resources\Button_Next.png" />
-    <Resource Include="Resources\button_Play.png" />
     <Resource Include="Resources\Button_Pre.png" />
     <Resource Include="Resources\Button_Random.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Button_Configuration.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
