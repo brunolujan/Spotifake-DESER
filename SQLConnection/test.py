@@ -22,10 +22,12 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.AddConsumer(5,"Mariana", "Hernandez", "mariana@gmail","ana678","ppppp")
 
+#query.UpdateConsumerImage("mariana@gmail", "RutaImagen")
+
 
 
 #CONTENT CREATOR MANAGEMENT
-#query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
+query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
 
 #query.GetContentCreatorById(5)
 
@@ -44,6 +46,10 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 #query.DeleteLibraryContentCreator(1,1)
 
 #query.AddContentCreator()
+
+#query.UpdateContentCreatorImage("coldplay@gmail.com", "RutaImagen")
+
+#query.AddContentCreatorToLibrary(1,1)
 
 
 
@@ -84,4 +90,3 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 #query.UpdatePlaylistDescription(1,"Ya me canséeeee")
 
 #query.DeleteLibraryPlaylist(1,1)
-

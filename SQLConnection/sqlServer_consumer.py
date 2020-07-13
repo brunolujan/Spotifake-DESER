@@ -107,3 +107,18 @@ class SqlServerConsumerManagement:
         connection.save()
         connection.close()
         print(newConsumer.givenName, newConsumer.lastName)
+
+    def UpdateConsumerImage(self, email:str, newImageStoragePath:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            UPDATE Consumer
+            SET imageStoragePath = ?
+            Where email = ? 
+        """
+        params = (newImageStoragePath, email )
+
+        connection.cursor.execute(sql, params)
+        connection.save()
+        print("Your image has been updated")
+        connection.close()

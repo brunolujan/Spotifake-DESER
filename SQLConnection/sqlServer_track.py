@@ -65,6 +65,70 @@ class SqlServerTrackManagement:
         print("Track has been deleted")
         self.connection.close()
 
+    def AddTrackToAlbum(self, idAlbum:int, newTrack):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_Track]
+                    @durationSeconds = ?,
+                    @title = ?,
+                    @trackNumber = ?,
+                    @storagePath = ?,
+                    @idGenre = ?,
+                    @idAlbum = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        params = (newTrack.durationSeconds, newTrack.title, newTrack.trackNumber, newTrack.storagePath, newTrack.gender, idAlbum)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idAlbum, newTrack.title)
+
+    def AddTrackToLibrary(self, idLibrary:int, newTrack):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_LibraryTrack]
+                    @idLibrary = ?,
+                    @idTrack = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'   
+        """
+        params = (idLibrary, newTrack.idTrack)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idLibrary, newTrack.idTrack)
+
+    def AddTrackToPlaylist(self, idPlaylist:int, newTrack):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_TrackPlaylist]
+                    @idTrack = ?,
+                    @idPlaylist = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'   
+        """
+        params = (idPlaylist, newTrack.idTrack)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idPlaylist, newTrack.idTrack)
+
     
 
     

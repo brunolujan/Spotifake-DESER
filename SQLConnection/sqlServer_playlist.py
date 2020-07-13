@@ -46,6 +46,20 @@ class SqlServerPlaylistManagement:
         print("Playlist description has been updated")
         self.connection.close()
 
+    def UpdatePlaylistCover(self, idPlaylist:int, newImageStoragePath:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            UPDATE Playlist
+            SET coverPath = ?
+            Where idPlaylist = ? 
+        """
+        params = (newImageStoragePath, idPlaylist)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        print("Your image has been updated")
+        connection.close()
+
     
     def DeleteLibraryPlaylist(self, idLibrary:int, idPlaylist:int):
         self.connection.open()
@@ -57,3 +71,23 @@ class SqlServerPlaylistManagement:
         self.connection.save()
         print("Playlist has been deleted")
         self.connection.close()
+
+    def AddPlaylistToLibrary(self, idLibrary:int, newPlaylist):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_LibraryPlaylist]
+                    @idLibrary = ?,
+                    @idPlaylist = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'   
+        """
+        params = (idLibrary, newPlaylist.idPlaylist)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idLibrary, newPlaylist.idPlaylist)

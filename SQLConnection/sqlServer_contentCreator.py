@@ -125,6 +125,20 @@ class SqlServerContentCreatorManagement:
         print("ContentCreator description has been updated")
         self.connection.close()
 
+    def UpdateContentCreatorImage(self, email:str, newImageStoragePath:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            UPDATE ContentCreator
+            SET imageStoragePath = ?
+            Where email = ? 
+        """
+        params = (newImageStoragePath, email)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        print("Your image has been updated")
+        connection.close()
+
     def DeleteLibraryContentCreator(self, idLibrary:int, idContentCreator:int):
         self.connection.open()
         sql = """
@@ -162,3 +176,24 @@ class SqlServerContentCreatorManagement:
         connection.save()
         connection.close()
         print(newContentCreator.stageName, newContentCreator.password)
+
+    def AddContentCreatorToLibrary(self, idLibrary:int, newContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_LibraryContentCreator]
+                    @idLibrary = ?,
+                    @idContentCreator = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        params = (idLibrary, newContentCreator.idContentCreator)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idLibrary, newContentCreator.idContentCreator)
+

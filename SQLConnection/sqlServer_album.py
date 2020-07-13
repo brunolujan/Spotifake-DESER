@@ -42,16 +42,31 @@ class SqlServerAlbumManagement:
         print("Album title has been updated")
         self.connection.close()
 
+    def UpdateAlbumCover(self, idAlbum:int, newCoverStoragePath:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            UPDATE Album
+            SET coverPath = ?
+            Where idAlbum = ? 
+        """
+        params = (newCoverStoragePath, idAlbum)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        print("Your image has been updated")
+        connection.close()
+
     def DeleteLibraryAlbum(self, idLibrary:int, idAlbum:int):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DELETE FROM LibraryAlbum WHERE idLibrary = ? AND idAlbum = ?
         """
         params = (idLibrary, idAlbum)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
+        connection.cursor.execute(sql, params)
+        connection.save()
         print("Album has been deleted")
-        self.connection.close()
+        connection.close()
 
     def AddAlbum(self, newAlbum):
         connection: SQLConnection = SQLConnection()
@@ -77,5 +92,25 @@ class SqlServerAlbumManagement:
         connection.save()
         connection.close()
         print(newAlbum.title, newAlbum.releaseDate)
+
     
+    def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_LibraryAlbum]
+                    @idLibrary = ?,
+                    @idAlbum = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'   
+        """
+        params = (idLibrary, newTrack.idAlbum)
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
+        print(idLibrary, newAlbum.idAlbum)
 
