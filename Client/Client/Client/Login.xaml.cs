@@ -82,7 +82,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                textBlock_Message.Text = "*Email or password is wrong";
+                textBlock_Message.Text = "*Email or password are wrong";
                 Console.WriteLine(ex + " in Login LoginConsumer");
             }
         }
@@ -116,7 +116,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                textBlock_Message.Text = "*Email or password is wrong";
+                textBlock_Message.Text = "*Email or password are wrong";
                 Console.WriteLine(ex + " in Login LoginContentCreator");
             }
         }
