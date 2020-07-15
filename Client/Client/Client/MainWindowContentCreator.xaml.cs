@@ -28,17 +28,20 @@ namespace Client
         {
             thisContentCreator = contentCreator;
             InitializeComponent();
+            LoadContentCreatorImage("C:\\Users\\Bruno\\Documents\\BRUNO\\oregon-coast-3840x2400-sunset-beach-purple-sky-4k-17946.jpg");
             textBlock_StageName.Text = "Hi, " + thisContentCreator.StageName;
         }
 
         private void button_Albums_Click(object sender, RoutedEventArgs e)
         {
-
+            label_Title.Text = "MY ALBUMS";
+            button_Add.Content = "+ Add Album";
         }
 
         private void button_Singles_Click(object sender, RoutedEventArgs e)
         {
-
+            label_Title.Text = "MY SINGLES";
+            button_Add.Content = "+ Add Single";
         }
 
         private void button_Settings_Click(object sender, RoutedEventArgs e)
@@ -62,8 +65,8 @@ namespace Client
         {
             flyout.IsOpen = false;
         }
-
-        private void button_Search_Click(object sender, RoutedEventArgs e)
+        
+        private void LoadContentCreatorImage(string path)
         {
             Image imageX = new Image();
             BitmapImage src = new BitmapImage();
@@ -76,6 +79,15 @@ namespace Client
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = src;
             image.Fill = ib;
+        }
+        private void button_Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Add_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
