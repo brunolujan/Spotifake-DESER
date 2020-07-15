@@ -1,8 +1,9 @@
-﻿<Window x:Class="Client.SingUp"
+﻿<Controls:MetroWindow x:Class="Client.SingUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         Title="Spotifake" Height="617.492" Width="780.594" ResizeMode="CanMinimize" Icon="Resources/LogoSpotifake.png" Background="#FF181818" WindowStartupLocation="CenterScreen">
@@ -159,4 +160,4 @@
         <TextBox x:Name="textBox_StageName" HorizontalAlignment="Left" Height="30" Margin="424,434,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" AutomationProperties.AcceleratorKey="Enter your email"/>
 
     </Grid>
-</Window>
+</Controls:MetroWindow>

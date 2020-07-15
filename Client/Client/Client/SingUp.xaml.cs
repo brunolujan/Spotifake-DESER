@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 namespace Client
 {
         
-    public partial class SingUp : Window
+    public partial class SingUp
     {
 
         Consumer newConsumer = null;

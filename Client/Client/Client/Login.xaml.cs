@@ -22,7 +22,7 @@ using Thrift.Transport.Client;
 
 namespace Client
 {
-    public partial class Login : Window
+    public partial class Login
     {
         public Login()
         {

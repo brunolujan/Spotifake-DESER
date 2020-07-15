@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace Client
 {
 
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
 
         Consumer thisConsumer;
@@ -24,7 +24,7 @@ namespace Client
         {
             thisConsumer = consumer;
             InitializeComponent();
-            textBlock_NameUser.Text = thisConsumer.GivenName + " " + thisConsumer.LastName;
+            textBlock_NameUser.Text = "Hi, " + thisConsumer.GivenName;
         }
 
         private void button_Logout_Click(object sender, RoutedEventArgs e)
@@ -49,9 +49,19 @@ namespace Client
 
         }
 
+        private void button_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            flyout.IsOpen = true;
+        }
+
         private void button_Configuration_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void button_Back_Click(object sender, RoutedEventArgs e)
+        {
+            flyout.IsOpen = false;
         }
     }
 }
