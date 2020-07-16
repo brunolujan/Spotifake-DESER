@@ -29,10 +29,7 @@ public partial class Album : TBase
   private string _title;
   private string _coverPath;
   private Date _releaseDate;
-  private List<Track> _Tracks;
   private MusicGender _gender;
-  private string _interpreter;
-  private string _featuring;
   private bool _isSingle;
 
   public short IdAlbum { get; set; }
@@ -76,19 +73,6 @@ public partial class Album : TBase
     }
   }
 
-  public List<Track> Tracks
-  {
-    get
-    {
-      return _Tracks;
-    }
-    set
-    {
-      __isset.Tracks = true;
-      this._Tracks = value;
-    }
-  }
-
   /// <summary>
   /// 
   /// <seealso cref="MusicGender"/>
@@ -103,32 +87,6 @@ public partial class Album : TBase
     {
       __isset.gender = true;
       this._gender = value;
-    }
-  }
-
-  public string Interpreter
-  {
-    get
-    {
-      return _interpreter;
-    }
-    set
-    {
-      __isset.interpreter = true;
-      this._interpreter = value;
-    }
-  }
-
-  public string Featuring
-  {
-    get
-    {
-      return _featuring;
-    }
-    set
-    {
-      __isset.featuring = true;
-      this._featuring = value;
     }
   }
 
@@ -152,17 +110,12 @@ public partial class Album : TBase
     public bool title;
     public bool coverPath;
     public bool releaseDate;
-    public bool Tracks;
     public bool gender;
-    public bool interpreter;
-    public bool featuring;
     public bool isSingle;
   }
 
   public Album()
   {
-    this._Tracks = new List<Track>();
-    this.__isset.Tracks = true;
   }
 
   public Album(short idAlbum) : this()
@@ -231,27 +184,6 @@ public partial class Album : TBase
             }
             break;
           case 5:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list0 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list0.Count);
-                for(int _i1 = 0; _i1 < _list0.Count; ++_i1)
-                {
-                  Track _elem2;
-                  _elem2 = new Track();
-                  await _elem2.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem2);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 6:
             if (field.Type == TType.I32)
             {
               Gender = (MusicGender)await iprot.ReadI32Async(cancellationToken);
@@ -261,27 +193,7 @@ public partial class Album : TBase
               await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
             }
             break;
-          case 7:
-            if (field.Type == TType.String)
-            {
-              Interpreter = await iprot.ReadStringAsync(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 8:
-            if (field.Type == TType.String)
-            {
-              Featuring = await iprot.ReadStringAsync(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 9:
+          case 6:
             if (field.Type == TType.Bool)
             {
               IsSingle = await iprot.ReadBoolAsync(cancellationToken);
@@ -352,54 +264,20 @@ public partial class Album : TBase
         await ReleaseDate.WriteAsync(oprot, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (Tracks != null && __isset.Tracks)
-      {
-        field.Name = "Tracks";
-        field.Type = TType.List;
-        field.ID = 5;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter3 in Tracks)
-          {
-            await _iter3.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
       if (__isset.gender)
       {
         field.Name = "gender";
         field.Type = TType.I32;
-        field.ID = 6;
+        field.ID = 5;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         await oprot.WriteI32Async((int)Gender, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Interpreter != null && __isset.interpreter)
-      {
-        field.Name = "interpreter";
-        field.Type = TType.String;
-        field.ID = 7;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(Interpreter, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Featuring != null && __isset.featuring)
-      {
-        field.Name = "featuring";
-        field.Type = TType.String;
-        field.ID = 8;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(Featuring, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       if (__isset.isSingle)
       {
         field.Name = "isSingle";
         field.Type = TType.Bool;
-        field.ID = 9;
+        field.ID = 6;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         await oprot.WriteBoolAsync(IsSingle, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
@@ -422,10 +300,7 @@ public partial class Album : TBase
       && ((__isset.title == other.__isset.title) && ((!__isset.title) || (System.Object.Equals(Title, other.Title))))
       && ((__isset.coverPath == other.__isset.coverPath) && ((!__isset.coverPath) || (System.Object.Equals(CoverPath, other.CoverPath))))
       && ((__isset.releaseDate == other.__isset.releaseDate) && ((!__isset.releaseDate) || (System.Object.Equals(ReleaseDate, other.ReleaseDate))))
-      && ((__isset.Tracks == other.__isset.Tracks) && ((!__isset.Tracks) || (TCollections.Equals(Tracks, other.Tracks))))
       && ((__isset.gender == other.__isset.gender) && ((!__isset.gender) || (System.Object.Equals(Gender, other.Gender))))
-      && ((__isset.interpreter == other.__isset.interpreter) && ((!__isset.interpreter) || (System.Object.Equals(Interpreter, other.Interpreter))))
-      && ((__isset.featuring == other.__isset.featuring) && ((!__isset.featuring) || (System.Object.Equals(Featuring, other.Featuring))))
       && ((__isset.isSingle == other.__isset.isSingle) && ((!__isset.isSingle) || (System.Object.Equals(IsSingle, other.IsSingle))));
   }
 
@@ -439,14 +314,8 @@ public partial class Album : TBase
         hashcode = (hashcode * 397) + CoverPath.GetHashCode();
       if(__isset.releaseDate)
         hashcode = (hashcode * 397) + ReleaseDate.GetHashCode();
-      if(__isset.Tracks)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(Tracks);
       if(__isset.gender)
         hashcode = (hashcode * 397) + Gender.GetHashCode();
-      if(__isset.interpreter)
-        hashcode = (hashcode * 397) + Interpreter.GetHashCode();
-      if(__isset.featuring)
-        hashcode = (hashcode * 397) + Featuring.GetHashCode();
       if(__isset.isSingle)
         hashcode = (hashcode * 397) + IsSingle.GetHashCode();
     }
@@ -473,25 +342,10 @@ public partial class Album : TBase
       sb.Append(", ReleaseDate: ");
       sb.Append(ReleaseDate== null ? "<null>" : ReleaseDate.ToString());
     }
-    if (Tracks != null && __isset.Tracks)
-    {
-      sb.Append(", Tracks: ");
-      sb.Append(Tracks);
-    }
     if (__isset.gender)
     {
       sb.Append(", Gender: ");
       sb.Append(Gender);
-    }
-    if (Interpreter != null && __isset.interpreter)
-    {
-      sb.Append(", Interpreter: ");
-      sb.Append(Interpreter);
-    }
-    if (Featuring != null && __isset.featuring)
-    {
-      sb.Append(", Featuring: ");
-      sb.Append(Featuring);
     }
     if (__isset.isSingle)
     {

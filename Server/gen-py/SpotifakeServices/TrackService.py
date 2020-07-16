@@ -36,6 +36,23 @@ class Iface(object):
         """
         pass
 
+    def GetTrackByAlbumId(self, idAlbum):
+        """
+        Get Track by idAlbum
+
+        @param idAlbum
+            The Track Title to be obtained
+
+        @return Track
+            list<Track>
+
+
+        Parameters:
+         - idAlbum
+
+        """
+        pass
+
     def AddTrackToAlbum(self, idAlbum, newTrack):
         """
         Add a Track to an Album.
@@ -315,6 +332,51 @@ class Client(Iface):
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByTitle failed: unknown result")
+
+    def GetTrackByAlbumId(self, idAlbum):
+        """
+        Get Track by idAlbum
+
+        @param idAlbum
+            The Track Title to be obtained
+
+        @return Track
+            list<Track>
+
+
+        Parameters:
+         - idAlbum
+
+        """
+        self.send_GetTrackByAlbumId(idAlbum)
+        return self.recv_GetTrackByAlbumId()
+
+    def send_GetTrackByAlbumId(self, idAlbum):
+        self._oprot.writeMessageBegin('GetTrackByAlbumId', TMessageType.CALL, self._seqid)
+        args = GetTrackByAlbumId_args()
+        args.idAlbum = idAlbum
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetTrackByAlbumId(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetTrackByAlbumId_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByAlbumId failed: unknown result")
 
     def AddTrackToAlbum(self, idAlbum, newTrack):
         """
@@ -865,6 +927,7 @@ class Processor(Iface, TProcessor):
         self._handler = handler
         self._processMap = {}
         self._processMap["GetTrackByTitle"] = Processor.process_GetTrackByTitle
+        self._processMap["GetTrackByAlbumId"] = Processor.process_GetTrackByAlbumId
         self._processMap["AddTrackToAlbum"] = Processor.process_AddTrackToAlbum
         self._processMap["DeleteAlbumTrack"] = Processor.process_DeleteAlbumTrack
         self._processMap["UpdateAlbumTrackTitle"] = Processor.process_UpdateAlbumTrackTitle
@@ -923,6 +986,35 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetTrackByTitle", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetTrackByAlbumId(self, seqid, iprot, oprot):
+        args = GetTrackByAlbumId_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetTrackByAlbumId_result()
+        try:
+            result.success = self._handler.GetTrackByAlbumId(args.idAlbum)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetTrackByAlbumId", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1388,6 +1480,164 @@ class GetTrackByTitle_result(object):
 all_structs.append(GetTrackByTitle_result)
 GetTrackByTitle_result.thrift_spec = (
     (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+)
+
+
+class GetTrackByAlbumId_args(object):
+    """
+    Attributes:
+     - idAlbum
+
+    """
+
+
+    def __init__(self, idAlbum=None,):
+        self.idAlbum = idAlbum
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetTrackByAlbumId_args')
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
+            oprot.writeI16(self.idAlbum)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetTrackByAlbumId_args)
+GetTrackByAlbumId_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idAlbum', None, None, ),  # 1
+)
+
+
+class GetTrackByAlbumId_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype3, _size0) = iprot.readListBegin()
+                    for _i4 in range(_size0):
+                        _elem5 = SpotifakeManagement.ttypes.Track()
+                        _elem5.read(iprot)
+                        self.success.append(_elem5)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetTrackByAlbumId_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter6 in self.success:
+                iter6.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetTrackByAlbumId_result)
+GetTrackByAlbumId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Track, None], False), None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
@@ -3112,11 +3362,11 @@ class GenerateRadioStation_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype3, _size0) = iprot.readListBegin()
-                    for _i4 in range(_size0):
-                        _elem5 = SpotifakeManagement.ttypes.Track()
-                        _elem5.read(iprot)
-                        self.success.append(_elem5)
+                    (_etype10, _size7) = iprot.readListBegin()
+                    for _i11 in range(_size7):
+                        _elem12 = SpotifakeManagement.ttypes.Track()
+                        _elem12.read(iprot)
+                        self.success.append(_elem12)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3139,8 +3389,8 @@ class GenerateRadioStation_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter6 in self.success:
-                iter6.write(oprot)
+            for iter13 in self.success:
+                iter13.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:

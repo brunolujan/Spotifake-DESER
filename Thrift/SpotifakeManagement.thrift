@@ -100,8 +100,6 @@ struct Track {
     4: Path             storagePath
     5: string           title
     6: MusicGender      gender
-    7: ContentCreator      interpreter
-    8: optional string  featuring
 }
 
 
@@ -117,11 +115,8 @@ struct Album {
     2: string           title
     3: Path             coverPath
     4: Date             releaseDate
-    5: list<Track>      Tracks = []
-    6: MusicGender      gender
-    7: string           interpreter
-    8: optional string  featuring
-    9: IsSingle         isSingle
+    5: MusicGender      gender
+    6: IsSingle         isSingle
 }
 
 

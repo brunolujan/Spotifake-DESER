@@ -20,6 +20,42 @@ class SqlServerAlbumManagement:
         print(row)
         self.connection.close()
 
+    def GetAlbumsByContentCreatorId(self,idContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetAlbumsByContentCreatorId]
+                    @idContentCreator = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idContentCreator)
+        row = connection.cursor.fetchall()
+        print(row)
+        connection.close()
+
+    def GetSinglesByContentCreatorId(self,idContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetSinglesByContentCreatorId]
+                    @idContentCreator = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idContentCreator)
+        row = connection.cursor.fetchall()
+        print(row)
+        connection.close()
+
     def DeleteAlbum(self, idAlbum:int):
         self.connection.open()
         sql = """

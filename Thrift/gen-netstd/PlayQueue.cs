@@ -94,14 +94,14 @@ public partial class PlayQueue : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list8 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list8.Count);
-                for(int _i9 = 0; _i9 < _list8.Count; ++_i9)
+                TList _list4 = await iprot.ReadListBeginAsync(cancellationToken);
+                Tracks = new List<Track>(_list4.Count);
+                for(int _i5 = 0; _i5 < _list4.Count; ++_i5)
                 {
-                  Track _elem10;
-                  _elem10 = new Track();
-                  await _elem10.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem10);
+                  Track _elem6;
+                  _elem6 = new Track();
+                  await _elem6.ReadAsync(iprot, cancellationToken);
+                  Tracks.Add(_elem6);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -153,9 +153,9 @@ public partial class PlayQueue : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter11 in Tracks)
+          foreach (Track _iter7 in Tracks)
           {
-            await _iter11.WriteAsync(oprot, cancellationToken);
+            await _iter7.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }

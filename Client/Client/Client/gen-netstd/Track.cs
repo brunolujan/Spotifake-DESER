@@ -31,8 +31,6 @@ public partial class Track : TBase
   private string _storagePath;
   private string _title;
   private MusicGender _gender;
-  private ContentCreator _interpreter;
-  private string _featuring;
 
   public short IdTrack { get; set; }
 
@@ -105,32 +103,6 @@ public partial class Track : TBase
     }
   }
 
-  public ContentCreator Interpreter
-  {
-    get
-    {
-      return _interpreter;
-    }
-    set
-    {
-      __isset.interpreter = true;
-      this._interpreter = value;
-    }
-  }
-
-  public string Featuring
-  {
-    get
-    {
-      return _featuring;
-    }
-    set
-    {
-      __isset.featuring = true;
-      this._featuring = value;
-    }
-  }
-
 
   public Isset __isset;
   public struct Isset
@@ -140,8 +112,6 @@ public partial class Track : TBase
     public bool storagePath;
     public bool title;
     public bool gender;
-    public bool interpreter;
-    public bool featuring;
   }
 
   public Track()
@@ -232,27 +202,6 @@ public partial class Track : TBase
               await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
             }
             break;
-          case 7:
-            if (field.Type == TType.Struct)
-            {
-              Interpreter = new ContentCreator();
-              await Interpreter.ReadAsync(iprot, cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 8:
-            if (field.Type == TType.String)
-            {
-              Featuring = await iprot.ReadStringAsync(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
           default: 
             await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
             break;
@@ -332,24 +281,6 @@ public partial class Track : TBase
         await oprot.WriteI32Async((int)Gender, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (Interpreter != null && __isset.interpreter)
-      {
-        field.Name = "interpreter";
-        field.Type = TType.Struct;
-        field.ID = 7;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await Interpreter.WriteAsync(oprot, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Featuring != null && __isset.featuring)
-      {
-        field.Name = "featuring";
-        field.Type = TType.String;
-        field.ID = 8;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(Featuring, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
       await oprot.WriteFieldStopAsync(cancellationToken);
       await oprot.WriteStructEndAsync(cancellationToken);
     }
@@ -369,9 +300,7 @@ public partial class Track : TBase
       && ((__isset.duartionSeconds == other.__isset.duartionSeconds) && ((!__isset.duartionSeconds) || (System.Object.Equals(DuartionSeconds, other.DuartionSeconds))))
       && ((__isset.storagePath == other.__isset.storagePath) && ((!__isset.storagePath) || (System.Object.Equals(StoragePath, other.StoragePath))))
       && ((__isset.title == other.__isset.title) && ((!__isset.title) || (System.Object.Equals(Title, other.Title))))
-      && ((__isset.gender == other.__isset.gender) && ((!__isset.gender) || (System.Object.Equals(Gender, other.Gender))))
-      && ((__isset.interpreter == other.__isset.interpreter) && ((!__isset.interpreter) || (System.Object.Equals(Interpreter, other.Interpreter))))
-      && ((__isset.featuring == other.__isset.featuring) && ((!__isset.featuring) || (System.Object.Equals(Featuring, other.Featuring))));
+      && ((__isset.gender == other.__isset.gender) && ((!__isset.gender) || (System.Object.Equals(Gender, other.Gender))));
   }
 
   public override int GetHashCode() {
@@ -388,10 +317,6 @@ public partial class Track : TBase
         hashcode = (hashcode * 397) + Title.GetHashCode();
       if(__isset.gender)
         hashcode = (hashcode * 397) + Gender.GetHashCode();
-      if(__isset.interpreter)
-        hashcode = (hashcode * 397) + Interpreter.GetHashCode();
-      if(__isset.featuring)
-        hashcode = (hashcode * 397) + Featuring.GetHashCode();
     }
     return hashcode;
   }
@@ -425,16 +350,6 @@ public partial class Track : TBase
     {
       sb.Append(", Gender: ");
       sb.Append(Gender);
-    }
-    if (Interpreter != null && __isset.interpreter)
-    {
-      sb.Append(", Interpreter: ");
-      sb.Append(Interpreter== null ? "<null>" : Interpreter.ToString());
-    }
-    if (Featuring != null && __isset.featuring)
-    {
-      sb.Append(", Featuring: ");
-      sb.Append(Featuring);
     }
     sb.Append(")");
     return sb.ToString();

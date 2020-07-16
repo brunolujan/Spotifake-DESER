@@ -145,14 +145,14 @@ public partial class Library : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list12 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list12.Count);
-                for(int _i13 = 0; _i13 < _list12.Count; ++_i13)
+                TList _list8 = await iprot.ReadListBeginAsync(cancellationToken);
+                Tracks = new List<Track>(_list8.Count);
+                for(int _i9 = 0; _i9 < _list8.Count; ++_i9)
                 {
-                  Track _elem14;
-                  _elem14 = new Track();
-                  await _elem14.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem14);
+                  Track _elem10;
+                  _elem10 = new Track();
+                  await _elem10.ReadAsync(iprot, cancellationToken);
+                  Tracks.Add(_elem10);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -166,14 +166,14 @@ public partial class Library : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list15 = await iprot.ReadListBeginAsync(cancellationToken);
-                Albums = new List<Album>(_list15.Count);
-                for(int _i16 = 0; _i16 < _list15.Count; ++_i16)
+                TList _list11 = await iprot.ReadListBeginAsync(cancellationToken);
+                Albums = new List<Album>(_list11.Count);
+                for(int _i12 = 0; _i12 < _list11.Count; ++_i12)
                 {
-                  Album _elem17;
-                  _elem17 = new Album();
-                  await _elem17.ReadAsync(iprot, cancellationToken);
-                  Albums.Add(_elem17);
+                  Album _elem13;
+                  _elem13 = new Album();
+                  await _elem13.ReadAsync(iprot, cancellationToken);
+                  Albums.Add(_elem13);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -187,14 +187,14 @@ public partial class Library : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list18 = await iprot.ReadListBeginAsync(cancellationToken);
-                Playlists = new List<Playlist>(_list18.Count);
-                for(int _i19 = 0; _i19 < _list18.Count; ++_i19)
+                TList _list14 = await iprot.ReadListBeginAsync(cancellationToken);
+                Playlists = new List<Playlist>(_list14.Count);
+                for(int _i15 = 0; _i15 < _list14.Count; ++_i15)
                 {
-                  Playlist _elem20;
-                  _elem20 = new Playlist();
-                  await _elem20.ReadAsync(iprot, cancellationToken);
-                  Playlists.Add(_elem20);
+                  Playlist _elem16;
+                  _elem16 = new Playlist();
+                  await _elem16.ReadAsync(iprot, cancellationToken);
+                  Playlists.Add(_elem16);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -208,14 +208,14 @@ public partial class Library : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list21 = await iprot.ReadListBeginAsync(cancellationToken);
-                ContentCreators = new List<ContentCreator>(_list21.Count);
-                for(int _i22 = 0; _i22 < _list21.Count; ++_i22)
+                TList _list17 = await iprot.ReadListBeginAsync(cancellationToken);
+                ContentCreators = new List<ContentCreator>(_list17.Count);
+                for(int _i18 = 0; _i18 < _list17.Count; ++_i18)
                 {
-                  ContentCreator _elem23;
-                  _elem23 = new ContentCreator();
-                  await _elem23.ReadAsync(iprot, cancellationToken);
-                  ContentCreators.Add(_elem23);
+                  ContentCreator _elem19;
+                  _elem19 = new ContentCreator();
+                  await _elem19.ReadAsync(iprot, cancellationToken);
+                  ContentCreators.Add(_elem19);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -267,9 +267,9 @@ public partial class Library : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter24 in Tracks)
+          foreach (Track _iter20 in Tracks)
           {
-            await _iter24.WriteAsync(oprot, cancellationToken);
+            await _iter20.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }
@@ -283,9 +283,9 @@ public partial class Library : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, Albums.Count), cancellationToken);
-          foreach (Album _iter25 in Albums)
+          foreach (Album _iter21 in Albums)
           {
-            await _iter25.WriteAsync(oprot, cancellationToken);
+            await _iter21.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }
@@ -299,9 +299,9 @@ public partial class Library : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, Playlists.Count), cancellationToken);
-          foreach (Playlist _iter26 in Playlists)
+          foreach (Playlist _iter22 in Playlists)
           {
-            await _iter26.WriteAsync(oprot, cancellationToken);
+            await _iter22.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }
@@ -315,9 +315,9 @@ public partial class Library : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, ContentCreators.Count), cancellationToken);
-          foreach (ContentCreator _iter27 in ContentCreators)
+          foreach (ContentCreator _iter23 in ContentCreators)
           {
-            await _iter27.WriteAsync(oprot, cancellationToken);
+            await _iter23.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }

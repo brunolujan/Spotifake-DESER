@@ -483,21 +483,17 @@ class Track(object):
      - storagePath
      - title
      - gender
-     - interpreter
-     - featuring
 
     """
 
 
-    def __init__(self, idTrack=None, trackNumber=None, duartionSeconds=None, storagePath=None, title=None, gender=None, interpreter=None, featuring=None,):
+    def __init__(self, idTrack=None, trackNumber=None, duartionSeconds=None, storagePath=None, title=None, gender=None,):
         self.idTrack = idTrack
         self.trackNumber = trackNumber
         self.duartionSeconds = duartionSeconds
         self.storagePath = storagePath
         self.title = title
         self.gender = gender
-        self.interpreter = interpreter
-        self.featuring = featuring
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -538,17 +534,6 @@ class Track(object):
                     self.gender = iprot.readI32()
                 else:
                     iprot.skip(ftype)
-            elif fid == 7:
-                if ftype == TType.STRUCT:
-                    self.interpreter = ContentCreator()
-                    self.interpreter.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 8:
-                if ftype == TType.STRING:
-                    self.featuring = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -582,14 +567,6 @@ class Track(object):
         if self.gender is not None:
             oprot.writeFieldBegin('gender', TType.I32, 6)
             oprot.writeI32(self.gender)
-            oprot.writeFieldEnd()
-        if self.interpreter is not None:
-            oprot.writeFieldBegin('interpreter', TType.STRUCT, 7)
-            self.interpreter.write(oprot)
-            oprot.writeFieldEnd()
-        if self.featuring is not None:
-            oprot.writeFieldBegin('featuring', TType.STRING, 8)
-            oprot.writeString(self.featuring.encode('utf-8') if sys.version_info[0] == 2 else self.featuring)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -697,28 +674,18 @@ class Album(object):
      - title
      - coverPath
      - releaseDate
-     - Tracks
      - gender
-     - interpreter
-     - featuring
      - isSingle
 
     """
 
 
-    def __init__(self, idAlbum=None, title=None, coverPath=None, releaseDate=None, Tracks=[
-    ], gender=None, interpreter=None, featuring=None, isSingle=None,):
+    def __init__(self, idAlbum=None, title=None, coverPath=None, releaseDate=None, gender=None, isSingle=None,):
         self.idAlbum = idAlbum
         self.title = title
         self.coverPath = coverPath
         self.releaseDate = releaseDate
-        if Tracks is self.thrift_spec[5][4]:
-            Tracks = [
-            ]
-        self.Tracks = Tracks
         self.gender = gender
-        self.interpreter = interpreter
-        self.featuring = featuring
         self.isSingle = isSingle
 
     def read(self, iprot):
@@ -752,32 +719,11 @@ class Album(object):
                 else:
                     iprot.skip(ftype)
             elif fid == 5:
-                if ftype == TType.LIST:
-                    self.Tracks = []
-                    (_etype3, _size0) = iprot.readListBegin()
-                    for _i4 in range(_size0):
-                        _elem5 = Track()
-                        _elem5.read(iprot)
-                        self.Tracks.append(_elem5)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 6:
                 if ftype == TType.I32:
                     self.gender = iprot.readI32()
                 else:
                     iprot.skip(ftype)
-            elif fid == 7:
-                if ftype == TType.STRING:
-                    self.interpreter = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 8:
-                if ftype == TType.STRING:
-                    self.featuring = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 9:
+            elif fid == 6:
                 if ftype == TType.BOOL:
                     self.isSingle = iprot.readBool()
                 else:
@@ -808,27 +754,12 @@ class Album(object):
             oprot.writeFieldBegin('releaseDate', TType.STRUCT, 4)
             self.releaseDate.write(oprot)
             oprot.writeFieldEnd()
-        if self.Tracks is not None:
-            oprot.writeFieldBegin('Tracks', TType.LIST, 5)
-            oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter6 in self.Tracks:
-                iter6.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
         if self.gender is not None:
-            oprot.writeFieldBegin('gender', TType.I32, 6)
+            oprot.writeFieldBegin('gender', TType.I32, 5)
             oprot.writeI32(self.gender)
             oprot.writeFieldEnd()
-        if self.interpreter is not None:
-            oprot.writeFieldBegin('interpreter', TType.STRING, 7)
-            oprot.writeString(self.interpreter.encode('utf-8') if sys.version_info[0] == 2 else self.interpreter)
-            oprot.writeFieldEnd()
-        if self.featuring is not None:
-            oprot.writeFieldBegin('featuring', TType.STRING, 8)
-            oprot.writeString(self.featuring.encode('utf-8') if sys.version_info[0] == 2 else self.featuring)
-            oprot.writeFieldEnd()
         if self.isSingle is not None:
-            oprot.writeFieldBegin('isSingle', TType.BOOL, 9)
+            oprot.writeFieldBegin('isSingle', TType.BOOL, 6)
             oprot.writeBool(self.isSingle)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -909,11 +840,11 @@ class Playlist(object):
             elif fid == 5:
                 if ftype == TType.LIST:
                     self.Tracks = []
-                    (_etype10, _size7) = iprot.readListBegin()
-                    for _i11 in range(_size7):
-                        _elem12 = Track()
-                        _elem12.read(iprot)
-                        self.Tracks.append(_elem12)
+                    (_etype3, _size0) = iprot.readListBegin()
+                    for _i4 in range(_size0):
+                        _elem5 = Track()
+                        _elem5.read(iprot)
+                        self.Tracks.append(_elem5)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -951,8 +882,8 @@ class Playlist(object):
         if self.Tracks is not None:
             oprot.writeFieldBegin('Tracks', TType.LIST, 5)
             oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter13 in self.Tracks:
-                iter13.write(oprot)
+            for iter6 in self.Tracks:
+                iter6.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.coverPath is not None:
@@ -1013,11 +944,11 @@ class PlayQueue(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.Tracks = []
-                    (_etype17, _size14) = iprot.readListBegin()
-                    for _i18 in range(_size14):
-                        _elem19 = Track()
-                        _elem19.read(iprot)
-                        self.Tracks.append(_elem19)
+                    (_etype10, _size7) = iprot.readListBegin()
+                    for _i11 in range(_size7):
+                        _elem12 = Track()
+                        _elem12.read(iprot)
+                        self.Tracks.append(_elem12)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1038,8 +969,8 @@ class PlayQueue(object):
         if self.Tracks is not None:
             oprot.writeFieldBegin('Tracks', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter20 in self.Tracks:
-                iter20.write(oprot)
+            for iter13 in self.Tracks:
+                iter13.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1114,44 +1045,44 @@ class Library(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.Tracks = []
-                    (_etype24, _size21) = iprot.readListBegin()
-                    for _i25 in range(_size21):
-                        _elem26 = Track()
-                        _elem26.read(iprot)
-                        self.Tracks.append(_elem26)
+                    (_etype17, _size14) = iprot.readListBegin()
+                    for _i18 in range(_size14):
+                        _elem19 = Track()
+                        _elem19.read(iprot)
+                        self.Tracks.append(_elem19)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.Albums = []
-                    (_etype30, _size27) = iprot.readListBegin()
-                    for _i31 in range(_size27):
-                        _elem32 = Album()
-                        _elem32.read(iprot)
-                        self.Albums.append(_elem32)
+                    (_etype23, _size20) = iprot.readListBegin()
+                    for _i24 in range(_size20):
+                        _elem25 = Album()
+                        _elem25.read(iprot)
+                        self.Albums.append(_elem25)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.Playlists = []
-                    (_etype36, _size33) = iprot.readListBegin()
-                    for _i37 in range(_size33):
-                        _elem38 = Playlist()
-                        _elem38.read(iprot)
-                        self.Playlists.append(_elem38)
+                    (_etype29, _size26) = iprot.readListBegin()
+                    for _i30 in range(_size26):
+                        _elem31 = Playlist()
+                        _elem31.read(iprot)
+                        self.Playlists.append(_elem31)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 5:
                 if ftype == TType.LIST:
                     self.ContentCreators = []
-                    (_etype42, _size39) = iprot.readListBegin()
-                    for _i43 in range(_size39):
-                        _elem44 = ContentCreator()
-                        _elem44.read(iprot)
-                        self.ContentCreators.append(_elem44)
+                    (_etype35, _size32) = iprot.readListBegin()
+                    for _i36 in range(_size32):
+                        _elem37 = ContentCreator()
+                        _elem37.read(iprot)
+                        self.ContentCreators.append(_elem37)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1172,29 +1103,29 @@ class Library(object):
         if self.Tracks is not None:
             oprot.writeFieldBegin('Tracks', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter45 in self.Tracks:
-                iter45.write(oprot)
+            for iter38 in self.Tracks:
+                iter38.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.Albums is not None:
             oprot.writeFieldBegin('Albums', TType.LIST, 3)
             oprot.writeListBegin(TType.STRUCT, len(self.Albums))
-            for iter46 in self.Albums:
-                iter46.write(oprot)
+            for iter39 in self.Albums:
+                iter39.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.Playlists is not None:
             oprot.writeFieldBegin('Playlists', TType.LIST, 4)
             oprot.writeListBegin(TType.STRUCT, len(self.Playlists))
-            for iter47 in self.Playlists:
-                iter47.write(oprot)
+            for iter40 in self.Playlists:
+                iter40.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.ContentCreators is not None:
             oprot.writeFieldBegin('ContentCreators', TType.LIST, 5)
             oprot.writeListBegin(TType.STRUCT, len(self.ContentCreators))
-            for iter48 in self.ContentCreators:
-                iter48.write(oprot)
+            for iter41 in self.ContentCreators:
+                iter41.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1262,44 +1193,44 @@ class RelatedResult(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.Tracks = []
-                    (_etype52, _size49) = iprot.readListBegin()
-                    for _i53 in range(_size49):
-                        _elem54 = Track()
-                        _elem54.read(iprot)
-                        self.Tracks.append(_elem54)
+                    (_etype45, _size42) = iprot.readListBegin()
+                    for _i46 in range(_size42):
+                        _elem47 = Track()
+                        _elem47.read(iprot)
+                        self.Tracks.append(_elem47)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.Albums = []
-                    (_etype58, _size55) = iprot.readListBegin()
-                    for _i59 in range(_size55):
-                        _elem60 = Album()
-                        _elem60.read(iprot)
-                        self.Albums.append(_elem60)
+                    (_etype51, _size48) = iprot.readListBegin()
+                    for _i52 in range(_size48):
+                        _elem53 = Album()
+                        _elem53.read(iprot)
+                        self.Albums.append(_elem53)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.LIST:
                     self.Playlists = []
-                    (_etype64, _size61) = iprot.readListBegin()
-                    for _i65 in range(_size61):
-                        _elem66 = Playlist()
-                        _elem66.read(iprot)
-                        self.Playlists.append(_elem66)
+                    (_etype57, _size54) = iprot.readListBegin()
+                    for _i58 in range(_size54):
+                        _elem59 = Playlist()
+                        _elem59.read(iprot)
+                        self.Playlists.append(_elem59)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 4:
                 if ftype == TType.LIST:
                     self.ContentCreators = []
-                    (_etype70, _size67) = iprot.readListBegin()
-                    for _i71 in range(_size67):
-                        _elem72 = ContentCreator()
-                        _elem72.read(iprot)
-                        self.ContentCreators.append(_elem72)
+                    (_etype63, _size60) = iprot.readListBegin()
+                    for _i64 in range(_size60):
+                        _elem65 = ContentCreator()
+                        _elem65.read(iprot)
+                        self.ContentCreators.append(_elem65)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1316,29 +1247,29 @@ class RelatedResult(object):
         if self.Tracks is not None:
             oprot.writeFieldBegin('Tracks', TType.LIST, 1)
             oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter73 in self.Tracks:
-                iter73.write(oprot)
+            for iter66 in self.Tracks:
+                iter66.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.Albums is not None:
             oprot.writeFieldBegin('Albums', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.Albums))
-            for iter74 in self.Albums:
-                iter74.write(oprot)
+            for iter67 in self.Albums:
+                iter67.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.Playlists is not None:
             oprot.writeFieldBegin('Playlists', TType.LIST, 3)
             oprot.writeListBegin(TType.STRUCT, len(self.Playlists))
-            for iter75 in self.Playlists:
-                iter75.write(oprot)
+            for iter68 in self.Playlists:
+                iter68.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.ContentCreators is not None:
             oprot.writeFieldBegin('ContentCreators', TType.LIST, 4)
             oprot.writeListBegin(TType.STRUCT, len(self.ContentCreators))
-            for iter76 in self.ContentCreators:
-                iter76.write(oprot)
+            for iter69 in self.ContentCreators:
+                iter69.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1716,8 +1647,6 @@ Track.thrift_spec = (
     (4, TType.STRING, 'storagePath', 'UTF8', None, ),  # 4
     (5, TType.STRING, 'title', 'UTF8', None, ),  # 5
     (6, TType.I32, 'gender', None, None, ),  # 6
-    (7, TType.STRUCT, 'interpreter', [ContentCreator, None], None, ),  # 7
-    (8, TType.STRING, 'featuring', 'UTF8', None, ),  # 8
 )
 all_structs.append(Date)
 Date.thrift_spec = (
@@ -1733,12 +1662,8 @@ Album.thrift_spec = (
     (2, TType.STRING, 'title', 'UTF8', None, ),  # 2
     (3, TType.STRING, 'coverPath', 'UTF8', None, ),  # 3
     (4, TType.STRUCT, 'releaseDate', [Date, None], None, ),  # 4
-    (5, TType.LIST, 'Tracks', (TType.STRUCT, [Track, None], False), [
-    ], ),  # 5
-    (6, TType.I32, 'gender', None, None, ),  # 6
-    (7, TType.STRING, 'interpreter', 'UTF8', None, ),  # 7
-    (8, TType.STRING, 'featuring', 'UTF8', None, ),  # 8
-    (9, TType.BOOL, 'isSingle', None, None, ),  # 9
+    (5, TType.I32, 'gender', None, None, ),  # 5
+    (6, TType.BOOL, 'isSingle', None, None, ),  # 6
 )
 all_structs.append(Playlist)
 Playlist.thrift_spec = (

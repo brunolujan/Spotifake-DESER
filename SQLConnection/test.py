@@ -27,7 +27,7 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #CONTENT CREATOR MANAGEMENT
-query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
+#query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
 
 #query.GetContentCreatorById(5)
 
@@ -54,7 +54,9 @@ query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
 
 
 #ALBUM MANAGEMENT
-#query: SqlServerAlbumManagement = SqlServerAlbumManagement()
+query: SqlServerAlbumManagement = SqlServerAlbumManagement()
+
+query.GetAlbumsByContentCreatorId(11);
 
 #query.GetAlbumByTitle("Parachutes")
 

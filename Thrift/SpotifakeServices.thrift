@@ -405,6 +405,20 @@ service TrackService {
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
+    *   Get Track by idAlbum
+    *
+    *   @param idAlbum
+    *       The Track Title to be obtained
+    *
+    *   @return Track
+    *       list<Track>
+    **/
+
+    list<SpotifakeManagement.Track> GetTrackByAlbumId(1: SpotifakeManagement.Id idAlbum) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
     *   Add a Track to an Album.
     *
     *   @param idAlbum
@@ -602,6 +616,34 @@ service AlbumService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Get list of Track from Content creator by idContentCreator.
+    *
+    *   @param idContentCreator
+    *       The ContentCreator Id which a track will be added
+    *
+    *   @return list<Album>
+    *       Album found by idContenCreator
+    **/
+
+    list<SpotifakeManagement.Album> GetAlbumsByContentCreatorId(1: SpotifakeManagement.Id idContentCreator)
+    throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get list of Track from Content creator by idContentCreator.
+    *
+    *   @param idContentCreator
+    *       The ContentCreator Id which a track will be added
+    *
+    *   @return list<String>
+    *       Album found by idContenCreator
+    **/
+
+    list<SpotifakeManagement.Album> GetSinglesByContentCreatorId(1: SpotifakeManagement.Id idContentCreator)
+    throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
     * Register an Album.

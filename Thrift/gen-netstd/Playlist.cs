@@ -185,14 +185,14 @@ public partial class Playlist : TBase
             if (field.Type == TType.List)
             {
               {
-                TList _list4 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list4.Count);
-                for(int _i5 = 0; _i5 < _list4.Count; ++_i5)
+                TList _list0 = await iprot.ReadListBeginAsync(cancellationToken);
+                Tracks = new List<Track>(_list0.Count);
+                for(int _i1 = 0; _i1 < _list0.Count; ++_i1)
                 {
-                  Track _elem6;
-                  _elem6 = new Track();
-                  await _elem6.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem6);
+                  Track _elem2;
+                  _elem2 = new Track();
+                  await _elem2.ReadAsync(iprot, cancellationToken);
+                  Tracks.Add(_elem2);
                 }
                 await iprot.ReadListEndAsync(cancellationToken);
               }
@@ -281,9 +281,9 @@ public partial class Playlist : TBase
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         {
           await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter7 in Tracks)
+          foreach (Track _iter3 in Tracks)
           {
-            await _iter7.WriteAsync(oprot, cancellationToken);
+            await _iter3.WriteAsync(oprot, cancellationToken);
           }
           await oprot.WriteListEndAsync(cancellationToken);
         }

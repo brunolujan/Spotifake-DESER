@@ -36,6 +36,40 @@ class Iface(object):
         """
         pass
 
+    def GetAlbumsByContentCreatorId(self, idContentCreator):
+        """
+        Get list of Track from Content creator by idContentCreator.
+
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
+
+        @return list<Album>
+            Album found by idContenCreator
+
+
+        Parameters:
+         - idContentCreator
+
+        """
+        pass
+
+    def GetSinglesByContentCreatorId(self, idContentCreator):
+        """
+        Get list of Track from Content creator by idContentCreator.
+
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
+
+        @return list<String>
+            Album found by idContenCreator
+
+
+        Parameters:
+         - idContentCreator
+
+        """
+        pass
+
     def AddAlbum(self, newAlbum):
         """
         Register an Album.
@@ -202,6 +236,96 @@ class Client(Iface):
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumByTitle failed: unknown result")
+
+    def GetAlbumsByContentCreatorId(self, idContentCreator):
+        """
+        Get list of Track from Content creator by idContentCreator.
+
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
+
+        @return list<Album>
+            Album found by idContenCreator
+
+
+        Parameters:
+         - idContentCreator
+
+        """
+        self.send_GetAlbumsByContentCreatorId(idContentCreator)
+        return self.recv_GetAlbumsByContentCreatorId()
+
+    def send_GetAlbumsByContentCreatorId(self, idContentCreator):
+        self._oprot.writeMessageBegin('GetAlbumsByContentCreatorId', TMessageType.CALL, self._seqid)
+        args = GetAlbumsByContentCreatorId_args()
+        args.idContentCreator = idContentCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetAlbumsByContentCreatorId(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetAlbumsByContentCreatorId_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumsByContentCreatorId failed: unknown result")
+
+    def GetSinglesByContentCreatorId(self, idContentCreator):
+        """
+        Get list of Track from Content creator by idContentCreator.
+
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
+
+        @return list<String>
+            Album found by idContenCreator
+
+
+        Parameters:
+         - idContentCreator
+
+        """
+        self.send_GetSinglesByContentCreatorId(idContentCreator)
+        return self.recv_GetSinglesByContentCreatorId()
+
+    def send_GetSinglesByContentCreatorId(self, idContentCreator):
+        self._oprot.writeMessageBegin('GetSinglesByContentCreatorId', TMessageType.CALL, self._seqid)
+        args = GetSinglesByContentCreatorId_args()
+        args.idContentCreator = idContentCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetSinglesByContentCreatorId(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetSinglesByContentCreatorId_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetSinglesByContentCreatorId failed: unknown result")
 
     def AddAlbum(self, newAlbum):
         """
@@ -495,6 +619,8 @@ class Processor(Iface, TProcessor):
         self._handler = handler
         self._processMap = {}
         self._processMap["GetAlbumByTitle"] = Processor.process_GetAlbumByTitle
+        self._processMap["GetAlbumsByContentCreatorId"] = Processor.process_GetAlbumsByContentCreatorId
+        self._processMap["GetSinglesByContentCreatorId"] = Processor.process_GetSinglesByContentCreatorId
         self._processMap["AddAlbum"] = Processor.process_AddAlbum
         self._processMap["DeleteAlbum"] = Processor.process_DeleteAlbum
         self._processMap["UpdateAlbumTitle"] = Processor.process_UpdateAlbumTitle
@@ -551,6 +677,64 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetAlbumByTitle", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetAlbumsByContentCreatorId(self, seqid, iprot, oprot):
+        args = GetAlbumsByContentCreatorId_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetAlbumsByContentCreatorId_result()
+        try:
+            result.success = self._handler.GetAlbumsByContentCreatorId(args.idContentCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetAlbumsByContentCreatorId", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetSinglesByContentCreatorId(self, seqid, iprot, oprot):
+        args = GetSinglesByContentCreatorId_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetSinglesByContentCreatorId_result()
+        try:
+            result.success = self._handler.GetSinglesByContentCreatorId(args.idContentCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetSinglesByContentCreatorId", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -895,6 +1079,322 @@ GetAlbumByTitle_result.thrift_spec = (
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetAlbumsByContentCreatorId_args(object):
+    """
+    Attributes:
+     - idContentCreator
+
+    """
+
+
+    def __init__(self, idContentCreator=None,):
+        self.idContentCreator = idContentCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetAlbumsByContentCreatorId_args')
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 1)
+            oprot.writeI16(self.idContentCreator)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetAlbumsByContentCreatorId_args)
+GetAlbumsByContentCreatorId_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idContentCreator', None, None, ),  # 1
+)
+
+
+class GetAlbumsByContentCreatorId_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype17, _size14) = iprot.readListBegin()
+                    for _i18 in range(_size14):
+                        _elem19 = SpotifakeManagement.ttypes.Album()
+                        _elem19.read(iprot)
+                        self.success.append(_elem19)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetAlbumsByContentCreatorId_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter20 in self.success:
+                iter20.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetAlbumsByContentCreatorId_result)
+GetAlbumsByContentCreatorId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+)
+
+
+class GetSinglesByContentCreatorId_args(object):
+    """
+    Attributes:
+     - idContentCreator
+
+    """
+
+
+    def __init__(self, idContentCreator=None,):
+        self.idContentCreator = idContentCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetSinglesByContentCreatorId_args')
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 1)
+            oprot.writeI16(self.idContentCreator)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetSinglesByContentCreatorId_args)
+GetSinglesByContentCreatorId_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idContentCreator', None, None, ),  # 1
+)
+
+
+class GetSinglesByContentCreatorId_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype24, _size21) = iprot.readListBegin()
+                    for _i25 in range(_size21):
+                        _elem26 = SpotifakeManagement.ttypes.Album()
+                        _elem26.read(iprot)
+                        self.success.append(_elem26)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetSinglesByContentCreatorId_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter27 in self.success:
+                iter27.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetSinglesByContentCreatorId_result)
+GetSinglesByContentCreatorId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 
 
