@@ -13,6 +13,7 @@ namespace Client
     {
         public ConsumerService.Client consumerService;
         public ContentCreatorService.Client contentCreatorService;
+        public AlbumService.Client albumService;
 
         public ServerConnection()
         {
@@ -28,6 +29,9 @@ namespace Client
 
                 TMultiplexedProtocol multiplexedProtocolContentCreator = new TMultiplexedProtocol(protocol, "ContentCreatorService");
                 contentCreatorService = new ContentCreatorService.Client(multiplexedProtocolContentCreator);
+
+                TMultiplexedProtocol multiplexeProtocolAlbum = new TMultiplexedProtocol(protocol, "AlbumService");
+                albumService = new AlbumService.Client(multiplexeProtocolAlbum);
 
             }
             catch (Exception ex)

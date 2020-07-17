@@ -9,6 +9,5 @@ namespace Client
     class Session
     {
         public static ServerConnection serverConnection = new ServerConnection();
-
     }
 }
