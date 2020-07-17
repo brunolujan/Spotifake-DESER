@@ -99,7 +99,7 @@ namespace Client
                         ContentCreator ContentCreatorLog = await Session.serverConnection.contentCreatorService.LoginContentCreatorAsync(textBox_Email.Text, passwordBox_Password.Password);
                         if (ContentCreatorLog != null)
                         {
-                            MainWindowContentCreator mainWindowCC = new MainWindowContentCreator(ContentCreatorLog);
+                            MainWindowContentCreator mainWindowCC = new MainWindowContentCreator(ContentCreatorLog, 0);
                             mainWindowCC.Show();
                             this.Close();
                         }

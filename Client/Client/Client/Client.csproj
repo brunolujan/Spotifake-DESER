@@ -266,6 +266,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAlbum.xaml.cs">
+      <DependentUpon>AddAlbum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="gen-netstd\Album.cs" />
     <Compile Include="gen-netstd\AlbumService.cs" />
     <Compile Include="gen-netstd\Consumer.cs" />
@@ -296,6 +299,10 @@
     <Compile Include="SingUp.xaml.cs">
       <DependentUpon>SingUp.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddAlbum.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -389,6 +396,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Button_Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DefaultAlbumCover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Adobe_20200703_142326.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
