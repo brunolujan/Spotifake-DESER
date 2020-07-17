@@ -312,7 +312,7 @@
                 </TransformGroup>
             </TextBlock.RenderTransform><Run Text="NEW"/><Run Text=" "/><Run Text="ALBUM"/></TextBlock>
         <TextBox x:Name="textBox_AlbumTitle" HorizontalAlignment="Left" Height="59" Margin="629,137.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="273" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" Controls:TextBoxHelper.Watermark="Put your email" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" Controls:TextBoxHelper.HasText="True" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="631,84.8,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" Margin="631,86.8,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -332,14 +332,14 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <ComboBox x:Name="comboBox_Featuring" HorizontalAlignment="Left" Margin="629,270.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1">
+        <ComboBox x:Name="comboBox_Featuring" HorizontalAlignment="Left" Margin="629,268.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1">
         </ComboBox>
         <Rectangle x:Name="image_albumCover" HorizontalAlignment="Left" Height="245" Margin="348,84.8,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="245">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Resources/DefaultAlbumCover.png" Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBlock HorizontalAlignment="Left" Margin="634,303.8,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" Margin="632,325.8,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -410,7 +410,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="button_AddAlbum" Content="ADD ALBUM" Margin="348,469.1,0,0" VerticalAlignment="Top" Width="971" Click="button_AddAlbum_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1"/>
+        <Button x:Name="button_AddAlbum" Content="ADD ALBUM" Margin="348,469.1,0,0" VerticalAlignment="Top" Width="554" Click="button_AddAlbum_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1"/>
         <TextBlock x:Name="label_TrackMessage" HorizontalAlignment="Left" Margin="1013,25.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF707070" Width="149" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="TRACK LIST" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -420,9 +420,9 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBlock.RenderTransform></TextBlock>
-        <Rectangle Fill="#FF4B4B4B" HorizontalAlignment="Left" Height="442" Margin="968,41,0,0" VerticalAlignment="Top" Width="3" Grid.RowSpan="2"/>
-        <TextBox x:Name="textBox_TrackTitle" HorizontalAlignment="Left" Height="59" Margin="1046,137.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="273" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" Controls:TextBoxHelper.Watermark="Put your email" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" Controls:TextBoxHelper.HasText="True" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="1048,84.8,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold" Grid.Row="1">
+        <Rectangle Fill="#FF4B4B4B" HorizontalAlignment="Left" Height="570" Margin="968,41,0,0" VerticalAlignment="Top" Width="3" Grid.RowSpan="2"/>
+        <TextBox x:Name="textBox_SingleTrackTitle" HorizontalAlignment="Left" Height="59" Margin="1046,137.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="273" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" Controls:TextBoxHelper.Watermark="Put your email" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" Controls:TextBoxHelper.HasText="True" Grid.Row="1" Visibility="Hidden"/>
+        <TextBlock x:Name="label_SingleTitle" HorizontalAlignment="Left" Margin="1048,84.8,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="46" FontFamily="Gotham Bold" Grid.Row="1" Visibility="Hidden">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -432,7 +432,7 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_SelectTrackFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="1046,357.8,0,0" VerticalAlignment="Top" Width="273" Click="button_SelectTrackFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
+        <Button x:Name="button_SingleSelectTrackFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="1046,468.8,0,0" VerticalAlignment="Top" Width="273" Click="button_SingleSelectTrackFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
                     <Setter Property="Control.Template">
@@ -491,7 +491,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="1051,216.8,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
+        <TextBlock x:Name="label_SingleGender" HorizontalAlignment="Left" Margin="1051,321.8,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -501,6 +501,18 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <ComboBox x:Name="comboBox_TrackGender" HorizontalAlignment="Left" Margin="1046,270.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1"/>
+        <ComboBox x:Name="comboBox_SingleTrackGender" HorizontalAlignment="Left" Margin="1046,375.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1051,216.8,0,0" TextWrapping="Wrap" Text="Featuring" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.022"/>
+                    <TranslateTransform X="-0.481" Y="0.002"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <ComboBox x:Name="comboBox_SingleFeaturing" HorizontalAlignment="Left" Margin="1046,268.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1"/>
+        <TextBlock x:Name="label_Message" HorizontalAlignment="Left" Margin="391,441.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="467" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
     </Grid>
 </Controls:MetroWindow>

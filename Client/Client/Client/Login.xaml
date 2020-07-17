@@ -91,16 +91,7 @@
             </Button.Resources>
         </Button>
         <Image HorizontalAlignment="Left" Height="136" Margin="66,10,0,0" VerticalAlignment="Top" Width="639" Source="Resources/SPOTIFAKE.png"/>
-        <TextBlock HorizontalAlignment="Left" Margin="243,486,0,0" TextWrapping="Wrap" Text="You do not have an account?" VerticalAlignment="Top" Foreground="White" Width="307" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.496"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>
-        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="243,490,0,0" TextWrapping="Wrap" Text="You do not have an account?" VerticalAlignment="Top" Foreground="White" Width="307" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold"/>
         <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="153,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
