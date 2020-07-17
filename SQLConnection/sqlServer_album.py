@@ -122,12 +122,12 @@ class SqlServerAlbumManagement:
 
             SELECT	@salida as N'@salida'
                     """
-        params = (newAlbum.idAlbum, newAlbum.title, newAlbum.isSingle, newAlbum.releaseDate, newAlbum.coverPath,
+        params = (newAlbum.title, newAlbum.isSingle, newAlbum.releaseDate, newAlbum.coverPath,
                     newAlbum.idContentCreator, newAlbum.gender)
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
         print(newAlbum.title, newAlbum.releaseDate)
+        return newAlbum
 
     
     def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
