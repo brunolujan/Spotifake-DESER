@@ -30,6 +30,17 @@ class SqlServerContentCreatorManagement:
         return None
         connection.close()
 
+    def GetContentCreators(self):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM ContentCreator
+        """
+        connection.cursor.execute(sql)
+        row = connection.cursor.fetchall()
+        print (row)
+        return row
+
     def GetContentCreatorByStageName(self, stageName:str):
         connection: SQLConnection = SQLConnection()
         connection.open()

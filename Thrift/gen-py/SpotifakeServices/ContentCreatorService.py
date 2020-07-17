@@ -19,6 +19,17 @@ all_structs = []
 
 
 class Iface(object):
+    def GetContentCreators(self):
+        """
+        Get ContentCreator
+
+        @return list<ContentCreator>
+            ContentCreator list
+
+
+        """
+        pass
+
     def GetContentCreatorById(self, idContentCreator):
         """
         Get ContentCreator by Id
@@ -272,6 +283,46 @@ class Client(Iface):
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
+
+    def GetContentCreators(self):
+        """
+        Get ContentCreator
+
+        @return list<ContentCreator>
+            ContentCreator list
+
+
+        """
+        self.send_GetContentCreators()
+        return self.recv_GetContentCreators()
+
+    def send_GetContentCreators(self):
+        self._oprot.writeMessageBegin('GetContentCreators', TMessageType.CALL, self._seqid)
+        args = GetContentCreators_args()
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_GetContentCreators(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = GetContentCreators_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreators failed: unknown result")
 
     def GetContentCreatorById(self, idContentCreator):
         """
@@ -925,6 +976,7 @@ class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
+        self._processMap["GetContentCreators"] = Processor.process_GetContentCreators
         self._processMap["GetContentCreatorById"] = Processor.process_GetContentCreatorById
         self._processMap["GetContentCreatorByEmail"] = Processor.process_GetContentCreatorByEmail
         self._processMap["GetContentCreatorByStageName"] = Processor.process_GetContentCreatorByStageName
@@ -959,6 +1011,38 @@ class Processor(Iface, TProcessor):
         else:
             self._processMap[name](self, seqid, iprot, oprot)
         return True
+
+    def process_GetContentCreators(self, seqid, iprot, oprot):
+        args = GetContentCreators_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetContentCreators_result()
+        try:
+            result.success = self._handler.GetContentCreators()
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetContentCreators", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
 
     def process_GetContentCreatorById(self, seqid, iprot, oprot):
         args = GetContentCreatorById_args()
@@ -1374,6 +1458,158 @@ class Processor(Iface, TProcessor):
         oprot.trans.flush()
 
 # HELPER FUNCTIONS AND STRUCTURES
+
+
+class GetContentCreators_args(object):
+
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreators_args')
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreators_args)
+GetContentCreators_args.thrift_spec = (
+)
+
+
+class GetContentCreators_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype3, _size0) = iprot.readListBegin()
+                    for _i4 in range(_size0):
+                        _elem5 = SpotifakeManagement.ttypes.ContentCreator()
+                        _elem5.read(iprot)
+                        self.success.append(_elem5)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreators_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter6 in self.success:
+                iter6.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreators_result)
+GetContentCreators_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.ContentCreator, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
 
 
 class GetContentCreatorById_args(object):

@@ -24,6 +24,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Usage: ' + sys.argv[0] + ' [-h host[:port]] [-u url] [-f[ramed]] [-s[sl]] [-novalidate] [-ca_certs certs] [-keyfile keyfile] [-certfile certfile] function [arg1 [arg2...]]')
     print('')
     print('Functions:')
+    print('   GetContentCreators()')
     print('  ContentCreator GetContentCreatorById(Id idContentCreator)')
     print('  bool GetContentCreatorByEmail(string email)')
     print('  bool GetContentCreatorByStageName(string email)')
@@ -116,7 +117,13 @@ protocol = TBinaryProtocol(transport)
 client = ContentCreatorService.Client(protocol)
 transport.open()
 
-if cmd == 'GetContentCreatorById':
+if cmd == 'GetContentCreators':
+    if len(args) != 0:
+        print('GetContentCreators requires 0 args')
+        sys.exit(1)
+    pp.pprint(client.GetContentCreators())
+
+elif cmd == 'GetContentCreatorById':
     if len(args) != 1:
         print('GetContentCreatorById requires 1 args')
         sys.exit(1)

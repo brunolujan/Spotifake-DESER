@@ -22,11 +22,11 @@ class MusicGender(object):
     Bachata = 3
     Balada = 4
     Blues = 5
-    Clasica = 6
+    Classic = 6
     Corrido = 7
     Country = 8
     Cumbia = 9
-    Electronica = 10
+    Electronic = 10
     Flamenco = 11
     Reggaeton = 12
     Punk = 13
@@ -54,11 +54,11 @@ class MusicGender(object):
         3: "Bachata",
         4: "Balada",
         5: "Blues",
-        6: "Clasica",
+        6: "Classic",
         7: "Corrido",
         8: "Country",
         9: "Cumbia",
-        10: "Electronica",
+        10: "Electronic",
         11: "Flamenco",
         12: "Reggaeton",
         13: "Punk",
@@ -87,11 +87,11 @@ class MusicGender(object):
         "Bachata": 3,
         "Balada": 4,
         "Blues": 5,
-        "Clasica": 6,
+        "Classic": 6,
         "Corrido": 7,
         "Country": 8,
         "Cumbia": 9,
-        "Electronica": 10,
+        "Electronic": 10,
         "Flamenco": 11,
         "Reggaeton": 12,
         "Punk": 13,

@@ -19,6 +19,7 @@ class SqlServerAlbumManagement:
         self.connection.save()
         print(row)
         self.connection.close()
+        return row
 
     def GetAlbumsByContentCreatorId(self,idContentCreator):
         connection: SQLConnection = SQLConnection()
@@ -35,8 +36,7 @@ class SqlServerAlbumManagement:
         """
         connection.cursor.execute(sql, idContentCreator)
         row = connection.cursor.fetchall()
-        print(row)
-        connection.close()
+        return row
 
     def GetSinglesByContentCreatorId(self,idContentCreator):
         connection: SQLConnection = SQLConnection()
@@ -53,7 +53,7 @@ class SqlServerAlbumManagement:
         """
         connection.cursor.execute(sql, idContentCreator)
         row = connection.cursor.fetchall()
-        print(row)
+        return row
         connection.close()
 
     def DeleteAlbum(self, idAlbum:int):
@@ -149,4 +149,3 @@ class SqlServerAlbumManagement:
         connection.save()
         connection.close()
         print(idLibrary, newAlbum.idAlbum)
-

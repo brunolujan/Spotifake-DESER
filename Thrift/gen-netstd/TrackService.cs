@@ -1873,14 +1873,14 @@ public partial class TrackService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list0 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Track>(_list0.Count);
-                  for(int _i1 = 0; _i1 < _list0.Count; ++_i1)
+                  TList _list4 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list4.Count);
+                  for(int _i5 = 0; _i5 < _list4.Count; ++_i5)
                   {
-                    Track _elem2;
-                    _elem2 = new Track();
-                    await _elem2.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem2);
+                    Track _elem6;
+                    _elem6 = new Track();
+                    await _elem6.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem6);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -1947,9 +1947,9 @@ public partial class TrackService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Track _iter3 in Success)
+              foreach (Track _iter7 in Success)
               {
-                await _iter3.WriteAsync(oprot, cancellationToken);
+                await _iter7.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -6341,14 +6341,14 @@ public partial class TrackService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list4 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Track>(_list4.Count);
-                  for(int _i5 = 0; _i5 < _list4.Count; ++_i5)
+                  TList _list8 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list8.Count);
+                  for(int _i9 = 0; _i9 < _list8.Count; ++_i9)
                   {
-                    Track _elem6;
-                    _elem6 = new Track();
-                    await _elem6.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem6);
+                    Track _elem10;
+                    _elem10 = new Track();
+                    await _elem10.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem10);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -6404,9 +6404,9 @@ public partial class TrackService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Track _iter7 in Success)
+              foreach (Track _iter11 in Success)
               {
-                await _iter7.WriteAsync(oprot, cancellationToken);
+                await _iter11.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }

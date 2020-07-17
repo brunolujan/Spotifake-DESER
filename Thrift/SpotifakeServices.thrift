@@ -190,6 +190,17 @@ service ConsumerService {
 service ContentCreatorService {
 
     /**
+    *   Get ContentCreator
+    *
+    *   @return list<ContentCreator>
+    *       ContentCreator list  
+    **/
+
+    list<SpotifakeManagement.ContentCreator> GetContentCreators()
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
     *   Get ContentCreator by Id
     *
     *   @param idContentCreator

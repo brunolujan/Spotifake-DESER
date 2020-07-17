@@ -1171,11 +1171,11 @@ class GetAlbumsByContentCreatorId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype17, _size14) = iprot.readListBegin()
-                    for _i18 in range(_size14):
-                        _elem19 = SpotifakeManagement.ttypes.Album()
-                        _elem19.read(iprot)
-                        self.success.append(_elem19)
+                    (_etype24, _size21) = iprot.readListBegin()
+                    for _i25 in range(_size21):
+                        _elem26 = SpotifakeManagement.ttypes.Album()
+                        _elem26.read(iprot)
+                        self.success.append(_elem26)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1204,8 +1204,8 @@ class GetAlbumsByContentCreatorId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter20 in self.success:
-                iter20.write(oprot)
+            for iter27 in self.success:
+                iter27.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -1329,11 +1329,11 @@ class GetSinglesByContentCreatorId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype24, _size21) = iprot.readListBegin()
-                    for _i25 in range(_size21):
-                        _elem26 = SpotifakeManagement.ttypes.Album()
-                        _elem26.read(iprot)
-                        self.success.append(_elem26)
+                    (_etype31, _size28) = iprot.readListBegin()
+                    for _i32 in range(_size28):
+                        _elem33 = SpotifakeManagement.ttypes.Album()
+                        _elem33.read(iprot)
+                        self.success.append(_elem33)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1362,8 +1362,8 @@ class GetSinglesByContentCreatorId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter27 in self.success:
-                iter27.write(oprot)
+            for iter34 in self.success:
+                iter34.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:

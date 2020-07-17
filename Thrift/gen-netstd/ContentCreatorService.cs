@@ -28,6 +28,15 @@ public partial class ContentCreatorService
   public interface IAsync
   {
     /// <summary>
+    /// Get ContentCreator
+    /// 
+    /// @return list<ContentCreator>
+    ///     ContentCreator list
+    /// 
+    /// </summary>
+    Task<List<ContentCreator>> GetContentCreatorsAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
     /// Get ContentCreator by Id
     /// 
     /// @param idContentCreator
@@ -232,6 +241,46 @@ public partial class ContentCreatorService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
+    public async Task<List<ContentCreator>> GetContentCreatorsAsync(CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetContentCreators", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new GetContentCreatorsArgs();
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new GetContentCreatorsResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
+      }
+      if (result.__isset.sErrorNotFoundE)
+      {
+        throw result.SErrorNotFoundE;
+      }
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetContentCreators failed: unknown result");
+    }
+
     public async Task<ContentCreator> GetContentCreatorByIdAsync(short idContentCreator, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetContentCreatorById", TMessageType.Call, SeqId), cancellationToken);
@@ -785,6 +834,7 @@ public partial class ContentCreatorService
       if (iAsync == null) throw new ArgumentNullException(nameof(iAsync));
 
       _iAsync = iAsync;
+      processMap_["GetContentCreators"] = GetContentCreators_ProcessAsync;
       processMap_["GetContentCreatorById"] = GetContentCreatorById_ProcessAsync;
       processMap_["GetContentCreatorByEmail"] = GetContentCreatorByEmail_ProcessAsync;
       processMap_["GetContentCreatorByStageName"] = GetContentCreatorByStageName_ProcessAsync;
@@ -838,6 +888,49 @@ public partial class ContentCreatorService
       }
 
       return true;
+    }
+
+    public async Task GetContentCreators_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new GetContentCreatorsArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new GetContentCreatorsResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.GetContentCreatorsAsync(cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
+        }
+        catch (SErrorNotFoundException sErrorNotFoundE)
+        {
+          result.SErrorNotFoundE = sErrorNotFoundE;
+        }
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("GetContentCreators", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("GetContentCreators", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
     }
 
     public async Task GetContentCreatorById_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
@@ -1395,6 +1488,383 @@ public partial class ContentCreatorService
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
+  }
+
+
+  public partial class GetContentCreatorsArgs : TBase
+  {
+
+    public GetContentCreatorsArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetContentCreators_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetContentCreatorsArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return true;
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetContentCreators_args(");
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetContentCreatorsResult : TBase
+  {
+    private List<ContentCreator> _success;
+    private SErrorUserException _sErrorUserE;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
+
+    public List<ContentCreator> Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorUserE;
+      public bool sErrorNotFoundE;
+      public bool sErrorInvalidRequestE;
+    }
+
+    public GetContentCreatorsResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.List)
+              {
+                {
+                  TList _list0 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<ContentCreator>(_list0.Count);
+                  for(int _i1 = 0; _i1 < _list0.Count; ++_i1)
+                  {
+                    ContentCreator _elem2;
+                    _elem2 = new ContentCreator();
+                    await _elem2.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem2);
+                  }
+                  await iprot.ReadListEndAsync(cancellationToken);
+                }
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetContentCreators_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.List;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            {
+              await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
+              foreach (ContentCreator _iter3 in Success)
+              {
+                await _iter3.WriteAsync(oprot, cancellationToken);
+              }
+              await oprot.WriteListEndAsync(cancellationToken);
+            }
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetContentCreatorsResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (TCollections.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + TCollections.GetHashCode(Success);
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetContentCreators_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
   }
 
 
