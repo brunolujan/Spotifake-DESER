@@ -104,7 +104,7 @@ class SqlServerAlbumManagement:
         print("Album has been deleted")
         connection.close()
 
-    def AddAlbum(self, newAlbum):
+    def AddAlbum(self, newAlbum, idContentCreator):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """

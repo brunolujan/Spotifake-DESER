@@ -70,7 +70,7 @@ class Iface(object):
         """
         pass
 
-    def AddAlbum(self, newAlbum):
+    def AddAlbum(self, newAlbum, idContenCreator):
         """
         Register an Album.
 
@@ -82,6 +82,7 @@ class Iface(object):
 
         Parameters:
          - newAlbum
+         - idContenCreator
 
         """
         pass
@@ -327,7 +328,7 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetSinglesByContentCreatorId failed: unknown result")
 
-    def AddAlbum(self, newAlbum):
+    def AddAlbum(self, newAlbum, idContenCreator):
         """
         Register an Album.
 
@@ -339,15 +340,17 @@ class Client(Iface):
 
         Parameters:
          - newAlbum
+         - idContenCreator
 
         """
-        self.send_AddAlbum(newAlbum)
+        self.send_AddAlbum(newAlbum, idContenCreator)
         return self.recv_AddAlbum()
 
-    def send_AddAlbum(self, newAlbum):
+    def send_AddAlbum(self, newAlbum, idContenCreator):
         self._oprot.writeMessageBegin('AddAlbum', TMessageType.CALL, self._seqid)
         args = AddAlbum_args()
         args.newAlbum = newAlbum
+        args.idContenCreator = idContenCreator
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -745,7 +748,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = AddAlbum_result()
         try:
-            result.success = self._handler.AddAlbum(args.newAlbum)
+            result.success = self._handler.AddAlbum(args.newAlbum, args.idContenCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1402,12 +1405,14 @@ class AddAlbum_args(object):
     """
     Attributes:
      - newAlbum
+     - idContenCreator
 
     """
 
 
-    def __init__(self, newAlbum=None,):
+    def __init__(self, newAlbum=None, idContenCreator=None,):
         self.newAlbum = newAlbum
+        self.idContenCreator = idContenCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1424,6 +1429,11 @@ class AddAlbum_args(object):
                     self.newAlbum.read(iprot)
                 else:
                     iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idContenCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -1437,6 +1447,10 @@ class AddAlbum_args(object):
         if self.newAlbum is not None:
             oprot.writeFieldBegin('newAlbum', TType.STRUCT, 1)
             self.newAlbum.write(oprot)
+            oprot.writeFieldEnd()
+        if self.idContenCreator is not None:
+            oprot.writeFieldBegin('idContenCreator', TType.I16, 2)
+            oprot.writeI16(self.idContenCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1458,6 +1472,7 @@ all_structs.append(AddAlbum_args)
 AddAlbum_args.thrift_spec = (
     None,  # 0
     (1, TType.STRUCT, 'newAlbum', [SpotifakeManagement.ttypes.Album, None], None, ),  # 1
+    (2, TType.I16, 'idContenCreator', None, None, ),  # 2
 )
 
 

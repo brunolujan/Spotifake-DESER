@@ -76,7 +76,8 @@ public partial class AlbumService
     /// 
     /// </summary>
     /// <param name="newAlbum"></param>
-    Task<Album> AddAlbumAsync(Album newAlbum, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idContenCreator"></param>
+    Task<Album> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Album
@@ -280,12 +281,13 @@ public partial class AlbumService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetSinglesByContentCreatorId failed: unknown result");
     }
 
-    public async Task<Album> AddAlbumAsync(Album newAlbum, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Album> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddAlbumArgs();
       args.NewAlbum = newAlbum;
+      args.IdContenCreator = idContenCreator;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -703,7 +705,7 @@ public partial class AlbumService
       {
         try
         {
-          result.Success = await _iAsync.AddAlbumAsync(args.NewAlbum, cancellationToken);
+          result.Success = await _iAsync.AddAlbumAsync(args.NewAlbum, args.IdContenCreator, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -2108,6 +2110,7 @@ public partial class AlbumService
   public partial class AddAlbumArgs : TBase
   {
     private Album _newAlbum;
+    private short _idContenCreator;
 
     public Album NewAlbum
     {
@@ -2122,11 +2125,25 @@ public partial class AlbumService
       }
     }
 
+    public short IdContenCreator
+    {
+      get
+      {
+        return _idContenCreator;
+      }
+      set
+      {
+        __isset.idContenCreator = true;
+        this._idContenCreator = value;
+      }
+    }
+
 
     public Isset __isset;
     public struct Isset
     {
       public bool newAlbum;
+      public bool idContenCreator;
     }
 
     public AddAlbumArgs()
@@ -2155,6 +2172,16 @@ public partial class AlbumService
               {
                 NewAlbum = new Album();
                 await NewAlbum.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.I16)
+              {
+                IdContenCreator = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2194,6 +2221,15 @@ public partial class AlbumService
           await NewAlbum.WriteAsync(oprot, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
+        if (__isset.idContenCreator)
+        {
+          field.Name = "idContenCreator";
+          field.Type = TType.I16;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdContenCreator, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
         await oprot.WriteFieldStopAsync(cancellationToken);
         await oprot.WriteStructEndAsync(cancellationToken);
       }
@@ -2208,7 +2244,8 @@ public partial class AlbumService
       var other = that as AddAlbumArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.newAlbum == other.__isset.newAlbum) && ((!__isset.newAlbum) || (System.Object.Equals(NewAlbum, other.NewAlbum))));
+      return ((__isset.newAlbum == other.__isset.newAlbum) && ((!__isset.newAlbum) || (System.Object.Equals(NewAlbum, other.NewAlbum))))
+        && ((__isset.idContenCreator == other.__isset.idContenCreator) && ((!__isset.idContenCreator) || (System.Object.Equals(IdContenCreator, other.IdContenCreator))));
     }
 
     public override int GetHashCode() {
@@ -2216,6 +2253,8 @@ public partial class AlbumService
       unchecked {
         if(__isset.newAlbum)
           hashcode = (hashcode * 397) + NewAlbum.GetHashCode();
+        if(__isset.idContenCreator)
+          hashcode = (hashcode * 397) + IdContenCreator.GetHashCode();
       }
       return hashcode;
     }
@@ -2230,6 +2269,13 @@ public partial class AlbumService
         __first = false;
         sb.Append("NewAlbum: ");
         sb.Append(NewAlbum== null ? "<null>" : NewAlbum.ToString());
+      }
+      if (__isset.idContenCreator)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdContenCreator: ");
+        sb.Append(IdContenCreator);
       }
       sb.Append(")");
       return sb.ToString();

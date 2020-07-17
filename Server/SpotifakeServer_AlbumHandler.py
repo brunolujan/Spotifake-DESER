@@ -56,6 +56,6 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
             print(albumList)
         return albumList
 
-    def AddAlbum(self, newAlbum):
-        albumFound =  SqlServerAlbumManagement.AddAlbum(self, newAlbum)
+    def AddAlbum(self, newAlbum, idContentCreator):
+        albumFound =  SqlServerAlbumManagement.AddAlbum(self, newAlbum, idContentCreator)
         return newAlbum

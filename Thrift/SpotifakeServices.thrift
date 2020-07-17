@@ -665,7 +665,7 @@ service AlbumService {
     *   Album object added
     **/
     
-    SpotifakeManagement.Album AddAlbum(1: SpotifakeManagement.Album newAlbum) 
+    SpotifakeManagement.Album AddAlbum(1: SpotifakeManagement.Album newAlbum, 2:SpotifakeManagement.Id idContenCreator) 
         throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
