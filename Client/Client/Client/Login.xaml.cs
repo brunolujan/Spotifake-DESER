@@ -55,7 +55,7 @@ namespace Client
             singUpWindow.Show();
         }
 
-        private async void LoginConsumer()
+        public async void LoginConsumer()
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Client
             }
         }
 
-        private async void LoginContentCreator()
+        public async void LoginContentCreator()
         {
             try
             {

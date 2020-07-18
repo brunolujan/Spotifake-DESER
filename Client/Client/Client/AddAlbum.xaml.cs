@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,10 +25,12 @@ namespace Client {
     public partial class AddAlbum {
 
         ContentCreator thisContentCreator;
+        Album thisAlbum;
         int thisVar;
 
         public AddAlbum(ContentCreator contentCreator, int var) {
             thisContentCreator = contentCreator;
+            thisAlbum = new Album();
             thisVar = var;
             InitializeComponent();           
             image.Fill = LoadImage("C:\\Users\\Bruno\\Documents\\BRUNO\\oregon-coast-3840x2400-sunset-beach-purple-sky-4k-17946.jpg");
@@ -92,7 +95,7 @@ namespace Client {
 
         }
 
-        private void LoadNewSingle() {
+        private async void LoadNewSingle() {
             button_AddAlbum.Content = "ADD SINGLE";
             label_Title.Text = "NEW SINGLE";
             label_TrackMessage.Text = "TRACK";
@@ -102,9 +105,14 @@ namespace Client {
             comboBox_SingleTrackGender.Visibility = Visibility.Visible;
             button_SingleSelectTrackFile.Visibility = Visibility.Visible;
             foreach (int r in Enum.GetValues(typeof(MusicGender))) {
-                var items = new ListItem(Enum.GetName(typeof(MusicGender), r), r.ToString());
-                comboBox_Gender.Items.Add(items);
-                comboBox_SingleTrackGender.Items.Add(items);
+                var gender = new ListItem(Enum.GetName(typeof(MusicGender), r), r.ToString());
+                comboBox_Gender.Items.Add(gender);
+                comboBox_SingleTrackGender.Items.Add(gender);
+            }
+            List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorsAsync();
+            foreach (ContentCreator r in contentCreators) {
+                comboBox_Featuring.Items.Add(r.StageName);
+                comboBox_SingleFeaturing.Items.Add(r.StageName);
             }
         }
 
@@ -122,6 +130,7 @@ namespace Client {
                 path = ofd.FileName;
                 image_albumCover.Fill = LoadImage(path);
                 image_albumCover.Stretch = Stretch.Uniform;
+                textBox_SelectedFilePath.Text = path;
             }
         }
 
@@ -129,16 +138,15 @@ namespace Client {
             if (thisVar == 0) {
 
             } else {
-                if (ValidateBlankSpacesSingle() == true) {
-                    label_Message.Text = "*Complete all fields";
+                if (!ValidateBlankSpacesSingle()) {
+                    AddAlbumSingle();
+                    MainWindowContentCreator mainWindowContentCreator = new MainWindowContentCreator(thisContentCreator, 0);
+                    mainWindowContentCreator.Show();
+                    this.Close();
                 } else {
-
+                    label_Message.Text = "*Complete all fields";
                 }
             }
-        }
-
-        private void button_SelectTrackFile_Click(object sender, RoutedEventArgs e) {
-
         }
 
         private void button_SingleSelectTrackFile_Click(object sender, RoutedEventArgs e) {
@@ -151,6 +159,7 @@ namespace Client {
                     var tfile = TagLib.File.Create(path);
                     textBox_SingleTrackTitle.Text = tfile.Tag.Title;
                     int duration = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds);
+                    textBox_SingleSelectTrackFile.Text = path;
                 }
             } catch (Exception ex) {
                 Console.WriteLine(ex + "in AddAlbum bSingleSelectTrackFile");
@@ -158,12 +167,31 @@ namespace Client {
         }
 
         private bool ValidateBlankSpacesSingle() {
-            if (textBox_AlbumTitle.Text == "" || comboBox_Featuring.SelectedIndex == -1 || comboBox_Gender.SelectedIndex == -1 || 
-                textBox_SingleTrackTitle.Text == "" || comboBox_SingleFeaturing.SelectedIndex == -1 || comboBox_SingleTrackGender.SelectedIndex == -1) {
+            if (textBox_AlbumTitle.Text == "" || comboBox_Gender.SelectedIndex == -1 || 
+                textBox_SingleTrackTitle.Text == "" || comboBox_SingleTrackGender.SelectedIndex == -1) {
                 return true;
             } else {
                 return false;
             }
+        }
+
+        private void AddAlbumSingle() {
+            DateTime today = DateTime.Today;
+            Album newAlbum = new Album();
+            Date date = new Date();
+            newAlbum.Title = textBox_AlbumTitle.Text;
+            newAlbum.CoverPath = textBox_SelectedFilePath.Text;
+            date.Day = Convert.ToInt16(today.Day);
+            date.Month = Convert.ToInt16(today.Month);
+            date.Year = Convert.ToInt16(today.Year);
+            newAlbum.ReleaseDate = date;
+            newAlbum.Gender  = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_Gender.Text);
+            newAlbum.IsSingle = true;
+            Session.serverConnection.albumService.AddAlbumAsync(newAlbum, thisContentCreator.IdContentCreator);
+        }
+
+        private void AddSingleTrack() {
+
         }
     }
 }
