@@ -1,11 +1,13 @@
 from SQLConnection.connection import SQLConnection
+import datetime
 
 class SqlServerAlbumManagement:
     def __init__(self):
         self.connection: SQLConnection = SQLConnection()
 
     def GetAlbumByTitle(self,title:str):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DECLARE	@return_value int,
                     @salida nvarchar(1000)
@@ -14,11 +16,11 @@ class SqlServerAlbumManagement:
                     @salida = @salida OUTPUT
             SELECT  @salida as N'@salida'
         """
-        self.connection.cursor.execute(sql, title)
-        row = self.connection.cursor.fetchall()
-        self.connection.save()
+        connection.cursor.execute(sql, title)
+        row = self.connection.cursor.fetchone()
+        connection.save()
         print(row)
-        self.connection.close()
+        connection.close()
         return row
 
     def GetAlbumsByContentCreatorId(self,idContentCreator):
@@ -105,6 +107,7 @@ class SqlServerAlbumManagement:
         connection.close()
 
     def AddAlbum(self, newAlbum, idContentCreator):
+        releaseDate = datetime.datetime(newAlbum.releaseDate.year, newAlbum.releaseDate.month, newAlbum.releaseDate.day)
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -122,12 +125,12 @@ class SqlServerAlbumManagement:
 
             SELECT	@salida as N'@salida'
                     """
-        params = (newAlbum.title, newAlbum.isSingle, newAlbum.releaseDate, newAlbum.coverPath,
-                    newAlbum.idContentCreator, newAlbum.gender)
+        params = (newAlbum.title, newAlbum.isSingle, releaseDate, newAlbum.coverPath,
+                    idContentCreator, newAlbum.gender)
         connection.cursor.execute(sql, params)
         connection.save()
         print(newAlbum.title, newAlbum.releaseDate)
-        return newAlbum
+        connection.close()
 
     
     def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
