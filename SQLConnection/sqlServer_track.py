@@ -5,30 +5,33 @@ class SqlServerTrackManagement:
         self.connection: SQLConnection = SQLConnection()
 
     def DeleteAlbumTrack(self, idAlbum:int, trackNumber:int):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DELETE FROM Track WHERE idAlbum = ? AND trackNumber = ?
         """
         params = (idAlbum, trackNumber)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
-        self.connection.close()
+        connection.cursor.execute(sql, params)
+        connection.save()
+        connection.close()
 
     def UpdateAlbumTrackTitle(self, idAlbum:int, trackNumber:int, newAlbumTrackTitle:str):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             UPDATE Track 
             SET title = ?
             Where idAlbum = ? AND trackNumber = ?
         """
         params = (newAlbumTrackTitle, idAlbum, trackNumber)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
+        connection.cursor.execute(sql, params)
+        connection.save()
         print("Track title has been updated")
-        self.connection.close()
+        connection.close()
 
     def GetTrackByTitle(self,title:str):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DECLARE	@return_value int,
 		            @salida nvarchar(1000)
@@ -37,33 +40,54 @@ class SqlServerTrackManagement:
 		            @salida = @salida OUTPUT
             SELECT	@salida as N'@salida'
         """
-        self.connection.cursor.execute(sql, title)
-        row = self.connection.cursor.fetchall()
-        self.connection.save()
+        connection.cursor.execute(sql, title)
+        row = connection.cursor.fetchall()
+        connection.save()
         print(row)
-        self.connection.close()
+        connection.close()
+
+    def GetTrackByIdAlbum(self,idAlbum:int):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetAlbumTrack]
+                    @idAlbum = 1,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idAlbum)
+        connection.cursor.execute(sql, idContentCreator)
+        row = connection.cursor.fetchall()
+        return row
+        connection.close()
 
     def DeleteLibraryTrack(self, idLibrary:int, idTrack:int):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DELETE FROM LibraryTrack WHERE idLibrary = ? AND idTrack = ?
         """
         params = (idLibrary, idTrack)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
+        connection.cursor.execute(sql, params)
+        connection.save()
         print("Track has been deleted")
-        self.connection.close()
+        connection.close()
 
     def DeletePlaylistTrack(self, idPlaylist:int, idTrack:int):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DELETE FROM LibraryTrack WHERE idPlaylist = ? AND idTrack = ?
         """
         params = (idPlaylist, idTrack)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
+        connection.cursor.execute(sql, params)
+        connection.save()
         print("Track has been deleted")
-        self.connection.close()
+        connection.close()
 
     def AddTrackToAlbum(self, idAlbum:int, newTrack):
         connection: SQLConnection = SQLConnection()

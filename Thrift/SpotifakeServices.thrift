@@ -528,7 +528,7 @@ service TrackService {
     *       The Track Id of the Track deleted.
     **/
     
-    SpotifakeManagement.Id DeleteLibraryTrack(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Int trackNumber) 
+    SpotifakeManagement.Id DeleteLibraryTrack(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Int trackNumber) #CAMBIAR POR IDTRACK
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
@@ -560,7 +560,7 @@ service TrackService {
     *       The Track Id of the Track deleted.
     **/
 
-    SpotifakeManagement.Id DeletePlaylistTrack(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Int trackNumber) 
+    SpotifakeManagement.Id DeletePlaylistTrack(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Int trackNumber) #CAMBIAR POR IDTRACK
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 

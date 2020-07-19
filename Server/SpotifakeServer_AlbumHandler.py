@@ -30,7 +30,7 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
             date.day = n.releaseDate.day
             date.month = n.releaseDate.month
             date.year = n.releaseDate.year
-            albumAux.releaseDate = date;
+            albumAux.releaseDate = date
             albumAux.gender = n.IdGenre
             albumAux.isSingle = n.type
             albumList.append(albumAux)
@@ -60,7 +60,7 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumAux = Album()
         albumFound =  SqlServerAlbumManagement.AddAlbum(self, newAlbum, idContentCreator)
         albumAux = Album()
-        albumAux.idAlbum = albualbumFoundFound.IdAlbum
+        albumAux.idAlbum = albumFound.IdAlbum
         albumAux.title = albumFound.title
         albumAux.coverPath = albumFound.coverPath
         date = Date()
@@ -71,3 +71,56 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumAux.gender = albumFound.IdGenre
         albumAux.isSingle = albumFound.type
         return albumFound
+
+    def GetAlbumByTitle(self, title): #NUEVO
+        albumAux = Album()
+        albumFound = SqlServerAlbumManagement.GetAlbumByTitle(self,title)
+        albumAux = Album()
+        albumAux.idAlbum = albumFound.IdAlbum
+        albumAux.title = albumFound.title
+        albumAux.coverPath = albumFound.coverPath
+        date = Date()
+        date.day = albumFound.releaseDate.day
+        date.month = albumFound.releaseDate.month
+        date.year = albumFound.releaseDate.year
+        albumAux.releaseDate = date
+        albumAux.gender = albumFound.IdGenre
+        albumAux.isSingle = albumFound.type
+        return albumFound
+
+    def DeleteAlbum(self, idAlbum): #Nuevo
+        albumFound = SqlServerAlbumManagement.DeleteAlbum(self, idAlbum)
+        if (albumFound != None):
+            return albumFound.idAlbum
+        else:
+            return SErrorNotFoundException("No existe el album")
+
+    def UpdateAlbumTitle(self, idAlbum, newAlbumTitle): #Nuevo
+        albumFound = SqlServerAlbumManagement.UpdateAlbumTitle(self, idAlbum, newAlbumTitle)
+        return albumFound
+
+    def UpdateAlbumCover(self,idAlbum, newStoragePath): #Nuevo
+        albumFound = SpotifakeServerAlbumManagement.UpdateAlbumCover(self, idAlbum, newStoragePath)
+        return albumFound
+
+    def AddAlbumToLibrary(self, idLibrary, newAlbum): #Nuevo
+        albumAux = Album()
+        albumFound = SqlServerAlbumManagement.AddAlbumToLibrary(self, idLibrary, newAlbum)
+        albumAux = Album()
+        albumAux.idAlbum = albumFound.IdAlbum
+        albumAux.title = albumFound.title
+        albumAux.coverPath = albumFound.coverPath
+        date = Date()
+        date.day = albumFound.releaseDate.day
+        date.month = albumFound.releaseDate.month
+        date.year = albumFound.releaseDate.year
+        albumAux.releaseDate = date
+        albumAux.gender = albumFound.IdGenre
+        albumAux.isSingle = albumFound.type
+        return albumFound
+
+    def DeleteLibraryAlbum(self,idLibrary, idAlbum): #Nuevo
+        albumFound = SqlServerAlbumManagement.DeleteLibraryAlbum(self, idLibrary, idAlbum)
+        return albumFound.idAlbum
+
+

@@ -59,26 +59,28 @@ class SqlServerAlbumManagement:
         connection.close()
 
     def DeleteAlbum(self, idAlbum:int):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             DELETE FROM Album WHERE idAlbum = ?
         """
-        self.connection.cursor.execute(sql, idAlbum)
-        self.connection.save()
-        self.connection.close()
+        connection.cursor.execute(sql, idAlbum)
+        connection.save()
+        connection.close()
 
     def UpdateAlbumTitle(self, idAlbum:int, newAlbumTitle:str):
-        self.connection.open()
+        connection: SQLConnection = SQLConnection()
+        connection.open()
         sql = """
             UPDATE Album 
             SET title = ?
             Where idAlbum = ?
         """
         params = (newAlbumTitle, idAlbum)
-        self.connection.cursor.execute(sql, params)
-        self.connection.save()
+        connection.cursor.execute(sql, params)
+        connection.save()
         print("Album title has been updated")
-        self.connection.close()
+        connection.close()
 
     def UpdateAlbumCover(self, idAlbum:int, newCoverStoragePath:str):
         connection: SQLConnection = SQLConnection()
