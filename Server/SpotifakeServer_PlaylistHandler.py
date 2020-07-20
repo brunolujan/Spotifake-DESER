@@ -19,7 +19,7 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
 
     def GetPlaylistByTitle(self,title):
         playlistAux = Playlist()
-        playlistFound = SqlServerAlbumManagement.GetPlaylistByTitle(self,title)
+        playlistFound = SqlServerPlaylistManagement.GetPlaylistByTitle(self,title)
         playlistAux = Playlist()
         playlistAux.idPlylist = playlistFound.IdPlaylist
         playlistAux.name = playlistFound.name
@@ -30,4 +30,35 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
         date.year = playlistFound.creationDate.year
         playlistAux.creationDate = date
         playlistAux.coverPath = playlistFound.coverPath
+        return playlistFound
+
+    def AddPlaylistToLibrary(idLibrary, newPlaylist): #Nuevo
+        playlistAux = Playlist()
+        playlistFound = SqlServerPlaylistManagement.AddPLaylistToLibrary(self, idLibrary, newPlaylist)
+        playlistAux = Playlist()
+        playlistAux.idPlylist = playlistFound.IdPlaylist
+        playlistAux.name = playlistFound.name
+        playlistAux.description = playlistFound.description
+        date = Date()
+        date.day = playlistFound.creationDate.day
+        date.month = playlistFound.creationDate.month
+        date.year = playlistFound.creationDate.year
+        playlistAux.creationDate = date
+        playlistAux.coverPath = playlistFound.coverPath
+        return playlistFound
+
+    def DeleteLibraryPlaylist(self,idLibrary, idPlylist): #Nuevo
+        playlistFound = SqlServerPlaylistManagement.DeleteLibraryPlaylist(self, idLibrary, idPlylist)
+        return playlistFound.idPlylist
+
+    def UpdatePLaylistTitle(self, idPLaylist, newPlaylistTitle): #Nuevo
+        playlistFound = SqlServerPlaylistManagement.UpdatePlaylistTitle(self, idPLaylist, newPlaylistTitle)
+        return playlistFound
+
+    def UpdatePlaylistCover(self, idAlbum, newImageStoragePath): #Nuevo
+        playlistFound = SqlServerPlaylistManagement.UpdatePlaylistCover(self, idPlylist, newImageStoragePath)
+        return playlistFound
+
+    def UpdatePlaylistDescription(self, idPLaylist, newDescription): #Nuevo
+        playlistFound = SqlServerPlaylistManagement.UpdatePlaylistDescription(self, idPlylist, newDescription)
         return playlistFound
