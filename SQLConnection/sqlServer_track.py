@@ -90,6 +90,7 @@ class SqlServerTrackManagement:
         connection.close()
 
     def AddTrackToAlbum(self, idAlbum, newTrack):
+        print("BIEN 1")
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -107,11 +108,14 @@ class SqlServerTrackManagement:
 
         SELECT	@salida as N'@salida'
         """
+        print("BIEN 2")
         params = (newTrack.durationSeconds, newTrack.title, newTrack.trackNumber, newTrack.storagePath, newTrack.gender, idAlbum)
         connection.cursor.execute(sql, params)
         connection.cursor.nextset()
+        print("BIEN 3")
         row = int(connection.cursor.fetchval())
         connection.save()
+        print("BIEN 4")
         print(newTrack.title, row)
         return row
 

@@ -53,7 +53,7 @@ class Iface(object):
         """
         pass
 
-    def AddTrackToAlbum(self, idAlbum, newTrack):
+    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
         """
         Add a Track to an Album.
 
@@ -69,6 +69,7 @@ class Iface(object):
         Parameters:
          - idAlbum
          - newTrack
+         - idContentCreator
 
         """
         pass
@@ -378,7 +379,7 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByAlbumId failed: unknown result")
 
-    def AddTrackToAlbum(self, idAlbum, newTrack):
+    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
         """
         Add a Track to an Album.
 
@@ -394,16 +395,18 @@ class Client(Iface):
         Parameters:
          - idAlbum
          - newTrack
+         - idContentCreator
 
         """
-        self.send_AddTrackToAlbum(idAlbum, newTrack)
+        self.send_AddTrackToAlbum(idAlbum, newTrack, idContentCreator)
         return self.recv_AddTrackToAlbum()
 
-    def send_AddTrackToAlbum(self, idAlbum, newTrack):
+    def send_AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
         self._oprot.writeMessageBegin('AddTrackToAlbum', TMessageType.CALL, self._seqid)
         args = AddTrackToAlbum_args()
         args.idAlbum = idAlbum
         args.newTrack = newTrack
+        args.idContentCreator = idContentCreator
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1025,7 +1028,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = AddTrackToAlbum_result()
         try:
-            result.success = self._handler.AddTrackToAlbum(args.idAlbum, args.newTrack)
+            result.success = self._handler.AddTrackToAlbum(args.idAlbum, args.newTrack, args.idContentCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1648,13 +1651,15 @@ class AddTrackToAlbum_args(object):
     Attributes:
      - idAlbum
      - newTrack
+     - idContentCreator
 
     """
 
 
-    def __init__(self, idAlbum=None, newTrack=None,):
+    def __init__(self, idAlbum=None, newTrack=None, idContentCreator=None,):
         self.idAlbum = idAlbum
         self.newTrack = newTrack
+        self.idContentCreator = idContentCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1676,6 +1681,11 @@ class AddTrackToAlbum_args(object):
                     self.newTrack.read(iprot)
                 else:
                     iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -1693,6 +1703,10 @@ class AddTrackToAlbum_args(object):
         if self.newTrack is not None:
             oprot.writeFieldBegin('newTrack', TType.STRUCT, 2)
             self.newTrack.write(oprot)
+            oprot.writeFieldEnd()
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 3)
+            oprot.writeI16(self.idContentCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1715,6 +1729,7 @@ AddTrackToAlbum_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idAlbum', None, None, ),  # 1
     (2, TType.STRUCT, 'newTrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
+    (3, TType.I16, 'idContentCreator', None, None, ),  # 3
 )
 
 

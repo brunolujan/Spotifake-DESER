@@ -27,7 +27,7 @@ using Thrift.Processor;
 public partial class Track : TBase
 {
   private short _trackNumber;
-  private double _duartionSeconds;
+  private double _durationSeconds;
   private string _storagePath;
   private string _title;
   private MusicGender _gender;
@@ -47,16 +47,16 @@ public partial class Track : TBase
     }
   }
 
-  public double DuartionSeconds
+  public double DurationSeconds
   {
     get
     {
-      return _duartionSeconds;
+      return _durationSeconds;
     }
     set
     {
-      __isset.duartionSeconds = true;
-      this._duartionSeconds = value;
+      __isset.durationSeconds = true;
+      this._durationSeconds = value;
     }
   }
 
@@ -108,7 +108,7 @@ public partial class Track : TBase
   public struct Isset
   {
     public bool trackNumber;
-    public bool duartionSeconds;
+    public bool durationSeconds;
     public bool storagePath;
     public bool title;
     public bool gender;
@@ -165,7 +165,7 @@ public partial class Track : TBase
           case 3:
             if (field.Type == TType.Double)
             {
-              DuartionSeconds = await iprot.ReadDoubleAsync(cancellationToken);
+              DurationSeconds = await iprot.ReadDoubleAsync(cancellationToken);
             }
             else
             {
@@ -245,13 +245,13 @@ public partial class Track : TBase
         await oprot.WriteI16Async(TrackNumber, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (__isset.duartionSeconds)
+      if (__isset.durationSeconds)
       {
-        field.Name = "duartionSeconds";
+        field.Name = "durationSeconds";
         field.Type = TType.Double;
         field.ID = 3;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteDoubleAsync(DuartionSeconds, cancellationToken);
+        await oprot.WriteDoubleAsync(DurationSeconds, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       if (StoragePath != null && __isset.storagePath)
@@ -297,7 +297,7 @@ public partial class Track : TBase
     if (ReferenceEquals(this, other)) return true;
     return System.Object.Equals(IdTrack, other.IdTrack)
       && ((__isset.trackNumber == other.__isset.trackNumber) && ((!__isset.trackNumber) || (System.Object.Equals(TrackNumber, other.TrackNumber))))
-      && ((__isset.duartionSeconds == other.__isset.duartionSeconds) && ((!__isset.duartionSeconds) || (System.Object.Equals(DuartionSeconds, other.DuartionSeconds))))
+      && ((__isset.durationSeconds == other.__isset.durationSeconds) && ((!__isset.durationSeconds) || (System.Object.Equals(DurationSeconds, other.DurationSeconds))))
       && ((__isset.storagePath == other.__isset.storagePath) && ((!__isset.storagePath) || (System.Object.Equals(StoragePath, other.StoragePath))))
       && ((__isset.title == other.__isset.title) && ((!__isset.title) || (System.Object.Equals(Title, other.Title))))
       && ((__isset.gender == other.__isset.gender) && ((!__isset.gender) || (System.Object.Equals(Gender, other.Gender))));
@@ -309,8 +309,8 @@ public partial class Track : TBase
       hashcode = (hashcode * 397) + IdTrack.GetHashCode();
       if(__isset.trackNumber)
         hashcode = (hashcode * 397) + TrackNumber.GetHashCode();
-      if(__isset.duartionSeconds)
-        hashcode = (hashcode * 397) + DuartionSeconds.GetHashCode();
+      if(__isset.durationSeconds)
+        hashcode = (hashcode * 397) + DurationSeconds.GetHashCode();
       if(__isset.storagePath)
         hashcode = (hashcode * 397) + StoragePath.GetHashCode();
       if(__isset.title)
@@ -331,10 +331,10 @@ public partial class Track : TBase
       sb.Append(", TrackNumber: ");
       sb.Append(TrackNumber);
     }
-    if (__isset.duartionSeconds)
+    if (__isset.durationSeconds)
     {
-      sb.Append(", DuartionSeconds: ");
-      sb.Append(DuartionSeconds);
+      sb.Append(", DurationSeconds: ");
+      sb.Append(DurationSeconds);
     }
     if (StoragePath != null && __isset.storagePath)
     {

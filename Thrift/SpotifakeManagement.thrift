@@ -96,7 +96,7 @@ enum MusicGender {
 struct Track {
     1: required Id      idTrack
     2: Int              trackNumber
-    3: double           duartionSeconds
+    3: double           durationSeconds
     4: Path             storagePath
     5: string           title
     6: MusicGender      gender

@@ -67,7 +67,8 @@ public partial class TrackService
     /// </summary>
     /// <param name="idAlbum"></param>
     /// <param name="newTrack"></param>
-    Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idContentCreator"></param>
+    Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, short idContentCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Track from an Album
@@ -321,13 +322,14 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTrackByAlbumId failed: unknown result");
     }
 
-    public async Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, short idContentCreator, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToAlbum", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddTrackToAlbumArgs();
       args.IdAlbum = idAlbum;
       args.NewTrack = newTrack;
+      args.IdContentCreator = idContentCreator;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -886,7 +888,7 @@ public partial class TrackService
       {
         try
         {
-          result.Success = await _iAsync.AddTrackToAlbumAsync(args.IdAlbum, args.NewTrack, cancellationToken);
+          result.Success = await _iAsync.AddTrackToAlbumAsync(args.IdAlbum, args.NewTrack, args.IdContentCreator, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -2047,6 +2049,7 @@ public partial class TrackService
   {
     private short _idAlbum;
     private Track _newTrack;
+    private short _idContentCreator;
 
     public short IdAlbum
     {
@@ -2074,12 +2077,26 @@ public partial class TrackService
       }
     }
 
+    public short IdContentCreator
+    {
+      get
+      {
+        return _idContentCreator;
+      }
+      set
+      {
+        __isset.idContentCreator = true;
+        this._idContentCreator = value;
+      }
+    }
+
 
     public Isset __isset;
     public struct Isset
     {
       public bool idAlbum;
       public bool newTrack;
+      public bool idContentCreator;
     }
 
     public AddTrackToAlbumArgs()
@@ -2118,6 +2135,16 @@ public partial class TrackService
               {
                 NewTrack = new Track();
                 await NewTrack.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.I16)
+              {
+                IdContentCreator = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2166,6 +2193,15 @@ public partial class TrackService
           await NewTrack.WriteAsync(oprot, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
+        if (__isset.idContentCreator)
+        {
+          field.Name = "idContentCreator";
+          field.Type = TType.I16;
+          field.ID = 3;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdContentCreator, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
         await oprot.WriteFieldStopAsync(cancellationToken);
         await oprot.WriteStructEndAsync(cancellationToken);
       }
@@ -2181,7 +2217,8 @@ public partial class TrackService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))))
-        && ((__isset.newTrack == other.__isset.newTrack) && ((!__isset.newTrack) || (System.Object.Equals(NewTrack, other.NewTrack))));
+        && ((__isset.newTrack == other.__isset.newTrack) && ((!__isset.newTrack) || (System.Object.Equals(NewTrack, other.NewTrack))))
+        && ((__isset.idContentCreator == other.__isset.idContentCreator) && ((!__isset.idContentCreator) || (System.Object.Equals(IdContentCreator, other.IdContentCreator))));
     }
 
     public override int GetHashCode() {
@@ -2191,6 +2228,8 @@ public partial class TrackService
           hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
         if(__isset.newTrack)
           hashcode = (hashcode * 397) + NewTrack.GetHashCode();
+        if(__isset.idContentCreator)
+          hashcode = (hashcode * 397) + IdContentCreator.GetHashCode();
       }
       return hashcode;
     }
@@ -2212,6 +2251,13 @@ public partial class TrackService
         __first = false;
         sb.Append("NewTrack: ");
         sb.Append(NewTrack== null ? "<null>" : NewTrack.ToString());
+      }
+      if (__isset.idContentCreator)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdContentCreator: ");
+        sb.Append(IdContentCreator);
       }
       sb.Append(")");
       return sb.ToString();

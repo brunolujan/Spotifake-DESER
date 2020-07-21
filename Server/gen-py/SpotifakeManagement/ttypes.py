@@ -479,7 +479,7 @@ class Track(object):
     Attributes:
      - idTrack
      - trackNumber
-     - duartionSeconds
+     - durationSeconds
      - storagePath
      - title
      - gender
@@ -487,10 +487,10 @@ class Track(object):
     """
 
 
-    def __init__(self, idTrack=None, trackNumber=None, duartionSeconds=None, storagePath=None, title=None, gender=None,):
+    def __init__(self, idTrack=None, trackNumber=None, durationSeconds=None, storagePath=None, title=None, gender=None,):
         self.idTrack = idTrack
         self.trackNumber = trackNumber
-        self.duartionSeconds = duartionSeconds
+        self.durationSeconds = durationSeconds
         self.storagePath = storagePath
         self.title = title
         self.gender = gender
@@ -516,7 +516,7 @@ class Track(object):
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.DOUBLE:
-                    self.duartionSeconds = iprot.readDouble()
+                    self.durationSeconds = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             elif fid == 4:
@@ -552,9 +552,9 @@ class Track(object):
             oprot.writeFieldBegin('trackNumber', TType.I16, 2)
             oprot.writeI16(self.trackNumber)
             oprot.writeFieldEnd()
-        if self.duartionSeconds is not None:
-            oprot.writeFieldBegin('duartionSeconds', TType.DOUBLE, 3)
-            oprot.writeDouble(self.duartionSeconds)
+        if self.durationSeconds is not None:
+            oprot.writeFieldBegin('durationSeconds', TType.DOUBLE, 3)
+            oprot.writeDouble(self.durationSeconds)
             oprot.writeFieldEnd()
         if self.storagePath is not None:
             oprot.writeFieldBegin('storagePath', TType.STRING, 4)
@@ -1643,7 +1643,7 @@ Track.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idTrack', None, None, ),  # 1
     (2, TType.I16, 'trackNumber', None, None, ),  # 2
-    (3, TType.DOUBLE, 'duartionSeconds', None, None, ),  # 3
+    (3, TType.DOUBLE, 'durationSeconds', None, None, ),  # 3
     (4, TType.STRING, 'storagePath', 'UTF8', None, ),  # 4
     (5, TType.STRING, 'title', 'UTF8', None, ),  # 5
     (6, TType.I32, 'gender', None, None, ),  # 6

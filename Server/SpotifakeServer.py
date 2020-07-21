@@ -21,8 +21,8 @@ if __name__ == "__main__":
 
     processor.registerProcessor("ConsumerService", ConsumerService.Processor(SpotifakeServerConsumerHandler()))
     processor.registerProcessor("ContentCreatorService", ContentCreatorService.Processor(SpotifakeServerContentCreatorHandler()))
-    processor.registerProcessor("TrackService", TrackService.Processor(SpotifakeServerTrackHandler()))
     processor.registerProcessor("AlbumService", AlbumService.Processor(SpotifakeServerAlbumHandler()))
+    processor.registerProcessor("TrackService", TrackService.Processor(SpotifakeServerTrackHandler()))
     processor.registerProcessor("PlaylistService", PlaylistService.Processor(SpotifakeServerPlaylistHandler()))
 
     serverTransport = TSocket.TServerSocket(host="localhost", port=5000)
