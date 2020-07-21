@@ -130,9 +130,11 @@ class SqlServerAlbumManagement:
         params = (newAlbum.title, newAlbum.isSingle, releaseDate, newAlbum.coverPath,
                     idContentCreator, newAlbum.gender)
         connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = connection.cursor.fetchval()
         connection.save()
         print(newAlbum.title, newAlbum.releaseDate)
-        connection.close()
+        return row
 
     
     def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
