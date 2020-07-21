@@ -77,7 +77,7 @@ public partial class AlbumService
     /// </summary>
     /// <param name="newAlbum"></param>
     /// <param name="idContenCreator"></param>
-    Task<Album> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
+    Task<short> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Album
@@ -281,7 +281,7 @@ public partial class AlbumService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetSinglesByContentCreatorId failed: unknown result");
     }
 
-    public async Task<Album> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Call, SeqId), cancellationToken);
       
@@ -2285,10 +2285,10 @@ public partial class AlbumService
 
   public partial class AddAlbumResult : TBase
   {
-    private Album _success;
+    private short _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Album Success
+    public short Success
     {
       get
       {
@@ -2344,10 +2344,9 @@ public partial class AlbumService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                Success = new Album();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2392,15 +2391,12 @@ public partial class AlbumService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -2447,12 +2443,12 @@ public partial class AlbumService
     {
       var sb = new StringBuilder("AddAlbum_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

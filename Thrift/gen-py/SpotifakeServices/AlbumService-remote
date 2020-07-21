@@ -27,7 +27,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Album GetAlbumByTitle(string title)')
     print('   GetAlbumsByContentCreatorId(Id idContentCreator)')
     print('   GetSinglesByContentCreatorId(Id idContentCreator)')
-    print('  Album AddAlbum(Album newAlbum, Id idContenCreator)')
+    print('  Id AddAlbum(Album newAlbum, Id idContenCreator)')
     print('  Id DeleteAlbum(Id idAlbum)')
     print('  Album UpdateAlbumTitle(Id idAlbum, string newAlbumTitle)')
     print('  Album UpdateAlbumCover(Id idAlbum, string newCoverStoragePath)')
