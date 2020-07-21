@@ -1741,9 +1741,8 @@ class AddTrackToAlbum_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -1763,8 +1762,8 @@ class AddTrackToAlbum_result(object):
             return
         oprot.writeStructBegin('AddTrackToAlbum_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
@@ -1788,7 +1787,7 @@ class AddTrackToAlbum_result(object):
         return not (self == other)
 all_structs.append(AddTrackToAlbum_result)
 AddTrackToAlbum_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
+    (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 

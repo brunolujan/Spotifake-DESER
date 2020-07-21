@@ -26,7 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Functions:')
     print('  Track GetTrackByTitle(string title)')
     print('   GetTrackByAlbumId(Id idAlbum)')
-    print('  Track AddTrackToAlbum(Id idAlbum, Track newTrack)')
+    print('  Id AddTrackToAlbum(Id idAlbum, Track newTrack)')
     print('  Id DeleteAlbumTrack(Id idAlbum, Int trackNumber)')
     print('  Track UpdateAlbumTrackTitle(Id idAlbum, Int trackNumber, string newAlbumTrackTitle)')
     print('  Track UpdateAlbumTrackFeaturing(Id idAlbum, Int trackNumber, ContentCreator newFeaturing)')

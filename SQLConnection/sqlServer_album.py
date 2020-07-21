@@ -131,11 +131,31 @@ class SqlServerAlbumManagement:
                     idContentCreator, newAlbum.gender)
         connection.cursor.execute(sql, params)
         connection.cursor.nextset()
-        row = connection.cursor.fetchval()
+        row = int(connection.cursor.fetchval())
         connection.save()
-        print(newAlbum.title, newAlbum.releaseDate)
+        print(newAlbum.title, row)
         return row
 
+    def AddFeaturingAlbum(self, idNewAlbum, idContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_FeaturingAlbum]
+                    @IdAlbum = ?,
+                    @IdContentCeator = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+                    """
+        params = (idNewAlbum, idContentCreator)
+        connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = connection.cursor.fetchone()
+        connection.save()
+        return row
     
     def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
         connection: SQLConnection = SQLConnection()

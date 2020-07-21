@@ -67,7 +67,7 @@ public partial class TrackService
     /// </summary>
     /// <param name="idAlbum"></param>
     /// <param name="newTrack"></param>
-    Task<Track> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken));
+    Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Track from an Album
@@ -321,7 +321,7 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTrackByAlbumId failed: unknown result");
     }
 
-    public async Task<Track> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToAlbum", TMessageType.Call, SeqId), cancellationToken);
       
@@ -2221,10 +2221,10 @@ public partial class TrackService
 
   public partial class AddTrackToAlbumResult : TBase
   {
-    private Track _success;
+    private short _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Track Success
+    public short Success
     {
       get
       {
@@ -2280,10 +2280,9 @@ public partial class TrackService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                Success = new Track();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2328,15 +2327,12 @@ public partial class TrackService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -2383,12 +2379,12 @@ public partial class TrackService
     {
       var sb = new StringBuilder("AddTrackToAlbum_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

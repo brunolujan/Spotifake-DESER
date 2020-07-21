@@ -441,7 +441,7 @@ service TrackService {
     *       Track object added
     **/
 
-    SpotifakeManagement.Track AddTrackToAlbum(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Track newTrack) 
+    SpotifakeManagement.Id AddTrackToAlbum(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Track newTrack) 
         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
     
     /**

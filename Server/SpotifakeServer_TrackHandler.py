@@ -45,16 +45,9 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         return trackList
 
     def AddTrackToAlbum(self, idAlbum, newTrack): #Nuevo
-        trackAux = Track()
-        trackFound = SqlServerTrackManagement.AddTrackToAlbum(self, idAlbum, newTrack)
-        trackAux = Track()
-        trackAux.idTrack = trackFound.IdTrack
-        trackAux.durationSeconds = trackFound.durationSeconds
-        trackAux.title = trackFound.title
-        trackAux.trackNumber = trackFound.trackNumber
-        trackAux.storagePath = trackFound.storagePath
-        trackAux.gender = trackFound.IdGenre
-        return trackFound
+        idNewTrack = SqlServerTrackManagement.AddTrackToAlbum(self, idAlbum, newTrack)
+        SqlServerTrackManagement.AddFeaturingTrack(self, idNewTrack, idContentCreator)
+        return newTrack
 
     def DeleteAlbumTrack(self,idAlbum, trackNumber): #Nuevo
         trackFound = SqlServerTrackManagement.DeleteAlbumTrack(self, idAlbum, trackNumber)

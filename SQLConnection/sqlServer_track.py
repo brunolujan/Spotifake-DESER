@@ -89,7 +89,7 @@ class SqlServerTrackManagement:
         print("Track has been deleted")
         connection.close()
 
-    def AddTrackToAlbum(self, idAlbum:int, newTrack):
+    def AddTrackToAlbum(self, idAlbum, newTrack):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -112,6 +112,27 @@ class SqlServerTrackManagement:
         connection.save()
         connection.close()
         print(idAlbum, newTrack.title)
+
+    def AddFeaturingTrack(self, idNewTrack, idContentCreator):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_FeaturingTrack]
+                    @IdTrack = ?,
+                    @IdContentCeator = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+                    """
+        params = (idNewTrack, idContentCreator)
+        connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = connection.cursor.fetchone()
+        connection.save()
+        return row
 
     def AddTrackToLibrary(self, idLibrary:int, newTrack):
         connection: SQLConnection = SQLConnection()
