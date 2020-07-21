@@ -145,7 +145,7 @@ class SqlServerAlbumManagement:
 
             EXEC	@return_value = [dbo].[SPI_FeaturingAlbum]
                     @IdAlbum = ?,
-                    @IdContentCeator = ?,
+                    @IdContentCreator = ?,
                     @salida = @salida OUTPUT
 
             SELECT	@salida as N'@salida'

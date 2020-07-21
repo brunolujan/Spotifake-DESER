@@ -98,20 +98,22 @@ class SqlServerTrackManagement:
 
             EXEC	@return_value = [dbo].[SPI_Track]
                     @durationSeconds = ?,
-                    @title = ?,
+                    @title = ?  ,
                     @trackNumber = ?,
                     @storagePath = ?,
                     @idGenre = ?,
                     @idAlbum = ?,
                     @salida = @salida OUTPUT
 
-            SELECT	@salida as N'@salida'
+        SELECT	@salida as N'@salida'
         """
         params = (newTrack.durationSeconds, newTrack.title, newTrack.trackNumber, newTrack.storagePath, newTrack.gender, idAlbum)
         connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = int(connection.cursor.fetchval())
         connection.save()
-        connection.close()
-        print(idAlbum, newTrack.title)
+        print(newTrack.title, row)
+        return row
 
     def AddFeaturingTrack(self, idNewTrack, idContentCreator):
         connection: SQLConnection = SQLConnection()
@@ -122,7 +124,7 @@ class SqlServerTrackManagement:
 
             EXEC	@return_value = [dbo].[SPI_FeaturingTrack]
                     @IdTrack = ?,
-                    @IdContentCeator = ?,
+                    @IdContentCreator = ?,
                     @salida = @salida OUTPUT
 
             SELECT	@salida as N'@salida'
