@@ -443,7 +443,19 @@ service TrackService {
 
     SpotifakeManagement.Id AddTrackToAlbum(1: SpotifakeManagement.Id idAlbum, 2: SpotifakeManagement.Track newTrack, 3: SpotifakeManagement.Id idContentCreator) 
         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    * Register a featuring Track
+    *
+    * @param newTrack
+    * 
+    * @return idNewTrack
+    *   Featuring added
+    **/
     
+    SpotifakeManagement.Id AddFeaturingTrack(1: SpotifakeManagement.Id idNewTrack, 2:SpotifakeManagement.Id idContenCreator) 
+        throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)  
+
     /**
     *   Delete a Track from an Album
     *
@@ -661,12 +673,24 @@ service AlbumService {
     *
     * @param newAlbum
     * 
-    * @return Album
+    * @return idNewAlbum
     *   Album object added
     **/
     
     SpotifakeManagement.Id AddAlbum(1: SpotifakeManagement.Album newAlbum, 2:SpotifakeManagement.Id idContenCreator) 
         throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    * Register a featuring Album.
+    *
+    * @param newAlbum
+    * 
+    * @return idNewAlbum
+    *   Featuring added
+    **/
+    
+    SpotifakeManagement.Id AddFeaturingAlbum(1: SpotifakeManagement.Id idNewAlbum, 2:SpotifakeManagement.Id idContenCreator) 
+        throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)  
 
     /**
     *   Delete a Album

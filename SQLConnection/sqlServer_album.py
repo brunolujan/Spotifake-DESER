@@ -19,7 +19,6 @@ class SqlServerAlbumManagement:
         connection.cursor.execute(sql, title)
         row = self.connection.cursor.fetchone()
         connection.save()
-        print(row)
         connection.close()
         return row
 

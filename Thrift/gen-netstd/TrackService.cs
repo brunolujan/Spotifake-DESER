@@ -71,6 +71,19 @@ public partial class TrackService
     Task<short> AddTrackToAlbumAsync(short idAlbum, Track newTrack, short idContentCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
+    /// Register a featuring Track
+    /// 
+    /// @param newTrack
+    /// 
+    /// @return idNewTrack
+    ///   Featuring added
+    /// 
+    /// </summary>
+    /// <param name="idNewTrack"></param>
+    /// <param name="idContenCreator"></param>
+    Task<short> AddFeaturingTrackAsync(short idNewTrack, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
     /// Delete a Track from an Album
     /// 
     /// @param idAlbum
@@ -355,6 +368,40 @@ public partial class TrackService
         throw result.SErrorSystemE;
       }
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddTrackToAlbum failed: unknown result");
+    }
+
+    public async Task<short> AddFeaturingTrackAsync(short idNewTrack, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddFeaturingTrack", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new AddFeaturingTrackArgs();
+      args.IdNewTrack = idNewTrack;
+      args.IdContenCreator = idContenCreator;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new AddFeaturingTrackResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddFeaturingTrack failed: unknown result");
     }
 
     public async Task<short> DeleteAlbumTrackAsync(short idAlbum, short trackNumber, CancellationToken cancellationToken = default(CancellationToken))
@@ -748,6 +795,7 @@ public partial class TrackService
       processMap_["GetTrackByTitle"] = GetTrackByTitle_ProcessAsync;
       processMap_["GetTrackByAlbumId"] = GetTrackByAlbumId_ProcessAsync;
       processMap_["AddTrackToAlbum"] = AddTrackToAlbum_ProcessAsync;
+      processMap_["AddFeaturingTrack"] = AddFeaturingTrack_ProcessAsync;
       processMap_["DeleteAlbumTrack"] = DeleteAlbumTrack_ProcessAsync;
       processMap_["UpdateAlbumTrackTitle"] = UpdateAlbumTrackTitle_ProcessAsync;
       processMap_["UpdateAlbumTrackFeaturing"] = UpdateAlbumTrackFeaturing_ProcessAsync;
@@ -907,6 +955,41 @@ public partial class TrackService
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
         await oprot.WriteMessageBeginAsync(new TMessage("AddTrackToAlbum", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task AddFeaturingTrack_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new AddFeaturingTrackArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new AddFeaturingTrackResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.AddFeaturingTrackAsync(args.IdNewTrack, args.IdContenCreator, cancellationToken);
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("AddFeaturingTrack", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("AddFeaturingTrack", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -2424,6 +2507,361 @@ public partial class TrackService
     public override string ToString()
     {
       var sb = new StringBuilder("AddTrackToAlbum_result(");
+      bool __first = true;
+      if (__isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddFeaturingTrackArgs : TBase
+  {
+    private short _idNewTrack;
+    private short _idContenCreator;
+
+    public short IdNewTrack
+    {
+      get
+      {
+        return _idNewTrack;
+      }
+      set
+      {
+        __isset.idNewTrack = true;
+        this._idNewTrack = value;
+      }
+    }
+
+    public short IdContenCreator
+    {
+      get
+      {
+        return _idContenCreator;
+      }
+      set
+      {
+        __isset.idContenCreator = true;
+        this._idContenCreator = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool idNewTrack;
+      public bool idContenCreator;
+    }
+
+    public AddFeaturingTrackArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I16)
+              {
+                IdNewTrack = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.I16)
+              {
+                IdContenCreator = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddFeaturingTrack_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (__isset.idNewTrack)
+        {
+          field.Name = "idNewTrack";
+          field.Type = TType.I16;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdNewTrack, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (__isset.idContenCreator)
+        {
+          field.Name = "idContenCreator";
+          field.Type = TType.I16;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdContenCreator, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddFeaturingTrackArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.idNewTrack == other.__isset.idNewTrack) && ((!__isset.idNewTrack) || (System.Object.Equals(IdNewTrack, other.IdNewTrack))))
+        && ((__isset.idContenCreator == other.__isset.idContenCreator) && ((!__isset.idContenCreator) || (System.Object.Equals(IdContenCreator, other.IdContenCreator))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.idNewTrack)
+          hashcode = (hashcode * 397) + IdNewTrack.GetHashCode();
+        if(__isset.idContenCreator)
+          hashcode = (hashcode * 397) + IdContenCreator.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddFeaturingTrack_args(");
+      bool __first = true;
+      if (__isset.idNewTrack)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdNewTrack: ");
+        sb.Append(IdNewTrack);
+      }
+      if (__isset.idContenCreator)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdContenCreator: ");
+        sb.Append(IdContenCreator);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddFeaturingTrackResult : TBase
+  {
+    private short _success;
+    private SErrorSystemException _sErrorSystemE;
+
+    public short Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorSystemE;
+    }
+
+    public AddFeaturingTrackResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.I16)
+              {
+                Success = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddFeaturingTrack_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddFeaturingTrackResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddFeaturingTrack_result(");
       bool __first = true;
       if (__isset.success)
       {

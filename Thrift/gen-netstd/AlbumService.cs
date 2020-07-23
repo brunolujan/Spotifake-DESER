@@ -71,13 +71,26 @@ public partial class AlbumService
     /// 
     /// @param newAlbum
     /// 
-    /// @return Album
+    /// @return idNewAlbum
     ///   Album object added
     /// 
     /// </summary>
     /// <param name="newAlbum"></param>
     /// <param name="idContenCreator"></param>
     Task<short> AddAlbumAsync(Album newAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
+    /// Register a featuring Album.
+    /// 
+    /// @param newAlbum
+    /// 
+    /// @return idNewAlbum
+    ///   Featuring added
+    /// 
+    /// </summary>
+    /// <param name="idNewAlbum"></param>
+    /// <param name="idContenCreator"></param>
+    Task<short> AddFeaturingAlbumAsync(short idNewAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Album
@@ -315,6 +328,40 @@ public partial class AlbumService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddAlbum failed: unknown result");
     }
 
+    public async Task<short> AddFeaturingAlbumAsync(short idNewAlbum, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddFeaturingAlbum", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new AddFeaturingAlbumArgs();
+      args.IdNewAlbum = idNewAlbum;
+      args.IdContenCreator = idContenCreator;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new AddFeaturingAlbumResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddFeaturingAlbum failed: unknown result");
+    }
+
     public async Task<short> DeleteAlbumAsync(short idAlbum, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteAlbum", TMessageType.Call, SeqId), cancellationToken);
@@ -527,6 +574,7 @@ public partial class AlbumService
       processMap_["GetAlbumsByContentCreatorId"] = GetAlbumsByContentCreatorId_ProcessAsync;
       processMap_["GetSinglesByContentCreatorId"] = GetSinglesByContentCreatorId_ProcessAsync;
       processMap_["AddAlbum"] = AddAlbum_ProcessAsync;
+      processMap_["AddFeaturingAlbum"] = AddFeaturingAlbum_ProcessAsync;
       processMap_["DeleteAlbum"] = DeleteAlbum_ProcessAsync;
       processMap_["UpdateAlbumTitle"] = UpdateAlbumTitle_ProcessAsync;
       processMap_["UpdateAlbumCover"] = UpdateAlbumCover_ProcessAsync;
@@ -724,6 +772,41 @@ public partial class AlbumService
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
         await oprot.WriteMessageBeginAsync(new TMessage("AddAlbum", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task AddFeaturingAlbum_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new AddFeaturingAlbumArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new AddFeaturingAlbumResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.AddFeaturingAlbumAsync(args.IdNewAlbum, args.IdContenCreator, cancellationToken);
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("AddFeaturingAlbum", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("AddFeaturingAlbum", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -2442,6 +2525,361 @@ public partial class AlbumService
     public override string ToString()
     {
       var sb = new StringBuilder("AddAlbum_result(");
+      bool __first = true;
+      if (__isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddFeaturingAlbumArgs : TBase
+  {
+    private short _idNewAlbum;
+    private short _idContenCreator;
+
+    public short IdNewAlbum
+    {
+      get
+      {
+        return _idNewAlbum;
+      }
+      set
+      {
+        __isset.idNewAlbum = true;
+        this._idNewAlbum = value;
+      }
+    }
+
+    public short IdContenCreator
+    {
+      get
+      {
+        return _idContenCreator;
+      }
+      set
+      {
+        __isset.idContenCreator = true;
+        this._idContenCreator = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool idNewAlbum;
+      public bool idContenCreator;
+    }
+
+    public AddFeaturingAlbumArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I16)
+              {
+                IdNewAlbum = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.I16)
+              {
+                IdContenCreator = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddFeaturingAlbum_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (__isset.idNewAlbum)
+        {
+          field.Name = "idNewAlbum";
+          field.Type = TType.I16;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdNewAlbum, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (__isset.idContenCreator)
+        {
+          field.Name = "idContenCreator";
+          field.Type = TType.I16;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdContenCreator, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddFeaturingAlbumArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.idNewAlbum == other.__isset.idNewAlbum) && ((!__isset.idNewAlbum) || (System.Object.Equals(IdNewAlbum, other.IdNewAlbum))))
+        && ((__isset.idContenCreator == other.__isset.idContenCreator) && ((!__isset.idContenCreator) || (System.Object.Equals(IdContenCreator, other.IdContenCreator))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.idNewAlbum)
+          hashcode = (hashcode * 397) + IdNewAlbum.GetHashCode();
+        if(__isset.idContenCreator)
+          hashcode = (hashcode * 397) + IdContenCreator.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddFeaturingAlbum_args(");
+      bool __first = true;
+      if (__isset.idNewAlbum)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdNewAlbum: ");
+        sb.Append(IdNewAlbum);
+      }
+      if (__isset.idContenCreator)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdContenCreator: ");
+        sb.Append(IdContenCreator);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddFeaturingAlbumResult : TBase
+  {
+    private short _success;
+    private SErrorSystemException _sErrorSystemE;
+
+    public short Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorSystemE;
+    }
+
+    public AddFeaturingAlbumResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.I16)
+              {
+                Success = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddFeaturingAlbum_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddFeaturingAlbumResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddFeaturingAlbum_result(");
       bool __first = true;
       if (__isset.success)
       {

@@ -76,12 +76,29 @@ class Iface(object):
 
         @param newAlbum
 
-        @return Album
+        @return idNewAlbum
           Album object added
 
 
         Parameters:
          - newAlbum
+         - idContenCreator
+
+        """
+        pass
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        """
+        Register a featuring Album.
+
+        @param newAlbum
+
+        @return idNewAlbum
+          Featuring added
+
+
+        Parameters:
+         - idNewAlbum
          - idContenCreator
 
         """
@@ -334,7 +351,7 @@ class Client(Iface):
 
         @param newAlbum
 
-        @return Album
+        @return idNewAlbum
           Album object added
 
 
@@ -371,6 +388,50 @@ class Client(Iface):
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "AddAlbum failed: unknown result")
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        """
+        Register a featuring Album.
+
+        @param newAlbum
+
+        @return idNewAlbum
+          Featuring added
+
+
+        Parameters:
+         - idNewAlbum
+         - idContenCreator
+
+        """
+        self.send_AddFeaturingAlbum(idNewAlbum, idContenCreator)
+        return self.recv_AddFeaturingAlbum()
+
+    def send_AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        self._oprot.writeMessageBegin('AddFeaturingAlbum', TMessageType.CALL, self._seqid)
+        args = AddFeaturingAlbum_args()
+        args.idNewAlbum = idNewAlbum
+        args.idContenCreator = idContenCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddFeaturingAlbum(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddFeaturingAlbum_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddFeaturingAlbum failed: unknown result")
 
     def DeleteAlbum(self, idAlbum):
         """
@@ -625,6 +686,7 @@ class Processor(Iface, TProcessor):
         self._processMap["GetAlbumsByContentCreatorId"] = Processor.process_GetAlbumsByContentCreatorId
         self._processMap["GetSinglesByContentCreatorId"] = Processor.process_GetSinglesByContentCreatorId
         self._processMap["AddAlbum"] = Processor.process_AddAlbum
+        self._processMap["AddFeaturingAlbum"] = Processor.process_AddFeaturingAlbum
         self._processMap["DeleteAlbum"] = Processor.process_DeleteAlbum
         self._processMap["UpdateAlbumTitle"] = Processor.process_UpdateAlbumTitle
         self._processMap["UpdateAlbumCover"] = Processor.process_UpdateAlbumCover
@@ -764,6 +826,32 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("AddAlbum", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_AddFeaturingAlbum(self, seqid, iprot, oprot):
+        args = AddFeaturingAlbum_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddFeaturingAlbum_result()
+        try:
+            result.success = self._handler.AddFeaturingAlbum(args.idNewAlbum, args.idContenCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddFeaturingAlbum", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1545,6 +1633,154 @@ class AddAlbum_result(object):
         return not (self == other)
 all_structs.append(AddAlbum_result)
 AddAlbum_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class AddFeaturingAlbum_args(object):
+    """
+    Attributes:
+     - idNewAlbum
+     - idContenCreator
+
+    """
+
+
+    def __init__(self, idNewAlbum=None, idContenCreator=None,):
+        self.idNewAlbum = idNewAlbum
+        self.idContenCreator = idContenCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idNewAlbum = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idContenCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddFeaturingAlbum_args')
+        if self.idNewAlbum is not None:
+            oprot.writeFieldBegin('idNewAlbum', TType.I16, 1)
+            oprot.writeI16(self.idNewAlbum)
+            oprot.writeFieldEnd()
+        if self.idContenCreator is not None:
+            oprot.writeFieldBegin('idContenCreator', TType.I16, 2)
+            oprot.writeI16(self.idContenCreator)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddFeaturingAlbum_args)
+AddFeaturingAlbum_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idNewAlbum', None, None, ),  # 1
+    (2, TType.I16, 'idContenCreator', None, None, ),  # 2
+)
+
+
+class AddFeaturingAlbum_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddFeaturingAlbum_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddFeaturingAlbum_result)
+AddFeaturingAlbum_result.thrift_spec = (
     (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )

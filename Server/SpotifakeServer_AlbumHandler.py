@@ -34,7 +34,6 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
             albumAux.gender = n.IdGenre
             albumAux.isSingle = n.type
             albumList.append(albumAux)
-        print(albumList)
         return albumList
 
     def GetSinglesByContentCreatorId(self, idContentCreator):
@@ -53,11 +52,13 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
             albumAux.gender = n.IdGenre
             albumAux.isSingle = n.type
             albumList.append(albumAux)
-            print(albumList)
         return albumList
 
     def AddAlbum(self, newAlbum, idContentCreator):
         idNewAlbum =  SqlServerAlbumManagement.AddAlbum(self, newAlbum, idContentCreator)
+        return idNewAlbum
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContentCreator):
         SqlServerAlbumManagement.AddFeaturingAlbum(self, idNewAlbum, idContentCreator)
         return idNewAlbum
 
