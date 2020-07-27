@@ -66,7 +66,8 @@ namespace Client
                         Consumer ConsumerLog = await Session.serverConnection.consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
                         if (ConsumerLog != null)
                         {
-                            MainWindow mainWindow = new MainWindow(ConsumerLog);
+                            short idLibrary = await Session.serverConnection.libraryService.getLibraryByIdConsumerAsync(ConsumerLog.IdConsumer);
+                            MainWindow mainWindow = new MainWindow(ConsumerLog, idLibrary);
                             mainWindow.Show();
                             this.Close();
                         }

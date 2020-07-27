@@ -19,12 +19,23 @@ namespace Client
     {
 
         Consumer thisConsumer;
+        short thisIdLibrary;
 
-        public MainWindow(Consumer consumer)
+        public MainWindow(Consumer consumer, short idLibrary)
         {
+            thisIdLibrary = idLibrary;
             thisConsumer = consumer;
             InitializeComponent();
+            if (consumer.ImageStoragePath == null) {
+                image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
+            } else {
+                image.Fill = LoadImage(consumer.ImageStoragePath);
+            }
             textBlock_NameUser.Text = "Hi, " + thisConsumer.GivenName;
+        }
+
+        private void button_Settings_Click(object sender, RoutedEventArgs e) {
+            flyout.IsOpen = true;
         }
 
         private void button_Logout_Click(object sender, RoutedEventArgs e)
@@ -32,26 +43,6 @@ namespace Client
             Login loginWindow = new Login();
             this.Close();
             loginWindow.Show();
-        }
-
-        private void button_Singles_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void button_Albums_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void button_Singles_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void button_Settings_Click(object sender, RoutedEventArgs e)
-        {
-            flyout.IsOpen = true;
         }
 
         private void button_Configuration_Click(object sender, RoutedEventArgs e)
@@ -62,6 +53,40 @@ namespace Client
         private void button_Back_Click(object sender, RoutedEventArgs e)
         {
             flyout.IsOpen = false;
+        }
+
+        private async void button_Albums_Click(object sender, RoutedEventArgs e) {
+            List<Album> albums = await Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(thisIdLibrary);
+        }
+
+        private async void button_Tracks_Click(object sender, RoutedEventArgs e) {
+            List<Track> tracks = await Session.serverConnection.trackService.GetTrackByLibraryIdAsync(thisIdLibrary);
+        }
+
+        private async void button_Playlists_Click(object sender, RoutedEventArgs e) {
+            List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByLibraryIdAsync(thisIdLibrary);
+        }
+
+        private async void button_ContentCreators_Click(object sender, RoutedEventArgs e) {
+            List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByLibraryIdAsync(thisIdLibrary);
+        }
+
+        private ImageBrush LoadImage(string path) {
+            try {
+                Image imageX = new Image();
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.UriSource = new Uri(path);
+                src.EndInit();
+                imageX.Source = src;
+
+                ImageBrush ib = new ImageBrush();
+                ib.ImageSource = src;
+                return ib;
+            } catch (Exception ex) {
+                Console.WriteLine(ex + " in AddAlbum LoadImage");
+                return null;
+            }
         }
     }
 }

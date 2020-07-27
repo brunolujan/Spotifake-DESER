@@ -14,6 +14,9 @@ namespace Client
         public ConsumerService.Client consumerService;
         public ContentCreatorService.Client contentCreatorService;
         public AlbumService.Client albumService;
+        public TrackService.Client trackService;
+        public PlaylistService.Client playlistService;
+        public LibraryService.Client libraryService;
 
         public ServerConnection()
         {
@@ -33,6 +36,14 @@ namespace Client
                 TMultiplexedProtocol multiplexeProtocolAlbum = new TMultiplexedProtocol(protocol, "AlbumService");
                 albumService = new AlbumService.Client(multiplexeProtocolAlbum);
 
+                TMultiplexedProtocol multiplexeProtocolTrack = new TMultiplexedProtocol(protocol, "TrackService");
+                trackService = new TrackService.Client(multiplexeProtocolTrack);
+
+                TMultiplexedProtocol multiplexedProtocolPlaylist = new TMultiplexedProtocol(protocol, "PlaylistService");
+                playlistService = new PlaylistService.Client(multiplexedProtocolPlaylist);
+
+                TMultiplexedProtocol multiplexeProtocolLibrary = new TMultiplexedProtocol(protocol, "LibraryService");
+                libraryService = new LibraryService.Client(multiplexeProtocolLibrary);
             }
             catch (Exception ex)
             {

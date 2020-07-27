@@ -17,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Image = System.Windows.Controls.Image;
+using Orientation = System.Windows.Controls.Orientation;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace Client {
 
@@ -29,7 +31,11 @@ namespace Client {
             thisContentCreator = contentCreator;
             thisVar = var;
             InitializeComponent();
-            LoadContentCreatorImage("C:\\Users\\Bruno\\Documents\\BRUNO\\oregon-coast-3840x2400-sunset-beach-purple-sky-4k-17946.jpg");
+            if (contentCreator.ImageStoragePath == null) {
+                image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
+            } else {
+                image.Fill = LoadImage(contentCreator.ImageStoragePath);
+            }
             textBlock_StageName.Text = "Hi, " + thisContentCreator.StageName;
             if (var == 0) {
                 label_Title.Text = "MY ALBUMS";
@@ -40,16 +46,12 @@ namespace Client {
             }
         }
 
-        private async void button_Albums_Click(object sender, RoutedEventArgs e) {
-            label_Title.Text = "MY ALBUMS";
-            button_Add.Content = "+ Add Album";
-            List<Album> albums = await Session.serverConnection.albumService.GetAlbumsByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
+        private void button_Albums_Click(object sender, RoutedEventArgs e) {
+            LoadAlbums();
         }
 
-        private async void button_Singles_Click(object sender, RoutedEventArgs e) {
-            label_Title.Text = "MY SINGLES";
-            button_Add.Content = "+ Add Single";
-            List<Album> singles = await Session.serverConnection.albumService.GetSinglesByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
+        private void button_Singles_Click(object sender, RoutedEventArgs e) {
+            LoadSingles();
         }
 
         private void button_Settings_Click(object sender, RoutedEventArgs e) {
@@ -70,20 +72,6 @@ namespace Client {
             flyout.IsOpen = false;
         }
 
-        private void LoadContentCreatorImage(string path) {
-            Image imageX = new Image();
-            BitmapImage src = new BitmapImage();
-            src.BeginInit();
-            src.UriSource = new Uri(path);
-            src.EndInit();
-            imageX.Source = src;
-            imageX.Stretch = Stretch.Uniform;
-
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = src;
-            image.Fill = ib;
-        }
-
         private void button_Search_Click(object sender, RoutedEventArgs e) {
 
         }
@@ -91,10 +79,61 @@ namespace Client {
         private void button_Add_Click(object sender, RoutedEventArgs e) {
             if (label_Title.Text == "MY SINGLES") {
                 thisVar = 1;
+            } else {
+                thisVar = 0;
             }
             AddAlbum addAlbumWindow = new AddAlbum(thisContentCreator, thisVar);
             addAlbumWindow.Show();
             this.Close();
+        }
+
+        private async void LoadAlbums() {
+            label_Title.Text = "MY ALBUMS";
+            button_Add.Content = "+ Add Album";
+            List<Album> albums = await Session.serverConnection.albumService.GetAlbumsByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
+            foreach (Album albumAux in albums) {
+                CreateContentUI(albumAux);
+            }
+        }
+
+        private async void LoadSingles() {
+            label_Title.Text = "MY SINGLES";
+            button_Add.Content = "+ Add Single";
+            List<Album> singles = await Session.serverConnection.albumService.GetSinglesByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
+            foreach (Album singleAux in singles) {
+                CreateContentUI(singleAux);
+            }
+        }
+
+        private ImageBrush LoadImage(string path) {
+            try {
+                Image imageX = new Image();
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.UriSource = new Uri(path);
+                src.EndInit();
+                imageX.Source = src;
+
+                ImageBrush ib = new ImageBrush();
+                ib.ImageSource = src;
+                return ib;
+            } catch (Exception ex) {
+                Console.WriteLine(ex + " in AddAlbum LoadImage");
+                return null;
+            }
+        }
+
+        private void CreateContentUI(Album album) {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Vertical;
+            StackPanel albumHeaderStackPanel = new StackPanel();
+            albumHeaderStackPanel.Orientation = Orientation.Horizontal;
+            Rectangle albumImage = new Rectangle();
+            albumImage.Fill = LoadImage(album.CoverPath);
+            albumImage.Margin = new Thickness(30,30,0,0);
+            albumImage.Width = 115;
+            albumImage.Height = 115;
+            albumHeaderStackPanel.Children.Add(albumImage);
         }
     }
 }

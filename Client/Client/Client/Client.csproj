@@ -278,15 +278,14 @@
     <Compile Include="gen-netstd\ConsumerService.cs" />
     <Compile Include="gen-netstd\ContentCreator.cs" />
     <Compile Include="gen-netstd\ContentCreatorService.cs" />
-    <Compile Include="gen-netstd\ContentService.cs" />
     <Compile Include="gen-netstd\Date.cs" />
     <Compile Include="gen-netstd\ExceptionUser.cs" />
     <Compile Include="gen-netstd\Library.cs" />
+    <Compile Include="gen-netstd\LibraryService.cs" />
     <Compile Include="gen-netstd\MusicGender.cs" />
     <Compile Include="gen-netstd\Playlist.cs" />
     <Compile Include="gen-netstd\PlaylistService.cs" />
     <Compile Include="gen-netstd\PlayQueue.cs" />
-    <Compile Include="gen-netstd\RelatedResult.cs" />
     <Compile Include="gen-netstd\SErrorInvalidRequestException.cs" />
     <Compile Include="gen-netstd\SErrorNotFoundException.cs" />
     <Compile Include="gen-netstd\SErrorSystemException.cs" />
@@ -402,9 +401,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DefaultAlbumCover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Adobe_20200703_142326.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

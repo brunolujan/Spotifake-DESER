@@ -217,7 +217,7 @@
             <RowDefinition Height="181*"/>
         </Grid.RowDefinitions>
         <Rectangle Fill="Black" HorizontalAlignment="Left" Height="639" VerticalAlignment="Top" Width="263" Grid.RowSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="YOUR CONTENT" VerticalAlignment="Top" Foreground="#FF707070" Width="209" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.RowSpan="2">
+        <TextBlock HorizontalAlignment="Left" Margin="10,150.8,0,0" TextWrapping="Wrap" Text="YOUR CONTENT" VerticalAlignment="Top" Foreground="#FF707070" Width="209" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -227,8 +227,8 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,49.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Albums_Click" Grid.Row="1"/>
-        <Button x:Name="button_Singles" Content="Singles" HorizontalAlignment="Left" Margin="8,88.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Singles_Click" Grid.Row="1"/>
+        <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,191.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Albums_Click" Grid.Row="1"/>
+        <Button x:Name="button_Singles" Content="Singles" HorizontalAlignment="Left" Margin="8,230.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Singles_Click" Grid.Row="1"/>
         <TextBlock x:Name="textBlock_StageName" HorizontalAlignment="Left" Margin="963,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="206" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -364,7 +364,7 @@
                 <ImageBrush ImageSource="Resources/Button_Search.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <Rectangle x:Name="image" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="129" Margin="62,172.8,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="129"/>
+        <Rectangle x:Name="image" HorizontalAlignment="Left" Height="129" Margin="63,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="129" RadiusY="63.9" RadiusX="63.9" Grid.RowSpan="2" Fill="White"/>
         <TextBlock x:Name="label_Title" HorizontalAlignment="Left" Margin="295,27.8,0,0" TextWrapping="Wrap" Text="MY ALBUMS" VerticalAlignment="Top" Foreground="#FF707070" Width="131" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -376,5 +376,7 @@
             </TextBlock.RenderTransform>
         </TextBlock>
         <Button x:Name="button_Add" Content="+ Add Album" HorizontalAlignment="Left" Margin="1175,25.8,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Add_Click" Grid.Row="1"/>
+        <ScrollViewer Margin="268,74.8,0,37.6" Grid.Row="1"/>
+        <TextBlock x:Name="label_Message" HorizontalAlignment="Left" Margin="268,552.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="467" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
     </Grid>
 </Controls:MetroWindow>
