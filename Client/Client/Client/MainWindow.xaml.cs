@@ -57,18 +57,30 @@ namespace Client
 
         private async void button_Albums_Click(object sender, RoutedEventArgs e) {
             List<Album> albums = await Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(thisIdLibrary);
+            datagrid_Track.ItemsSource = albums;
         }
 
         private async void button_Tracks_Click(object sender, RoutedEventArgs e) {
             List<Track> tracks = await Session.serverConnection.trackService.GetTrackByLibraryIdAsync(thisIdLibrary);
+            datagrid_Track.ItemsSource = tracks.Select(x => new { TITLE = x.Title, SECONDS = x.DurationSeconds });
+            datagrid_Track.Items.Refresh();
+
+
         }
 
         private async void button_Playlists_Click(object sender, RoutedEventArgs e) {
             List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByLibraryIdAsync(thisIdLibrary);
+            datagrid_Track.ItemsSource = playlists;
         }
 
         private async void button_ContentCreators_Click(object sender, RoutedEventArgs e) {
             List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByLibraryIdAsync(thisIdLibrary);
+            datagrid_Track.ItemsSource = contentCreators;
+        }
+
+
+        private void button_Search_Click(object sender, RoutedEventArgs e) {
+
         }
 
         private ImageBrush LoadImage(string path) {
