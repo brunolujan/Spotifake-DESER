@@ -29,7 +29,7 @@ class SqlServerPlaylistManagement:
             DECLARE	@return_value int,
                     @salida nvarchar(1000)
 
-            EXEC	@return_value = [dbo].[SPC_GetContentCreatorByIdLibrary]
+            EXEC	@return_value = [dbo].[SPC_GetPlaylistsByIdLibrary]
                     @idLibrary = ?,
                     @salida = @salida OUTPUT
 

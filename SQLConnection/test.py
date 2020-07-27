@@ -27,9 +27,9 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 
 #CONTENT CREATOR MANAGEMENT
-query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
+#query: SqlServerContentCreatorManagement = SqlServerContentCreatorManagement()
 
-query.GetContentCreators()
+#query.GetContentCreators()
 
 #query.GetContentCreatorById(5)
 
@@ -70,7 +70,9 @@ query.GetContentCreators()
 
 
 #TRACK MANAGEMENT
-#query: SqlServerTrackManagement = SqlServerTrackManagement()
+query: SqlServerTrackManagement = SqlServerTrackManagement()
+
+query.GetTrackByIdLibrary(1)
 
 #query.DeleteAlbumTrack(1, 2)
 

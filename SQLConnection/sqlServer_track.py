@@ -79,6 +79,7 @@ class SqlServerTrackManagement:
         """
         connection.cursor.execute(sql, idLibrary)
         row = connection.cursor.fetchall()
+    
         return row
 
     def DeleteLibraryTrack(self, idLibrary:int, idTrack:int):

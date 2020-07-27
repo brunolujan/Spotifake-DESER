@@ -12,7 +12,7 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
     spotifakeManagement_thrift = thriftpy.load('../Thrift/SpotifakeManagement.thrift', module_name='spotifakeManagement_thrift')
     spotifakeServices_thrift = thriftpy.load('../Thrift/SpotifakeServices.thrift', module_name='spotifakeServices_thrift')
     Date = spotifakeManagement_thrift.Date
-    Playlist = spotifakeManagement_thrift.Track
+    Playlist = spotifakeManagement_thrift.Playlist
 
     def __init__(self):
         pass
@@ -34,7 +34,8 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
     def GetPlaylistByLibraryId(self, idLibrary):
         playlistList = []
         playlistFound = SqlServerPlaylistManagement.GetPlaylistByLibraryId(self, idLibrary)
-        for n in playlistFoundFound:
+        for n in playlistFound:
+            playlistAux = Playlist()
             playlistAux.idPlaylist = n.IdPlaylist
             date = Date()
             date.day = n.creationDate.day

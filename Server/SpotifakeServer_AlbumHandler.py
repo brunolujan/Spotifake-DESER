@@ -71,7 +71,7 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
 
     def GetAlbumByLibraryId(self, idLibrary):
         albumList = []
-        albumFound =  SqlServerAlbumManagement.GetTrackByIdLibrary(self, idLibrary)
+        albumFound =  SqlServerAlbumManagement.GetAlbumByLibraryId(self, idLibrary)
         for n in albumFound:
             albumAux = Album()
             albumAux.idAlbum = n.IdAlbum
