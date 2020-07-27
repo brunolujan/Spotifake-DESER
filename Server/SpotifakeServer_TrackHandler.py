@@ -17,7 +17,7 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
     def __init__(self):
         pass
 
-    def GetTrackByTitle(self,title): #Nuevo
+    def GetTrackByTitle(self,title):
         trackAux = Track()
         trackFound = SqlServerTrackManagement.GetTrackByTitle(self,title)
         trackAux = Track()
@@ -29,7 +29,7 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackAux.gender = trackFound.IdGenre
         return trackFound
 
-    def GetTrackByAlbumId(self, idAlbum): #Nuevo
+    def GetTrackByAlbumId(self, idAlbum):
         trackList = []
         trackFound =  SqlServerTrackManagement.GetTrackByAlbumId(self, idAlbum)
         for n in trackFound:
@@ -41,10 +41,23 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
             trackAux.storagePath = n.storagePath
             trackAux.gender = n.IdGenre
             trackList.append(trackAux)
-        print(trackList)
         return trackList
 
-    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator): #Nuevo
+    def GetTrackByIdLibrary(self, idLibrary):
+        trackList = []
+        trackFound =  SqlServerTrackManagement.GetTrackByIdLibrary(self, idLibrary)
+        for n in trackFound:
+            trackAux = Track()            
+            trackAux.idTrack = n.IdTrack
+            trackAux.durationSeconds = n.durationSeconds
+            trackAux.title = n.title
+            trackAux.trackNumber = n.trackNumber
+            trackAux.storagePath = n.storagePath
+            trackAux.gender = n.IdGenre
+            trackList.append(trackAux)
+        return trackList
+
+    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
         idNewTrack = SqlServerTrackManagement.AddTrackToAlbum(self, idAlbum, newTrack)
         return idNewTrack
 
@@ -52,15 +65,15 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         SqlServerTrackManagement.AddFeaturingTrack(self, idNewTrack, idContentCreator)
         return idNewTrack
 
-    def DeleteAlbumTrack(self,idAlbum, trackNumber): #Nuevo
+    def DeleteAlbumTrack(self,idAlbum, trackNumber):
         trackFound = SqlServerTrackManagement.DeleteAlbumTrack(self, idAlbum, trackNumber)
         return trackFound.idTrack
 
-    def UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle): #Nuevo
+    def UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle):
         trackFound = SqlServerTrackManagement.UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle)
         return trackFound
 
-    def AddTrackToLibrary(self, idLibrary, newTrack): #Nuevo
+    def AddTrackToLibrary(self, idLibrary, newTrack):
         trackAux = Track()
         trackFound = SqlServerTrackManagement.AddTrackToLibrary(self, idLibrary, newTrack)
         trackAux = Track()
@@ -72,11 +85,11 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackAux.gender = trackFound.IdGenre
         return trackFound
 
-    def DeleteLibraryTrack(self,idLibrary, IdTrack): #Nuevo
+    def DeleteLibraryTrack(self,idLibrary, IdTrack):
         trackFound = SqlServerTrackManagement.DeleteLibraryTrack(self, idLibrary, idTrack)
         return trackFound.idTrack
 
-    def AddTrackToPlaylist(self, idPlaylist, newTrack): #Nuevo
+    def AddTrackToPlaylist(self, idPlaylist, newTrack):
         trackAux = Track()
         trackFound = SqlServerTrackManagement.AddTrackToPlaylist(self, idPlaylist, newTrack)
         trackAux = Track()
@@ -88,6 +101,6 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackAux.gender = trackFound.IdGenre
         return trackFound
 
-    def DeletePlaylistTrack(self,idPlaylist, IdTrack): #Nuevo
+    def DeletePlaylistTrack(self,idPlaylist, IdTrack):
         trackFound = SqlServerTrackManagement.DeletePlaylistTrack(self, idPlaylist, idTrack)
         return trackFound.idTrack

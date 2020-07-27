@@ -17,6 +17,9 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
     def __init__(self):
         pass
 
+    def AddContentCreator(self, newContentCreator):
+        SqlServerContentCreatorManagement.AddContentCreator(self, newContentCreator)
+
     def GetContentCreators(self):
         contentCreatorList = []
         contentCreatorFound = SqlServerContentCreatorManagement.GetContentCreators(self)
@@ -31,7 +34,6 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
             contentCreatorAux.description = n.description
             contentCreatorAux.imageStoragePath = n.imageStoragePath
             contentCreatorList.append(contentCreatorAux)
-        print(contentCreatorList)
         return contentCreatorList
 
     def GetContentCreatorById(self, idContentCreator):
@@ -40,8 +42,33 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
     def GetContentCreatorByEmailPassword(self, email, password):
         connection.GetContentCreatorByEmailPassword(email, password)
 
-    def AddContentCreator(self, newContentCreator):
-        SqlServerContentCreatorManagement.AddContentCreator(self, newContentCreator)
+    def GetContentCreatorByEmail(self, email):
+        if(SqlServerContentCreatorManagement.GetContentCreatorByEmail(self, email) != None):
+            return True
+        else:
+            return False
+
+    def GetContentCreatorByStageName(self, stageName):
+        if(SqlServerContentCreatorManagement.GetContentCreatorByStageName(self, stageName) != None):
+            return True
+        else:
+            return False
+
+    def GetContentCreatorByLibraryId(self, idLibrary):
+        contentCreatorList = []
+        contentCreatorFound = SqlServerContentCreatorManagement.GetContentCreatorByLibraryId(self, idLibrary)
+        for n in contentCreatorFound:
+            contentCreatorAux = ContentCreator()            
+            contentCreatorAux.idContentCreator = n.IdContentCreator
+            contentCreatorAux.givenName = n.name
+            contentCreatorAux.lastName = n.lastname
+            contentCreatorAux.stageName = n.stageName
+            contentCreatorAux.email = n.email
+            contentCreatorAux.password = n.password
+            contentCreatorAux.description = n.description
+            contentCreatorAux.imageStoragePath = n.imageStoragePath
+            contentCreatorList.append(contentCreatorAux)
+        return contentCreatorList
 
     def LoginContentCreator(self, email, password):
         contentCreator = ContentCreator()
@@ -59,15 +86,3 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
             return contentCreator
         else:
             return None
-
-    def GetContentCreatorByEmail(self, email):
-        if(SqlServerContentCreatorManagement.GetContentCreatorByEmail(self, email) != None):
-            return True
-        else:
-            return False
-
-    def GetContentCreatorByStageName(self, stageName):
-        if(SqlServerContentCreatorManagement.GetContentCreatorByStageName(self, stageName) != None):
-            return True
-        else:
-            return False

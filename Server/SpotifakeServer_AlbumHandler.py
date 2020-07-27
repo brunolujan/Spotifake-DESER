@@ -54,18 +54,9 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
             albumList.append(albumAux)
         return albumList
 
-    def AddAlbum(self, newAlbum, idContentCreator):
-        idNewAlbum =  SqlServerAlbumManagement.AddAlbum(self, newAlbum, idContentCreator)
-        return idNewAlbum
-
-    def AddFeaturingAlbum(self, idNewAlbum, idContentCreator):
-        SqlServerAlbumManagement.AddFeaturingAlbum(self, idNewAlbum, idContentCreator)
-        return idNewAlbum
-
-    def GetAlbumByTitle(self, title): #NUEVO
+    def GetAlbumByTitle(self, title):
         albumAux = Album()
         albumFound = SqlServerAlbumManagement.GetAlbumByTitle(self,title)
-        albumAux = Album()
         albumAux.idAlbum = albumFound.IdAlbum
         albumAux.title = albumFound.title
         albumAux.coverPath = albumFound.coverPath
@@ -77,6 +68,32 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumAux.gender = albumFound.IdGenre
         albumAux.isSingle = albumFound.type
         return albumFound
+
+    def GetAlbumByLibraryId(self, idLibrary):
+        albumList = []
+        albumFound =  SqlServerAlbumManagement.GetTrackByIdLibrary(self, idLibrary)
+        for n in albumFound:
+            albumAux = Album()
+            albumAux.idAlbum = n.IdAlbum
+            albumAux.title = n.title
+            albumAux.coverPath = n.coverPath
+            date = Date()
+            date.day = n.releaseDate.day
+            date.month = n.releaseDate.month
+            date.year = n.releaseDate.year
+            albumAux.releaseDate = date
+            albumAux.gender = n.IdGenre
+            albumAux.isSingle = n.type
+            albumList.append(albumAux)
+        return albumList
+
+    def AddAlbum(self, newAlbum, idContentCreator):
+        idNewAlbum =  SqlServerAlbumManagement.AddAlbum(self, newAlbum, idContentCreator)
+        return idNewAlbum
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContentCreator):
+        SqlServerAlbumManagement.AddFeaturingAlbum(self, idNewAlbum, idContentCreator)
+        return idNewAlbum
 
     def DeleteAlbum(self, idAlbum): #Nuevo
         albumFound = SqlServerAlbumManagement.DeleteAlbum(self, idAlbum)

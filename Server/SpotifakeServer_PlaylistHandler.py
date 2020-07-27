@@ -20,8 +20,7 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
     def GetPlaylistByTitle(self,title):
         playlistAux = Playlist()
         playlistFound = SqlServerPlaylistManagement.GetPlaylistByTitle(self,title)
-        playlistAux = Playlist()
-        playlistAux.idPlylist = playlistFound.IdPlaylist
+        playlistAux.idPlaylist = playlistFound.IdPlaylist
         playlistAux.name = playlistFound.name
         playlistAux.description = playlistFound.description
         date = Date()
@@ -32,7 +31,23 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
         playlistAux.coverPath = playlistFound.coverPath
         return playlistFound
 
-    def AddPlaylistToLibrary(idLibrary, newPlaylist): #Nuevo
+    def GetPlaylistByLibraryId(self, idLibrary):
+        playlistList = []
+        playlistFound = SqlServerPlaylistManagement.GetPlaylistByLibraryId(self, idLibrary)
+        for n in playlistFoundFound:
+            playlistAux.idPlaylist = n.IdPlaylist
+            date = Date()
+            date.day = n.creationDate.day
+            date.month = n.creationDate.month
+            date.year = n.creationDate.year
+            playlistAux.creationDate = date
+            playlistAux.name = n.title
+            playlistAux.description = n.description
+            playlistAux.coverPath = n.coverPath
+            playlistList.append(playlistAux)
+        return playlistList
+
+    def AddPlaylistToLibrary(idLibrary, newPlaylist):
         playlistAux = Playlist()
         playlistFound = SqlServerPlaylistManagement.AddPLaylistToLibrary(self, idLibrary, newPlaylist)
         playlistAux = Playlist()
@@ -47,18 +62,18 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
         playlistAux.coverPath = playlistFound.coverPath
         return playlistFound
 
-    def DeleteLibraryPlaylist(self,idLibrary, idPlylist): #Nuevo
+    def DeleteLibraryPlaylist(self,idLibrary, idPlylist):
         playlistFound = SqlServerPlaylistManagement.DeleteLibraryPlaylist(self, idLibrary, idPlylist)
         return playlistFound.idPlylist
 
-    def UpdatePLaylistTitle(self, idPLaylist, newPlaylistTitle): #Nuevo
+    def UpdatePLaylistTitle(self, idPLaylist, newPlaylistTitle):
         playlistFound = SqlServerPlaylistManagement.UpdatePlaylistTitle(self, idPLaylist, newPlaylistTitle)
         return playlistFound
 
-    def UpdatePlaylistCover(self, idAlbum, newImageStoragePath): #Nuevo
+    def UpdatePlaylistCover(self, idAlbum, newImageStoragePath):
         playlistFound = SqlServerPlaylistManagement.UpdatePlaylistCover(self, idPlylist, newImageStoragePath)
         return playlistFound
 
-    def UpdatePlaylistDescription(self, idPLaylist, newDescription): #Nuevo
+    def UpdatePlaylistDescription(self, idPLaylist, newDescription):
         playlistFound = SqlServerPlaylistManagement.UpdatePlaylistDescription(self, idPlylist, newDescription)
         return playlistFound

@@ -5,6 +5,7 @@ from SpotifakeServer_ContentCreatorHandler import SpotifakeServerContentCreatorH
 from SpotifakeServer_TrackHandler import SpotifakeServerTrackHandler
 from SpotifakeServer_AlbumHandler import SpotifakeServerAlbumHandler
 from SpotifakeServer_PlaylistHandler import SpotifakeServerPlaylistHandler
+from SpotifakeServer_LibraryHandler import SpotifakeServerLibraryHandler
 from thrift.transport import TSocket
 from thrift.server import TServer
 from SpotifakeServices import ConsumerService
@@ -12,6 +13,7 @@ from SpotifakeServices import ContentCreatorService
 from SpotifakeServices import TrackService
 from SpotifakeServices import AlbumService
 from SpotifakeServices import PlaylistService
+from SpotifakeServices import LibraryService
 from SpotifakeServices.ttypes import *
 from Server.TMultiplexedProcessor import TMultiplexedProcessor
 
@@ -24,6 +26,7 @@ if __name__ == "__main__":
     processor.registerProcessor("AlbumService", AlbumService.Processor(SpotifakeServerAlbumHandler()))
     processor.registerProcessor("TrackService", TrackService.Processor(SpotifakeServerTrackHandler()))
     processor.registerProcessor("PlaylistService", PlaylistService.Processor(SpotifakeServerPlaylistHandler()))
+    processor.registerProcessor("LibraryService", LibraryService.Processor(SpotifakeServerLibraryHandler()))
 
     serverTransport = TSocket.TServerSocket(host="localhost", port=5000)
     server = TServer.TSimpleServer(processor, serverTransport)
