@@ -18,5 +18,5 @@ class SpotifakeServerLibraryHandler(LibraryService.Iface):
         pass
 
     def getLibraryByIdConsumer(self, idConsumer):
-        idLibrary = SqlServerLibraryManagement.getLibraryByIdConsumer(self, idConsumer)
+        idLibrary = SqlServerLibraryManagement.GetLibraryByIdConsumer(self, idConsumer)
         return idLibrary

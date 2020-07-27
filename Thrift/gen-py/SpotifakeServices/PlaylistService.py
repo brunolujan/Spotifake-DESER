@@ -921,8 +921,8 @@ class GetPlaylistByLibraryId_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.idLibrary = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -936,8 +936,8 @@ class GetPlaylistByLibraryId_args(object):
             return
         oprot.writeStructBegin('GetPlaylistByLibraryId_args')
         if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.STRING, 1)
-            oprot.writeString(self.idLibrary.encode('utf-8') if sys.version_info[0] == 2 else self.idLibrary)
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -958,7 +958,7 @@ class GetPlaylistByLibraryId_args(object):
 all_structs.append(GetPlaylistByLibraryId_args)
 GetPlaylistByLibraryId_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'idLibrary', 'UTF8', None, ),  # 1
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
 )
 
 

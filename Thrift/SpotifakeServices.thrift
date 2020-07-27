@@ -824,7 +824,7 @@ service PlaylistService {
     *       list<Playlist> 
     **/
 
-    list<SpotifakeManagement.Playlist> GetPlaylistByLibraryId(1: string idLibrary) 
+    list<SpotifakeManagement.Playlist> GetPlaylistByLibraryId(1: SpotifakeManagement.Id idLibrary) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystem,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)

@@ -1,5 +1,4 @@
 from SQLConnection.connection import SQLConnection
-import datetime
 
 class SqlServerLibraryManagement:
     def __init__(self):
@@ -19,5 +18,5 @@ class SqlServerLibraryManagement:
             SELECT	@salida as N'@salida'
         """
         connection.cursor.execute(sql, idConsumer)
-        row = self.connection.cursor.fetval()
+        row = connection.cursor.fetchval()
         return row

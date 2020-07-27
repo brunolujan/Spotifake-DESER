@@ -51,7 +51,7 @@ public partial class PlaylistService
     /// 
     /// </summary>
     /// <param name="idLibrary"></param>
-    Task<List<Playlist>> GetPlaylistByLibraryIdAsync(string idLibrary, CancellationToken cancellationToken = default(CancellationToken));
+    Task<List<Playlist>> GetPlaylistByLibraryIdAsync(short idLibrary, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Add a Playlist to Library.
@@ -183,7 +183,7 @@ public partial class PlaylistService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetPlaylistByTitle failed: unknown result");
     }
 
-    public async Task<List<Playlist>> GetPlaylistByLibraryIdAsync(string idLibrary, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<List<Playlist>> GetPlaylistByLibraryIdAsync(short idLibrary, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetPlaylistByLibraryId", TMessageType.Call, SeqId), cancellationToken);
       
@@ -1163,9 +1163,9 @@ public partial class PlaylistService
 
   public partial class GetPlaylistByLibraryIdArgs : TBase
   {
-    private string _idLibrary;
+    private short _idLibrary;
 
-    public string IdLibrary
+    public short IdLibrary
     {
       get
       {
@@ -1207,9 +1207,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.String)
+              if (field.Type == TType.I16)
               {
-                IdLibrary = await iprot.ReadStringAsync(cancellationToken);
+                IdLibrary = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -1240,13 +1240,13 @@ public partial class PlaylistService
         var struc = new TStruct("GetPlaylistByLibraryId_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (IdLibrary != null && __isset.idLibrary)
+        if (__isset.idLibrary)
         {
           field.Name = "idLibrary";
-          field.Type = TType.String;
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(IdLibrary, cancellationToken);
+          await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -1279,7 +1279,7 @@ public partial class PlaylistService
     {
       var sb = new StringBuilder("GetPlaylistByLibraryId_args(");
       bool __first = true;
-      if (IdLibrary != null && __isset.idLibrary)
+      if (__isset.idLibrary)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
