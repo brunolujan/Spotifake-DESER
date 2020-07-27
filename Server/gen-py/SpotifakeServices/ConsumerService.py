@@ -19,6 +19,13 @@ all_structs = []
 
 
 class Iface(object):
+    """
+    This file describes the services
+    that needs to be passed to the API methods in order to
+    manage Consumer and Content Creator users and Content.
+
+
+    """
     def GetConsumerById(self, idConsumer):
         """
         Get Consumer by Id
@@ -189,6 +196,13 @@ class Iface(object):
 
 
 class Client(Iface):
+    """
+    This file describes the services
+    that needs to be passed to the API methods in order to
+    manage Consumer and Content Creator users and Content.
+
+
+    """
     def __init__(self, iprot, oprot=None):
         self._iprot = self._oprot = iprot
         if oprot is not None:

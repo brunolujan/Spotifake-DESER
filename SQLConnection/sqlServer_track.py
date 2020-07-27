@@ -63,7 +63,23 @@ class SqlServerTrackManagement:
         connection.cursor.execute(sql, idContentCreator)
         row = connection.cursor.fetchall()
         return row
-        connection.close()
+
+    def GetTrackByIdLibrary(self,idLibrary:int):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetTracksByIdLibrary]
+                    @idLibrary = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idLibrary)
+        row = connection.cursor.fetchall()
+        return row
 
     def DeleteLibraryTrack(self, idLibrary:int, idTrack:int):
         connection: SQLConnection = SQLConnection()

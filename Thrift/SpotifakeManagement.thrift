@@ -138,20 +138,7 @@ struct PlayQueue {
 
 struct Library {
     1: required Id      idLibrary
-    2: list<Track>      Tracks = []
-    3: list<Album>      Albums = []
-    4: list<Playlist>   Playlists = []
-    5: list<ContentCreator> ContentCreators = []
 }
-
-
-struct RelatedResult {
-    1: list<Track>      Tracks = []
-    2: list<Album>      Albums = []
-    3: list<Playlist>   Playlists = []
-    4: list<ContentCreator> ContentCreators = []
-}
-
 
 enum SErrorType {
     UNKNOWN                 =       1,

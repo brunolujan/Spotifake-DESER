@@ -28,24 +28,6 @@ include "SpotifakeManagement.thrift"
 *   manage Consumer and Content Creator users and Content. 
 **/
 
-service ContentService {
-
-    /**
-    *   Get Content 
-    *
-    *   @param query
-    *       The query introduced by user
-    *
-    *   @return RelatedResult
-    *       Related result to the query    
-    **/
-
-    SpotifakeManagement.RelatedResult getRelatedContent(1: string query) 
-        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
-        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
-
-}
-
 service ConsumerService {
 
     /**
@@ -211,6 +193,20 @@ service ContentCreatorService {
     **/
 
     SpotifakeManagement.ContentCreator GetContentCreatorById(1: SpotifakeManagement.Id idContentCreator)
+        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Get ContentCreator by Library Id
+    *
+    *   @param idLibrary
+    *       The Library Id to be obtained.
+    *
+    *   @return ContentCreator list
+    *       list<ContentCreator>  
+    **/
+
+    list<SpotifakeManagement.ContentCreator> GetContentCreatorByLibraryId(1: SpotifakeManagement.Id idLibrary)
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
@@ -426,6 +422,20 @@ service TrackService {
     **/
 
     list<SpotifakeManagement.Track> GetTrackByAlbumId(1: SpotifakeManagement.Id idAlbum) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get Track by idLibrary
+    *
+    *   @param idLibrary
+    *       The Library Id to be obtained
+    *
+    *   @return Track
+    *       list<Track>
+    **/
+
+    list<SpotifakeManagement.Track> GetTrackByLibraryId(1: SpotifakeManagement.Id idLibrary) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
@@ -669,6 +679,20 @@ service AlbumService {
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
+    *   Get list of Album from Library by idLibrary.
+    *
+    *   @param idLibrary
+    *       The Library Id
+    *
+    *   @return list<Album>
+    *       Album found by idLibrary
+    **/
+
+    list<SpotifakeManagement.Album> GetAlbumByLibraryId(1: SpotifakeManagement.Id idLibrary)
+    throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
     * Register an Album.
     *
     * @param newAlbum
@@ -791,6 +815,21 @@ service PlaylistService {
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
+    *   Get Playlist by idLibrary
+    *
+    *   @param idLibrary
+    *       The Library Id to be obtained
+    *
+    *   @return Playlist list
+    *       list<Playlist> 
+    **/
+
+    list<SpotifakeManagement.Playlist> GetPlaylistByLibraryId(1: string idLibrary) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystem,
+        3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
     *   Add a Playlist to Library.
     *
     *   @param idLibrary
@@ -866,5 +905,21 @@ service PlaylistService {
     SpotifakeManagement.Playlist UpdatePlaylistDescription(1: SpotifakeManagement.Id idPlaylist, 2: string newDescription) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+}
 
+service LibraryService {
+
+    /**
+    *   Get Library
+    *
+    *   @param idConsumer
+    *       idConsumer
+    *
+    *   @return idLibrary
+    *       idLibrary    
+    **/
+
+    SpotifakeManagement.Id getLibraryByIdConsumer(1: SpotifakeManagement.Id idConsumer) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }

@@ -23,38 +23,26 @@ using Thrift.Transport.Server;
 using Thrift.Processor;
 
 
-public partial class ContentService
+public partial class LibraryService
 {
-  /// <summary>
-  /// This file describes the services
-  /// that needs to be passed to the API methods in order to
-  /// manage Consumer and Content Creator users and Content.
-  /// 
-  /// </summary>
   public interface IAsync
   {
     /// <summary>
-    /// Get Content
+    /// Get Library
     /// 
-    /// @param query
-    ///     The query introduced by user
+    /// @param idConsumer
+    ///     idConsumer
     /// 
-    /// @return RelatedResult
-    ///     Related result to the query
+    /// @return idLibrary
+    ///     idLibrary
     /// 
     /// </summary>
-    /// <param name="query"></param>
-    Task<RelatedResult> getRelatedContentAsync(string query, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idConsumer"></param>
+    Task<short> getLibraryByIdConsumerAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken));
 
   }
 
 
-  /// <summary>
-  /// This file describes the services
-  /// that needs to be passed to the API methods in order to
-  /// manage Consumer and Content Creator users and Content.
-  /// 
-  /// </summary>
   public class Client : TBaseClient, IDisposable, IAsync
   {
     public Client(TProtocol protocol) : this(protocol, protocol)
@@ -63,12 +51,12 @@ public partial class ContentService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
-    public async Task<RelatedResult> getRelatedContentAsync(string query, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> getLibraryByIdConsumerAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("getRelatedContent", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("getLibraryByIdConsumer", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new getRelatedContentArgs();
-      args.Query = query;
+      var args = new getLibraryByIdConsumerArgs();
+      args.IdConsumer = idConsumer;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -82,7 +70,7 @@ public partial class ContentService
         throw x;
       }
 
-      var result = new getRelatedContentResult();
+      var result = new getLibraryByIdConsumerResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
@@ -97,7 +85,7 @@ public partial class ContentService
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "getRelatedContent failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "getLibraryByIdConsumer failed: unknown result");
     }
 
   }
@@ -111,7 +99,7 @@ public partial class ContentService
       if (iAsync == null) throw new ArgumentNullException(nameof(iAsync));
 
       _iAsync = iAsync;
-      processMap_["getRelatedContent"] = getRelatedContent_ProcessAsync;
+      processMap_["getLibraryByIdConsumer"] = getLibraryByIdConsumer_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -154,17 +142,17 @@ public partial class ContentService
       return true;
     }
 
-    public async Task getRelatedContent_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task getLibraryByIdConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new getRelatedContentArgs();
+      var args = new getLibraryByIdConsumerArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new getRelatedContentResult();
+      var result = new getLibraryByIdConsumerResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.getRelatedContentAsync(args.Query, cancellationToken);
+          result.Success = await _iAsync.getLibraryByIdConsumerAsync(args.IdConsumer, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -174,7 +162,7 @@ public partial class ContentService
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("getRelatedContent", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("getLibraryByIdConsumer", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -186,7 +174,7 @@ public partial class ContentService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("getRelatedContent", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("getLibraryByIdConsumer", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -196,20 +184,20 @@ public partial class ContentService
   }
 
 
-  public partial class getRelatedContentArgs : TBase
+  public partial class getLibraryByIdConsumerArgs : TBase
   {
-    private string _query;
+    private short _idConsumer;
 
-    public string Query
+    public short IdConsumer
     {
       get
       {
-        return _query;
+        return _idConsumer;
       }
       set
       {
-        __isset.query = true;
-        this._query = value;
+        __isset.idConsumer = true;
+        this._idConsumer = value;
       }
     }
 
@@ -217,10 +205,10 @@ public partial class ContentService
     public Isset __isset;
     public struct Isset
     {
-      public bool query;
+      public bool idConsumer;
     }
 
-    public getRelatedContentArgs()
+    public getLibraryByIdConsumerArgs()
     {
     }
 
@@ -242,9 +230,9 @@ public partial class ContentService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.String)
+              if (field.Type == TType.I16)
               {
-                Query = await iprot.ReadStringAsync(cancellationToken);
+                IdConsumer = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -272,16 +260,16 @@ public partial class ContentService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("getRelatedContent_args");
+        var struc = new TStruct("getLibraryByIdConsumer_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (Query != null && __isset.query)
+        if (__isset.idConsumer)
         {
-          field.Name = "query";
-          field.Type = TType.String;
+          field.Name = "idConsumer";
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Query, cancellationToken);
+          await oprot.WriteI16Async(IdConsumer, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -295,31 +283,31 @@ public partial class ContentService
 
     public override bool Equals(object that)
     {
-      var other = that as getRelatedContentArgs;
+      var other = that as getLibraryByIdConsumerArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.query == other.__isset.query) && ((!__isset.query) || (System.Object.Equals(Query, other.Query))));
+      return ((__isset.idConsumer == other.__isset.idConsumer) && ((!__isset.idConsumer) || (System.Object.Equals(IdConsumer, other.IdConsumer))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.query)
-          hashcode = (hashcode * 397) + Query.GetHashCode();
+        if(__isset.idConsumer)
+          hashcode = (hashcode * 397) + IdConsumer.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("getRelatedContent_args(");
+      var sb = new StringBuilder("getLibraryByIdConsumer_args(");
       bool __first = true;
-      if (Query != null && __isset.query)
+      if (__isset.idConsumer)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Query: ");
-        sb.Append(Query);
+        sb.Append("IdConsumer: ");
+        sb.Append(IdConsumer);
       }
       sb.Append(")");
       return sb.ToString();
@@ -327,13 +315,13 @@ public partial class ContentService
   }
 
 
-  public partial class getRelatedContentResult : TBase
+  public partial class getLibraryByIdConsumerResult : TBase
   {
-    private RelatedResult _success;
+    private short _success;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
 
-    public RelatedResult Success
+    public short Success
     {
       get
       {
@@ -381,7 +369,7 @@ public partial class ContentService
       public bool sErrorSystemE;
     }
 
-    public getRelatedContentResult()
+    public getLibraryByIdConsumerResult()
     {
     }
 
@@ -403,10 +391,9 @@ public partial class ContentService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                Success = new RelatedResult();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -456,21 +443,18 @@ public partial class ContentService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("getRelatedContent_result");
+        var struc = new TStruct("getLibraryByIdConsumer_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorNotFoundE)
         {
@@ -507,7 +491,7 @@ public partial class ContentService
 
     public override bool Equals(object that)
     {
-      var other = that as getRelatedContentResult;
+      var other = that as getLibraryByIdConsumerResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
@@ -530,14 +514,14 @@ public partial class ContentService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("getRelatedContent_result(");
+      var sb = new StringBuilder("getLibraryByIdConsumer_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {

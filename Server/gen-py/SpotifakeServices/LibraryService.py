@@ -19,72 +19,58 @@ all_structs = []
 
 
 class Iface(object):
-    """
-    This file describes the services
-    that needs to be passed to the API methods in order to
-    manage Consumer and Content Creator users and Content.
-
-
-    """
-    def getRelatedContent(self, query):
+    def getLibraryByIdConsumer(self, idConsumer):
         """
-        Get Content
+        Get Library
 
-        @param query
-            The query introduced by user
+        @param idConsumer
+            idConsumer
 
-        @return RelatedResult
-            Related result to the query
+        @return idLibrary
+            idLibrary
 
 
         Parameters:
-         - query
+         - idConsumer
 
         """
         pass
 
 
 class Client(Iface):
-    """
-    This file describes the services
-    that needs to be passed to the API methods in order to
-    manage Consumer and Content Creator users and Content.
-
-
-    """
     def __init__(self, iprot, oprot=None):
         self._iprot = self._oprot = iprot
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
 
-    def getRelatedContent(self, query):
+    def getLibraryByIdConsumer(self, idConsumer):
         """
-        Get Content
+        Get Library
 
-        @param query
-            The query introduced by user
+        @param idConsumer
+            idConsumer
 
-        @return RelatedResult
-            Related result to the query
+        @return idLibrary
+            idLibrary
 
 
         Parameters:
-         - query
+         - idConsumer
 
         """
-        self.send_getRelatedContent(query)
-        return self.recv_getRelatedContent()
+        self.send_getLibraryByIdConsumer(idConsumer)
+        return self.recv_getLibraryByIdConsumer()
 
-    def send_getRelatedContent(self, query):
-        self._oprot.writeMessageBegin('getRelatedContent', TMessageType.CALL, self._seqid)
-        args = getRelatedContent_args()
-        args.query = query
+    def send_getLibraryByIdConsumer(self, idConsumer):
+        self._oprot.writeMessageBegin('getLibraryByIdConsumer', TMessageType.CALL, self._seqid)
+        args = getLibraryByIdConsumer_args()
+        args.idConsumer = idConsumer
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_getRelatedContent(self):
+    def recv_getLibraryByIdConsumer(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -92,7 +78,7 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = getRelatedContent_result()
+        result = getLibraryByIdConsumer_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
@@ -101,14 +87,14 @@ class Client(Iface):
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "getRelatedContent failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "getLibraryByIdConsumer failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
-        self._processMap["getRelatedContent"] = Processor.process_getRelatedContent
+        self._processMap["getLibraryByIdConsumer"] = Processor.process_getLibraryByIdConsumer
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -131,13 +117,13 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
-    def process_getRelatedContent(self, seqid, iprot, oprot):
-        args = getRelatedContent_args()
+    def process_getLibraryByIdConsumer(self, seqid, iprot, oprot):
+        args = getLibraryByIdConsumer_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = getRelatedContent_result()
+        result = getLibraryByIdConsumer_result()
         try:
-            result.success = self._handler.getRelatedContent(args.query)
+            result.success = self._handler.getLibraryByIdConsumer(args.idConsumer)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -155,7 +141,7 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("getRelatedContent", msg_type, seqid)
+        oprot.writeMessageBegin("getLibraryByIdConsumer", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -163,16 +149,16 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
-class getRelatedContent_args(object):
+class getLibraryByIdConsumer_args(object):
     """
     Attributes:
-     - query
+     - idConsumer
 
     """
 
 
-    def __init__(self, query=None,):
-        self.query = query
+    def __init__(self, idConsumer=None,):
+        self.idConsumer = idConsumer
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -184,8 +170,8 @@ class getRelatedContent_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.query = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idConsumer = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -197,10 +183,10 @@ class getRelatedContent_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('getRelatedContent_args')
-        if self.query is not None:
-            oprot.writeFieldBegin('query', TType.STRING, 1)
-            oprot.writeString(self.query.encode('utf-8') if sys.version_info[0] == 2 else self.query)
+        oprot.writeStructBegin('getLibraryByIdConsumer_args')
+        if self.idConsumer is not None:
+            oprot.writeFieldBegin('idConsumer', TType.I16, 1)
+            oprot.writeI16(self.idConsumer)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -218,14 +204,14 @@ class getRelatedContent_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(getRelatedContent_args)
-getRelatedContent_args.thrift_spec = (
+all_structs.append(getLibraryByIdConsumer_args)
+getLibraryByIdConsumer_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'query', 'UTF8', None, ),  # 1
+    (1, TType.I16, 'idConsumer', None, None, ),  # 1
 )
 
 
-class getRelatedContent_result(object):
+class getLibraryByIdConsumer_result(object):
     """
     Attributes:
      - success
@@ -250,9 +236,8 @@ class getRelatedContent_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.RelatedResult()
-                    self.success.read(iprot)
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -276,10 +261,10 @@ class getRelatedContent_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('getRelatedContent_result')
+        oprot.writeStructBegin('getLibraryByIdConsumer_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
             oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
@@ -305,9 +290,9 @@ class getRelatedContent_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(getRelatedContent_result)
-getRelatedContent_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.RelatedResult, None], None, ),  # 0
+all_structs.append(getLibraryByIdConsumer_result)
+getLibraryByIdConsumer_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )

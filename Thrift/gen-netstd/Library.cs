@@ -26,85 +26,11 @@ using Thrift.Processor;
 
 public partial class Library : TBase
 {
-  private List<Track> _Tracks;
-  private List<Album> _Albums;
-  private List<Playlist> _Playlists;
-  private List<ContentCreator> _ContentCreators;
 
   public short IdLibrary { get; set; }
 
-  public List<Track> Tracks
-  {
-    get
-    {
-      return _Tracks;
-    }
-    set
-    {
-      __isset.Tracks = true;
-      this._Tracks = value;
-    }
-  }
-
-  public List<Album> Albums
-  {
-    get
-    {
-      return _Albums;
-    }
-    set
-    {
-      __isset.Albums = true;
-      this._Albums = value;
-    }
-  }
-
-  public List<Playlist> Playlists
-  {
-    get
-    {
-      return _Playlists;
-    }
-    set
-    {
-      __isset.Playlists = true;
-      this._Playlists = value;
-    }
-  }
-
-  public List<ContentCreator> ContentCreators
-  {
-    get
-    {
-      return _ContentCreators;
-    }
-    set
-    {
-      __isset.ContentCreators = true;
-      this._ContentCreators = value;
-    }
-  }
-
-
-  public Isset __isset;
-  public struct Isset
-  {
-    public bool Tracks;
-    public bool Albums;
-    public bool Playlists;
-    public bool ContentCreators;
-  }
-
   public Library()
   {
-    this._Tracks = new List<Track>();
-    this.__isset.Tracks = true;
-    this._Albums = new List<Album>();
-    this.__isset.Albums = true;
-    this._Playlists = new List<Playlist>();
-    this.__isset.Playlists = true;
-    this._ContentCreators = new List<ContentCreator>();
-    this.__isset.ContentCreators = true;
   }
 
   public Library(short idLibrary) : this()
@@ -135,90 +61,6 @@ public partial class Library : TBase
             {
               IdLibrary = await iprot.ReadI16Async(cancellationToken);
               isset_idLibrary = true;
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 2:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list8 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list8.Count);
-                for(int _i9 = 0; _i9 < _list8.Count; ++_i9)
-                {
-                  Track _elem10;
-                  _elem10 = new Track();
-                  await _elem10.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem10);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 3:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list11 = await iprot.ReadListBeginAsync(cancellationToken);
-                Albums = new List<Album>(_list11.Count);
-                for(int _i12 = 0; _i12 < _list11.Count; ++_i12)
-                {
-                  Album _elem13;
-                  _elem13 = new Album();
-                  await _elem13.ReadAsync(iprot, cancellationToken);
-                  Albums.Add(_elem13);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 4:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list14 = await iprot.ReadListBeginAsync(cancellationToken);
-                Playlists = new List<Playlist>(_list14.Count);
-                for(int _i15 = 0; _i15 < _list14.Count; ++_i15)
-                {
-                  Playlist _elem16;
-                  _elem16 = new Playlist();
-                  await _elem16.ReadAsync(iprot, cancellationToken);
-                  Playlists.Add(_elem16);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 5:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list17 = await iprot.ReadListBeginAsync(cancellationToken);
-                ContentCreators = new List<ContentCreator>(_list17.Count);
-                for(int _i18 = 0; _i18 < _list17.Count; ++_i18)
-                {
-                  ContentCreator _elem19;
-                  _elem19 = new ContentCreator();
-                  await _elem19.ReadAsync(iprot, cancellationToken);
-                  ContentCreators.Add(_elem19);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
             }
             else
             {
@@ -259,70 +101,6 @@ public partial class Library : TBase
       await oprot.WriteFieldBeginAsync(field, cancellationToken);
       await oprot.WriteI16Async(IdLibrary, cancellationToken);
       await oprot.WriteFieldEndAsync(cancellationToken);
-      if (Tracks != null && __isset.Tracks)
-      {
-        field.Name = "Tracks";
-        field.Type = TType.List;
-        field.ID = 2;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter20 in Tracks)
-          {
-            await _iter20.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Albums != null && __isset.Albums)
-      {
-        field.Name = "Albums";
-        field.Type = TType.List;
-        field.ID = 3;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, Albums.Count), cancellationToken);
-          foreach (Album _iter21 in Albums)
-          {
-            await _iter21.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Playlists != null && __isset.Playlists)
-      {
-        field.Name = "Playlists";
-        field.Type = TType.List;
-        field.ID = 4;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, Playlists.Count), cancellationToken);
-          foreach (Playlist _iter22 in Playlists)
-          {
-            await _iter22.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (ContentCreators != null && __isset.ContentCreators)
-      {
-        field.Name = "ContentCreators";
-        field.Type = TType.List;
-        field.ID = 5;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, ContentCreators.Count), cancellationToken);
-          foreach (ContentCreator _iter23 in ContentCreators)
-          {
-            await _iter23.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
       await oprot.WriteFieldStopAsync(cancellationToken);
       await oprot.WriteStructEndAsync(cancellationToken);
     }
@@ -337,25 +115,13 @@ public partial class Library : TBase
     var other = that as Library;
     if (other == null) return false;
     if (ReferenceEquals(this, other)) return true;
-    return System.Object.Equals(IdLibrary, other.IdLibrary)
-      && ((__isset.Tracks == other.__isset.Tracks) && ((!__isset.Tracks) || (TCollections.Equals(Tracks, other.Tracks))))
-      && ((__isset.Albums == other.__isset.Albums) && ((!__isset.Albums) || (TCollections.Equals(Albums, other.Albums))))
-      && ((__isset.Playlists == other.__isset.Playlists) && ((!__isset.Playlists) || (TCollections.Equals(Playlists, other.Playlists))))
-      && ((__isset.ContentCreators == other.__isset.ContentCreators) && ((!__isset.ContentCreators) || (TCollections.Equals(ContentCreators, other.ContentCreators))));
+    return System.Object.Equals(IdLibrary, other.IdLibrary);
   }
 
   public override int GetHashCode() {
     int hashcode = 157;
     unchecked {
       hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-      if(__isset.Tracks)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(Tracks);
-      if(__isset.Albums)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(Albums);
-      if(__isset.Playlists)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(Playlists);
-      if(__isset.ContentCreators)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(ContentCreators);
     }
     return hashcode;
   }
@@ -365,26 +131,6 @@ public partial class Library : TBase
     var sb = new StringBuilder("Library(");
     sb.Append(", IdLibrary: ");
     sb.Append(IdLibrary);
-    if (Tracks != null && __isset.Tracks)
-    {
-      sb.Append(", Tracks: ");
-      sb.Append(Tracks);
-    }
-    if (Albums != null && __isset.Albums)
-    {
-      sb.Append(", Albums: ");
-      sb.Append(Albums);
-    }
-    if (Playlists != null && __isset.Playlists)
-    {
-      sb.Append(", Playlists: ");
-      sb.Append(Playlists);
-    }
-    if (ContentCreators != null && __isset.ContentCreators)
-    {
-      sb.Append(", ContentCreators: ");
-      sb.Append(ContentCreators);
-    }
     sb.Append(")");
     return sb.ToString();
   }

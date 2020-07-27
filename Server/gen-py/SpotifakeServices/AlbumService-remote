@@ -27,6 +27,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Album GetAlbumByTitle(string title)')
     print('   GetAlbumsByContentCreatorId(Id idContentCreator)')
     print('   GetSinglesByContentCreatorId(Id idContentCreator)')
+    print('   GetAlbumByLibraryId(Id idLibrary)')
     print('  Id AddAlbum(Album newAlbum, Id idContenCreator)')
     print('  Id AddFeaturingAlbum(Id idNewAlbum, Id idContenCreator)')
     print('  Id DeleteAlbum(Id idAlbum)')
@@ -130,6 +131,12 @@ elif cmd == 'GetSinglesByContentCreatorId':
         print('GetSinglesByContentCreatorId requires 1 args')
         sys.exit(1)
     pp.pprint(client.GetSinglesByContentCreatorId(eval(args[0]),))
+
+elif cmd == 'GetAlbumByLibraryId':
+    if len(args) != 1:
+        print('GetAlbumByLibraryId requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.GetAlbumByLibraryId(eval(args[0]),))
 
 elif cmd == 'AddAlbum':
     if len(args) != 2:

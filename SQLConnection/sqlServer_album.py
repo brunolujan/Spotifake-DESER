@@ -39,7 +39,7 @@ class SqlServerAlbumManagement:
         row = connection.cursor.fetchall()
         return row
 
-    def GetSinglesByContentCreatorId(self,idContentCreator):
+    def GetSinglesByContentCreatorId(self, idContentCreator):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -56,6 +56,23 @@ class SqlServerAlbumManagement:
         row = connection.cursor.fetchall()
         return row
         connection.close()
+
+    def GetAlbumByLibraryId(self, idLibrary):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetAlbumsByIdLibrary]
+                    @idLibrary = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idLibrary)
+        row = connection.cursor.fetchall()
+        return row
 
     def DeleteAlbum(self, idAlbum:int):
         connection: SQLConnection = SQLConnection()

@@ -997,36 +997,12 @@ class Library(object):
     """
     Attributes:
      - idLibrary
-     - Tracks
-     - Albums
-     - Playlists
-     - ContentCreators
 
     """
 
 
-    def __init__(self, idLibrary=None, Tracks=[
-    ], Albums=[
-    ], Playlists=[
-    ], ContentCreators=[
-    ],):
+    def __init__(self, idLibrary=None,):
         self.idLibrary = idLibrary
-        if Tracks is self.thrift_spec[2][4]:
-            Tracks = [
-            ]
-        self.Tracks = Tracks
-        if Albums is self.thrift_spec[3][4]:
-            Albums = [
-            ]
-        self.Albums = Albums
-        if Playlists is self.thrift_spec[4][4]:
-            Playlists = [
-            ]
-        self.Playlists = Playlists
-        if ContentCreators is self.thrift_spec[5][4]:
-            ContentCreators = [
-            ]
-        self.ContentCreators = ContentCreators
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1040,50 +1016,6 @@ class Library(object):
             if fid == 1:
                 if ftype == TType.I16:
                     self.idLibrary = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.LIST:
-                    self.Tracks = []
-                    (_etype17, _size14) = iprot.readListBegin()
-                    for _i18 in range(_size14):
-                        _elem19 = Track()
-                        _elem19.read(iprot)
-                        self.Tracks.append(_elem19)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.LIST:
-                    self.Albums = []
-                    (_etype23, _size20) = iprot.readListBegin()
-                    for _i24 in range(_size20):
-                        _elem25 = Album()
-                        _elem25.read(iprot)
-                        self.Albums.append(_elem25)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.LIST:
-                    self.Playlists = []
-                    (_etype29, _size26) = iprot.readListBegin()
-                    for _i30 in range(_size26):
-                        _elem31 = Playlist()
-                        _elem31.read(iprot)
-                        self.Playlists.append(_elem31)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 5:
-                if ftype == TType.LIST:
-                    self.ContentCreators = []
-                    (_etype35, _size32) = iprot.readListBegin()
-                    for _i36 in range(_size32):
-                        _elem37 = ContentCreator()
-                        _elem37.read(iprot)
-                        self.ContentCreators.append(_elem37)
-                    iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1100,182 +1032,12 @@ class Library(object):
             oprot.writeFieldBegin('idLibrary', TType.I16, 1)
             oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
-        if self.Tracks is not None:
-            oprot.writeFieldBegin('Tracks', TType.LIST, 2)
-            oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter38 in self.Tracks:
-                iter38.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.Albums is not None:
-            oprot.writeFieldBegin('Albums', TType.LIST, 3)
-            oprot.writeListBegin(TType.STRUCT, len(self.Albums))
-            for iter39 in self.Albums:
-                iter39.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.Playlists is not None:
-            oprot.writeFieldBegin('Playlists', TType.LIST, 4)
-            oprot.writeListBegin(TType.STRUCT, len(self.Playlists))
-            for iter40 in self.Playlists:
-                iter40.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.ContentCreators is not None:
-            oprot.writeFieldBegin('ContentCreators', TType.LIST, 5)
-            oprot.writeListBegin(TType.STRUCT, len(self.ContentCreators))
-            for iter41 in self.ContentCreators:
-                iter41.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
 
     def validate(self):
         if self.idLibrary is None:
             raise TProtocolException(message='Required field idLibrary is unset!')
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-
-
-class RelatedResult(object):
-    """
-    Attributes:
-     - Tracks
-     - Albums
-     - Playlists
-     - ContentCreators
-
-    """
-
-
-    def __init__(self, Tracks=[
-    ], Albums=[
-    ], Playlists=[
-    ], ContentCreators=[
-    ],):
-        if Tracks is self.thrift_spec[1][4]:
-            Tracks = [
-            ]
-        self.Tracks = Tracks
-        if Albums is self.thrift_spec[2][4]:
-            Albums = [
-            ]
-        self.Albums = Albums
-        if Playlists is self.thrift_spec[3][4]:
-            Playlists = [
-            ]
-        self.Playlists = Playlists
-        if ContentCreators is self.thrift_spec[4][4]:
-            ContentCreators = [
-            ]
-        self.ContentCreators = ContentCreators
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.LIST:
-                    self.Tracks = []
-                    (_etype45, _size42) = iprot.readListBegin()
-                    for _i46 in range(_size42):
-                        _elem47 = Track()
-                        _elem47.read(iprot)
-                        self.Tracks.append(_elem47)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.LIST:
-                    self.Albums = []
-                    (_etype51, _size48) = iprot.readListBegin()
-                    for _i52 in range(_size48):
-                        _elem53 = Album()
-                        _elem53.read(iprot)
-                        self.Albums.append(_elem53)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.LIST:
-                    self.Playlists = []
-                    (_etype57, _size54) = iprot.readListBegin()
-                    for _i58 in range(_size54):
-                        _elem59 = Playlist()
-                        _elem59.read(iprot)
-                        self.Playlists.append(_elem59)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.LIST:
-                    self.ContentCreators = []
-                    (_etype63, _size60) = iprot.readListBegin()
-                    for _i64 in range(_size60):
-                        _elem65 = ContentCreator()
-                        _elem65.read(iprot)
-                        self.ContentCreators.append(_elem65)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('RelatedResult')
-        if self.Tracks is not None:
-            oprot.writeFieldBegin('Tracks', TType.LIST, 1)
-            oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter66 in self.Tracks:
-                iter66.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.Albums is not None:
-            oprot.writeFieldBegin('Albums', TType.LIST, 2)
-            oprot.writeListBegin(TType.STRUCT, len(self.Albums))
-            for iter67 in self.Albums:
-                iter67.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.Playlists is not None:
-            oprot.writeFieldBegin('Playlists', TType.LIST, 3)
-            oprot.writeListBegin(TType.STRUCT, len(self.Playlists))
-            for iter68 in self.Playlists:
-                iter68.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.ContentCreators is not None:
-            oprot.writeFieldBegin('ContentCreators', TType.LIST, 4)
-            oprot.writeListBegin(TType.STRUCT, len(self.ContentCreators))
-            for iter69 in self.ContentCreators:
-                iter69.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
         return
 
     def __repr__(self):
@@ -1687,26 +1449,6 @@ all_structs.append(Library)
 Library.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.LIST, 'Tracks', (TType.STRUCT, [Track, None], False), [
-    ], ),  # 2
-    (3, TType.LIST, 'Albums', (TType.STRUCT, [Album, None], False), [
-    ], ),  # 3
-    (4, TType.LIST, 'Playlists', (TType.STRUCT, [Playlist, None], False), [
-    ], ),  # 4
-    (5, TType.LIST, 'ContentCreators', (TType.STRUCT, [ContentCreator, None], False), [
-    ], ),  # 5
-)
-all_structs.append(RelatedResult)
-RelatedResult.thrift_spec = (
-    None,  # 0
-    (1, TType.LIST, 'Tracks', (TType.STRUCT, [Track, None], False), [
-    ], ),  # 1
-    (2, TType.LIST, 'Albums', (TType.STRUCT, [Album, None], False), [
-    ], ),  # 2
-    (3, TType.LIST, 'Playlists', (TType.STRUCT, [Playlist, None], False), [
-    ], ),  # 3
-    (4, TType.LIST, 'ContentCreators', (TType.STRUCT, [ContentCreator, None], False), [
-    ], ),  # 4
 )
 all_structs.append(SErrorUserException)
 SErrorUserException.thrift_spec = (

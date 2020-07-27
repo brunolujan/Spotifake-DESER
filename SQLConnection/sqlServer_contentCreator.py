@@ -72,6 +72,23 @@ class SqlServerContentCreatorManagement:
         return None
         connection.close()
 
+    def GetContentCreatorByLibraryId(self, idLibrary):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetContentCreatorByIdLibrary]
+                    @idLibrary = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idLibrary)
+        row = connection.cursor.fetchall()
+        return row
+
     def DeleteContentCreator(self, email:str):
         self.connection.open()
         sql = """

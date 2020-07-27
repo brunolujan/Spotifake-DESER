@@ -26,6 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Functions:')
     print('  Track GetTrackByTitle(string title)')
     print('   GetTrackByAlbumId(Id idAlbum)')
+    print('   GetTrackByLibraryId(Id idLibrary)')
     print('  Id AddTrackToAlbum(Id idAlbum, Track newTrack, Id idContentCreator)')
     print('  Id AddFeaturingTrack(Id idNewTrack, Id idContenCreator)')
     print('  Id DeleteAlbumTrack(Id idAlbum, Int trackNumber)')
@@ -128,6 +129,12 @@ elif cmd == 'GetTrackByAlbumId':
         print('GetTrackByAlbumId requires 1 args')
         sys.exit(1)
     pp.pprint(client.GetTrackByAlbumId(eval(args[0]),))
+
+elif cmd == 'GetTrackByLibraryId':
+    if len(args) != 1:
+        print('GetTrackByLibraryId requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.GetTrackByLibraryId(eval(args[0]),))
 
 elif cmd == 'AddTrackToAlbum':
     if len(args) != 3:

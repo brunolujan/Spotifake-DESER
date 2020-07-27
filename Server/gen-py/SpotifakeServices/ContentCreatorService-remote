@@ -26,6 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Functions:')
     print('   GetContentCreators()')
     print('  ContentCreator GetContentCreatorById(Id idContentCreator)')
+    print('   GetContentCreatorByLibraryId(Id idLibrary)')
     print('  bool GetContentCreatorByEmail(string email)')
     print('  bool GetContentCreatorByStageName(string email)')
     print('  ContentCreator AddContentCreator(ContentCreator newContentCreator)')
@@ -128,6 +129,12 @@ elif cmd == 'GetContentCreatorById':
         print('GetContentCreatorById requires 1 args')
         sys.exit(1)
     pp.pprint(client.GetContentCreatorById(eval(args[0]),))
+
+elif cmd == 'GetContentCreatorByLibraryId':
+    if len(args) != 1:
+        print('GetContentCreatorByLibraryId requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.GetContentCreatorByLibraryId(eval(args[0]),))
 
 elif cmd == 'GetContentCreatorByEmail':
     if len(args) != 1:

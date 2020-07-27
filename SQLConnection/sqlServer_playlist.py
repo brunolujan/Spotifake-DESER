@@ -8,10 +8,12 @@ class SqlServerPlaylistManagement:
         self.connection.open()
         sql = """
             DECLARE	@return_value int,
-		            @salida nvarchar(1000)
-            EXEC	@return_value = [dbo].[SPC_GetPlaylist]
-                    @title = ?,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetPlaylistByIdLibrary]
+                    @idLibrary = ?,
                     @salida = @salida OUTPUT
+
             SELECT	@salida as N'@salida'
         """
         self.connection.cursor.execute(sql, title)
@@ -19,6 +21,23 @@ class SqlServerPlaylistManagement:
         self.connection.save()
         print(row)
         self.connection.close()
+
+    def GetPlaylistByLibraryId(self, idLibrary):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetContentCreatorByIdLibrary]
+                    @idLibrary = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idLibrary)
+        row = connection.cursor.fetchall()
+        return row
 
     def UpdatePlaylistTitle(self, idPlaylist:int,newPlaylistTitle:str):
         self.connection.open()

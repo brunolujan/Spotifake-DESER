@@ -25,6 +25,12 @@ using Thrift.Processor;
 
 public partial class ConsumerService
 {
+  /// <summary>
+  /// This file describes the services
+  /// that needs to be passed to the API methods in order to
+  /// manage Consumer and Content Creator users and Content.
+  /// 
+  /// </summary>
   public interface IAsync
   {
     /// <summary>
@@ -162,6 +168,12 @@ public partial class ConsumerService
   }
 
 
+  /// <summary>
+  /// This file describes the services
+  /// that needs to be passed to the API methods in order to
+  /// manage Consumer and Content Creator users and Content.
+  /// 
+  /// </summary>
   public class Client : TBaseClient, IDisposable, IAsync
   {
     public Client(TProtocol protocol) : this(protocol, protocol)
