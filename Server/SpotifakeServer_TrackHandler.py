@@ -109,5 +109,5 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
     def AddTrackToMedia(self, fileName, audio):
         file = open("../Media/Tracks/"+fileName+".mp3", 'wb')
         file.write(audio)
-        file.save()
         file.close()
+        return True

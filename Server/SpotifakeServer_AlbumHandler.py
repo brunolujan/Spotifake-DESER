@@ -95,22 +95,22 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         SqlServerAlbumManagement.AddFeaturingAlbum(self, idNewAlbum, idContentCreator)
         return idNewAlbum
 
-    def DeleteAlbum(self, idAlbum): #Nuevo
+    def DeleteAlbum(self, idAlbum):
         albumFound = SqlServerAlbumManagement.DeleteAlbum(self, idAlbum)
         if (albumFound != None):
             return albumFound.idAlbum
         else:
             return SErrorNotFoundException("No existe el album")
 
-    def UpdateAlbumTitle(self, idAlbum, newAlbumTitle): #Nuevo
+    def UpdateAlbumTitle(self, idAlbum, newAlbumTitle):
         albumFound = SqlServerAlbumManagement.UpdateAlbumTitle(self, idAlbum, newAlbumTitle)
         return albumFound
 
-    def UpdateAlbumCover(self,idAlbum, newStoragePath): #Nuevo
+    def UpdateAlbumCover(self,idAlbum, newStoragePath):
         albumId = SpotifakeServerAlbumManagement.UpdateAlbumCover(self, idAlbum, newStoragePath)
         return albumId
 
-    def AddAlbumToLibrary(self, idLibrary, newAlbum): #Nuevo
+    def AddAlbumToLibrary(self, idLibrary, newAlbum):
         albumAux = Album()
         albumFound = SqlServerAlbumManagement.AddAlbumToLibrary(self, idLibrary, newAlbum)
         albumAux = Album()
@@ -126,7 +126,7 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumAux.isSingle = albumFound.type
         return albumFound
 
-    def DeleteLibraryAlbum(self,idLibrary, idAlbum): #Nuevo
+    def DeleteLibraryAlbum(self,idLibrary, idAlbum):
         albumFound = SqlServerAlbumManagement.DeleteLibraryAlbum(self, idLibrary, idAlbum)
         return albumFound.idAlbum
 
