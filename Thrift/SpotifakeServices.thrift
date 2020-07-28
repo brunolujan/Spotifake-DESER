@@ -631,6 +631,18 @@ service TrackService {
     list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.MusicGender gender) 
          throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Add track file binary
+    *
+    *   @param binary
+    *       The binary number that will be keep.
+    *
+    *   @return bool
+    *       true or false.
+    **/
+
+    bool AddTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
 }
 
 service AlbumService {

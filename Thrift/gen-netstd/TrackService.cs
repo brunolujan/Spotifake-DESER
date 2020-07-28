@@ -263,6 +263,20 @@ public partial class TrackService
     /// <param name="gender"></param>
     Task<List<Track>> GenerateRadioStationAsync(MusicGender gender, CancellationToken cancellationToken = default(CancellationToken));
 
+    /// <summary>
+    /// Add track file binary
+    /// 
+    /// @param binary
+    ///     The binary number that will be keep.
+    /// 
+    /// @return bool
+    ///     true or false.
+    /// 
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="audio"></param>
+    Task<bool> AddTrackToMediaAsync(string fileName, byte[] audio, CancellationToken cancellationToken = default(CancellationToken));
+
   }
 
 
@@ -831,6 +845,40 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GenerateRadioStation failed: unknown result");
     }
 
+    public async Task<bool> AddTrackToMediaAsync(string fileName, byte[] audio, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToMedia", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new AddTrackToMediaArgs();
+      args.FileName = fileName;
+      args.Audio = audio;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new AddTrackToMediaResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddTrackToMedia failed: unknown result");
+    }
+
   }
 
   public class AsyncProcessor : ITAsyncProcessor
@@ -857,6 +905,7 @@ public partial class TrackService
       processMap_["AddTrackToPlayQueue"] = AddTrackToPlayQueue_ProcessAsync;
       processMap_["DeletePlayQueueTrack"] = DeletePlayQueueTrack_ProcessAsync;
       processMap_["GenerateRadioStation"] = GenerateRadioStation_ProcessAsync;
+      processMap_["AddTrackToMedia"] = AddTrackToMedia_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -1466,6 +1515,41 @@ public partial class TrackService
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
         await oprot.WriteMessageBeginAsync(new TMessage("GenerateRadioStation", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task AddTrackToMedia_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new AddTrackToMediaArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new AddTrackToMediaResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.AddTrackToMediaAsync(args.FileName, args.Audio, cancellationToken);
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("AddTrackToMedia", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("AddTrackToMedia", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -7409,6 +7493,361 @@ public partial class TrackService
       var sb = new StringBuilder("GenerateRadioStation_result(");
       bool __first = true;
       if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddTrackToMediaArgs : TBase
+  {
+    private string _fileName;
+    private byte[] _audio;
+
+    public string FileName
+    {
+      get
+      {
+        return _fileName;
+      }
+      set
+      {
+        __isset.fileName = true;
+        this._fileName = value;
+      }
+    }
+
+    public byte[] Audio
+    {
+      get
+      {
+        return _audio;
+      }
+      set
+      {
+        __isset.audio = true;
+        this._audio = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool fileName;
+      public bool audio;
+    }
+
+    public AddTrackToMediaArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.String)
+              {
+                FileName = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.String)
+              {
+                Audio = await iprot.ReadBinaryAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddTrackToMedia_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (FileName != null && __isset.fileName)
+        {
+          field.Name = "fileName";
+          field.Type = TType.String;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(FileName, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (Audio != null && __isset.audio)
+        {
+          field.Name = "audio";
+          field.Type = TType.String;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBinaryAsync(Audio, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddTrackToMediaArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.fileName == other.__isset.fileName) && ((!__isset.fileName) || (System.Object.Equals(FileName, other.FileName))))
+        && ((__isset.audio == other.__isset.audio) && ((!__isset.audio) || (TCollections.Equals(Audio, other.Audio))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.fileName)
+          hashcode = (hashcode * 397) + FileName.GetHashCode();
+        if(__isset.audio)
+          hashcode = (hashcode * 397) + Audio.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddTrackToMedia_args(");
+      bool __first = true;
+      if (FileName != null && __isset.fileName)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("FileName: ");
+        sb.Append(FileName);
+      }
+      if (Audio != null && __isset.audio)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Audio: ");
+        sb.Append(Audio);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class AddTrackToMediaResult : TBase
+  {
+    private bool _success;
+    private SErrorSystemException _sErrorSystemE;
+
+    public bool Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorSystemE;
+    }
+
+    public AddTrackToMediaResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Bool)
+              {
+                Success = await iprot.ReadBoolAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddTrackToMedia_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddTrackToMediaResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddTrackToMedia_result(");
+      bool __first = true;
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;

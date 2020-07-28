@@ -39,6 +39,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Track AddTrackToPlayQueue(Id idPlayQueu, Track newTrack)')
     print('  Id DeletePlayQueueTrack(Id idPlayQueu, Int trackNumber)')
     print('   GenerateRadioStation(MusicGender gender)')
+    print('  bool AddTrackToMedia(string fileName, string audio)')
     print('')
     sys.exit(0)
 
@@ -207,6 +208,12 @@ elif cmd == 'GenerateRadioStation':
         print('GenerateRadioStation requires 1 args')
         sys.exit(1)
     pp.pprint(client.GenerateRadioStation(eval(args[0]),))
+
+elif cmd == 'AddTrackToMedia':
+    if len(args) != 2:
+        print('AddTrackToMedia requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.AddTrackToMedia(args[0], args[1],))
 
 else:
     print('Unrecognized method %s' % cmd)
