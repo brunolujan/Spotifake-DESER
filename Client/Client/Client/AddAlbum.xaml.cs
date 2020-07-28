@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -32,6 +33,9 @@ namespace Client {
         int duration;
         string path;
         List<Track> albumTracks;
+        List<string> fileNames;
+        List<byte[]> audioBytes;
+        Random random;
 
         public AddAlbum(ContentCreator contentCreator, int var) {
             thisContentCreator = contentCreator;
@@ -39,7 +43,10 @@ namespace Client {
             thisVar = var;
             duration = -1;
             path = "";
-            albumTracks = new List<Track> {null, null, null, null, null};
+            albumTracks = new List<Track> { null, null, null, null, null };
+            fileNames = new List<string> { null, null, null, null, null };
+            audioBytes = new List<byte[]> { null, null, null, null, null };
+            random = new Random();
             InitializeComponent();
             if (contentCreator.ImageStoragePath == null) {
                 image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
@@ -258,24 +265,35 @@ namespace Client {
             AddSingleTrack(idNewAlbum, contentCreators);
         }
 
+        private byte[] GetTrackBytes(string filePath) {
+            return File.ReadAllBytes(filePath);
+        }
+
         private async void AddSingleTrack(short idNewAlbum, List<ContentCreator> contentCreators) {
+            int n = random.Next();
+            string fileName = String.Concat(textBox_SingleTrackTitle.Text, n);
             Track newTrack = new Track();
             newTrack.TrackNumber = 1;
             newTrack.DurationSeconds = duration;
-            newTrack.StoragePath = path;
+            newTrack.StoragePath = fileName;
+            Console.WriteLine(newTrack.StoragePath);
             newTrack.Title = textBox_SingleTrackTitle.Text;
             newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_SingleTrackGender.Text);
             await Session.serverConnection.trackService.AddTrackToAlbumAsync(idNewAlbum,newTrack, thisContentCreator.IdContentCreator);
-            foreach (ContentCreator contentCreatorAux in contentCreators) {
-                if (comboBox_SingleFeaturing.SelectedItem.ToString() == contentCreatorAux.StageName) {
-                    await Session.serverConnection.trackService.AddFeaturingTrackAsync(idNewAlbum, contentCreatorAux.IdContentCreator);
+            if (comboBox_SingleFeaturing.SelectedIndex != -1) {
+                foreach (ContentCreator contentCreatorAux in contentCreators) {
+                    if (comboBox_SingleFeaturing.SelectedItem.ToString() == contentCreatorAux.StageName) {
+                        await Session.serverConnection.trackService.AddFeaturingTrackAsync(idNewAlbum, contentCreatorAux.IdContentCreator);
+                    }
                 }
             }
+            await Session.serverConnection.trackService.AddTrackToMediaAsync(newTrack.StoragePath, GetTrackBytes(textBox_SingleSelectTrackFile.Text));
         }
 
         private void button_1stSelectFile_Click(object sender, RoutedEventArgs e) {
             if (comboBox_1stGender.SelectedIndex != -1) {
                 try {
+                    int n = random.Next();
                     Track newTrack = new Track();
                     OpenFileDialog ofd = new OpenFileDialog();
                     var resultado = ofd.ShowDialog();
@@ -284,13 +302,16 @@ namespace Client {
                         path = ofd.FileName;
                         var tfile = TagLib.File.Create(path);
                         textBox_1stTrack.Text = tfile.Tag.Title;
+                        string fileName = String.Concat(textBox_1stTrack.Text, n);
                         newTrack.IdTrack = 1;
                         newTrack.TrackNumber = 1;
                         newTrack.DurationSeconds = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds); ;
-                        newTrack.StoragePath = path;
+                        newTrack.StoragePath = fileName;
+                        fileNames[0] = fileName;
                         newTrack.Title = textBox_1stTrack.Text;
                         newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_1stGender.Text);
                         albumTracks[0] = newTrack;
+                        audioBytes[0] = GetTrackBytes(path);
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex + "in AddAlbum SingleSelectTrackFile");
@@ -303,6 +324,7 @@ namespace Client {
         private void button_2ndSelectFile_Click(object sender, RoutedEventArgs e) {
             if (comboBox_2ndGender.SelectedIndex != -1) {
                 try {
+                    int n = random.Next();
                     Track newTrack = new Track();
                     OpenFileDialog ofd = new OpenFileDialog();
                     var resultado = ofd.ShowDialog();
@@ -311,13 +333,16 @@ namespace Client {
                         path = ofd.FileName;
                         var tfile = TagLib.File.Create(path);
                         textBox_2ndTrack.Text = tfile.Tag.Title;
+                        string fileName = String.Concat(textBox_2ndTrack.Text, n);
                         newTrack.IdTrack = 1;
                         newTrack.TrackNumber = 2;
                         newTrack.DurationSeconds = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds); ;
-                        newTrack.StoragePath = path;
+                        newTrack.StoragePath = fileName;
+                        fileNames[1] = fileName;
                         newTrack.Title = textBox_2ndTrack.Text;
                         newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_2ndGender.Text);
                         albumTracks[1] = newTrack;
+                        audioBytes[1] = GetTrackBytes(path);
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex + "in AddAlbum SingleSelectTrackFile");
@@ -330,6 +355,7 @@ namespace Client {
         private void button_3rdSelectFile_Click(object sender, RoutedEventArgs e) {
             if (comboBox_3rdGender.SelectedIndex != -1) {
                 try {
+                    int n = random.Next();
                     Track newTrack = new Track();
                     OpenFileDialog ofd = new OpenFileDialog();
                     var resultado = ofd.ShowDialog();
@@ -338,13 +364,16 @@ namespace Client {
                         path = ofd.FileName;
                         var tfile = TagLib.File.Create(path);
                         textBox_3rdTrack.Text = tfile.Tag.Title;
+                        string fileName = String.Concat(textBox_3rdTrack.Text, n);
                         newTrack.IdTrack = 1;
                         newTrack.TrackNumber = 3;
                         newTrack.DurationSeconds = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds); ;
-                        newTrack.StoragePath = path;
+                        newTrack.StoragePath = fileName;
+                        fileNames[2] = fileName;
                         newTrack.Title = textBox_3rdTrack.Text;
                         newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_3rdGender.Text);
                         albumTracks[2] = newTrack;
+                        audioBytes[2] = GetTrackBytes(path);
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex + "in AddAlbum SingleSelectTrackFile");
@@ -357,6 +386,7 @@ namespace Client {
         private void button_4thSelectFile_Click(object sender, RoutedEventArgs e) {
             if (comboBox_4thGender.SelectedIndex != -1) {
                 try {
+                    int n = random.Next();
                     Track newTrack = new Track();
                     OpenFileDialog ofd = new OpenFileDialog();
                     var resultado = ofd.ShowDialog();
@@ -365,13 +395,16 @@ namespace Client {
                         path = ofd.FileName;
                         var tfile = TagLib.File.Create(path);
                         textBox_4thTrack.Text = tfile.Tag.Title;
+                        string fileName = String.Concat(textBox_4thTrack.Text, n);
                         newTrack.IdTrack = 1;
                         newTrack.TrackNumber = 4;
                         newTrack.DurationSeconds = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds); ;
-                        newTrack.StoragePath = path;
+                        newTrack.StoragePath = fileName;
+                        fileNames[3] = fileName;
                         newTrack.Title = textBox_4thTrack.Text;
                         newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_4thGender.Text);
                         albumTracks[3] = newTrack;
+                        audioBytes[3] = GetTrackBytes(path);
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex + "in AddAlbum SingleSelectTrackFile");
@@ -384,6 +417,7 @@ namespace Client {
         private void button_5thSelectFile_Click(object sender, RoutedEventArgs e) {
             if (comboBox_5thGender.SelectedIndex != -1) {
                 try {
+                    int n = random.Next();
                     Track newTrack = new Track();
                     OpenFileDialog ofd = new OpenFileDialog();
                     var resultado = ofd.ShowDialog();
@@ -392,13 +426,16 @@ namespace Client {
                         path = ofd.FileName;
                         var tfile = TagLib.File.Create(path);
                         textBox_5thTrack.Text = tfile.Tag.Title;
+                        string fileName = String.Concat(textBox_5thTrack.Text, n);
                         newTrack.IdTrack = 1;
                         newTrack.TrackNumber = 5;
                         newTrack.DurationSeconds = Convert.ToInt32(tfile.Properties.Duration.TotalSeconds); ;
-                        newTrack.StoragePath = path;
+                        newTrack.StoragePath = fileName;
+                        fileNames[4] = fileName;
                         newTrack.Title = textBox_5thTrack.Text;
                         newTrack.Gender = (MusicGender)Enum.Parse(typeof(MusicGender), comboBox_5thGender.Text);
                         albumTracks[4] = newTrack;
+                        audioBytes[4] = GetTrackBytes(path);
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex + "in AddAlbum SingleSelectTrackFile");
@@ -435,6 +472,7 @@ namespace Client {
         private async void AddAlbumTrack(short idNewAlbum, List<Track> albumTracks) {
             for (int n = 0; n <= 4; n++) {
                 await Session.serverConnection.trackService.AddTrackToAlbumAsync(idNewAlbum, albumTracks[n], thisContentCreator.IdContentCreator);
+                await Session.serverConnection.trackService.AddTrackToMediaAsync(fileNames[n], audioBytes[n]);
             }
         }
     }
