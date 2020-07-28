@@ -256,7 +256,7 @@
       <HintPath>..\packages\TagLibSharp.2.2.0\lib\net45\TagLibSharp.dll</HintPath>
     </Reference>
     <Reference Include="Thrift">
-      <HintPath>..\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
+      <HintPath>..\..\..\..\..\SPOTIFAKE\Spotifake-DESER\Client\Client\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />

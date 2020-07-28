@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    class Session
+    public class Session
     {
         public static ServerConnection serverConnection = new ServerConnection();
     }

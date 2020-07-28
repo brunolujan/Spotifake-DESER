@@ -9,7 +9,7 @@ using Thrift.Transport.Client;
 
 namespace Client
 {
-    class ServerConnection
+    public class ServerConnection
     {
         public ConsumerService.Client consumerService;
         public ContentCreatorService.Client contentCreatorService;
