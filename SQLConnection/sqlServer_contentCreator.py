@@ -89,6 +89,17 @@ class SqlServerContentCreatorManagement:
         row = connection.cursor.fetchall()
         return row
 
+    def GetContentCreatorByQuery(self, query:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            EXEC	[dbo].[SPC_GetContentCreatorByQuery]
+		            @query = ?
+        """
+        connection.cursor.execute(sql, query)
+        rows = connection.cursor.fetchall()
+        return rows
+
     def DeleteContentCreator(self, email:str):
         self.connection.open()
         sql = """
