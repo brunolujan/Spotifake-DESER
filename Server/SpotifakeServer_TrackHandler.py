@@ -105,9 +105,3 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
     def DeletePlaylistTrack(self,idPlaylist, IdTrack):
         trackFound = SqlServerTrackManagement.DeletePlaylistTrack(self, idPlaylist, idTrack)
         return trackFound.idTrack
-
-    def AddTrackToMedia(self, fileName, audio):
-        file = open("../Media/Tracks/"+fileName+".mp3", 'wb')
-        file.write(audio)
-        file.close()
-        return True
