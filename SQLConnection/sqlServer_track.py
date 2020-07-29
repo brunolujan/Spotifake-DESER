@@ -79,7 +79,6 @@ class SqlServerTrackManagement:
         """
         connection.cursor.execute(sql, idLibrary)
         row = connection.cursor.fetchall()
-    
         return row
 
     def DeleteLibraryTrack(self, idLibrary:int, idTrack:int):
@@ -192,6 +191,20 @@ class SqlServerTrackManagement:
         connection.save()
         connection.close()
         print(idPlaylist, newTrack.idTrack)
+
+    def GetTrackByQuery(self, query:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            EXEC	[dbo].[SPC_GetTrackByQuery]
+		            @query = ?
+        """
+        connection.cursor.execute(sql, query)
+        rows = connection.cursor.fetchall()
+        return rows
+        
+        
+        
 
     
 

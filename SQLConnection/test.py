@@ -72,7 +72,7 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 #TRACK MANAGEMENT
 query: SqlServerTrackManagement = SqlServerTrackManagement()
 
-query.GetTrackByIdLibrary(1)
+#query.GetTrackByIdLibrary(1)
 
 #query.DeleteAlbumTrack(1, 2)
 
@@ -83,6 +83,8 @@ query.GetTrackByIdLibrary(1)
 #query.DeleteLibraryTrack(1,2)
 
 #query.DeletePlaylistTrack(1,2)
+
+query.GetTrackByQuery("E")
 
 
 

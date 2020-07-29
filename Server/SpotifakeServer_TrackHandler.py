@@ -58,6 +58,27 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
             trackList.append(trackAux)
         return trackList
 
+    def GetTrackByQuery(self, query):
+        trackList = []
+        trackFound =  SqlServerTrackManagement.GetTrackByQuery(self, query)
+        if self.connection.cursor.rowcount != 0:
+                for n in trackFound:
+                    track = Track(n.IdTrack,n.Title,n.durationSeconds,n.storagePath, n.trackNumber)
+                    track.album.idAlbum = n.IdAlbum
+                    track.album.title = n.AlbumTitle
+                    track.album.cover = n.coverPath
+                    track.album.releaseDate = n.releaseDate
+                    track.album.type = n.type
+                    track.album.genre = n.idGenre
+                    track.album.contentCreator.stageName = n.ContentCreatorName
+                    track.album.contentCreator.description = n.Description
+                    track.album.gender.idGender = n.IdGenre
+                    track.album.gender.name = n.name
+
+                    trackList.append(track)
+                return trackList        
+        return False
+
     def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
         idNewTrack = SqlServerTrackManagement.AddTrackToAlbum(self, idAlbum, newTrack)
         return idNewTrack
