@@ -1,6 +1,7 @@
 $:.push('gen-rb')
 require 'thrift'
 require 'streaming_service'
+require 'streaming_services_types'
 require "mp3info"
 
 
