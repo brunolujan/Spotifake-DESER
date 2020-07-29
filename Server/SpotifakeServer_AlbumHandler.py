@@ -130,4 +130,20 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumFound = SqlServerAlbumManagement.DeleteLibraryAlbum(self, idLibrary, idAlbum)
         return albumFound.idAlbum
 
+    def GetAlbumByQuery(self, query):
+        albumList = []
+        albumFound =  SqlServerAlbumManagement.GetAlbumkByQuery(self, query)
+        if self.connection.cursor.rowcount != 0:
+                for n in albumFound:
+                    album = Album(n.IdAlbum,n.coverPath,n.type,n.title,n.releaseDate)
+                    album.contentCreator.idContentCreator = n.idContentCreator
+                    album.contentCreator.stageName = n.ContentCreatorName
+                    album.contentCreator.description = n.Description
+                    album.contentCreator.imageStorgePath = n.imageStorgePath
+                    album.gender.idGender = n.IdGenre
+                    album.gender.name = n.name
+                    albumList.append(album)
+                return albumList        
+        return False
+
 

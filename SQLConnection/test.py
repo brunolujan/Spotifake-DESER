@@ -84,7 +84,7 @@ query: SqlServerTrackManagement = SqlServerTrackManagement()
 
 #query.DeletePlaylistTrack(1,2)
 
-query.GetTrackByQuery("E")
+#query.GetTrackByQuery("E")
 
 
 

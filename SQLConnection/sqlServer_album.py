@@ -192,3 +192,14 @@ class SqlServerAlbumManagement:
         connection.save()
         connection.close()
         print(idLibrary, newAlbum.idAlbum)
+
+    def GetAlbumByQuery(self, query:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            EXEC	[dbo].[SPC_GetAlbumByQuery]
+		            @query = ?
+        """
+        connection.cursor.execute(sql, query)
+        rows = connection.cursor.fetchall()
+        return rows
