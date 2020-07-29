@@ -132,7 +132,7 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
 
     def GetAlbumByQuery(self, query):
         albumList = []
-        albumFound =  SqlServerAlbumManagement.GetAlbumkByQuery(self, query)
+        albumFound =  SqlServerAlbumManagement.GetAlbumByQuery(self, query)
         if self.connection.cursor.rowcount != 0:
                 for n in albumFound:
                     album = Album(n.IdAlbum,n.coverPath,n.type,n.title,n.releaseDate)

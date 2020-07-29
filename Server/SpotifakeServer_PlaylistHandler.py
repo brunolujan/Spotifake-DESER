@@ -78,3 +78,15 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
     def UpdatePlaylistDescription(self, idPLaylist, newDescription):
         playlistFound = SqlServerPlaylistManagement.UpdatePlaylistDescription(self, idPlylist, newDescription)
         return playlistFound
+
+    def GetPlaylistByQuery(self, query):
+        playlistList = []
+        playlistFound =  SqlServerPLaylistManagement.GetPlaylistByQuery(self, query)
+        if self.connection.cursor.rowcount != 0:
+                for n in playlistFound:
+                    playlist = Playlist(n.IdPlaylist,n.title,n.coverPath,n.creationDate,n.description)
+                    playlist.consumer.idConsumer = n.idConsumer
+                    album.consumer.name = n.name
+                    albumList.append(playlist)
+                return playlisList        
+        return False
