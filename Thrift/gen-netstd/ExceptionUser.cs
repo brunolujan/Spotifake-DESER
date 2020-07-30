@@ -24,48 +24,34 @@ using Thrift.Processor;
 
 
 
-public partial class TrackAudio : TBase
+public partial class ExceptionUser : TException, TBase
 {
-  private string _idTrack;
-  private string _trackName;
-  private byte[] _audio;
+  private string _message;
+  private short _error_code;
 
-  public string IdTrack
+  public string Message
   {
     get
     {
-      return _idTrack;
+      return _message;
     }
     set
     {
-      __isset.idTrack = true;
-      this._idTrack = value;
+      __isset.message = true;
+      this._message = value;
     }
   }
 
-  public string TrackName
+  public short Error_code
   {
     get
     {
-      return _trackName;
+      return _error_code;
     }
     set
     {
-      __isset.trackName = true;
-      this._trackName = value;
-    }
-  }
-
-  public byte[] Audio
-  {
-    get
-    {
-      return _audio;
-    }
-    set
-    {
-      __isset.audio = true;
-      this._audio = value;
+      __isset.error_code = true;
+      this._error_code = value;
     }
   }
 
@@ -73,12 +59,11 @@ public partial class TrackAudio : TBase
   public Isset __isset;
   public struct Isset
   {
-    public bool idTrack;
-    public bool trackName;
-    public bool audio;
+    public bool message;
+    public bool error_code;
   }
 
-  public TrackAudio()
+  public ExceptionUser()
   {
   }
 
@@ -102,7 +87,7 @@ public partial class TrackAudio : TBase
           case 1:
             if (field.Type == TType.String)
             {
-              IdTrack = await iprot.ReadStringAsync(cancellationToken);
+              Message = await iprot.ReadStringAsync(cancellationToken);
             }
             else
             {
@@ -110,19 +95,9 @@ public partial class TrackAudio : TBase
             }
             break;
           case 2:
-            if (field.Type == TType.String)
+            if (field.Type == TType.I16)
             {
-              TrackName = await iprot.ReadStringAsync(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 3:
-            if (field.Type == TType.String)
-            {
-              Audio = await iprot.ReadBinaryAsync(cancellationToken);
+              Error_code = await iprot.ReadI16Async(cancellationToken);
             }
             else
             {
@@ -150,34 +125,25 @@ public partial class TrackAudio : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      var struc = new TStruct("TrackAudio");
+      var struc = new TStruct("ExceptionUser");
       await oprot.WriteStructBeginAsync(struc, cancellationToken);
       var field = new TField();
-      if (IdTrack != null && __isset.idTrack)
+      if (Message != null && __isset.message)
       {
-        field.Name = "idTrack";
+        field.Name = "message";
         field.Type = TType.String;
         field.ID = 1;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(IdTrack, cancellationToken);
+        await oprot.WriteStringAsync(Message, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (TrackName != null && __isset.trackName)
+      if (__isset.error_code)
       {
-        field.Name = "trackName";
-        field.Type = TType.String;
+        field.Name = "error_code";
+        field.Type = TType.I16;
         field.ID = 2;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(TrackName, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Audio != null && __isset.audio)
-      {
-        field.Name = "audio";
-        field.Type = TType.String;
-        field.ID = 3;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteBinaryAsync(Audio, cancellationToken);
+        await oprot.WriteI16Async(Error_code, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       await oprot.WriteFieldStopAsync(cancellationToken);
@@ -191,51 +157,41 @@ public partial class TrackAudio : TBase
 
   public override bool Equals(object that)
   {
-    var other = that as TrackAudio;
+    var other = that as ExceptionUser;
     if (other == null) return false;
     if (ReferenceEquals(this, other)) return true;
-    return ((__isset.idTrack == other.__isset.idTrack) && ((!__isset.idTrack) || (System.Object.Equals(IdTrack, other.IdTrack))))
-      && ((__isset.trackName == other.__isset.trackName) && ((!__isset.trackName) || (System.Object.Equals(TrackName, other.TrackName))))
-      && ((__isset.audio == other.__isset.audio) && ((!__isset.audio) || (TCollections.Equals(Audio, other.Audio))));
+    return ((__isset.message == other.__isset.message) && ((!__isset.message) || (System.Object.Equals(Message, other.Message))))
+      && ((__isset.error_code == other.__isset.error_code) && ((!__isset.error_code) || (System.Object.Equals(Error_code, other.Error_code))));
   }
 
   public override int GetHashCode() {
     int hashcode = 157;
     unchecked {
-      if(__isset.idTrack)
-        hashcode = (hashcode * 397) + IdTrack.GetHashCode();
-      if(__isset.trackName)
-        hashcode = (hashcode * 397) + TrackName.GetHashCode();
-      if(__isset.audio)
-        hashcode = (hashcode * 397) + Audio.GetHashCode();
+      if(__isset.message)
+        hashcode = (hashcode * 397) + Message.GetHashCode();
+      if(__isset.error_code)
+        hashcode = (hashcode * 397) + Error_code.GetHashCode();
     }
     return hashcode;
   }
 
   public override string ToString()
   {
-    var sb = new StringBuilder("TrackAudio(");
+    var sb = new StringBuilder("ExceptionUser(");
     bool __first = true;
-    if (IdTrack != null && __isset.idTrack)
+    if (Message != null && __isset.message)
     {
       if(!__first) { sb.Append(", "); }
       __first = false;
-      sb.Append("IdTrack: ");
-      sb.Append(IdTrack);
+      sb.Append("Message: ");
+      sb.Append(Message);
     }
-    if (TrackName != null && __isset.trackName)
+    if (__isset.error_code)
     {
       if(!__first) { sb.Append(", "); }
       __first = false;
-      sb.Append("TrackName: ");
-      sb.Append(TrackName);
-    }
-    if (Audio != null && __isset.audio)
-    {
-      if(!__first) { sb.Append(", "); }
-      __first = false;
-      sb.Append("Audio: ");
-      sb.Append(Audio);
+      sb.Append("Error_code: ");
+      sb.Append(Error_code);
     }
     sb.Append(")");
     return sb.ToString();

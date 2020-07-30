@@ -24,38 +24,30 @@ using Thrift.Processor;
 
 
 
-public partial class TrackRequest : TBase
+/// <summary>
+/// This exception is thrown by SError procedures when a caller asks to perform an operation on
+/// an object that does not exist.
+/// 
+/// identifier: A description of the object that was not found on the serve.
+/// 
+/// key: The value passed from the client in the identifier, which was not found.
+/// </summary>
+public partial class SErrorNotFoundException : TException, TBase
 {
-  private string _filename;
-  private Quality _quality;
+  private string _key;
 
-  public string Filename
+  public string Identifier { get; set; }
+
+  public string Key
   {
     get
     {
-      return _filename;
+      return _key;
     }
     set
     {
-      __isset.filename = true;
-      this._filename = value;
-    }
-  }
-
-  /// <summary>
-  /// 
-  /// <seealso cref="Quality"/>
-  /// </summary>
-  public Quality Quality
-  {
-    get
-    {
-      return _quality;
-    }
-    set
-    {
-      __isset.quality = true;
-      this._quality = value;
+      __isset.key = true;
+      this._key = value;
     }
   }
 
@@ -63,12 +55,16 @@ public partial class TrackRequest : TBase
   public Isset __isset;
   public struct Isset
   {
-    public bool filename;
-    public bool quality;
+    public bool key;
   }
 
-  public TrackRequest()
+  public SErrorNotFoundException()
   {
+  }
+
+  public SErrorNotFoundException(string identifier) : this()
+  {
+    this.Identifier = identifier;
   }
 
   public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
@@ -76,6 +72,7 @@ public partial class TrackRequest : TBase
     iprot.IncrementRecursionDepth();
     try
     {
+      bool isset_identifier = false;
       TField field;
       await iprot.ReadStructBeginAsync(cancellationToken);
       while (true)
@@ -91,7 +88,8 @@ public partial class TrackRequest : TBase
           case 1:
             if (field.Type == TType.String)
             {
-              Filename = await iprot.ReadStringAsync(cancellationToken);
+              Identifier = await iprot.ReadStringAsync(cancellationToken);
+              isset_identifier = true;
             }
             else
             {
@@ -99,9 +97,9 @@ public partial class TrackRequest : TBase
             }
             break;
           case 2:
-            if (field.Type == TType.I32)
+            if (field.Type == TType.String)
             {
-              Quality = (Quality)await iprot.ReadI32Async(cancellationToken);
+              Key = await iprot.ReadStringAsync(cancellationToken);
             }
             else
             {
@@ -117,6 +115,10 @@ public partial class TrackRequest : TBase
       }
 
       await iprot.ReadStructEndAsync(cancellationToken);
+      if (!isset_identifier)
+      {
+        throw new TProtocolException(TProtocolException.INVALID_DATA);
+      }
     }
     finally
     {
@@ -129,25 +131,22 @@ public partial class TrackRequest : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      var struc = new TStruct("TrackRequest");
+      var struc = new TStruct("SErrorNotFoundException");
       await oprot.WriteStructBeginAsync(struc, cancellationToken);
       var field = new TField();
-      if (Filename != null && __isset.filename)
+      field.Name = "identifier";
+      field.Type = TType.String;
+      field.ID = 1;
+      await oprot.WriteFieldBeginAsync(field, cancellationToken);
+      await oprot.WriteStringAsync(Identifier, cancellationToken);
+      await oprot.WriteFieldEndAsync(cancellationToken);
+      if (Key != null && __isset.key)
       {
-        field.Name = "filename";
+        field.Name = "key";
         field.Type = TType.String;
-        field.ID = 1;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(Filename, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (__isset.quality)
-      {
-        field.Name = "quality";
-        field.Type = TType.I32;
         field.ID = 2;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteI32Async((int)Quality, cancellationToken);
+        await oprot.WriteStringAsync(Key, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       await oprot.WriteFieldStopAsync(cancellationToken);
@@ -161,41 +160,32 @@ public partial class TrackRequest : TBase
 
   public override bool Equals(object that)
   {
-    var other = that as TrackRequest;
+    var other = that as SErrorNotFoundException;
     if (other == null) return false;
     if (ReferenceEquals(this, other)) return true;
-    return ((__isset.filename == other.__isset.filename) && ((!__isset.filename) || (System.Object.Equals(Filename, other.Filename))))
-      && ((__isset.quality == other.__isset.quality) && ((!__isset.quality) || (System.Object.Equals(Quality, other.Quality))));
+    return System.Object.Equals(Identifier, other.Identifier)
+      && ((__isset.key == other.__isset.key) && ((!__isset.key) || (System.Object.Equals(Key, other.Key))));
   }
 
   public override int GetHashCode() {
     int hashcode = 157;
     unchecked {
-      if(__isset.filename)
-        hashcode = (hashcode * 397) + Filename.GetHashCode();
-      if(__isset.quality)
-        hashcode = (hashcode * 397) + Quality.GetHashCode();
+      hashcode = (hashcode * 397) + Identifier.GetHashCode();
+      if(__isset.key)
+        hashcode = (hashcode * 397) + Key.GetHashCode();
     }
     return hashcode;
   }
 
   public override string ToString()
   {
-    var sb = new StringBuilder("TrackRequest(");
-    bool __first = true;
-    if (Filename != null && __isset.filename)
+    var sb = new StringBuilder("SErrorNotFoundException(");
+    sb.Append(", Identifier: ");
+    sb.Append(Identifier);
+    if (Key != null && __isset.key)
     {
-      if(!__first) { sb.Append(", "); }
-      __first = false;
-      sb.Append("Filename: ");
-      sb.Append(Filename);
-    }
-    if (__isset.quality)
-    {
-      if(!__first) { sb.Append(", "); }
-      __first = false;
-      sb.Append("Quality: ");
-      sb.Append(Quality);
+      sb.Append(", Key: ");
+      sb.Append(Key);
     }
     sb.Append(")");
     return sb.ToString();

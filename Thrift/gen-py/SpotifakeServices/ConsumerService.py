@@ -19,190 +19,223 @@ all_structs = []
 
 
 class Iface(object):
-    def GetPlaylistByTitle(self, title):
+    """
+    This file describes the services
+    that needs to be passed to the API methods in order to
+    manage Consumer and Content Creator users and Content.
+
+
+    """
+    def GetConsumerById(self, idConsumer):
         """
-        Get Playlist by Title
+        Get Consumer by Id
 
-        @param title
-            The Playlist Title to be obtained
+        @param idConsumer
+            The Consumer Id to be obtained.
 
-        @return Playlist
-            Playlist object
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - title
+         - idConsumer
 
         """
         pass
 
-    def GetPlaylistByLibraryId(self, idLibrary):
+    def GetConsumerByEmail(self, email):
         """
-        Get Playlist by idLibrary
+        Get Consumer by email
 
-        @param idLibrary
-            The Library Id to be obtained
+        @param email
+            The Consumer email to be obtained.
 
-        @return Playlist list
-            list<Playlist>
+        @return bool
+            bool object
 
 
         Parameters:
-         - idLibrary
+         - email
 
         """
         pass
 
-    def AddPlaylistToLibrary(self, idLibrary, newPlaylist):
+    def GetConsumerByEmailPassword(self, email, password):
         """
-        Add a Playlist to Library.
+        Get Consumer by email and password
 
-        @param idLibrary
-            The Library Id to which a playlist will be added
+        @param email
+            The Consumer email to be obtained.
+        @param password
+            The Consumer password to be obtained.
 
-        @param newPlaylist
-
-        @return Playlist
-            Playlist object added
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - idLibrary
-         - newPlaylist
+         - email
+         - password
 
         """
         pass
 
-    def DeleteLibraryPlaylist(self, idLibrary, idPlaylist):
+    def AddConsumer(self, newConsumer):
         """
-        Delete a Playlist from a Library
+        Register a Consumer.
 
-        @param idLibrary
-            The Library Id which a playlist will be deleted.
+        @param newconsumer
 
-        @param idPlaylist
-            The Playlist Id which will be deleted
+        @return Consumer
+            Consumer object added
+
+
+        Parameters:
+         - newConsumer
+
+        """
+        pass
+
+    def DeleteConsumer(self, email):
+        """
+        Delete a Consumer
+
+        @param email
+            The Consumer email of the Consumer to be deleted.
 
         @return Id
-            The Playlist Id of the Playlist deleted.
+            The Consumer Id of the Consumer deleted.
 
 
         Parameters:
-         - idLibrary
-         - idPlaylist
+         - email
 
         """
         pass
 
-    def UpdatePlaylistTitle(self, idPlaylist, newPlaylistTitle):
+    def UpdateConsumerName(self, email, currentPassword, newName, newLastName):
         """
          
-        Update previously registered Playlist title.
+        Update previously registered Consumer name.
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update title.
+        @param email
+            The Consumer Email of the Consumer which require an update name.
 
-        @return Playlist
-            Modified Playlist obejct.
+        @return Consumer
+            Modified Consumer obejct.
 
 
         Parameters:
-         - idPlaylist
-         - newPlaylistTitle
+         - email
+         - currentPassword
+         - newName
+         - newLastName
 
         """
         pass
 
-    def UpdatePlaylistCover(self, idPlaylist, newImageStoragePath):
+    def UpdateConsumerPassword(self, email, currentPassword, newPassword):
         """
          
-        Update previously registered Playlist cover.
+        Update previously registered Consumer password.
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update cover.
+        @param email
+            The Consumer Email of the Consumer which require an update password.
 
-        @return Playlist
-            Modified Playlist obejct.
+        @return Consumer
+            Modified Consumer obejct.
 
 
         Parameters:
-         - idPlaylist
+         - email
+         - currentPassword
+         - newPassword
+
+        """
+        pass
+
+    def UpdateConsumerImage(self, email, newImageStoragePath):
+        """
+         
+        Update previously registered Consumer image.
+
+        @param email
+            The Consumer Email of the Consumer which require an update image.
+
+        @return Consumer
+            Modified Consumer obejct.
+
+
+        Parameters:
+         - email
          - newImageStoragePath
 
         """
         pass
 
-    def UpdatePlaylistDescription(self, idPlaylist, newDescription):
+    def LoginConsumer(self, email, password):
         """
-         
-        Update previously registered Playlist description.
+        Allows the login of a consumer
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update description.
+        @param email
+            The Consumer email
 
-        @return Playlist
-            Modified Playlist obejct.
+        @param password
+            The Email password of the consumer
+
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - idPlaylist
-         - newDescription
-
-        """
-        pass
-
-    def GetPlaylistByQuery(self, query):
-        """
-        Get Playlist by Query
-
-        @param query
-            The query to be obtained
-
-        @return Playlist
-            list<Playlist>
-
-
-        Parameters:
-         - query
+         - email
+         - password
 
         """
         pass
 
 
 class Client(Iface):
+    """
+    This file describes the services
+    that needs to be passed to the API methods in order to
+    manage Consumer and Content Creator users and Content.
+
+
+    """
     def __init__(self, iprot, oprot=None):
         self._iprot = self._oprot = iprot
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
 
-    def GetPlaylistByTitle(self, title):
+    def GetConsumerById(self, idConsumer):
         """
-        Get Playlist by Title
+        Get Consumer by Id
 
-        @param title
-            The Playlist Title to be obtained
+        @param idConsumer
+            The Consumer Id to be obtained.
 
-        @return Playlist
-            Playlist object
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - title
+         - idConsumer
 
         """
-        self.send_GetPlaylistByTitle(title)
-        return self.recv_GetPlaylistByTitle()
+        self.send_GetConsumerById(idConsumer)
+        return self.recv_GetConsumerById()
 
-    def send_GetPlaylistByTitle(self, title):
-        self._oprot.writeMessageBegin('GetPlaylistByTitle', TMessageType.CALL, self._seqid)
-        args = GetPlaylistByTitle_args()
-        args.title = title
+    def send_GetConsumerById(self, idConsumer):
+        self._oprot.writeMessageBegin('GetConsumerById', TMessageType.CALL, self._seqid)
+        args = GetConsumerById_args()
+        args.idConsumer = idConsumer
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetPlaylistByTitle(self):
+    def recv_GetConsumerById(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -210,46 +243,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetPlaylistByTitle_result()
+        result = GetConsumerById_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorSystem is not None:
-            raise result.sErrorSystem
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetPlaylistByTitle failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerById failed: unknown result")
 
-    def GetPlaylistByLibraryId(self, idLibrary):
+    def GetConsumerByEmail(self, email):
         """
-        Get Playlist by idLibrary
+        Get Consumer by email
 
-        @param idLibrary
-            The Library Id to be obtained
+        @param email
+            The Consumer email to be obtained.
 
-        @return Playlist list
-            list<Playlist>
+        @return bool
+            bool object
 
 
         Parameters:
-         - idLibrary
+         - email
 
         """
-        self.send_GetPlaylistByLibraryId(idLibrary)
-        return self.recv_GetPlaylistByLibraryId()
+        self.send_GetConsumerByEmail(email)
+        return self.recv_GetConsumerByEmail()
 
-    def send_GetPlaylistByLibraryId(self, idLibrary):
-        self._oprot.writeMessageBegin('GetPlaylistByLibraryId', TMessageType.CALL, self._seqid)
-        args = GetPlaylistByLibraryId_args()
-        args.idLibrary = idLibrary
+    def send_GetConsumerByEmail(self, email):
+        self._oprot.writeMessageBegin('GetConsumerByEmail', TMessageType.CALL, self._seqid)
+        args = GetConsumerByEmail_args()
+        args.email = email
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetPlaylistByLibraryId(self):
+    def recv_GetConsumerByEmail(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -257,50 +290,50 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetPlaylistByLibraryId_result()
+        result = GetConsumerByEmail_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorSystem is not None:
-            raise result.sErrorSystem
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetPlaylistByLibraryId failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerByEmail failed: unknown result")
 
-    def AddPlaylistToLibrary(self, idLibrary, newPlaylist):
+    def GetConsumerByEmailPassword(self, email, password):
         """
-        Add a Playlist to Library.
+        Get Consumer by email and password
 
-        @param idLibrary
-            The Library Id to which a playlist will be added
+        @param email
+            The Consumer email to be obtained.
+        @param password
+            The Consumer password to be obtained.
 
-        @param newPlaylist
-
-        @return Playlist
-            Playlist object added
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - idLibrary
-         - newPlaylist
+         - email
+         - password
 
         """
-        self.send_AddPlaylistToLibrary(idLibrary, newPlaylist)
-        return self.recv_AddPlaylistToLibrary()
+        self.send_GetConsumerByEmailPassword(email, password)
+        return self.recv_GetConsumerByEmailPassword()
 
-    def send_AddPlaylistToLibrary(self, idLibrary, newPlaylist):
-        self._oprot.writeMessageBegin('AddPlaylistToLibrary', TMessageType.CALL, self._seqid)
-        args = AddPlaylistToLibrary_args()
-        args.idLibrary = idLibrary
-        args.newPlaylist = newPlaylist
+    def send_GetConsumerByEmailPassword(self, email, password):
+        self._oprot.writeMessageBegin('GetConsumerByEmailPassword', TMessageType.CALL, self._seqid)
+        args = GetConsumerByEmailPassword_args()
+        args.email = email
+        args.password = password
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_AddPlaylistToLibrary(self):
+    def recv_GetConsumerByEmailPassword(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -308,47 +341,88 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = AddPlaylistToLibrary_result()
+        result = GetConsumerByEmailPassword_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddPlaylistToLibrary failed: unknown result")
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerByEmailPassword failed: unknown result")
 
-    def DeleteLibraryPlaylist(self, idLibrary, idPlaylist):
+    def AddConsumer(self, newConsumer):
         """
-        Delete a Playlist from a Library
+        Register a Consumer.
 
-        @param idLibrary
-            The Library Id which a playlist will be deleted.
+        @param newconsumer
 
-        @param idPlaylist
-            The Playlist Id which will be deleted
+        @return Consumer
+            Consumer object added
+
+
+        Parameters:
+         - newConsumer
+
+        """
+        self.send_AddConsumer(newConsumer)
+        return self.recv_AddConsumer()
+
+    def send_AddConsumer(self, newConsumer):
+        self._oprot.writeMessageBegin('AddConsumer', TMessageType.CALL, self._seqid)
+        args = AddConsumer_args()
+        args.newConsumer = newConsumer
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddConsumer(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddConsumer_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddConsumer failed: unknown result")
+
+    def DeleteConsumer(self, email):
+        """
+        Delete a Consumer
+
+        @param email
+            The Consumer email of the Consumer to be deleted.
 
         @return Id
-            The Playlist Id of the Playlist deleted.
+            The Consumer Id of the Consumer deleted.
 
 
         Parameters:
-         - idLibrary
-         - idPlaylist
+         - email
 
         """
-        self.send_DeleteLibraryPlaylist(idLibrary, idPlaylist)
-        return self.recv_DeleteLibraryPlaylist()
+        self.send_DeleteConsumer(email)
+        return self.recv_DeleteConsumer()
 
-    def send_DeleteLibraryPlaylist(self, idLibrary, idPlaylist):
-        self._oprot.writeMessageBegin('DeleteLibraryPlaylist', TMessageType.CALL, self._seqid)
-        args = DeleteLibraryPlaylist_args()
-        args.idLibrary = idLibrary
-        args.idPlaylist = idPlaylist
+    def send_DeleteConsumer(self, email):
+        self._oprot.writeMessageBegin('DeleteConsumer', TMessageType.CALL, self._seqid)
+        args = DeleteConsumer_args()
+        args.email = email
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_DeleteLibraryPlaylist(self):
+    def recv_DeleteConsumer(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -356,7 +430,7 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = DeleteLibraryPlaylist_result()
+        result = DeleteConsumer_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
@@ -365,38 +439,44 @@ class Client(Iface):
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteLibraryPlaylist failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteConsumer failed: unknown result")
 
-    def UpdatePlaylistTitle(self, idPlaylist, newPlaylistTitle):
+    def UpdateConsumerName(self, email, currentPassword, newName, newLastName):
         """
          
-        Update previously registered Playlist title.
+        Update previously registered Consumer name.
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update title.
+        @param email
+            The Consumer Email of the Consumer which require an update name.
 
-        @return Playlist
-            Modified Playlist obejct.
+        @return Consumer
+            Modified Consumer obejct.
 
 
         Parameters:
-         - idPlaylist
-         - newPlaylistTitle
+         - email
+         - currentPassword
+         - newName
+         - newLastName
 
         """
-        self.send_UpdatePlaylistTitle(idPlaylist, newPlaylistTitle)
-        return self.recv_UpdatePlaylistTitle()
+        self.send_UpdateConsumerName(email, currentPassword, newName, newLastName)
+        return self.recv_UpdateConsumerName()
 
-    def send_UpdatePlaylistTitle(self, idPlaylist, newPlaylistTitle):
-        self._oprot.writeMessageBegin('UpdatePlaylistTitle', TMessageType.CALL, self._seqid)
-        args = UpdatePlaylistTitle_args()
-        args.idPlaylist = idPlaylist
-        args.newPlaylistTitle = newPlaylistTitle
+    def send_UpdateConsumerName(self, email, currentPassword, newName, newLastName):
+        self._oprot.writeMessageBegin('UpdateConsumerName', TMessageType.CALL, self._seqid)
+        args = UpdateConsumerName_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newName = newName
+        args.newLastName = newLastName
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdatePlaylistTitle(self):
+    def recv_UpdateConsumerName(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -404,47 +484,105 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdatePlaylistTitle_result()
+        result = UpdateConsumerName_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdatePlaylistTitle failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerName failed: unknown result")
 
-    def UpdatePlaylistCover(self, idPlaylist, newImageStoragePath):
+    def UpdateConsumerPassword(self, email, currentPassword, newPassword):
         """
          
-        Update previously registered Playlist cover.
+        Update previously registered Consumer password.
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update cover.
+        @param email
+            The Consumer Email of the Consumer which require an update password.
 
-        @return Playlist
-            Modified Playlist obejct.
+        @return Consumer
+            Modified Consumer obejct.
 
 
         Parameters:
-         - idPlaylist
+         - email
+         - currentPassword
+         - newPassword
+
+        """
+        self.send_UpdateConsumerPassword(email, currentPassword, newPassword)
+        return self.recv_UpdateConsumerPassword()
+
+    def send_UpdateConsumerPassword(self, email, currentPassword, newPassword):
+        self._oprot.writeMessageBegin('UpdateConsumerPassword', TMessageType.CALL, self._seqid)
+        args = UpdateConsumerPassword_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newPassword = newPassword
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateConsumerPassword(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateConsumerPassword_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerPassword failed: unknown result")
+
+    def UpdateConsumerImage(self, email, newImageStoragePath):
+        """
+         
+        Update previously registered Consumer image.
+
+        @param email
+            The Consumer Email of the Consumer which require an update image.
+
+        @return Consumer
+            Modified Consumer obejct.
+
+
+        Parameters:
+         - email
          - newImageStoragePath
 
         """
-        self.send_UpdatePlaylistCover(idPlaylist, newImageStoragePath)
-        return self.recv_UpdatePlaylistCover()
+        self.send_UpdateConsumerImage(email, newImageStoragePath)
+        return self.recv_UpdateConsumerImage()
 
-    def send_UpdatePlaylistCover(self, idPlaylist, newImageStoragePath):
-        self._oprot.writeMessageBegin('UpdatePlaylistCover', TMessageType.CALL, self._seqid)
-        args = UpdatePlaylistCover_args()
-        args.idPlaylist = idPlaylist
+    def send_UpdateConsumerImage(self, email, newImageStoragePath):
+        self._oprot.writeMessageBegin('UpdateConsumerImage', TMessageType.CALL, self._seqid)
+        args = UpdateConsumerImage_args()
+        args.email = email
         args.newImageStoragePath = newImageStoragePath
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdatePlaylistCover(self):
+    def recv_UpdateConsumerImage(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -452,47 +590,53 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdatePlaylistCover_result()
+        result = UpdateConsumerImage_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdatePlaylistCover failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerImage failed: unknown result")
 
-    def UpdatePlaylistDescription(self, idPlaylist, newDescription):
+    def LoginConsumer(self, email, password):
         """
-         
-        Update previously registered Playlist description.
+        Allows the login of a consumer
 
-        @param playlistId
-            The Playlist Id of the Playlist which require an update description.
+        @param email
+            The Consumer email
 
-        @return Playlist
-            Modified Playlist obejct.
+        @param password
+            The Email password of the consumer
+
+        @return Consumer
+            Consumer object
 
 
         Parameters:
-         - idPlaylist
-         - newDescription
+         - email
+         - password
 
         """
-        self.send_UpdatePlaylistDescription(idPlaylist, newDescription)
-        return self.recv_UpdatePlaylistDescription()
+        self.send_LoginConsumer(email, password)
+        return self.recv_LoginConsumer()
 
-    def send_UpdatePlaylistDescription(self, idPlaylist, newDescription):
-        self._oprot.writeMessageBegin('UpdatePlaylistDescription', TMessageType.CALL, self._seqid)
-        args = UpdatePlaylistDescription_args()
-        args.idPlaylist = idPlaylist
-        args.newDescription = newDescription
+    def send_LoginConsumer(self, email, password):
+        self._oprot.writeMessageBegin('LoginConsumer', TMessageType.CALL, self._seqid)
+        args = LoginConsumer_args()
+        args.email = email
+        args.password = password
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdatePlaylistDescription(self):
+    def recv_LoginConsumer(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -500,75 +644,31 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdatePlaylistDescription_result()
+        result = LoginConsumer_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdatePlaylistDescription failed: unknown result")
-
-    def GetPlaylistByQuery(self, query):
-        """
-        Get Playlist by Query
-
-        @param query
-            The query to be obtained
-
-        @return Playlist
-            list<Playlist>
-
-
-        Parameters:
-         - query
-
-        """
-        self.send_GetPlaylistByQuery(query)
-        return self.recv_GetPlaylistByQuery()
-
-    def send_GetPlaylistByQuery(self, query):
-        self._oprot.writeMessageBegin('GetPlaylistByQuery', TMessageType.CALL, self._seqid)
-        args = GetPlaylistByQuery_args()
-        args.query = query
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_GetPlaylistByQuery(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = GetPlaylistByQuery_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetPlaylistByQuery failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "LoginConsumer failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
-        self._processMap["GetPlaylistByTitle"] = Processor.process_GetPlaylistByTitle
-        self._processMap["GetPlaylistByLibraryId"] = Processor.process_GetPlaylistByLibraryId
-        self._processMap["AddPlaylistToLibrary"] = Processor.process_AddPlaylistToLibrary
-        self._processMap["DeleteLibraryPlaylist"] = Processor.process_DeleteLibraryPlaylist
-        self._processMap["UpdatePlaylistTitle"] = Processor.process_UpdatePlaylistTitle
-        self._processMap["UpdatePlaylistCover"] = Processor.process_UpdatePlaylistCover
-        self._processMap["UpdatePlaylistDescription"] = Processor.process_UpdatePlaylistDescription
-        self._processMap["GetPlaylistByQuery"] = Processor.process_GetPlaylistByQuery
+        self._processMap["GetConsumerById"] = Processor.process_GetConsumerById
+        self._processMap["GetConsumerByEmail"] = Processor.process_GetConsumerByEmail
+        self._processMap["GetConsumerByEmailPassword"] = Processor.process_GetConsumerByEmailPassword
+        self._processMap["AddConsumer"] = Processor.process_AddConsumer
+        self._processMap["DeleteConsumer"] = Processor.process_DeleteConsumer
+        self._processMap["UpdateConsumerName"] = Processor.process_UpdateConsumerName
+        self._processMap["UpdateConsumerPassword"] = Processor.process_UpdateConsumerPassword
+        self._processMap["UpdateConsumerImage"] = Processor.process_UpdateConsumerImage
+        self._processMap["LoginConsumer"] = Processor.process_LoginConsumer
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -591,22 +691,22 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
-    def process_GetPlaylistByTitle(self, seqid, iprot, oprot):
-        args = GetPlaylistByTitle_args()
+    def process_GetConsumerById(self, seqid, iprot, oprot):
+        args = GetConsumerById_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetPlaylistByTitle_result()
+        result = GetConsumerById_result()
         try:
-            result.success = self._handler.GetPlaylistByTitle(args.title)
+            result.success = self._handler.GetConsumerById(args.idConsumer)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystem:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystem = sErrorSystem
         except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
             msg_type = TMessageType.REPLY
             result.sErrorInvalidRequestE = sErrorInvalidRequestE
@@ -618,27 +718,27 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetPlaylistByTitle", msg_type, seqid)
+        oprot.writeMessageBegin("GetConsumerById", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetPlaylistByLibraryId(self, seqid, iprot, oprot):
-        args = GetPlaylistByLibraryId_args()
+    def process_GetConsumerByEmail(self, seqid, iprot, oprot):
+        args = GetConsumerByEmail_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetPlaylistByLibraryId_result()
+        result = GetConsumerByEmail_result()
         try:
-            result.success = self._handler.GetPlaylistByLibraryId(args.idLibrary)
+            result.success = self._handler.GetConsumerByEmail(args.email)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystem:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystem = sErrorSystem
         except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
             msg_type = TMessageType.REPLY
             result.sErrorInvalidRequestE = sErrorInvalidRequestE
@@ -650,24 +750,30 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetPlaylistByLibraryId", msg_type, seqid)
+        oprot.writeMessageBegin("GetConsumerByEmail", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddPlaylistToLibrary(self, seqid, iprot, oprot):
-        args = AddPlaylistToLibrary_args()
+    def process_GetConsumerByEmailPassword(self, seqid, iprot, oprot):
+        args = GetConsumerByEmailPassword_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddPlaylistToLibrary_result()
+        result = GetConsumerByEmailPassword_result()
         try:
-            result.success = self._handler.AddPlaylistToLibrary(args.idLibrary, args.newPlaylist)
+            result.success = self._handler.GetConsumerByEmailPassword(args.email, args.password)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -676,18 +782,44 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddPlaylistToLibrary", msg_type, seqid)
+        oprot.writeMessageBegin("GetConsumerByEmailPassword", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_DeleteLibraryPlaylist(self, seqid, iprot, oprot):
-        args = DeleteLibraryPlaylist_args()
+    def process_AddConsumer(self, seqid, iprot, oprot):
+        args = AddConsumer_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = DeleteLibraryPlaylist_result()
+        result = AddConsumer_result()
         try:
-            result.success = self._handler.DeleteLibraryPlaylist(args.idLibrary, args.idPlaylist)
+            result.success = self._handler.AddConsumer(args.newConsumer)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddConsumer", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_DeleteConsumer(self, seqid, iprot, oprot):
+        args = DeleteConsumer_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = DeleteConsumer_result()
+        try:
+            result.success = self._handler.DeleteConsumer(args.email)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -697,6 +829,9 @@ class Processor(Iface, TProcessor):
         except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
             msg_type = TMessageType.REPLY
             result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -705,24 +840,129 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeleteLibraryPlaylist", msg_type, seqid)
+        oprot.writeMessageBegin("DeleteConsumer", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdatePlaylistTitle(self, seqid, iprot, oprot):
-        args = UpdatePlaylistTitle_args()
+    def process_UpdateConsumerName(self, seqid, iprot, oprot):
+        args = UpdateConsumerName_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = UpdatePlaylistTitle_result()
+        result = UpdateConsumerName_result()
         try:
-            result.success = self._handler.UpdatePlaylistTitle(args.idPlaylist, args.newPlaylistTitle)
+            result.success = self._handler.UpdateConsumerName(args.email, args.currentPassword, args.newName, args.newLastName)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateConsumerName", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_UpdateConsumerPassword(self, seqid, iprot, oprot):
+        args = UpdateConsumerPassword_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = UpdateConsumerPassword_result()
+        try:
+            result.success = self._handler.UpdateConsumerPassword(args.email, args.currentPassword, args.newPassword)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateConsumerPassword", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_UpdateConsumerImage(self, seqid, iprot, oprot):
+        args = UpdateConsumerImage_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = UpdateConsumerImage_result()
+        try:
+            result.success = self._handler.UpdateConsumerImage(args.email, args.newImageStoragePath)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateConsumerImage", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_LoginConsumer(self, seqid, iprot, oprot):
+        args = LoginConsumer_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = LoginConsumer_result()
+        try:
+            result.success = self._handler.LoginConsumer(args.email, args.password)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
             msg_type = TMessageType.REPLY
             result.sErrorSystemE = sErrorSystemE
@@ -734,94 +974,7 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdatePlaylistTitle", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_UpdatePlaylistCover(self, seqid, iprot, oprot):
-        args = UpdatePlaylistCover_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = UpdatePlaylistCover_result()
-        try:
-            result.success = self._handler.UpdatePlaylistCover(args.idPlaylist, args.newImageStoragePath)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdatePlaylistCover", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_UpdatePlaylistDescription(self, seqid, iprot, oprot):
-        args = UpdatePlaylistDescription_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = UpdatePlaylistDescription_result()
-        try:
-            result.success = self._handler.UpdatePlaylistDescription(args.idPlaylist, args.newDescription)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdatePlaylistDescription", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_GetPlaylistByQuery(self, seqid, iprot, oprot):
-        args = GetPlaylistByQuery_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = GetPlaylistByQuery_result()
-        try:
-            result.success = self._handler.GetPlaylistByQuery(args.query)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetPlaylistByQuery", msg_type, seqid)
+        oprot.writeMessageBegin("LoginConsumer", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -829,16 +982,179 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
-class GetPlaylistByTitle_args(object):
+class GetConsumerById_args(object):
     """
     Attributes:
-     - title
+     - idConsumer
 
     """
 
 
-    def __init__(self, title=None,):
-        self.title = title
+    def __init__(self, idConsumer=None,):
+        self.idConsumer = idConsumer
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idConsumer = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetConsumerById_args')
+        if self.idConsumer is not None:
+            oprot.writeFieldBegin('idConsumer', TType.I16, 1)
+            oprot.writeI16(self.idConsumer)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetConsumerById_args)
+GetConsumerById_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idConsumer', None, None, ),  # 1
+)
+
+
+class GetConsumerById_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetConsumerById_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetConsumerById_result)
+GetConsumerById_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetConsumerByEmail_args(object):
+    """
+    Attributes:
+     - email
+
+    """
+
+
+    def __init__(self, email=None,):
+        self.email = email
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -851,7 +1167,7 @@ class GetPlaylistByTitle_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRING:
-                    self.title = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -863,10 +1179,10 @@ class GetPlaylistByTitle_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByTitle_args')
-        if self.title is not None:
-            oprot.writeFieldBegin('title', TType.STRING, 1)
-            oprot.writeString(self.title.encode('utf-8') if sys.version_info[0] == 2 else self.title)
+        oprot.writeStructBegin('GetConsumerByEmail_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -884,28 +1200,28 @@ class GetPlaylistByTitle_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByTitle_args)
-GetPlaylistByTitle_args.thrift_spec = (
+all_structs.append(GetConsumerByEmail_args)
+GetConsumerByEmail_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'title', 'UTF8', None, ),  # 1
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
 )
 
 
-class GetPlaylistByTitle_result(object):
+class GetConsumerByEmail_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorSystem
      - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystem=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystem = sErrorSystem
         self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
@@ -918,21 +1234,20 @@ class GetPlaylistByTitle_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
-                    self.success.read(iprot)
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystem = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystem.read(iprot)
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
@@ -950,18 +1265,18 @@ class GetPlaylistByTitle_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByTitle_result')
+        oprot.writeStructBegin('GetConsumerByEmail_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystem is not None:
-            oprot.writeFieldBegin('sErrorSystem', TType.STRUCT, 2)
-            self.sErrorSystem.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorInvalidRequestE is not None:
             oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
@@ -983,25 +1298,27 @@ class GetPlaylistByTitle_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByTitle_result)
-GetPlaylistByTitle_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystem', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(GetConsumerByEmail_result)
+GetConsumerByEmail_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class GetPlaylistByLibraryId_args(object):
+class GetConsumerByEmailPassword_args(object):
     """
     Attributes:
-     - idLibrary
+     - email
+     - password
 
     """
 
 
-    def __init__(self, idLibrary=None,):
-        self.idLibrary = idLibrary
+    def __init__(self, email=None, password=None,):
+        self.email = email
+        self.password = password
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1013,8 +1330,13 @@ class GetPlaylistByLibraryId_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idLibrary = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.password = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1026,10 +1348,14 @@ class GetPlaylistByLibraryId_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByLibraryId_args')
-        if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
-            oprot.writeI16(self.idLibrary)
+        oprot.writeStructBegin('GetConsumerByEmailPassword_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.password is not None:
+            oprot.writeFieldBegin('password', TType.STRING, 2)
+            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1047,28 +1373,29 @@ class GetPlaylistByLibraryId_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByLibraryId_args)
-GetPlaylistByLibraryId_args.thrift_spec = (
+all_structs.append(GetConsumerByEmailPassword_args)
+GetConsumerByEmailPassword_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idLibrary', None, None, ),  # 1
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
 )
 
 
-class GetPlaylistByLibraryId_result(object):
+class GetConsumerByEmailPassword_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorSystem
      - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystem=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystem = sErrorSystem
         self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
@@ -1081,26 +1408,21 @@ class GetPlaylistByLibraryId_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype80, _size77) = iprot.readListBegin()
-                    for _i81 in range(_size77):
-                        _elem82 = SpotifakeManagement.ttypes.Playlist()
-                        _elem82.read(iprot)
-                        self.success.append(_elem82)
-                    iprot.readListEnd()
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystem = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystem.read(iprot)
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
@@ -1118,21 +1440,18 @@ class GetPlaylistByLibraryId_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByLibraryId_result')
+        oprot.writeStructBegin('GetConsumerByEmailPassword_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter83 in self.success:
-                iter83.write(oprot)
-            oprot.writeListEnd()
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystem is not None:
-            oprot.writeFieldBegin('sErrorSystem', TType.STRUCT, 2)
-            self.sErrorSystem.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorInvalidRequestE is not None:
             oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
@@ -1154,27 +1473,25 @@ class GetPlaylistByLibraryId_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByLibraryId_result)
-GetPlaylistByLibraryId_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Playlist, None], False), None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystem', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(GetConsumerByEmailPassword_result)
+GetConsumerByEmailPassword_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class AddPlaylistToLibrary_args(object):
+class AddConsumer_args(object):
     """
     Attributes:
-     - idLibrary
-     - newPlaylist
+     - newConsumer
 
     """
 
 
-    def __init__(self, idLibrary=None, newPlaylist=None,):
-        self.idLibrary = idLibrary
-        self.newPlaylist = newPlaylist
+    def __init__(self, newConsumer=None,):
+        self.newConsumer = newConsumer
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1186,14 +1503,9 @@ class AddPlaylistToLibrary_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idLibrary = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.newPlaylist = SpotifakeManagement.ttypes.Playlist()
-                    self.newPlaylist.read(iprot)
+                    self.newConsumer = SpotifakeManagement.ttypes.Consumer()
+                    self.newConsumer.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1205,14 +1517,10 @@ class AddPlaylistToLibrary_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddPlaylistToLibrary_args')
-        if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
-            oprot.writeI16(self.idLibrary)
-            oprot.writeFieldEnd()
-        if self.newPlaylist is not None:
-            oprot.writeFieldBegin('newPlaylist', TType.STRUCT, 2)
-            self.newPlaylist.write(oprot)
+        oprot.writeStructBegin('AddConsumer_args')
+        if self.newConsumer is not None:
+            oprot.writeFieldBegin('newConsumer', TType.STRUCT, 1)
+            self.newConsumer.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1230,26 +1538,25 @@ class AddPlaylistToLibrary_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddPlaylistToLibrary_args)
-AddPlaylistToLibrary_args.thrift_spec = (
+all_structs.append(AddConsumer_args)
+AddConsumer_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.STRUCT, 'newPlaylist', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 2
+    (1, TType.STRUCT, 'newConsumer', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 1
 )
 
 
-class AddPlaylistToLibrary_result(object):
+class AddConsumer_result(object):
     """
     Attributes:
      - success
-     - sErrorSystemE
+     - sErrorUserE
 
     """
 
 
-    def __init__(self, success=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None,):
         self.success = success
-        self.sErrorSystemE = sErrorSystemE
+        self.sErrorUserE = sErrorUserE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1262,14 +1569,14 @@ class AddPlaylistToLibrary_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
+                    self.success = SpotifakeManagement.ttypes.Consumer()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1281,14 +1588,14 @@ class AddPlaylistToLibrary_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddPlaylistToLibrary_result')
+        oprot.writeStructBegin('AddConsumer_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1306,25 +1613,23 @@ class AddPlaylistToLibrary_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddPlaylistToLibrary_result)
-AddPlaylistToLibrary_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+all_structs.append(AddConsumer_result)
+AddConsumer_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
 )
 
 
-class DeleteLibraryPlaylist_args(object):
+class DeleteConsumer_args(object):
     """
     Attributes:
-     - idLibrary
-     - idPlaylist
+     - email
 
     """
 
 
-    def __init__(self, idLibrary=None, idPlaylist=None,):
-        self.idLibrary = idLibrary
-        self.idPlaylist = idPlaylist
+    def __init__(self, email=None,):
+        self.email = email
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1336,13 +1641,8 @@ class DeleteLibraryPlaylist_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idLibrary = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1354,14 +1654,10 @@ class DeleteLibraryPlaylist_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteLibraryPlaylist_args')
-        if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
-            oprot.writeI16(self.idLibrary)
-            oprot.writeFieldEnd()
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 2)
-            oprot.writeI16(self.idPlaylist)
+        oprot.writeStructBegin('DeleteConsumer_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1379,28 +1675,29 @@ class DeleteLibraryPlaylist_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteLibraryPlaylist_args)
-DeleteLibraryPlaylist_args.thrift_spec = (
+all_structs.append(DeleteConsumer_args)
+DeleteConsumer_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.I16, 'idPlaylist', None, None, ),  # 2
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
 )
 
 
-class DeleteLibraryPlaylist_result(object):
+class DeleteConsumer_result(object):
     """
     Attributes:
      - success
      - sErrorNotFoundE
      - sErrorSystemE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
         self.success = success
         self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1428,6 +1725,12 @@ class DeleteLibraryPlaylist_result(object):
                     self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -1437,7 +1740,7 @@ class DeleteLibraryPlaylist_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteLibraryPlaylist_result')
+        oprot.writeStructBegin('DeleteConsumer_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.I16, 0)
             oprot.writeI16(self.success)
@@ -1450,6 +1753,10 @@ class DeleteLibraryPlaylist_result(object):
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
             self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
 
@@ -1466,26 +1773,31 @@ class DeleteLibraryPlaylist_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteLibraryPlaylist_result)
-DeleteLibraryPlaylist_result.thrift_spec = (
+all_structs.append(DeleteConsumer_result)
+DeleteConsumer_result.thrift_spec = (
     (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class UpdatePlaylistTitle_args(object):
+class UpdateConsumerName_args(object):
     """
     Attributes:
-     - idPlaylist
-     - newPlaylistTitle
+     - email
+     - currentPassword
+     - newName
+     - newLastName
 
     """
 
 
-    def __init__(self, idPlaylist=None, newPlaylistTitle=None,):
-        self.idPlaylist = idPlaylist
-        self.newPlaylistTitle = newPlaylistTitle
+    def __init__(self, email=None, currentPassword=None, newName=None, newLastName=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newName = newName
+        self.newLastName = newLastName
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1497,13 +1809,23 @@ class UpdatePlaylistTitle_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.newPlaylistTitle = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.newLastName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1515,14 +1837,22 @@ class UpdatePlaylistTitle_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdatePlaylistTitle_args')
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
-            oprot.writeI16(self.idPlaylist)
+        oprot.writeStructBegin('UpdateConsumerName_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
-        if self.newPlaylistTitle is not None:
-            oprot.writeFieldBegin('newPlaylistTitle', TType.STRING, 2)
-            oprot.writeString(self.newPlaylistTitle.encode('utf-8') if sys.version_info[0] == 2 else self.newPlaylistTitle)
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newName is not None:
+            oprot.writeFieldBegin('newName', TType.STRING, 3)
+            oprot.writeString(self.newName.encode('utf-8') if sys.version_info[0] == 2 else self.newName)
+            oprot.writeFieldEnd()
+        if self.newLastName is not None:
+            oprot.writeFieldBegin('newLastName', TType.STRING, 4)
+            oprot.writeString(self.newLastName.encode('utf-8') if sys.version_info[0] == 2 else self.newLastName)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1540,28 +1870,34 @@ class UpdatePlaylistTitle_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdatePlaylistTitle_args)
-UpdatePlaylistTitle_args.thrift_spec = (
+all_structs.append(UpdateConsumerName_args)
+UpdateConsumerName_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idPlaylist', None, None, ),  # 1
-    (2, TType.STRING, 'newPlaylistTitle', 'UTF8', None, ),  # 2
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newName', 'UTF8', None, ),  # 3
+    (4, TType.STRING, 'newLastName', 'UTF8', None, ),  # 4
 )
 
 
-class UpdatePlaylistTitle_result(object):
+class UpdateConsumerName_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
      - sErrorSystemE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1574,20 +1910,32 @@ class UpdatePlaylistTitle_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
+                    self.success = SpotifakeManagement.ttypes.Consumer()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1599,18 +1947,26 @@ class UpdatePlaylistTitle_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdatePlaylistTitle_result')
+        oprot.writeStructBegin('UpdateConsumerName_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
             oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
             self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1628,25 +1984,227 @@ class UpdatePlaylistTitle_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdatePlaylistTitle_result)
-UpdatePlaylistTitle_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(UpdateConsumerName_result)
+UpdateConsumerName_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
 )
 
 
-class UpdatePlaylistCover_args(object):
+class UpdateConsumerPassword_args(object):
     """
     Attributes:
-     - idPlaylist
+     - email
+     - currentPassword
+     - newPassword
+
+    """
+
+
+    def __init__(self, email=None, currentPassword=None, newPassword=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newPassword = newPassword
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateConsumerPassword_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newPassword is not None:
+            oprot.writeFieldBegin('newPassword', TType.STRING, 3)
+            oprot.writeString(self.newPassword.encode('utf-8') if sys.version_info[0] == 2 else self.newPassword)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateConsumerPassword_args)
+UpdateConsumerPassword_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newPassword', 'UTF8', None, ),  # 3
+)
+
+
+class UpdateConsumerPassword_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateConsumerPassword_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateConsumerPassword_result)
+UpdateConsumerPassword_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class UpdateConsumerImage_args(object):
+    """
+    Attributes:
+     - email
      - newImageStoragePath
 
     """
 
 
-    def __init__(self, idPlaylist=None, newImageStoragePath=None,):
-        self.idPlaylist = idPlaylist
+    def __init__(self, email=None, newImageStoragePath=None,):
+        self.email = email
         self.newImageStoragePath = newImageStoragePath
 
     def read(self, iprot):
@@ -1659,8 +2217,8 @@ class UpdatePlaylistCover_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
@@ -1677,10 +2235,10 @@ class UpdatePlaylistCover_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdatePlaylistCover_args')
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
-            oprot.writeI16(self.idPlaylist)
+        oprot.writeStructBegin('UpdateConsumerImage_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
         if self.newImageStoragePath is not None:
             oprot.writeFieldBegin('newImageStoragePath', TType.STRING, 2)
@@ -1702,28 +2260,32 @@ class UpdatePlaylistCover_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdatePlaylistCover_args)
-UpdatePlaylistCover_args.thrift_spec = (
+all_structs.append(UpdateConsumerImage_args)
+UpdateConsumerImage_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idPlaylist', None, None, ),  # 1
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
     (2, TType.STRING, 'newImageStoragePath', 'UTF8', None, ),  # 2
 )
 
 
-class UpdatePlaylistCover_result(object):
+class UpdateConsumerImage_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
      - sErrorSystemE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1736,182 +2298,32 @@ class UpdatePlaylistCover_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
+                    self.success = SpotifakeManagement.ttypes.Consumer()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdatePlaylistCover_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdatePlaylistCover_result)
-UpdatePlaylistCover_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class UpdatePlaylistDescription_args(object):
-    """
-    Attributes:
-     - idPlaylist
-     - newDescription
-
-    """
-
-
-    def __init__(self, idPlaylist=None, newDescription=None,):
-        self.idPlaylist = idPlaylist
-        self.newDescription = newDescription
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.newDescription = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdatePlaylistDescription_args')
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
-            oprot.writeI16(self.idPlaylist)
-            oprot.writeFieldEnd()
-        if self.newDescription is not None:
-            oprot.writeFieldBegin('newDescription', TType.STRING, 2)
-            oprot.writeString(self.newDescription.encode('utf-8') if sys.version_info[0] == 2 else self.newDescription)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdatePlaylistDescription_args)
-UpdatePlaylistDescription_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idPlaylist', None, None, ),  # 1
-    (2, TType.STRING, 'newDescription', 'UTF8', None, ),  # 2
-)
-
-
-class UpdatePlaylistDescription_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
                 if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 2:
+            elif fid == 3:
                 if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1923,18 +2335,26 @@ class UpdatePlaylistDescription_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdatePlaylistDescription_result')
+        oprot.writeStructBegin('UpdateConsumerImage_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
             oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
             self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1952,24 +2372,28 @@ class UpdatePlaylistDescription_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdatePlaylistDescription_result)
-UpdatePlaylistDescription_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(UpdateConsumerImage_result)
+UpdateConsumerImage_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
 )
 
 
-class GetPlaylistByQuery_args(object):
+class LoginConsumer_args(object):
     """
     Attributes:
-     - query
+     - email
+     - password
 
     """
 
 
-    def __init__(self, query=None,):
-        self.query = query
+    def __init__(self, email=None, password=None,):
+        self.email = email
+        self.password = password
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1982,7 +2406,12 @@ class GetPlaylistByQuery_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRING:
-                    self.query = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.password = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1994,10 +2423,14 @@ class GetPlaylistByQuery_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByQuery_args')
-        if self.query is not None:
-            oprot.writeFieldBegin('query', TType.STRING, 1)
-            oprot.writeString(self.query.encode('utf-8') if sys.version_info[0] == 2 else self.query)
+        oprot.writeStructBegin('LoginConsumer_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.password is not None:
+            oprot.writeFieldBegin('password', TType.STRING, 2)
+            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2015,26 +2448,27 @@ class GetPlaylistByQuery_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByQuery_args)
-GetPlaylistByQuery_args.thrift_spec = (
+all_structs.append(LoginConsumer_args)
+LoginConsumer_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'query', 'UTF8', None, ),  # 1
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
 )
 
 
-class GetPlaylistByQuery_result(object):
+class LoginConsumer_result(object):
     """
     Attributes:
      - success
-     - sErrorNotFoundE
+     - sErrorUserE
      - sErrorSystemE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorUserE = sErrorUserE
         self.sErrorSystemE = sErrorSystemE
 
     def read(self, iprot):
@@ -2047,20 +2481,15 @@ class GetPlaylistByQuery_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype87, _size84) = iprot.readListBegin()
-                    for _i88 in range(_size84):
-                        _elem89 = SpotifakeManagement.ttypes.Playlist()
-                        _elem89.read(iprot)
-                        self.success.append(_elem89)
-                    iprot.readListEnd()
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
@@ -2078,17 +2507,14 @@ class GetPlaylistByQuery_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetPlaylistByQuery_result')
+        oprot.writeStructBegin('LoginConsumer_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter90 in self.success:
-                iter90.write(oprot)
-            oprot.writeListEnd()
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
@@ -2110,10 +2536,10 @@ class GetPlaylistByQuery_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetPlaylistByQuery_result)
-GetPlaylistByQuery_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Playlist, None], False), None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+all_structs.append(LoginConsumer_result)
+LoginConsumer_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 fix_spec(all_structs)

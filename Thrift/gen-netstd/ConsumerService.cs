@@ -23,130 +23,157 @@ using Thrift.Transport.Server;
 using Thrift.Processor;
 
 
-public partial class PlaylistService
+public partial class ConsumerService
 {
+  /// <summary>
+  /// This file describes the services
+  /// that needs to be passed to the API methods in order to
+  /// manage Consumer and Content Creator users and Content.
+  /// 
+  /// </summary>
   public interface IAsync
   {
     /// <summary>
-    /// Get Playlist by Title
+    /// Get Consumer by Id
     /// 
-    /// @param title
-    ///     The Playlist Title to be obtained
+    /// @param idConsumer
+    ///     The Consumer Id to be obtained.
     /// 
-    /// @return Playlist
-    ///     Playlist object
-    /// 
-    /// </summary>
-    /// <param name="title"></param>
-    Task<Playlist> GetPlaylistByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken));
-
-    /// <summary>
-    /// Get Playlist by idLibrary
-    /// 
-    /// @param idLibrary
-    ///     The Library Id to be obtained
-    /// 
-    /// @return Playlist list
-    ///     list<Playlist>
+    /// @return Consumer
+    ///     Consumer object
     /// 
     /// </summary>
-    /// <param name="idLibrary"></param>
-    Task<List<Playlist>> GetPlaylistByLibraryIdAsync(short idLibrary, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idConsumer"></param>
+    Task<Consumer> GetConsumerByIdAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    /// Add a Playlist to Library.
+    /// Get Consumer by email
     /// 
-    /// @param idLibrary
-    ///     The Library Id to which a playlist will be added
+    /// @param email
+    ///     The Consumer email to be obtained.
     /// 
-    /// @param newPlaylist
-    /// 
-    /// @return Playlist
-    ///     Playlist object added
+    /// @return bool
+    ///     bool object
     /// 
     /// </summary>
-    /// <param name="idLibrary"></param>
-    /// <param name="newPlaylist"></param>
-    Task<Playlist> AddPlaylistToLibraryAsync(short idLibrary, Playlist newPlaylist, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="email"></param>
+    Task<bool> GetConsumerByEmailAsync(string email, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    /// Delete a Playlist from a Library
+    /// Get Consumer by email and password
     /// 
-    /// @param idLibrary
-    ///     The Library Id which a playlist will be deleted.
+    /// @param email
+    ///     The Consumer email to be obtained.
+    /// @param password
+    ///     The Consumer password to be obtained.
     /// 
-    /// @param idPlaylist
-    ///     The Playlist Id which will be deleted
+    /// @return Consumer
+    ///     Consumer object
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    Task<Consumer> GetConsumerByEmailPasswordAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
+    /// Register a Consumer.
+    /// 
+    /// @param newconsumer
+    /// 
+    /// @return Consumer
+    ///     Consumer object added
+    /// 
+    /// </summary>
+    /// <param name="newConsumer"></param>
+    Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
+    /// Delete a Consumer
+    /// 
+    /// @param email
+    ///     The Consumer email of the Consumer to be deleted.
     /// 
     /// @return Id
-    ///     The Playlist Id of the Playlist deleted.
+    ///     The Consumer Id of the Consumer deleted.
     /// 
     /// </summary>
-    /// <param name="idLibrary"></param>
-    /// <param name="idPlaylist"></param>
-    Task<short> DeleteLibraryPlaylistAsync(short idLibrary, short idPlaylist, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="email"></param>
+    Task<short> DeleteConsumerAsync(string email, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     ///  
-    /// Update previously registered Playlist title.
+    /// Update previously registered Consumer name.
     /// 
-    /// @param playlistId
-    ///     The Playlist Id of the Playlist which require an update title.
+    /// @param email
+    ///     The Consumer Email of the Consumer which require an update name.
     /// 
-    /// @return Playlist
-    ///     Modified Playlist obejct.
+    /// @return Consumer
+    ///     Modified Consumer obejct.
     /// 
     /// </summary>
-    /// <param name="idPlaylist"></param>
-    /// <param name="newPlaylistTitle"></param>
-    Task<Playlist> UpdatePlaylistTitleAsync(short idPlaylist, string newPlaylistTitle, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="email"></param>
+    /// <param name="currentPassword"></param>
+    /// <param name="newName"></param>
+    /// <param name="newLastName"></param>
+    Task<Consumer> UpdateConsumerNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     ///  
-    /// Update previously registered Playlist cover.
+    /// Update previously registered Consumer password.
     /// 
-    /// @param playlistId
-    ///     The Playlist Id of the Playlist which require an update cover.
+    /// @param email
+    ///     The Consumer Email of the Consumer which require an update password.
     /// 
-    /// @return Playlist
-    ///     Modified Playlist obejct.
+    /// @return Consumer
+    ///     Modified Consumer obejct.
     /// 
     /// </summary>
-    /// <param name="idPlaylist"></param>
+    /// <param name="email"></param>
+    /// <param name="currentPassword"></param>
+    /// <param name="newPassword"></param>
+    Task<Consumer> UpdateConsumerPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
+    ///  
+    /// Update previously registered Consumer image.
+    /// 
+    /// @param email
+    ///     The Consumer Email of the Consumer which require an update image.
+    /// 
+    /// @return Consumer
+    ///     Modified Consumer obejct.
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
     /// <param name="newImageStoragePath"></param>
-    Task<Playlist> UpdatePlaylistCoverAsync(short idPlaylist, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken));
+    Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
-    ///  
-    /// Update previously registered Playlist description.
+    /// Allows the login of a consumer
     /// 
-    /// @param playlistId
-    ///     The Playlist Id of the Playlist which require an update description.
+    /// @param email
+    ///     The Consumer email
     /// 
-    /// @return Playlist
-    ///     Modified Playlist obejct.
+    /// @param password
+    ///     The Email password of the consumer
     /// 
-    /// </summary>
-    /// <param name="idPlaylist"></param>
-    /// <param name="newDescription"></param>
-    Task<Playlist> UpdatePlaylistDescriptionAsync(short idPlaylist, string newDescription, CancellationToken cancellationToken = default(CancellationToken));
-
-    /// <summary>
-    /// Get Playlist by Query
-    /// 
-    /// @param query
-    ///     The query to be obtained
-    /// 
-    /// @return Playlist
-    ///     list<Playlist>
+    /// @return Consumer
+    ///     Consumer object
     /// 
     /// </summary>
-    /// <param name="query"></param>
-    Task<List<Playlist>> GetPlaylistByQueryAsync(string query, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    Task<Consumer> LoginConsumerAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken));
 
   }
 
 
+  /// <summary>
+  /// This file describes the services
+  /// that needs to be passed to the API methods in order to
+  /// manage Consumer and Content Creator users and Content.
+  /// 
+  /// </summary>
   public class Client : TBaseClient, IDisposable, IAsync
   {
     public Client(TProtocol protocol) : this(protocol, protocol)
@@ -155,12 +182,12 @@ public partial class PlaylistService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
-    public async Task<Playlist> GetPlaylistByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> GetConsumerByIdAsync(short idConsumer, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetPlaylistByTitle", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new GetPlaylistByTitleArgs();
-      args.Title = title;
+      var args = new GetConsumerByIdArgs();
+      args.IdConsumer = idConsumer;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -174,34 +201,34 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new GetPlaylistByTitleResult();
+      var result = new GetConsumerByIdResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
+      }
       if (result.__isset.sErrorNotFoundE)
       {
         throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorSystem)
-      {
-        throw result.SErrorSystem;
       }
       if (result.__isset.sErrorInvalidRequestE)
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetPlaylistByTitle failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerById failed: unknown result");
     }
 
-    public async Task<List<Playlist>> GetPlaylistByLibraryIdAsync(short idLibrary, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> GetConsumerByEmailAsync(string email, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetPlaylistByLibraryId", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetConsumerByEmail", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new GetPlaylistByLibraryIdArgs();
-      args.IdLibrary = idLibrary;
+      var args = new GetConsumerByEmailArgs();
+      args.Email = email;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -215,35 +242,35 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new GetPlaylistByLibraryIdResult();
+      var result = new GetConsumerByEmailResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
+      }
       if (result.__isset.sErrorNotFoundE)
       {
         throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorSystem)
-      {
-        throw result.SErrorSystem;
       }
       if (result.__isset.sErrorInvalidRequestE)
       {
         throw result.SErrorInvalidRequestE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetPlaylistByLibraryId failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerByEmail failed: unknown result");
     }
 
-    public async Task<Playlist> AddPlaylistToLibraryAsync(short idLibrary, Playlist newPlaylist, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> GetConsumerByEmailPasswordAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddPlaylistToLibrary", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new AddPlaylistToLibraryArgs();
-      args.IdLibrary = idLibrary;
-      args.NewPlaylist = newPlaylist;
+      var args = new GetConsumerByEmailPasswordArgs();
+      args.Email = email;
+      args.Password = password;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -257,27 +284,34 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new AddPlaylistToLibraryResult();
+      var result = new GetConsumerByEmailPasswordResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
-      if (result.__isset.sErrorSystemE)
+      if (result.__isset.sErrorUserE)
       {
-        throw result.SErrorSystemE;
+        throw result.SErrorUserE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddPlaylistToLibrary failed: unknown result");
+      if (result.__isset.sErrorNotFoundE)
+      {
+        throw result.SErrorNotFoundE;
+      }
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerByEmailPassword failed: unknown result");
     }
 
-    public async Task<short> DeleteLibraryPlaylistAsync(short idLibrary, short idPlaylist, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteLibraryPlaylist", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new DeleteLibraryPlaylistArgs();
-      args.IdLibrary = idLibrary;
-      args.IdPlaylist = idPlaylist;
+      var args = new AddConsumerArgs();
+      args.NewConsumer = newConsumer;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -291,7 +325,40 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new DeleteLibraryPlaylistResult();
+      var result = new AddConsumerResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddConsumer failed: unknown result");
+    }
+
+    public async Task<short> DeleteConsumerAsync(string email, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new DeleteConsumerArgs();
+      args.Email = email;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new DeleteConsumerResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
@@ -306,16 +373,22 @@ public partial class PlaylistService
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteLibraryPlaylist failed: unknown result");
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteConsumer failed: unknown result");
     }
 
-    public async Task<Playlist> UpdatePlaylistTitleAsync(short idPlaylist, string newPlaylistTitle, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> UpdateConsumerNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdatePlaylistTitle", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdatePlaylistTitleArgs();
-      args.IdPlaylist = idPlaylist;
-      args.NewPlaylistTitle = newPlaylistTitle;
+      var args = new UpdateConsumerNameArgs();
+      args.Email = email;
+      args.CurrentPassword = currentPassword;
+      args.NewName = newName;
+      args.NewLastName = newLastName;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -329,12 +402,16 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new UpdatePlaylistTitleResult();
+      var result = new UpdateConsumerNameResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
+      }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
       }
       if (result.__isset.sErrorNotFoundE)
       {
@@ -344,15 +421,66 @@ public partial class PlaylistService
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdatePlaylistTitle failed: unknown result");
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerName failed: unknown result");
     }
 
-    public async Task<Playlist> UpdatePlaylistCoverAsync(short idPlaylist, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> UpdateConsumerPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdatePlaylistCover", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdatePlaylistCoverArgs();
-      args.IdPlaylist = idPlaylist;
+      var args = new UpdateConsumerPasswordArgs();
+      args.Email = email;
+      args.CurrentPassword = currentPassword;
+      args.NewPassword = newPassword;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new UpdateConsumerPasswordResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
+      }
+      if (result.__isset.sErrorNotFoundE)
+      {
+        throw result.SErrorNotFoundE;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerPassword failed: unknown result");
+    }
+
+    public async Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new UpdateConsumerImageArgs();
+      args.Email = email;
       args.NewImageStoragePath = newImageStoragePath;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
@@ -367,12 +495,16 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new UpdatePlaylistCoverResult();
+      var result = new UpdateConsumerImageResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
+      }
+      if (result.__isset.sErrorUserE)
+      {
+        throw result.SErrorUserE;
       }
       if (result.__isset.sErrorNotFoundE)
       {
@@ -382,16 +514,20 @@ public partial class PlaylistService
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdatePlaylistCover failed: unknown result");
+      if (result.__isset.sErrorInvalidRequestE)
+      {
+        throw result.SErrorInvalidRequestE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerImage failed: unknown result");
     }
 
-    public async Task<Playlist> UpdatePlaylistDescriptionAsync(short idPlaylist, string newDescription, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> LoginConsumerAsync(string email, string password, CancellationToken cancellationToken = default(CancellationToken))
     {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdatePlaylistDescription", TMessageType.Call, SeqId), cancellationToken);
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Call, SeqId), cancellationToken);
       
-      var args = new UpdatePlaylistDescriptionArgs();
-      args.IdPlaylist = idPlaylist;
-      args.NewDescription = newDescription;
+      var args = new LoginConsumerArgs();
+      args.Email = email;
+      args.Password = password;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -405,59 +541,22 @@ public partial class PlaylistService
         throw x;
       }
 
-      var result = new UpdatePlaylistDescriptionResult();
+      var result = new LoginConsumerResult();
       await result.ReadAsync(InputProtocol, cancellationToken);
       await InputProtocol.ReadMessageEndAsync(cancellationToken);
       if (result.__isset.success)
       {
         return result.Success;
       }
-      if (result.__isset.sErrorNotFoundE)
+      if (result.__isset.sErrorUserE)
       {
-        throw result.SErrorNotFoundE;
+        throw result.SErrorUserE;
       }
       if (result.__isset.sErrorSystemE)
       {
         throw result.SErrorSystemE;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdatePlaylistDescription failed: unknown result");
-    }
-
-    public async Task<List<Playlist>> GetPlaylistByQueryAsync(string query, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetPlaylistByQuery", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new GetPlaylistByQueryArgs();
-      args.Query = query;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new GetPlaylistByQueryResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      if (result.__isset.sErrorNotFoundE)
-      {
-        throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorSystemE)
-      {
-        throw result.SErrorSystemE;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetPlaylistByQuery failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "LoginConsumer failed: unknown result");
     }
 
   }
@@ -471,14 +570,15 @@ public partial class PlaylistService
       if (iAsync == null) throw new ArgumentNullException(nameof(iAsync));
 
       _iAsync = iAsync;
-      processMap_["GetPlaylistByTitle"] = GetPlaylistByTitle_ProcessAsync;
-      processMap_["GetPlaylistByLibraryId"] = GetPlaylistByLibraryId_ProcessAsync;
-      processMap_["AddPlaylistToLibrary"] = AddPlaylistToLibrary_ProcessAsync;
-      processMap_["DeleteLibraryPlaylist"] = DeleteLibraryPlaylist_ProcessAsync;
-      processMap_["UpdatePlaylistTitle"] = UpdatePlaylistTitle_ProcessAsync;
-      processMap_["UpdatePlaylistCover"] = UpdatePlaylistCover_ProcessAsync;
-      processMap_["UpdatePlaylistDescription"] = UpdatePlaylistDescription_ProcessAsync;
-      processMap_["GetPlaylistByQuery"] = GetPlaylistByQuery_ProcessAsync;
+      processMap_["GetConsumerById"] = GetConsumerById_ProcessAsync;
+      processMap_["GetConsumerByEmail"] = GetConsumerByEmail_ProcessAsync;
+      processMap_["GetConsumerByEmailPassword"] = GetConsumerByEmailPassword_ProcessAsync;
+      processMap_["AddConsumer"] = AddConsumer_ProcessAsync;
+      processMap_["DeleteConsumer"] = DeleteConsumer_ProcessAsync;
+      processMap_["UpdateConsumerName"] = UpdateConsumerName_ProcessAsync;
+      processMap_["UpdateConsumerPassword"] = UpdateConsumerPassword_ProcessAsync;
+      processMap_["UpdateConsumerImage"] = UpdateConsumerImage_ProcessAsync;
+      processMap_["LoginConsumer"] = LoginConsumer_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -521,31 +621,31 @@ public partial class PlaylistService
       return true;
     }
 
-    public async Task GetPlaylistByTitle_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task GetConsumerById_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new GetPlaylistByTitleArgs();
+      var args = new GetConsumerByIdArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new GetPlaylistByTitleResult();
+      var result = new GetConsumerByIdResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.GetPlaylistByTitleAsync(args.Title, cancellationToken);
+          result.Success = await _iAsync.GetConsumerByIdAsync(args.IdConsumer, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
           result.SErrorNotFoundE = sErrorNotFoundE;
-        }
-        catch (SErrorSystemException sErrorSystem)
-        {
-          result.SErrorSystem = sErrorSystem;
         }
         catch (SErrorInvalidRequestException sErrorInvalidRequestE)
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByTitle", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -557,38 +657,38 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByTitle", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerById", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task GetPlaylistByLibraryId_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task GetConsumerByEmail_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new GetPlaylistByLibraryIdArgs();
+      var args = new GetConsumerByEmailArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new GetPlaylistByLibraryIdResult();
+      var result = new GetConsumerByEmailResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.GetPlaylistByLibraryIdAsync(args.IdLibrary, cancellationToken);
+          result.Success = await _iAsync.GetConsumerByEmailAsync(args.Email, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
           result.SErrorNotFoundE = sErrorNotFoundE;
-        }
-        catch (SErrorSystemException sErrorSystem)
-        {
-          result.SErrorSystem = sErrorSystem;
         }
         catch (SErrorInvalidRequestException sErrorInvalidRequestE)
         {
           result.SErrorInvalidRequestE = sErrorInvalidRequestE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByLibraryId", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmail", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -600,30 +700,38 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByLibraryId", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmail", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task AddPlaylistToLibrary_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task GetConsumerByEmailPassword_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new AddPlaylistToLibraryArgs();
+      var args = new GetConsumerByEmailPasswordArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new AddPlaylistToLibraryResult();
+      var result = new GetConsumerByEmailPasswordResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.AddPlaylistToLibraryAsync(args.IdLibrary, args.NewPlaylist, cancellationToken);
+          result.Success = await _iAsync.GetConsumerByEmailPasswordAsync(args.Email, args.Password, cancellationToken);
         }
-        catch (SErrorSystemException sErrorSystemE)
+        catch (SErrorUserException sErrorUserE)
         {
-          result.SErrorSystemE = sErrorSystemE;
+          result.SErrorUserE = sErrorUserE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("AddPlaylistToLibrary", TMessageType.Reply, seqid), cancellationToken); 
+        catch (SErrorNotFoundException sErrorNotFoundE)
+        {
+          result.SErrorNotFoundE = sErrorNotFoundE;
+        }
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -635,24 +743,59 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("AddPlaylistToLibrary", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("GetConsumerByEmailPassword", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task DeleteLibraryPlaylist_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task AddConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new DeleteLibraryPlaylistArgs();
+      var args = new AddConsumerArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new DeleteLibraryPlaylistResult();
+      var result = new AddConsumerResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.DeleteLibraryPlaylistAsync(args.IdLibrary, args.IdPlaylist, cancellationToken);
+          result.Success = await _iAsync.AddConsumerAsync(args.NewConsumer, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task DeleteConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new DeleteConsumerArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new DeleteConsumerResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.DeleteConsumerAsync(args.Email, cancellationToken);
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -662,7 +805,11 @@ public partial class PlaylistService
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("DeleteLibraryPlaylist", TMessageType.Reply, seqid), cancellationToken); 
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -674,24 +821,28 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("DeleteLibraryPlaylist", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("DeleteConsumer", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdatePlaylistTitle_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task UpdateConsumerName_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdatePlaylistTitleArgs();
+      var args = new UpdateConsumerNameArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdatePlaylistTitleResult();
+      var result = new UpdateConsumerNameResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdatePlaylistTitleAsync(args.IdPlaylist, args.NewPlaylistTitle, cancellationToken);
+          result.Success = await _iAsync.UpdateConsumerNameAsync(args.Email, args.CurrentPassword, args.NewName, args.NewLastName, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -701,7 +852,11 @@ public partial class PlaylistService
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistTitle", TMessageType.Reply, seqid), cancellationToken); 
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -713,24 +868,28 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistTitle", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerName", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdatePlaylistCover_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task UpdateConsumerPassword_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdatePlaylistCoverArgs();
+      var args = new UpdateConsumerPasswordArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdatePlaylistCoverResult();
+      var result = new UpdateConsumerPasswordResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdatePlaylistCoverAsync(args.IdPlaylist, args.NewImageStoragePath, cancellationToken);
+          result.Success = await _iAsync.UpdateConsumerPasswordAsync(args.Email, args.CurrentPassword, args.NewPassword, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -740,7 +899,11 @@ public partial class PlaylistService
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistCover", TMessageType.Reply, seqid), cancellationToken); 
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -752,24 +915,28 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistCover", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerPassword", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdatePlaylistDescription_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task UpdateConsumerImage_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new UpdatePlaylistDescriptionArgs();
+      var args = new UpdateConsumerImageArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdatePlaylistDescriptionResult();
+      var result = new UpdateConsumerImageResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.UpdatePlaylistDescriptionAsync(args.IdPlaylist, args.NewDescription, cancellationToken);
+          result.Success = await _iAsync.UpdateConsumerImageAsync(args.Email, args.NewImageStoragePath, cancellationToken);
+        }
+        catch (SErrorUserException sErrorUserE)
+        {
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorNotFoundException sErrorNotFoundE)
         {
@@ -779,7 +946,11 @@ public partial class PlaylistService
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistDescription", TMessageType.Reply, seqid), cancellationToken); 
+        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
+        {
+          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -791,34 +962,34 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdatePlaylistDescription", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task GetPlaylistByQuery_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    public async Task LoginConsumer_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
-      var args = new GetPlaylistByQueryArgs();
+      var args = new LoginConsumerArgs();
       await args.ReadAsync(iprot, cancellationToken);
       await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new GetPlaylistByQueryResult();
+      var result = new LoginConsumerResult();
       try
       {
         try
         {
-          result.Success = await _iAsync.GetPlaylistByQueryAsync(args.Query, cancellationToken);
+          result.Success = await _iAsync.LoginConsumerAsync(args.Email, args.Password, cancellationToken);
         }
-        catch (SErrorNotFoundException sErrorNotFoundE)
+        catch (SErrorUserException sErrorUserE)
         {
-          result.SErrorNotFoundE = sErrorNotFoundE;
+          result.SErrorUserE = sErrorUserE;
         }
         catch (SErrorSystemException sErrorSystemE)
         {
           result.SErrorSystemE = sErrorSystemE;
         }
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByQuery", TMessageType.Reply, seqid), cancellationToken); 
+        await oprot.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
       catch (TTransportException)
@@ -830,7 +1001,7 @@ public partial class PlaylistService
         Console.Error.WriteLine("Error occurred in processor:");
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("GetPlaylistByQuery", TMessageType.Exception, seqid), cancellationToken);
+        await oprot.WriteMessageBeginAsync(new TMessage("LoginConsumer", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -840,20 +1011,20 @@ public partial class PlaylistService
   }
 
 
-  public partial class GetPlaylistByTitleArgs : TBase
+  public partial class GetConsumerByIdArgs : TBase
   {
-    private string _title;
+    private short _idConsumer;
 
-    public string Title
+    public short IdConsumer
     {
       get
       {
-        return _title;
+        return _idConsumer;
       }
       set
       {
-        __isset.title = true;
-        this._title = value;
+        __isset.idConsumer = true;
+        this._idConsumer = value;
       }
     }
 
@@ -861,10 +1032,421 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool title;
+      public bool idConsumer;
     }
 
-    public GetPlaylistByTitleArgs()
+    public GetConsumerByIdArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I16)
+              {
+                IdConsumer = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetConsumerById_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (__isset.idConsumer)
+        {
+          field.Name = "idConsumer";
+          field.Type = TType.I16;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdConsumer, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetConsumerByIdArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.idConsumer == other.__isset.idConsumer) && ((!__isset.idConsumer) || (System.Object.Equals(IdConsumer, other.IdConsumer))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.idConsumer)
+          hashcode = (hashcode * 397) + IdConsumer.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetConsumerById_args(");
+      bool __first = true;
+      if (__isset.idConsumer)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdConsumer: ");
+        sb.Append(IdConsumer);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetConsumerByIdResult : TBase
+  {
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
+
+    public Consumer Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorUserE;
+      public bool sErrorNotFoundE;
+      public bool sErrorInvalidRequestE;
+    }
+
+    public GetConsumerByIdResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct)
+              {
+                Success = new Consumer();
+                await Success.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetConsumerById_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await Success.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetConsumerByIdResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetConsumerById_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetConsumerByEmailArgs : TBase
+  {
+    private string _email;
+
+    public string Email
+    {
+      get
+      {
+        return _email;
+      }
+      set
+      {
+        __isset.email = true;
+        this._email = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool email;
+    }
+
+    public GetConsumerByEmailArgs()
     {
     }
 
@@ -888,7 +1470,7 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.String)
               {
-                Title = await iprot.ReadStringAsync(cancellationToken);
+                Email = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -916,16 +1498,16 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("GetPlaylistByTitle_args");
+        var struc = new TStruct("GetConsumerByEmail_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (Title != null && __isset.title)
+        if (Email != null && __isset.email)
         {
-          field.Name = "title";
+          field.Name = "email";
           field.Type = TType.String;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Title, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -939,31 +1521,31 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as GetPlaylistByTitleArgs;
+      var other = that as GetConsumerByEmailArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.title == other.__isset.title) && ((!__isset.title) || (System.Object.Equals(Title, other.Title))));
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.title)
-          hashcode = (hashcode * 397) + Title.GetHashCode();
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("GetPlaylistByTitle_args(");
+      var sb = new StringBuilder("GetConsumerByEmail_args(");
       bool __first = true;
-      if (Title != null && __isset.title)
+      if (Email != null && __isset.email)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Title: ");
-        sb.Append(Title);
+        sb.Append("Email: ");
+        sb.Append(Email);
       }
       sb.Append(")");
       return sb.ToString();
@@ -971,14 +1553,14 @@ public partial class PlaylistService
   }
 
 
-  public partial class GetPlaylistByTitleResult : TBase
+  public partial class GetConsumerByEmailResult : TBase
   {
-    private Playlist _success;
+    private bool _success;
+    private SErrorUserException _sErrorUserE;
     private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorSystemException _sErrorSystem;
     private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Playlist Success
+    public bool Success
     {
       get
       {
@@ -988,6 +1570,19 @@ public partial class PlaylistService
       {
         __isset.success = true;
         this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
       }
     }
 
@@ -1001,19 +1596,6 @@ public partial class PlaylistService
       {
         __isset.sErrorNotFoundE = true;
         this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorSystemException SErrorSystem
-    {
-      get
-      {
-        return _sErrorSystem;
-      }
-      set
-      {
-        __isset.sErrorSystem = true;
-        this._sErrorSystem = value;
       }
     }
 
@@ -1035,12 +1617,12 @@ public partial class PlaylistService
     public struct Isset
     {
       public bool success;
+      public bool sErrorUserE;
       public bool sErrorNotFoundE;
-      public bool sErrorSystem;
       public bool sErrorInvalidRequestE;
     }
 
-    public GetPlaylistByTitleResult()
+    public GetConsumerByEmailResult()
     {
     }
 
@@ -1062,10 +1644,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Playlist();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -1075,8 +1656,8 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -1086,8 +1667,8 @@ public partial class PlaylistService
             case 2:
               if (field.Type == TType.Struct)
               {
-                SErrorSystem = new SErrorSystemException();
-                await SErrorSystem.ReadAsync(iprot, cancellationToken);
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -1126,19 +1707,28 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("GetPlaylistByTitle_result");
+        var struc = new TStruct("GetConsumerByEmail_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
         if(this.__isset.success)
         {
-          if (Success != null)
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
           {
-            field.Name = "Success";
+            field.Name = "SErrorUserE";
             field.Type = TType.Struct;
-            field.ID = 0;
+            field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -1148,21 +1738,9 @@ public partial class PlaylistService
           {
             field.Name = "SErrorNotFoundE";
             field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorSystem)
-        {
-          if (SErrorSystem != null)
-          {
-            field.Name = "SErrorSystem";
-            field.Type = TType.Struct;
             field.ID = 2;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystem.WriteAsync(oprot, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -1189,12 +1767,12 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as GetPlaylistByTitleResult;
+      var other = that as GetConsumerByEmailResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystem == other.__isset.sErrorSystem) && ((!__isset.sErrorSystem) || (System.Object.Equals(SErrorSystem, other.SErrorSystem))))
         && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
     }
 
@@ -1203,10 +1781,10 @@ public partial class PlaylistService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorNotFoundE)
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorSystem)
-          hashcode = (hashcode * 397) + SErrorSystem.GetHashCode();
         if(__isset.sErrorInvalidRequestE)
           hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
       }
@@ -1215,456 +1793,28 @@ public partial class PlaylistService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("GetPlaylistByTitle_result(");
+      var sb = new StringBuilder("GetConsumerByEmail_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorSystem != null && __isset.sErrorSystem)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorSystem: ");
-        sb.Append(SErrorSystem== null ? "<null>" : SErrorSystem.ToString());
-      }
-      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorInvalidRequestE: ");
-        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetPlaylistByLibraryIdArgs : TBase
-  {
-    private short _idLibrary;
-
-    public short IdLibrary
-    {
-      get
-      {
-        return _idLibrary;
-      }
-      set
-      {
-        __isset.idLibrary = true;
-        this._idLibrary = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool idLibrary;
-    }
-
-    public GetPlaylistByLibraryIdArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.I16)
-              {
-                IdLibrary = await iprot.ReadI16Async(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetPlaylistByLibraryId_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (__isset.idLibrary)
-        {
-          field.Name = "idLibrary";
-          field.Type = TType.I16;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdLibrary, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetPlaylistByLibraryIdArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.idLibrary)
-          hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetPlaylistByLibraryId_args(");
-      bool __first = true;
-      if (__isset.idLibrary)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("IdLibrary: ");
-        sb.Append(IdLibrary);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetPlaylistByLibraryIdResult : TBase
-  {
-    private List<Playlist> _success;
-    private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorSystemException _sErrorSystem;
-    private SErrorInvalidRequestException _sErrorInvalidRequestE;
-
-    public List<Playlist> Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorSystemException SErrorSystem
-    {
-      get
-      {
-        return _sErrorSystem;
-      }
-      set
-      {
-        __isset.sErrorSystem = true;
-        this._sErrorSystem = value;
-      }
-    }
-
-    public SErrorInvalidRequestException SErrorInvalidRequestE
-    {
-      get
-      {
-        return _sErrorInvalidRequestE;
-      }
-      set
-      {
-        __isset.sErrorInvalidRequestE = true;
-        this._sErrorInvalidRequestE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorNotFoundE;
-      public bool sErrorSystem;
-      public bool sErrorInvalidRequestE;
-    }
-
-    public GetPlaylistByLibraryIdResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.List)
-              {
-                {
-                  TList _list44 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Playlist>(_list44.Count);
-                  for(int _i45 = 0; _i45 < _list44.Count; ++_i45)
-                  {
-                    Playlist _elem46;
-                    _elem46 = new Playlist();
-                    await _elem46.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem46);
-                  }
-                  await iprot.ReadListEndAsync(cancellationToken);
-                }
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorSystem = new SErrorSystemException();
-                await SErrorSystem.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Struct)
-              {
-                SErrorInvalidRequestE = new SErrorInvalidRequestException();
-                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetPlaylistByLibraryId_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.List;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            {
-              await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Playlist _iter47 in Success)
-              {
-                await _iter47.WriteAsync(oprot, cancellationToken);
-              }
-              await oprot.WriteListEndAsync(cancellationToken);
-            }
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorSystem)
-        {
-          if (SErrorSystem != null)
-          {
-            field.Name = "SErrorSystem";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystem.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorInvalidRequestE)
-        {
-          if (SErrorInvalidRequestE != null)
-          {
-            field.Name = "SErrorInvalidRequestE";
-            field.Type = TType.Struct;
-            field.ID = 3;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetPlaylistByLibraryIdResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (TCollections.Equals(Success, other.Success))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystem == other.__isset.sErrorSystem) && ((!__isset.sErrorSystem) || (System.Object.Equals(SErrorSystem, other.SErrorSystem))))
-        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + TCollections.GetHashCode(Success);
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorSystem)
-          hashcode = (hashcode * 397) + SErrorSystem.GetHashCode();
-        if(__isset.sErrorInvalidRequestE)
-          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetPlaylistByLibraryId_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
         sb.Append(Success);
       }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("SErrorNotFoundE: ");
         sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorSystem != null && __isset.sErrorSystem)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorSystem: ");
-        sb.Append(SErrorSystem== null ? "<null>" : SErrorSystem.ToString());
       }
       if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
       {
@@ -1679,34 +1829,34 @@ public partial class PlaylistService
   }
 
 
-  public partial class AddPlaylistToLibraryArgs : TBase
+  public partial class GetConsumerByEmailPasswordArgs : TBase
   {
-    private short _idLibrary;
-    private Playlist _newPlaylist;
+    private string _email;
+    private string _password;
 
-    public short IdLibrary
+    public string Email
     {
       get
       {
-        return _idLibrary;
+        return _email;
       }
       set
       {
-        __isset.idLibrary = true;
-        this._idLibrary = value;
+        __isset.email = true;
+        this._email = value;
       }
     }
 
-    public Playlist NewPlaylist
+    public string Password
     {
       get
       {
-        return _newPlaylist;
+        return _password;
       }
       set
       {
-        __isset.newPlaylist = true;
-        this._newPlaylist = value;
+        __isset.password = true;
+        this._password = value;
       }
     }
 
@@ -1714,11 +1864,11 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool idLibrary;
-      public bool newPlaylist;
+      public bool email;
+      public bool password;
     }
 
-    public AddPlaylistToLibraryArgs()
+    public GetConsumerByEmailPasswordArgs()
     {
     }
 
@@ -1740,9 +1890,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I16)
+              if (field.Type == TType.String)
               {
-                IdLibrary = await iprot.ReadI16Async(cancellationToken);
+                Email = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -1750,10 +1900,9 @@ public partial class PlaylistService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.String)
               {
-                NewPlaylist = new Playlist();
-                await NewPlaylist.ReadAsync(iprot, cancellationToken);
+                Password = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -1781,25 +1930,25 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("AddPlaylistToLibrary_args");
+        var struc = new TStruct("GetConsumerByEmailPassword_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idLibrary)
+        if (Email != null && __isset.email)
         {
-          field.Name = "idLibrary";
-          field.Type = TType.I16;
+          field.Name = "email";
+          field.Type = TType.String;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdLibrary, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewPlaylist != null && __isset.newPlaylist)
+        if (Password != null && __isset.password)
         {
-          field.Name = "newPlaylist";
-          field.Type = TType.Struct;
+          field.Name = "password";
+          field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewPlaylist.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteStringAsync(Password, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -1813,41 +1962,41 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as AddPlaylistToLibraryArgs;
+      var other = that as GetConsumerByEmailPasswordArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.newPlaylist == other.__isset.newPlaylist) && ((!__isset.newPlaylist) || (System.Object.Equals(NewPlaylist, other.NewPlaylist))));
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
+        && ((__isset.password == other.__isset.password) && ((!__isset.password) || (System.Object.Equals(Password, other.Password))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idLibrary)
-          hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.newPlaylist)
-          hashcode = (hashcode * 397) + NewPlaylist.GetHashCode();
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
+        if(__isset.password)
+          hashcode = (hashcode * 397) + Password.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("AddPlaylistToLibrary_args(");
+      var sb = new StringBuilder("GetConsumerByEmailPassword_args(");
       bool __first = true;
-      if (__isset.idLibrary)
+      if (Email != null && __isset.email)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdLibrary: ");
-        sb.Append(IdLibrary);
+        sb.Append("Email: ");
+        sb.Append(Email);
       }
-      if (NewPlaylist != null && __isset.newPlaylist)
+      if (Password != null && __isset.password)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewPlaylist: ");
-        sb.Append(NewPlaylist== null ? "<null>" : NewPlaylist.ToString());
+        sb.Append("Password: ");
+        sb.Append(Password);
       }
       sb.Append(")");
       return sb.ToString();
@@ -1855,12 +2004,14 @@ public partial class PlaylistService
   }
 
 
-  public partial class AddPlaylistToLibraryResult : TBase
+  public partial class GetConsumerByEmailPasswordResult : TBase
   {
-    private Playlist _success;
-    private SErrorSystemException _sErrorSystemE;
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Playlist Success
+    public Consumer Success
     {
       get
       {
@@ -1873,16 +2024,42 @@ public partial class PlaylistService
       }
     }
 
-    public SErrorSystemException SErrorSystemE
+    public SErrorUserException SErrorUserE
     {
       get
       {
-        return _sErrorSystemE;
+        return _sErrorUserE;
       }
       set
       {
-        __isset.sErrorSystemE = true;
-        this._sErrorSystemE = value;
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
       }
     }
 
@@ -1891,10 +2068,12 @@ public partial class PlaylistService
     public struct Isset
     {
       public bool success;
-      public bool sErrorSystemE;
+      public bool sErrorUserE;
+      public bool sErrorNotFoundE;
+      public bool sErrorInvalidRequestE;
     }
 
-    public AddPlaylistToLibraryResult()
+    public GetConsumerByEmailPasswordResult()
     {
     }
 
@@ -1918,7 +2097,7 @@ public partial class PlaylistService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Playlist();
+                Success = new Consumer();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -1929,8 +2108,30 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorSystemE = new SErrorSystemException();
-                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -1958,7 +2159,7 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("AddPlaylistToLibrary_result");
+        var struc = new TStruct("GetConsumerByEmailPassword_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -1974,15 +2175,39 @@ public partial class PlaylistService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
-        else if(this.__isset.sErrorSystemE)
+        else if(this.__isset.sErrorUserE)
         {
-          if (SErrorSystemE != null)
+          if (SErrorUserE != null)
           {
-            field.Name = "SErrorSystemE";
+            field.Name = "SErrorUserE";
             field.Type = TType.Struct;
             field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -1997,11 +2222,13 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as AddPlaylistToLibraryResult;
+      var other = that as GetConsumerByEmailPasswordResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
     }
 
     public override int GetHashCode() {
@@ -2009,15 +2236,19 @@ public partial class PlaylistService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorSystemE)
-          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("AddPlaylistToLibrary_result(");
+      var sb = new StringBuilder("GetConsumerByEmailPassword_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -2026,12 +2257,26 @@ public partial class PlaylistService
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
       }
-      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      if (SErrorUserE != null && __isset.sErrorUserE)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("SErrorSystemE: ");
-        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
       }
       sb.Append(")");
       return sb.ToString();
@@ -2039,34 +2284,20 @@ public partial class PlaylistService
   }
 
 
-  public partial class DeleteLibraryPlaylistArgs : TBase
+  public partial class AddConsumerArgs : TBase
   {
-    private short _idLibrary;
-    private short _idPlaylist;
+    private Consumer _newConsumer;
 
-    public short IdLibrary
+    public Consumer NewConsumer
     {
       get
       {
-        return _idLibrary;
+        return _newConsumer;
       }
       set
       {
-        __isset.idLibrary = true;
-        this._idLibrary = value;
-      }
-    }
-
-    public short IdPlaylist
-    {
-      get
-      {
-        return _idPlaylist;
-      }
-      set
-      {
-        __isset.idPlaylist = true;
-        this._idPlaylist = value;
+        __isset.newConsumer = true;
+        this._newConsumer = value;
       }
     }
 
@@ -2074,11 +2305,10 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool idLibrary;
-      public bool idPlaylist;
+      public bool newConsumer;
     }
 
-    public DeleteLibraryPlaylistArgs()
+    public AddConsumerArgs()
     {
     }
 
@@ -2100,19 +2330,10 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I16)
+              if (field.Type == TType.Struct)
               {
-                IdLibrary = await iprot.ReadI16Async(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.I16)
-              {
-                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
+                NewConsumer = new Consumer();
+                await NewConsumer.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -2140,25 +2361,16 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("DeleteLibraryPlaylist_args");
+        var struc = new TStruct("AddConsumer_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idLibrary)
+        if (NewConsumer != null && __isset.newConsumer)
         {
-          field.Name = "idLibrary";
-          field.Type = TType.I16;
+          field.Name = "newConsumer";
+          field.Type = TType.Struct;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdLibrary, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (__isset.idPlaylist)
-        {
-          field.Name = "idPlaylist";
-          field.Type = TType.I16;
-          field.ID = 2;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
+          await NewConsumer.WriteAsync(oprot, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -2172,41 +2384,31 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as DeleteLibraryPlaylistArgs;
+      var other = that as AddConsumerArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))));
+      return ((__isset.newConsumer == other.__isset.newConsumer) && ((!__isset.newConsumer) || (System.Object.Equals(NewConsumer, other.NewConsumer))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idLibrary)
-          hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.idPlaylist)
-          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
+        if(__isset.newConsumer)
+          hashcode = (hashcode * 397) + NewConsumer.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("DeleteLibraryPlaylist_args(");
+      var sb = new StringBuilder("AddConsumer_args(");
       bool __first = true;
-      if (__isset.idLibrary)
+      if (NewConsumer != null && __isset.newConsumer)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdLibrary: ");
-        sb.Append(IdLibrary);
-      }
-      if (__isset.idPlaylist)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("IdPlaylist: ");
-        sb.Append(IdPlaylist);
+        sb.Append("NewConsumer: ");
+        sb.Append(NewConsumer== null ? "<null>" : NewConsumer.ToString());
       }
       sb.Append(")");
       return sb.ToString();
@@ -2214,11 +2416,327 @@ public partial class PlaylistService
   }
 
 
-  public partial class DeleteLibraryPlaylistResult : TBase
+  public partial class AddConsumerResult : TBase
+  {
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
+
+    public Consumer Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorUserE;
+    }
+
+    public AddConsumerResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct)
+              {
+                Success = new Consumer();
+                await Success.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("AddConsumer_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await Success.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as AddConsumerResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("AddConsumer_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class DeleteConsumerArgs : TBase
+  {
+    private string _email;
+
+    public string Email
+    {
+      get
+      {
+        return _email;
+      }
+      set
+      {
+        __isset.email = true;
+        this._email = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool email;
+    }
+
+    public DeleteConsumerArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.String)
+              {
+                Email = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("DeleteConsumer_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (Email != null && __isset.email)
+        {
+          field.Name = "email";
+          field.Type = TType.String;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as DeleteConsumerArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("DeleteConsumer_args(");
+      bool __first = true;
+      if (Email != null && __isset.email)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Email: ");
+        sb.Append(Email);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class DeleteConsumerResult : TBase
   {
     private short _success;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
     public short Success
     {
@@ -2259,6 +2777,19 @@ public partial class PlaylistService
       }
     }
 
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
 
     public Isset __isset;
     public struct Isset
@@ -2266,9 +2797,10 @@ public partial class PlaylistService
       public bool success;
       public bool sErrorNotFoundE;
       public bool sErrorSystemE;
+      public bool sErrorInvalidRequestE;
     }
 
-    public DeleteLibraryPlaylistResult()
+    public DeleteConsumerResult()
     {
     }
 
@@ -2321,6 +2853,17 @@ public partial class PlaylistService
                 await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               }
               break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
             default: 
               await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
               break;
@@ -2342,7 +2885,7 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("DeleteLibraryPlaylist_result");
+        var struc = new TStruct("DeleteConsumer_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -2379,6 +2922,18 @@ public partial class PlaylistService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
         await oprot.WriteFieldStopAsync(cancellationToken);
         await oprot.WriteStructEndAsync(cancellationToken);
       }
@@ -2390,12 +2945,13 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as DeleteLibraryPlaylistResult;
+      var other = that as DeleteConsumerResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
     }
 
     public override int GetHashCode() {
@@ -2407,13 +2963,15 @@ public partial class PlaylistService
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
         if(__isset.sErrorSystemE)
           hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("DeleteLibraryPlaylist_result(");
+      var sb = new StringBuilder("DeleteConsumer_result(");
       bool __first = true;
       if (__isset.success)
       {
@@ -2436,40 +2994,75 @@ public partial class PlaylistService
         sb.Append("SErrorSystemE: ");
         sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
       }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
       sb.Append(")");
       return sb.ToString();
     }
   }
 
 
-  public partial class UpdatePlaylistTitleArgs : TBase
+  public partial class UpdateConsumerNameArgs : TBase
   {
-    private short _idPlaylist;
-    private string _newPlaylistTitle;
+    private string _email;
+    private string _currentPassword;
+    private string _newName;
+    private string _newLastName;
 
-    public short IdPlaylist
+    public string Email
     {
       get
       {
-        return _idPlaylist;
+        return _email;
       }
       set
       {
-        __isset.idPlaylist = true;
-        this._idPlaylist = value;
+        __isset.email = true;
+        this._email = value;
       }
     }
 
-    public string NewPlaylistTitle
+    public string CurrentPassword
     {
       get
       {
-        return _newPlaylistTitle;
+        return _currentPassword;
       }
       set
       {
-        __isset.newPlaylistTitle = true;
-        this._newPlaylistTitle = value;
+        __isset.currentPassword = true;
+        this._currentPassword = value;
+      }
+    }
+
+    public string NewName
+    {
+      get
+      {
+        return _newName;
+      }
+      set
+      {
+        __isset.newName = true;
+        this._newName = value;
+      }
+    }
+
+    public string NewLastName
+    {
+      get
+      {
+        return _newLastName;
+      }
+      set
+      {
+        __isset.newLastName = true;
+        this._newLastName = value;
       }
     }
 
@@ -2477,11 +3070,13 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool idPlaylist;
-      public bool newPlaylistTitle;
+      public bool email;
+      public bool currentPassword;
+      public bool newName;
+      public bool newLastName;
     }
 
-    public UpdatePlaylistTitleArgs()
+    public UpdateConsumerNameArgs()
     {
     }
 
@@ -2503,9 +3098,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I16)
+              if (field.Type == TType.String)
               {
-                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
+                Email = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -2515,7 +3110,27 @@ public partial class PlaylistService
             case 2:
               if (field.Type == TType.String)
               {
-                NewPlaylistTitle = await iprot.ReadStringAsync(cancellationToken);
+                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.String)
+              {
+                NewName = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 4:
+              if (field.Type == TType.String)
+              {
+                NewLastName = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -2543,25 +3158,43 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistTitle_args");
+        var struc = new TStruct("UpdateConsumerName_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idPlaylist)
+        if (Email != null && __isset.email)
         {
-          field.Name = "idPlaylist";
-          field.Type = TType.I16;
+          field.Name = "email";
+          field.Type = TType.String;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewPlaylistTitle != null && __isset.newPlaylistTitle)
+        if (CurrentPassword != null && __isset.currentPassword)
         {
-          field.Name = "newPlaylistTitle";
+          field.Name = "currentPassword";
           field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewPlaylistTitle, cancellationToken);
+          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (NewName != null && __isset.newName)
+        {
+          field.Name = "newName";
+          field.Type = TType.String;
+          field.ID = 3;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(NewName, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (NewLastName != null && __isset.newLastName)
+        {
+          field.Name = "newLastName";
+          field.Type = TType.String;
+          field.ID = 4;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(NewLastName, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -2575,41 +3208,61 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistTitleArgs;
+      var other = that as UpdateConsumerNameArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))))
-        && ((__isset.newPlaylistTitle == other.__isset.newPlaylistTitle) && ((!__isset.newPlaylistTitle) || (System.Object.Equals(NewPlaylistTitle, other.NewPlaylistTitle))));
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
+        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
+        && ((__isset.newName == other.__isset.newName) && ((!__isset.newName) || (System.Object.Equals(NewName, other.NewName))))
+        && ((__isset.newLastName == other.__isset.newLastName) && ((!__isset.newLastName) || (System.Object.Equals(NewLastName, other.NewLastName))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idPlaylist)
-          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
-        if(__isset.newPlaylistTitle)
-          hashcode = (hashcode * 397) + NewPlaylistTitle.GetHashCode();
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
+        if(__isset.currentPassword)
+          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
+        if(__isset.newName)
+          hashcode = (hashcode * 397) + NewName.GetHashCode();
+        if(__isset.newLastName)
+          hashcode = (hashcode * 397) + NewLastName.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistTitle_args(");
+      var sb = new StringBuilder("UpdateConsumerName_args(");
       bool __first = true;
-      if (__isset.idPlaylist)
+      if (Email != null && __isset.email)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdPlaylist: ");
-        sb.Append(IdPlaylist);
+        sb.Append("Email: ");
+        sb.Append(Email);
       }
-      if (NewPlaylistTitle != null && __isset.newPlaylistTitle)
+      if (CurrentPassword != null && __isset.currentPassword)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewPlaylistTitle: ");
-        sb.Append(NewPlaylistTitle);
+        sb.Append("CurrentPassword: ");
+        sb.Append(CurrentPassword);
+      }
+      if (NewName != null && __isset.newName)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("NewName: ");
+        sb.Append(NewName);
+      }
+      if (NewLastName != null && __isset.newLastName)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("NewLastName: ");
+        sb.Append(NewLastName);
       }
       sb.Append(")");
       return sb.ToString();
@@ -2617,13 +3270,15 @@ public partial class PlaylistService
   }
 
 
-  public partial class UpdatePlaylistTitleResult : TBase
+  public partial class UpdateConsumerNameResult : TBase
   {
-    private Playlist _success;
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Playlist Success
+    public Consumer Success
     {
       get
       {
@@ -2633,6 +3288,19 @@ public partial class PlaylistService
       {
         __isset.success = true;
         this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
       }
     }
 
@@ -2662,16 +3330,31 @@ public partial class PlaylistService
       }
     }
 
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
 
     public Isset __isset;
     public struct Isset
     {
       public bool success;
+      public bool sErrorUserE;
       public bool sErrorNotFoundE;
       public bool sErrorSystemE;
+      public bool sErrorInvalidRequestE;
     }
 
-    public UpdatePlaylistTitleResult()
+    public UpdateConsumerNameResult()
     {
     }
 
@@ -2695,7 +3378,7 @@ public partial class PlaylistService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Playlist();
+                Success = new Consumer();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -2706,8 +3389,8 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -2717,8 +3400,30 @@ public partial class PlaylistService
             case 2:
               if (field.Type == TType.Struct)
               {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
                 SErrorSystemE = new SErrorSystemException();
                 await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 4:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -2746,7 +3451,7 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistTitle_result");
+        var struc = new TStruct("UpdateConsumerName_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -2762,13 +3467,25 @@ public partial class PlaylistService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
         else if(this.__isset.sErrorNotFoundE)
         {
           if (SErrorNotFoundE != null)
           {
             field.Name = "SErrorNotFoundE";
             field.Type = TType.Struct;
-            field.ID = 1;
+            field.ID = 2;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -2780,9 +3497,21 @@ public partial class PlaylistService
           {
             field.Name = "SErrorSystemE";
             field.Type = TType.Struct;
-            field.ID = 2;
+            field.ID = 3;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 4;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -2797,12 +3526,14 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistTitleResult;
+      var other = that as UpdateConsumerNameResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
     }
 
     public override int GetHashCode() {
@@ -2810,17 +3541,21 @@ public partial class PlaylistService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorNotFoundE)
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
         if(__isset.sErrorSystemE)
           hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistTitle_result(");
+      var sb = new StringBuilder("UpdateConsumerName_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -2828,6 +3563,13 @@ public partial class PlaylistService
         __first = false;
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
       }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {
@@ -2843,40 +3585,61 @@ public partial class PlaylistService
         sb.Append("SErrorSystemE: ");
         sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
       }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
       sb.Append(")");
       return sb.ToString();
     }
   }
 
 
-  public partial class UpdatePlaylistCoverArgs : TBase
+  public partial class UpdateConsumerPasswordArgs : TBase
   {
-    private short _idPlaylist;
-    private string _newImageStoragePath;
+    private string _email;
+    private string _currentPassword;
+    private string _newPassword;
 
-    public short IdPlaylist
+    public string Email
     {
       get
       {
-        return _idPlaylist;
+        return _email;
       }
       set
       {
-        __isset.idPlaylist = true;
-        this._idPlaylist = value;
+        __isset.email = true;
+        this._email = value;
       }
     }
 
-    public string NewImageStoragePath
+    public string CurrentPassword
     {
       get
       {
-        return _newImageStoragePath;
+        return _currentPassword;
       }
       set
       {
-        __isset.newImageStoragePath = true;
-        this._newImageStoragePath = value;
+        __isset.currentPassword = true;
+        this._currentPassword = value;
+      }
+    }
+
+    public string NewPassword
+    {
+      get
+      {
+        return _newPassword;
+      }
+      set
+      {
+        __isset.newPassword = true;
+        this._newPassword = value;
       }
     }
 
@@ -2884,11 +3647,12 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool idPlaylist;
-      public bool newImageStoragePath;
+      public bool email;
+      public bool currentPassword;
+      public bool newPassword;
     }
 
-    public UpdatePlaylistCoverArgs()
+    public UpdateConsumerPasswordArgs()
     {
     }
 
@@ -2910,9 +3674,541 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I16)
+              if (field.Type == TType.String)
               {
-                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
+                Email = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.String)
+              {
+                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.String)
+              {
+                NewPassword = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("UpdateConsumerPassword_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (Email != null && __isset.email)
+        {
+          field.Name = "email";
+          field.Type = TType.String;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (CurrentPassword != null && __isset.currentPassword)
+        {
+          field.Name = "currentPassword";
+          field.Type = TType.String;
+          field.ID = 2;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        if (NewPassword != null && __isset.newPassword)
+        {
+          field.Name = "newPassword";
+          field.Type = TType.String;
+          field.ID = 3;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(NewPassword, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as UpdateConsumerPasswordArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
+        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
+        && ((__isset.newPassword == other.__isset.newPassword) && ((!__isset.newPassword) || (System.Object.Equals(NewPassword, other.NewPassword))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
+        if(__isset.currentPassword)
+          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
+        if(__isset.newPassword)
+          hashcode = (hashcode * 397) + NewPassword.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("UpdateConsumerPassword_args(");
+      bool __first = true;
+      if (Email != null && __isset.email)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Email: ");
+        sb.Append(Email);
+      }
+      if (CurrentPassword != null && __isset.currentPassword)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("CurrentPassword: ");
+        sb.Append(CurrentPassword);
+      }
+      if (NewPassword != null && __isset.newPassword)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("NewPassword: ");
+        sb.Append(NewPassword);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class UpdateConsumerPasswordResult : TBase
+  {
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorSystemException _sErrorSystemE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
+
+    public Consumer Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorUserE;
+      public bool sErrorNotFoundE;
+      public bool sErrorSystemE;
+      public bool sErrorInvalidRequestE;
+    }
+
+    public UpdateConsumerPasswordResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct)
+              {
+                Success = new Consumer();
+                await Success.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 4:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("UpdateConsumerPassword_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await Success.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 3;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 4;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as UpdateConsumerPasswordResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("UpdateConsumerPassword_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class UpdateConsumerImageArgs : TBase
+  {
+    private string _email;
+    private string _newImageStoragePath;
+
+    public string Email
+    {
+      get
+      {
+        return _email;
+      }
+      set
+      {
+        __isset.email = true;
+        this._email = value;
+      }
+    }
+
+    public string NewImageStoragePath
+    {
+      get
+      {
+        return _newImageStoragePath;
+      }
+      set
+      {
+        __isset.newImageStoragePath = true;
+        this._newImageStoragePath = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool email;
+      public bool newImageStoragePath;
+    }
+
+    public UpdateConsumerImageArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.String)
+              {
+                Email = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -2950,16 +4246,16 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistCover_args");
+        var struc = new TStruct("UpdateConsumerImage_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idPlaylist)
+        if (Email != null && __isset.email)
         {
-          field.Name = "idPlaylist";
-          field.Type = TType.I16;
+          field.Name = "email";
+          field.Type = TType.String;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         if (NewImageStoragePath != null && __isset.newImageStoragePath)
@@ -2982,18 +4278,18 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistCoverArgs;
+      var other = that as UpdateConsumerImageArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))))
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
         && ((__isset.newImageStoragePath == other.__isset.newImageStoragePath) && ((!__isset.newImageStoragePath) || (System.Object.Equals(NewImageStoragePath, other.NewImageStoragePath))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idPlaylist)
-          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
         if(__isset.newImageStoragePath)
           hashcode = (hashcode * 397) + NewImageStoragePath.GetHashCode();
       }
@@ -3002,14 +4298,14 @@ public partial class PlaylistService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistCover_args(");
+      var sb = new StringBuilder("UpdateConsumerImage_args(");
       bool __first = true;
-      if (__isset.idPlaylist)
+      if (Email != null && __isset.email)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdPlaylist: ");
-        sb.Append(IdPlaylist);
+        sb.Append("Email: ");
+        sb.Append(Email);
       }
       if (NewImageStoragePath != null && __isset.newImageStoragePath)
       {
@@ -3024,13 +4320,15 @@ public partial class PlaylistService
   }
 
 
-  public partial class UpdatePlaylistCoverResult : TBase
+  public partial class UpdateConsumerImageResult : TBase
   {
-    private Playlist _success;
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
+    private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Playlist Success
+    public Consumer Success
     {
       get
       {
@@ -3040,6 +4338,19 @@ public partial class PlaylistService
       {
         __isset.success = true;
         this._success = value;
+      }
+    }
+
+    public SErrorUserException SErrorUserE
+    {
+      get
+      {
+        return _sErrorUserE;
+      }
+      set
+      {
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
       }
     }
 
@@ -3069,16 +4380,31 @@ public partial class PlaylistService
       }
     }
 
+    public SErrorInvalidRequestException SErrorInvalidRequestE
+    {
+      get
+      {
+        return _sErrorInvalidRequestE;
+      }
+      set
+      {
+        __isset.sErrorInvalidRequestE = true;
+        this._sErrorInvalidRequestE = value;
+      }
+    }
+
 
     public Isset __isset;
     public struct Isset
     {
       public bool success;
+      public bool sErrorUserE;
       public bool sErrorNotFoundE;
       public bool sErrorSystemE;
+      public bool sErrorInvalidRequestE;
     }
 
-    public UpdatePlaylistCoverResult()
+    public UpdateConsumerImageResult()
     {
     }
 
@@ -3102,7 +4428,7 @@ public partial class PlaylistService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Playlist();
+                Success = new Consumer();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -3113,8 +4439,8 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -3124,8 +4450,30 @@ public partial class PlaylistService
             case 2:
               if (field.Type == TType.Struct)
               {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 3:
+              if (field.Type == TType.Struct)
+              {
                 SErrorSystemE = new SErrorSystemException();
                 await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 4:
+              if (field.Type == TType.Struct)
+              {
+                SErrorInvalidRequestE = new SErrorInvalidRequestException();
+                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -3153,7 +4501,7 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistCover_result");
+        var struc = new TStruct("UpdateConsumerImage_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -3169,13 +4517,25 @@ public partial class PlaylistService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
+        else if(this.__isset.sErrorUserE)
+        {
+          if (SErrorUserE != null)
+          {
+            field.Name = "SErrorUserE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
         else if(this.__isset.sErrorNotFoundE)
         {
           if (SErrorNotFoundE != null)
           {
             field.Name = "SErrorNotFoundE";
             field.Type = TType.Struct;
-            field.ID = 1;
+            field.ID = 2;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
@@ -3187,9 +4547,21 @@ public partial class PlaylistService
           {
             field.Name = "SErrorSystemE";
             field.Type = TType.Struct;
-            field.ID = 2;
+            field.ID = 3;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorInvalidRequestE)
+        {
+          if (SErrorInvalidRequestE != null)
+          {
+            field.Name = "SErrorInvalidRequestE";
+            field.Type = TType.Struct;
+            field.ID = 4;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -3204,12 +4576,14 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistCoverResult;
+      var other = that as UpdateConsumerImageResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
+        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
     }
 
     public override int GetHashCode() {
@@ -3217,17 +4591,21 @@ public partial class PlaylistService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorNotFoundE)
           hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
         if(__isset.sErrorSystemE)
           hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+        if(__isset.sErrorInvalidRequestE)
+          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistCover_result(");
+      var sb = new StringBuilder("UpdateConsumerImage_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -3235,6 +4613,13 @@ public partial class PlaylistService
         __first = false;
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
+      }
+      if (SErrorUserE != null && __isset.sErrorUserE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
       }
       if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
       {
@@ -3250,40 +4635,47 @@ public partial class PlaylistService
         sb.Append("SErrorSystemE: ");
         sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
       }
+      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorInvalidRequestE: ");
+        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
+      }
       sb.Append(")");
       return sb.ToString();
     }
   }
 
 
-  public partial class UpdatePlaylistDescriptionArgs : TBase
+  public partial class LoginConsumerArgs : TBase
   {
-    private short _idPlaylist;
-    private string _newDescription;
+    private string _email;
+    private string _password;
 
-    public short IdPlaylist
+    public string Email
     {
       get
       {
-        return _idPlaylist;
+        return _email;
       }
       set
       {
-        __isset.idPlaylist = true;
-        this._idPlaylist = value;
+        __isset.email = true;
+        this._email = value;
       }
     }
 
-    public string NewDescription
+    public string Password
     {
       get
       {
-        return _newDescription;
+        return _password;
       }
       set
       {
-        __isset.newDescription = true;
-        this._newDescription = value;
+        __isset.password = true;
+        this._password = value;
       }
     }
 
@@ -3291,11 +4683,11 @@ public partial class PlaylistService
     public Isset __isset;
     public struct Isset
     {
-      public bool idPlaylist;
-      public bool newDescription;
+      public bool email;
+      public bool password;
     }
 
-    public UpdatePlaylistDescriptionArgs()
+    public LoginConsumerArgs()
     {
     }
 
@@ -3317,9 +4709,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I16)
+              if (field.Type == TType.String)
               {
-                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
+                Email = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -3329,7 +4721,7 @@ public partial class PlaylistService
             case 2:
               if (field.Type == TType.String)
               {
-                NewDescription = await iprot.ReadStringAsync(cancellationToken);
+                Password = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -3357,25 +4749,25 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistDescription_args");
+        var struc = new TStruct("LoginConsumer_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.idPlaylist)
+        if (Email != null && __isset.email)
         {
-          field.Name = "idPlaylist";
-          field.Type = TType.I16;
+          field.Name = "email";
+          field.Type = TType.String;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
+          await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewDescription != null && __isset.newDescription)
+        if (Password != null && __isset.password)
         {
-          field.Name = "newDescription";
+          field.Name = "password";
           field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewDescription, cancellationToken);
+          await oprot.WriteStringAsync(Password, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -3389,41 +4781,41 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistDescriptionArgs;
+      var other = that as LoginConsumerArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))))
-        && ((__isset.newDescription == other.__isset.newDescription) && ((!__isset.newDescription) || (System.Object.Equals(NewDescription, other.NewDescription))));
+      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
+        && ((__isset.password == other.__isset.password) && ((!__isset.password) || (System.Object.Equals(Password, other.Password))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.idPlaylist)
-          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
-        if(__isset.newDescription)
-          hashcode = (hashcode * 397) + NewDescription.GetHashCode();
+        if(__isset.email)
+          hashcode = (hashcode * 397) + Email.GetHashCode();
+        if(__isset.password)
+          hashcode = (hashcode * 397) + Password.GetHashCode();
       }
       return hashcode;
     }
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistDescription_args(");
+      var sb = new StringBuilder("LoginConsumer_args(");
       bool __first = true;
-      if (__isset.idPlaylist)
+      if (Email != null && __isset.email)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("IdPlaylist: ");
-        sb.Append(IdPlaylist);
+        sb.Append("Email: ");
+        sb.Append(Email);
       }
-      if (NewDescription != null && __isset.newDescription)
+      if (Password != null && __isset.password)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewDescription: ");
-        sb.Append(NewDescription);
+        sb.Append("Password: ");
+        sb.Append(Password);
       }
       sb.Append(")");
       return sb.ToString();
@@ -3431,13 +4823,13 @@ public partial class PlaylistService
   }
 
 
-  public partial class UpdatePlaylistDescriptionResult : TBase
+  public partial class LoginConsumerResult : TBase
   {
-    private Playlist _success;
-    private SErrorNotFoundException _sErrorNotFoundE;
+    private Consumer _success;
+    private SErrorUserException _sErrorUserE;
     private SErrorSystemException _sErrorSystemE;
 
-    public Playlist Success
+    public Consumer Success
     {
       get
       {
@@ -3450,16 +4842,16 @@ public partial class PlaylistService
       }
     }
 
-    public SErrorNotFoundException SErrorNotFoundE
+    public SErrorUserException SErrorUserE
     {
       get
       {
-        return _sErrorNotFoundE;
+        return _sErrorUserE;
       }
       set
       {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
+        __isset.sErrorUserE = true;
+        this._sErrorUserE = value;
       }
     }
 
@@ -3481,11 +4873,11 @@ public partial class PlaylistService
     public struct Isset
     {
       public bool success;
-      public bool sErrorNotFoundE;
+      public bool sErrorUserE;
       public bool sErrorSystemE;
     }
 
-    public UpdatePlaylistDescriptionResult()
+    public LoginConsumerResult()
     {
     }
 
@@ -3509,7 +4901,7 @@ public partial class PlaylistService
             case 0:
               if (field.Type == TType.Struct)
               {
-                Success = new Playlist();
+                Success = new Consumer();
                 await Success.ReadAsync(iprot, cancellationToken);
               }
               else
@@ -3520,8 +4912,8 @@ public partial class PlaylistService
             case 1:
               if (field.Type == TType.Struct)
               {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+                SErrorUserE = new SErrorUserException();
+                await SErrorUserE.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -3560,7 +4952,7 @@ public partial class PlaylistService
       oprot.IncrementRecursionDepth();
       try
       {
-        var struc = new TStruct("UpdatePlaylistDescription_result");
+        var struc = new TStruct("LoginConsumer_result");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
 
@@ -3576,15 +4968,15 @@ public partial class PlaylistService
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
-        else if(this.__isset.sErrorNotFoundE)
+        else if(this.__isset.sErrorUserE)
         {
-          if (SErrorNotFoundE != null)
+          if (SErrorUserE != null)
           {
-            field.Name = "SErrorNotFoundE";
+            field.Name = "SErrorUserE";
             field.Type = TType.Struct;
             field.ID = 1;
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await SErrorUserE.WriteAsync(oprot, cancellationToken);
             await oprot.WriteFieldEndAsync(cancellationToken);
           }
         }
@@ -3611,11 +5003,11 @@ public partial class PlaylistService
 
     public override bool Equals(object that)
     {
-      var other = that as UpdatePlaylistDescriptionResult;
+      var other = that as LoginConsumerResult;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
         && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
     }
 
@@ -3624,8 +5016,8 @@ public partial class PlaylistService
       unchecked {
         if(__isset.success)
           hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorUserE)
+          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
         if(__isset.sErrorSystemE)
           hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
       }
@@ -3634,7 +5026,7 @@ public partial class PlaylistService
 
     public override string ToString()
     {
-      var sb = new StringBuilder("UpdatePlaylistDescription_result(");
+      var sb = new StringBuilder("LoginConsumer_result(");
       bool __first = true;
       if (Success != null && __isset.success)
       {
@@ -3643,392 +5035,12 @@ public partial class PlaylistService
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
       }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      if (SErrorUserE != null && __isset.sErrorUserE)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorSystemE != null && __isset.sErrorSystemE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorSystemE: ");
-        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetPlaylistByQueryArgs : TBase
-  {
-    private string _query;
-
-    public string Query
-    {
-      get
-      {
-        return _query;
-      }
-      set
-      {
-        __isset.query = true;
-        this._query = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool query;
-    }
-
-    public GetPlaylistByQueryArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.String)
-              {
-                Query = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetPlaylistByQuery_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (Query != null && __isset.query)
-        {
-          field.Name = "query";
-          field.Type = TType.String;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Query, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetPlaylistByQueryArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.query == other.__isset.query) && ((!__isset.query) || (System.Object.Equals(Query, other.Query))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.query)
-          hashcode = (hashcode * 397) + Query.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetPlaylistByQuery_args(");
-      bool __first = true;
-      if (Query != null && __isset.query)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Query: ");
-        sb.Append(Query);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class GetPlaylistByQueryResult : TBase
-  {
-    private List<Playlist> _success;
-    private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorSystemException _sErrorSystemE;
-
-    public List<Playlist> Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorSystemException SErrorSystemE
-    {
-      get
-      {
-        return _sErrorSystemE;
-      }
-      set
-      {
-        __isset.sErrorSystemE = true;
-        this._sErrorSystemE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorNotFoundE;
-      public bool sErrorSystemE;
-    }
-
-    public GetPlaylistByQueryResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.List)
-              {
-                {
-                  TList _list48 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Playlist>(_list48.Count);
-                  for(int _i49 = 0; _i49 < _list48.Count; ++_i49)
-                  {
-                    Playlist _elem50;
-                    _elem50 = new Playlist();
-                    await _elem50.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem50);
-                  }
-                  await iprot.ReadListEndAsync(cancellationToken);
-                }
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorSystemE = new SErrorSystemException();
-                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("GetPlaylistByQuery_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.List;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            {
-              await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Playlist _iter51 in Success)
-              {
-                await _iter51.WriteAsync(oprot, cancellationToken);
-              }
-              await oprot.WriteListEndAsync(cancellationToken);
-            }
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorSystemE)
-        {
-          if (SErrorSystemE != null)
-          {
-            field.Name = "SErrorSystemE";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as GetPlaylistByQueryResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (TCollections.Equals(Success, other.Success))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + TCollections.GetHashCode(Success);
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorSystemE)
-          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("GetPlaylistByQuery_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success);
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+        sb.Append("SErrorUserE: ");
+        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {
