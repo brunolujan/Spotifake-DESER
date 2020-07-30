@@ -376,7 +376,9 @@
             </TextBlock.RenderTransform>
         </TextBlock>
         <Button x:Name="button_Add" Content="+ Add Album" HorizontalAlignment="Left" Margin="1175,25.8,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Add_Click" Grid.Row="1"/>
-        <ScrollViewer Margin="268,74.8,0,37.6" Grid.Row="1"/>
+        <ScrollViewer Margin="268,74.8,0,37.6" Grid.Row="1">
+            <StackPanel x:Name="albumsStackPanel" Orientation="Vertical"/>
+        </ScrollViewer>
         <TextBlock x:Name="label_Message" HorizontalAlignment="Left" Margin="268,552.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="467" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
     </Grid>
 </Controls:MetroWindow>

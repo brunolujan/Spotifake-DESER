@@ -16,6 +16,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Brushes = System.Windows.Media.Brushes;
+using FontFamily = System.Windows.Media.FontFamily;
 using Image = System.Windows.Controls.Image;
 using Orientation = System.Windows.Controls.Orientation;
 using Rectangle = System.Windows.Shapes.Rectangle;
@@ -90,6 +92,7 @@ namespace Client {
         private async void LoadAlbums() {
             label_Title.Text = "MY ALBUMS";
             button_Add.Content = "+ Add Album";
+            albumsStackPanel.Children.Clear();
             List<Album> albums = await Session.serverConnection.albumService.GetAlbumsByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
             foreach (Album albumAux in albums) {
                 CreateContentUI(albumAux);
@@ -99,6 +102,7 @@ namespace Client {
         private async void LoadSingles() {
             label_Title.Text = "MY SINGLES";
             button_Add.Content = "+ Add Single";
+            albumsStackPanel.Children.Clear();
             List<Album> singles = await Session.serverConnection.albumService.GetSinglesByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
             foreach (Album singleAux in singles) {
                 CreateContentUI(singleAux);
@@ -131,9 +135,29 @@ namespace Client {
             Rectangle albumImage = new Rectangle();
             albumImage.Fill = LoadImage(album.CoverPath);
             albumImage.Margin = new Thickness(30,30,0,0);
-            albumImage.Width = 115;
-            albumImage.Height = 115;
+            albumImage.Width = 200;
+            albumImage.Height = 200;
+            albumImage.Visibility = Visibility.Visible;
             albumHeaderStackPanel.Children.Add(albumImage);
+            StackPanel albumDataStackPanel = new StackPanel();
+            albumDataStackPanel.Margin = new Thickness(12, 35, 0, 0);
+            albumDataStackPanel.Orientation = Orientation.Vertical;
+            TextBlock albumReleaseYearTextBlock = new TextBlock();
+            albumReleaseYearTextBlock.Text = album.ReleaseDate.Year.ToString();
+            albumReleaseYearTextBlock.FontSize = 12;
+            albumReleaseYearTextBlock.Foreground = Brushes.White;
+            albumReleaseYearTextBlock.FontFamily = new FontFamily("Gotham Medium");
+            albumDataStackPanel.Children.Add(albumReleaseYearTextBlock);
+            TextBlock albumNameTextBlock = new TextBlock();
+            albumNameTextBlock.Text = album.Title;
+            albumNameTextBlock.FontSize = 20;
+            albumNameTextBlock.Foreground = Brushes.White;
+            albumNameTextBlock.FontFamily = new FontFamily("Gotham Medium");
+            albumNameTextBlock.FontWeight = FontWeights.Bold;
+            albumDataStackPanel.Children.Add(albumNameTextBlock);
+            albumHeaderStackPanel.Children.Add(albumDataStackPanel);
+            stackPanel.Children.Add(albumHeaderStackPanel);
+            albumsStackPanel.Children.Add(stackPanel);
         }
     }
 }
