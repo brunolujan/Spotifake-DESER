@@ -9,5 +9,6 @@ namespace Client
     public class Session
     {
         public static ServerConnection serverConnection = new ServerConnection();
+        public static StreamingService streamingServerConnection = new StreamingService();
     }
 }

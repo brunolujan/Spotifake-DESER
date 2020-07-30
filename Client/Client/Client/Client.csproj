@@ -286,12 +286,16 @@
     <Compile Include="gen-netstd\Playlist.cs" />
     <Compile Include="gen-netstd\PlaylistService.cs" />
     <Compile Include="gen-netstd\PlayQueue.cs" />
+    <Compile Include="gen-netstd\Quality.cs" />
     <Compile Include="gen-netstd\SErrorInvalidRequestException.cs" />
     <Compile Include="gen-netstd\SErrorNotFoundException.cs" />
     <Compile Include="gen-netstd\SErrorSystemException.cs" />
     <Compile Include="gen-netstd\SErrorType.cs" />
     <Compile Include="gen-netstd\SErrorUserException.cs" />
+    <Compile Include="gen-netstd\StreamingService.cs" />
     <Compile Include="gen-netstd\Track.cs" />
+    <Compile Include="gen-netstd\TrackAudio.cs" />
+    <Compile Include="gen-netstd\TrackRequest.cs" />
     <Compile Include="gen-netstd\TrackService.cs" />
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
@@ -301,6 +305,7 @@
     <Compile Include="SingUp.xaml.cs">
       <DependentUpon>SingUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StreamingServerConnection.cs" />
     <Page Include="AddAlbum.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

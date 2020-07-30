@@ -11,15 +11,15 @@ namespace Client
 {
     public class StreamingServiceConnection
     {
-        private static StreamingService.Client client;
+        private static StreamingService.Client streamingService;
 
         public static void Connection(){
-
+                
             try{
 
-                TTransport transport = new TSocketTransport("localhost", 5000);
+                TTransport transport = new TSocketTransport("localhost", 8000);
                 TProtocol protocol = new TBinaryProtocol(transport);
-                client = new StreamingService.Client(protocol);
+                streamingService = new StreamingService.Client(protocol);
 
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace Client
         {
             try
             {
-                client = null;
+                streamingService = null;
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -45,7 +45,7 @@ namespace Client
             TrackAudio trackAudio;
             try
             {
-                trackAudio = await client.GetTrackAudioAsync(new TrackRequest() { FileName = fileName, Quality = Quality.LOW });
+                trackAudio = await streamingService.GetTrackAudioAsync(new TrackRequest() { Filename = fileName, Quality = Quality.LOW });
                 Console.WriteLine("Recuperado" + trackAudio.Audio.Length);
                 
             }
@@ -57,28 +57,12 @@ namespace Client
             return trackAudio.Audio;
         }
 
-        public static async Task<TrackUploaded> UploadTrack(TrackAudio trackAudio)
-        {
-            TrackUploaded trackUploaded;
-            try
-            {
-                trackUploaded = await client.UploadTrackAsync(trackAudio);
-               
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            return trackUploaded;
-        }
-
         public static async Task<Boolean> UploadPersonalTrack(TrackAudio trackAudio)
         {
             
             try
             {
-                await client.UploadPersonalTrackAsync(trackAudio);
+                await streamingService.UploadPersonalTrackAsync(trackAudio);
                 return true;
             }
             catch (Exception ex)
