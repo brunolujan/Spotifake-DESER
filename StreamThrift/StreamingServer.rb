@@ -4,7 +4,6 @@ require 'streaming_service'
 require 'streaming_services_types'
 require "mp3info"
 
-
 def GetAudioDuration(filename)
     Mp3Info.open("../Media/Tracks/#{filename}.mp3") do |mp3info|
         return mp3info.length.to_i
