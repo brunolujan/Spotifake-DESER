@@ -225,7 +225,7 @@ service ContentCreatorService {
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
 
     /**
-    *   Get ConstentCreator by email
+    *   Get ContentCreator by email
     *
     *   @param email
     *       The ContentCreator email to be obtained.
@@ -393,6 +393,19 @@ service ContentCreatorService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Get ContentCreator by Query
+    *
+    *   @param query
+    *       The query to be obtained
+    *
+    *   @return ContentCreator
+    *       list<contentCreator> 
+    **/
+    list<SpotifakeManagement.ContentCreator> GetContentCreatorByQuery(1: string query) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
 }
 
 service TrackService {
@@ -483,6 +496,20 @@ service TrackService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         3: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
+
+    /**
+    *   Get Track by Query
+    *
+    *   @param query
+    *       The query to be obtained
+    *
+    *   @return Track
+    *       list<Track>
+    **/
+
+    list<SpotifakeManagement.Track> GetTrackByQuery(1: string query) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
     *    
@@ -807,6 +834,20 @@ service AlbumService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Get Album by Query
+    *
+    *   @param query
+    *       The query to be obtained
+    *
+    *   @return Album
+    *       list<Album>
+    **/
+
+    list<SpotifakeManagement.Album> GetAlbumByQuery(1: string query) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
 }
 
 service PlaylistService {
@@ -917,6 +958,20 @@ service PlaylistService {
     SpotifakeManagement.Playlist UpdatePlaylistDescription(1: SpotifakeManagement.Id idPlaylist, 2: string newDescription) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get Playlist by Query
+    *
+    *   @param query
+    *       The query to be obtained
+    *
+    *   @return Playlist
+    *       list<Playlist>
+    **/
+
+    list<SpotifakeManagement.Playlist> GetPlaylistByQuery(1: string query) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service LibraryService {
