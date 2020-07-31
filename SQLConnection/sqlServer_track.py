@@ -53,14 +53,13 @@ class SqlServerTrackManagement:
             DECLARE	@return_value int,
                     @salida nvarchar(1000)
 
-            EXEC	@return_value = [dbo].[SPC_GetAlbumTrack]
-                    @idAlbum = 1,
+            EXEC	@return_value = [dbo].[SPC_GetTracksByAlbumId]
+                    @idAlbum = ?,
                     @salida = @salida OUTPUT
 
             SELECT	@salida as N'@salida'
         """
         connection.cursor.execute(sql, idAlbum)
-        connection.cursor.execute(sql, idContentCreator)
         row = connection.cursor.fetchall()
         return row
 
