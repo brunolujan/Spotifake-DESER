@@ -95,7 +95,8 @@ namespace Client {
             albumsStackPanel.Children.Clear();
             List<Album> albums = await Session.serverConnection.albumService.GetAlbumsByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
             foreach (Album albumAux in albums) {
-                CreateContentUI(albumAux);
+                List<Track> tracks = await Session.serverConnection.trackService.GetTrackByAlbumIdAsync(albumAux.IdAlbum);
+                CreateContentUI(albumAux, tracks);
             }
         }
 
@@ -105,7 +106,8 @@ namespace Client {
             albumsStackPanel.Children.Clear();
             List<Album> singles = await Session.serverConnection.albumService.GetSinglesByContentCreatorIdAsync(thisContentCreator.IdContentCreator);
             foreach (Album singleAux in singles) {
-                CreateContentUI(singleAux);
+                List<Track> tracks = await Session.serverConnection.trackService.GetTrackByAlbumIdAsync(singleAux.IdAlbum);
+                CreateContentUI(singleAux, tracks);
             }
         }
 
@@ -127,7 +129,7 @@ namespace Client {
             }
         }
 
-        private void CreateContentUI(Album album) {
+        private void CreateContentUI(Album album, List<Track> tracks) {
             StackPanel stackPanel = new StackPanel();
             stackPanel.Orientation = Orientation.Vertical;
             StackPanel albumHeaderStackPanel = new StackPanel();
@@ -135,8 +137,8 @@ namespace Client {
             Rectangle albumImage = new Rectangle();
             albumImage.Fill = LoadImage(album.CoverPath);
             albumImage.Margin = new Thickness(30,30,0,0);
-            albumImage.Width = 200;
-            albumImage.Height = 200;
+            albumImage.Width = 250;
+            albumImage.Height = 250;
             albumImage.Visibility = Visibility.Visible;
             albumHeaderStackPanel.Children.Add(albumImage);
             StackPanel albumDataStackPanel = new StackPanel();
@@ -144,17 +146,28 @@ namespace Client {
             albumDataStackPanel.Orientation = Orientation.Vertical;
             TextBlock albumReleaseYearTextBlock = new TextBlock();
             albumReleaseYearTextBlock.Text = album.ReleaseDate.Year.ToString();
-            albumReleaseYearTextBlock.FontSize = 12;
+            albumReleaseYearTextBlock.FontSize = 15;
             albumReleaseYearTextBlock.Foreground = Brushes.White;
             albumReleaseYearTextBlock.FontFamily = new FontFamily("Gotham Medium");
             albumDataStackPanel.Children.Add(albumReleaseYearTextBlock);
             TextBlock albumNameTextBlock = new TextBlock();
             albumNameTextBlock.Text = album.Title;
-            albumNameTextBlock.FontSize = 20;
+            albumNameTextBlock.Margin = new Thickness(0, 10, 0, 0);
+            albumNameTextBlock.FontSize = 25;
             albumNameTextBlock.Foreground = Brushes.White;
             albumNameTextBlock.FontFamily = new FontFamily("Gotham Medium");
             albumNameTextBlock.FontWeight = FontWeights.Bold;
             albumDataStackPanel.Children.Add(albumNameTextBlock);
+            foreach (Track trackAux in tracks) {
+                TextBlock firstTrackTextBlock = new TextBlock();
+                firstTrackTextBlock.Text = trackAux.TrackNumber.ToString() + "        " + trackAux.Title;
+                firstTrackTextBlock.Margin = new Thickness(0, 15, 0, 0);
+                firstTrackTextBlock.FontSize = 18;
+                firstTrackTextBlock.Foreground = Brushes.White;
+                firstTrackTextBlock.FontFamily = new FontFamily("Gotham Medium");
+                firstTrackTextBlock.FontWeight = FontWeights.ExtraLight;
+                albumDataStackPanel.Children.Add(firstTrackTextBlock);
+            }
             albumHeaderStackPanel.Children.Add(albumDataStackPanel);
             stackPanel.Children.Add(albumHeaderStackPanel);
             albumsStackPanel.Children.Add(stackPanel);
