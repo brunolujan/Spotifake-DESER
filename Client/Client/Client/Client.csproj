@@ -303,6 +303,15 @@
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AlbumsPages.xaml.cs">
+      <DependentUpon>AlbumsPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ContentCreatorsPages.xaml.cs">
+      <DependentUpon>ContentCreatorsPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PlaylistsPages.xaml.cs">
+      <DependentUpon>PlaylistsPages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TracksPages.xaml.cs">
       <DependentUpon>TracksPages.xaml</DependentUpon>
     </Compile>
@@ -337,6 +346,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindowContentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AlbumsPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ContentCreatorsPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PlaylistsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
