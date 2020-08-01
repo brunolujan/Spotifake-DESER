@@ -167,6 +167,17 @@ service ConsumerService {
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE,
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Add image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return bool
+    *       true or false.
+    **/
+
+    bool AddTrackToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service ContentCreatorService {
