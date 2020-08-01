@@ -63,7 +63,7 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackFound =  SqlServerTrackManagement.GetTrackByQuery(self, query)
         if trackFound != 0:
                 for n in trackFound:
-                    track = Track(n.IdTrack,n.title,n.durationSeconds,n.storagePath, n.trackNumber)
+                    track = track = Track(n.IdTrack, n.trackNumber, n.durationSeconds, n.storagePath, n.title)
                     track.idAlbum = n.IdAlbum
                     track.title = n.AlbumTitle
                     track.cover = n.coverPath
