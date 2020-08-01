@@ -16,9 +16,16 @@ using System.Windows.Shapes;
 namespace Client.Pages {
    
     public partial class TracksPages : Page {
+
         public TracksPages() {
             InitializeComponent();
+            LoadTracks();
         }
 
+        public async void LoadTracks() {
+            List<Track> tracks = await Session.serverConnection.trackService.GetTrackByLibraryIdAsync(Session.library.IdLibrary);
+            datagrid_Track.ItemsSource = tracks.Select(x => new { TITLE = x.Title, SECONDS = x.DurationSeconds });
+            datagrid_Track.Items.Refresh();
+        }
     }
 }

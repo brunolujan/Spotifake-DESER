@@ -25,7 +25,7 @@
                              AreAnimationsEnabled="True"
                              Width="263">
                 <Grid Width="263" Background="#FF181818" HorizontalAlignment="Left" Height="639" VerticalAlignment="Top" Margin="0,30,0,0">
-                    <Button x:Name="button_Logout" Content="LOGOUT" HorizontalAlignment="Left" Margin="35,54,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.RowSpan="2">
+                    <Button x:Name="button_Logout" Content="LOGOUT" HorizontalAlignment="Left" Margin="35,54,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.RowSpan="2" Click="button_Logout_Click">
                         <Button.Resources>
                             <Style x:Key="FocusVisual">
                                 <Setter Property="Control.Template">
@@ -84,7 +84,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button x:Name="button_Configuration" Content="CONFIGURATION" HorizontalAlignment="Left" Margin="35,145,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
+                    <Button x:Name="button_Configuration" Content="CONFIGURATION" HorizontalAlignment="Left" Margin="35,145,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1" Click="button_Configuration_Click">
                         <Button.Resources>
                             <Style x:Key="FocusVisual">
                                 <Setter Property="Control.Template">
@@ -222,7 +222,7 @@
         </Frame>
         <Rectangle Fill="Black" HorizontalAlignment="Left" Height="639" VerticalAlignment="Top" Width="263" Grid.RowSpan="2"/>
         <Rectangle Fill="#FF282828" HorizontalAlignment="Left" Height="100" Margin="0,510,0,0" VerticalAlignment="Top" Width="1100" Grid.Row="1"/>
-        <TextBlock x:Name="textBlock_NameUser" HorizontalAlignment="Left" Margin="800,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="554" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
+        <TextBlock x:Name="textBlock_NameUser" HorizontalAlignment="Left" Margin="508,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="554" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -232,7 +232,7 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="33" Cursor="Hand" Height="21" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+        <Button x:Name="button_Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="33" Cursor="Hand" Height="21" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="button_Settings_Click">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
                     <Setter Property="Control.Template">
@@ -308,7 +308,7 @@
         <Button x:Name="button_Tracks" Content="Tracks" HorizontalAlignment="Left" Margin="4,218,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1" MouseDoubleClick="button_Tracks_MouseDoubleClick"/>
         <Rectangle x:Name="image" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="115" Margin="49,70,0,0" Stroke="Black" VerticalAlignment="Top" Width="115" RadiusY="63.9" RadiusX="63.9" Grid.RowSpan="2"/>
         <Button x:Name="button_Playlists" Content="Playlists" HorizontalAlignment="Left" Margin="12,262,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}"  Grid.Row="1" MouseDoubleClick="button_Playlists_MouseDoubleClick"/>
-        <Button x:Name="button_ContentCreators" Content="Artistas" HorizontalAlignment="Left" Margin="12,298,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1" Height="30" MouseDoubleClick="button_ContentCreators_MouseDoubleClick"/>
+        <Button x:Name="button_ContentCreators" Content="Artists" HorizontalAlignment="Left" Margin="12,298,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1" Height="30" MouseDoubleClick="button_ContentCreators_MouseDoubleClick"/>
         
     </Grid>
     </Controls:MetroWindow>

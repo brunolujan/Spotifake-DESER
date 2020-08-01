@@ -66,9 +66,10 @@ namespace Client
                         Consumer ConsumerLog = await Session.serverConnection.consumerService.LoginConsumerAsync(textBox_Email.Text, passwordBox_Password.Password);
                         if (ConsumerLog != null)
                         {
-                            short idLibrary = await Session.serverConnection.libraryService.getLibraryByIdConsumerAsync(ConsumerLog.IdConsumer);
-                            MainWindow mainWindow = new MainWindow(ConsumerLog, idLibrary);
-                            mainWindow.Show();
+                            Session.consumer = ConsumerLog;
+                            Session.library.IdLibrary = await Session.serverConnection.libraryService.getLibraryByIdConsumerAsync(Session.consumer.IdConsumer);
+                            Main main = new Main();
+                            main.Show();
                             this.Close();
                         }
                     } catch (NullReferenceException ex)

@@ -14,12 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para ContentCreatorsPages.xaml
-    /// </summary>
+
     public partial class ContentCreatorsPages : Page {
+
         public ContentCreatorsPages() {
             InitializeComponent();
+            LoadContentCreators();
+        }
+
+        public async void LoadContentCreators() {
+            List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByLibraryIdAsync(Session.library.IdLibrary);
+            datagrid_ContentCreator.ItemsSource = contentCreators;
         }
     }
 }

@@ -15,11 +15,10 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Playlists" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Grid.Row="0" Text="Playlists" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
 
         </TextBlock>
-        <DataGrid x:Name="datagrid_Playlist" HorizontalAlignment="Center" Height="350" Margin="50" Grid.Row="1" VerticalAlignment="Center"
-                  Width="700" Background="White" BorderBrush="{x:Null}" FontFamily="Gotham Medium" FontSize="20"/>
+        <DataGrid x:Name="datagrid_Playlist" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
 
     </Grid>
 </Page>

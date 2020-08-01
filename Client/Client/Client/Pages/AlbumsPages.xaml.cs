@@ -14,12 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para AlbumsPages.xaml
-    /// </summary>
+
     public partial class AlbumsPages : Page {
+
         public AlbumsPages() {
             InitializeComponent();
+            LoadAlbums();
+        }
+
+        public async void LoadAlbums() {
+            List<Album> albums = await Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(Session.library.IdLibrary);
+            datagrid_Album.ItemsSource = albums;
         }
     }
 }

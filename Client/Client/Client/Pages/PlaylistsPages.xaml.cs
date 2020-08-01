@@ -14,12 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para PlaylistsPages.xaml
-    /// </summary>
+
     public partial class PlaylistsPages : Page {
+
         public PlaylistsPages() {
             InitializeComponent();
+            LoadPlaylists();
+        }
+
+        public async void LoadPlaylists() {
+            List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByLibraryIdAsync(Session.library.IdLibrary);
+            datagrid_Playlist.ItemsSource = playlists;
         }
     }
 }
