@@ -21,16 +21,21 @@ namespace Client {
         public Main() {
             InitializeComponent();
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            if (Session.consumer.ImageStoragePath == null) {
+            if (Session.consumer.ImageStoragePath == null)
+            {
                 image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
-            } else {
+            }
+            else
+            {
                 image.Fill = LoadImage(Session.consumer.ImageStoragePath);
             }
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
+
         }
 
         private ImageBrush LoadImage(string path) {
-            try {
+            try
+            {
                 Image imageX = new Image();
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
@@ -41,11 +46,14 @@ namespace Client {
                 ImageBrush ib = new ImageBrush();
                 ib.ImageSource = src;
                 return ib;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
                 return null;
             }
         }
+
 
         private void button_Settings_Click(object sender, RoutedEventArgs e) {
             flyout.IsOpen = true;
@@ -80,6 +88,9 @@ namespace Client {
 
         private void button_Playlists_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             centralFrame.Navigate(new PlaylistsPages());
+        }
+        private void button_Search_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            centralFrame.Navigate(new SearchPage());
         }
     }
 }
