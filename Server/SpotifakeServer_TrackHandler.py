@@ -70,7 +70,7 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
                     track.releaseDate = n.releaseDate
                     track.type = n.type
                     #track.album.genre = n.idGenre
-                    track.contentCreator.stageName = n.ContentCreatorName
+                    track.stageName = n.ContentCreatorName
                     #track.album.contentCreator.description = n.Description
                     #track.album.gender.idGender = n.IdGenre
                     #track.album.gender.name = n.name
