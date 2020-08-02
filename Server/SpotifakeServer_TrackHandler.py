@@ -63,18 +63,9 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackFound =  SqlServerTrackManagement.GetTrackByQuery(self, query)
         if trackFound != 0:
                 for n in trackFound:
-                    track = track = Track(n.IdTrack, n.trackNumber, n.durationSeconds, n.storagePath, n.title)
-                    track.idAlbum = n.IdAlbum
-                    track.title = n.AlbumTitle
-                    track.cover = n.coverPath
-                    track.releaseDate = n.releaseDate
-                    track.type = n.type
-                    #track.album.genre = n.idGenre
+                    track = Track(n.IdTrack, n.trackNumber, n.durationSeconds, n.storagePath, n.title)
+                    track.title = n.title
                     track.stageName = n.ContentCreatorName
-                    #track.album.contentCreator.description = n.Description
-                    #track.album.gender.idGender = n.IdGenre
-                    #track.album.gender.name = n.name
-
                     trackList.append(track)
                 return trackList        
         return False
