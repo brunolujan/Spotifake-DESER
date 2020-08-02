@@ -48,8 +48,8 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
             return False
 
     def AddImageToMedia(self, fileName, image):
-        file = open("../Media/Imges/"+fileName+".jpg", 'wb')
-        file.write(audio)
+        file = open("../Media/Images/"+fileName+".jpg", 'wb')
+        file.write(image)
         file.close()
         return True
 
@@ -58,3 +58,7 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
         imageBytes = file.read()
         file.close()
         return imageBytes
+
+    def UpdateConsumerImage(self, email, fileName):
+        SqlServerConsumerManagement.UpdateConsumerImage(self, email, fileName)
+        return True
