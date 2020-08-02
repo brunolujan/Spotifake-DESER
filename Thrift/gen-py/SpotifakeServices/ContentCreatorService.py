@@ -19,351 +19,293 @@ all_structs = []
 
 
 class Iface(object):
-    def GetTrackByTitle(self, title):
+    def GetContentCreators(self):
         """
-        Get Track by Title
+        Get ContentCreator
 
-        @param title
-            The Track Title to be obtained
+        @return list<ContentCreator>
+            ContentCreator list
 
-        @return Track
-            Track object
-
-
-        Parameters:
-         - title
 
         """
         pass
 
-    def GetTrackByAlbumId(self, idAlbum):
+    def GetContentCreatorById(self, idContentCreator):
         """
-        Get Track by idAlbum
+        Get ContentCreator by Id
 
-        @param idAlbum
-            The Track Title to be obtained
+        @param idContentCreator
+            The ContentCreator Id to be obtained.
 
-        @return Track
-            list<Track>
+        @return ContentCreator
+            ContentCreator object
 
 
         Parameters:
-         - idAlbum
-
-        """
-        pass
-
-    def GetTrackByLibraryId(self, idLibrary):
-        """
-        Get Track by idLibrary
-
-        @param idLibrary
-            The Library Id to be obtained
-
-        @return Track
-            list<Track>
-
-
-        Parameters:
-         - idLibrary
-
-        """
-        pass
-
-    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
-        """
-        Add a Track to an Album.
-
-        @param idAlbum
-            The Album Id which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idAlbum
-         - newTrack
          - idContentCreator
 
         """
         pass
 
-    def AddFeaturingTrack(self, idNewTrack, idContenCreator):
+    def GetContentCreatorByLibraryId(self, idLibrary):
         """
-        Register a featuring Track
+        Get ContentCreator by Library Id
 
-        @param newTrack
+        @param idLibrary
+            The Library Id to be obtained.
 
-        @return idNewTrack
-          Featuring added
+        @return ContentCreator list
+            list<ContentCreator>
 
 
         Parameters:
-         - idNewTrack
-         - idContenCreator
+         - idLibrary
 
         """
         pass
 
-    def DeleteAlbumTrack(self, idAlbum, trackNumber):
+    def GetContentCreatorByEmail(self, email):
         """
-        Delete a Track from an Album
+        Get ContentCreator by email
 
-        @param idAlbum
-            The Album Id which a track will be deleted.
+        @param email
+            The ContentCreator email to be obtained.
 
-        @param trackNumber
-            The Track number which will be deleted
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        pass
+
+    def GetContentCreatorByStageName(self, email):
+        """
+        Get ContentCreator by email
+
+        @param email
+            The ContentCreator email to be obtained.
+
+        @return bool
+            bool object
+
+
+        Parameters:
+         - email
+
+        """
+        pass
+
+    def AddContentCreator(self, newContentCreator):
+        """
+        Register a Content Creator.
+
+        @param newContentCreator
+
+        @return ContentCreator
+            ContentCreator object added
+
+
+        Parameters:
+         - newContentCreator
+
+        """
+        pass
+
+    def DeleteContentCreator(self, email):
+        """
+        Delete a ContentCreator
+
+        @param email
+            The Content Creator email of the Content Creator to be deleted.
 
         @return Id
-            The Track Id of the Track deleted.
+            The Content Creator Id of the Content Creator deleted.
 
 
         Parameters:
-         - idAlbum
-         - trackNumber
+         - email
 
         """
         pass
 
-    def GetTrackByQuery(self, query):
+    def UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
         """
-        Get Track by Query
+         
+        Update previously registered Content Creator name.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update name.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newName
+         - newLastName
+
+        """
+        pass
+
+    def UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+        """
+         
+        Update previously registered Content Creator password.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update password.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newPassword
+
+        """
+        pass
+
+    def UpdateContentCreatorImage(self, email, newImageStoragePath):
+        """
+         
+        Update previously registered Content Creator image.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update image.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - newImageStoragePath
+
+        """
+        pass
+
+    def UpdateContentCreatorStageName(self, email, currentPassword, newStageName):
+        """
+         
+        Update previously registered Content Creator stage name.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update stage name.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newStageName
+
+        """
+        pass
+
+    def UpdateContentCreatorDescription(self, email, currentPassword, newDescription):
+        """
+         
+        Update previously registered Content Creator description.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update description.
+
+        @return ContentCreator
+            Modified Content Creator obejct
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newDescription
+
+        """
+        pass
+
+    def LoginContentCreator(self, email, password):
+        """
+        Allows the login of a content creator
+
+        @param email
+            The Conntent Creator email
+
+        @param password
+            The Email password of the content creator
+
+        @return Content Creator
+            Content Creator object
+
+
+        Parameters:
+         - email
+         - password
+
+        """
+        pass
+
+    def AddContentCreatorToLibrary(self, idLibrary, newContentCreator):
+        """
+        Add a ContentCreator to Library.
+
+        @param idLibrary
+            The Library Id to which a content creator will be added
+
+        @param newContentCreator
+
+        @return ContentCreator
+            ContentCreator object added
+
+
+        Parameters:
+         - idLibrary
+         - newContentCreator
+
+        """
+        pass
+
+    def DeleteLibraryContentCreator(self, idLibrary, idContentCreator):
+        """
+        Delete a Content Creator from a Library
+
+        @param idLibrary
+            The Library Id which a content creator will be deleted.
+
+        @param idContentCreator
+            The Content Creator Id which will be deleted
+
+        @return Id
+            The Content Creator Id of the Content Creator deleted.
+
+
+        Parameters:
+         - idLibrary
+         - idContentCreator
+
+        """
+        pass
+
+    def GetContentCreatorByQuery(self, query):
+        """
+        Get ContentCreator by Query
 
         @param query
             The query to be obtained
 
-        @return Track
-            list<Track>
+        @return ContentCreator
+            list<contentCreator>
 
 
         Parameters:
          - query
-
-        """
-        pass
-
-    def UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle):
-        """
-         
-        Update previously registered Album track title.
-
-        @param idAlbum
-            The Album Id of the Album which require an update track title.
-
-        @param trackNumber
-            The Track number of the Track which require an update title
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - trackNumber
-         - newAlbumTrackTitle
-
-        """
-        pass
-
-    def UpdateAlbumTrackFeaturing(self, idAlbum, trackNumber, newFeaturing):
-        """
-         
-        Update previously registered Album track featuring.
-
-        @param idAlbum
-            The Album Id of the Album which require an update track featuring.
-
-        @param trackNumber
-            The Track number of the Track which require an update featuring
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - trackNumber
-         - newFeaturing
-
-        """
-        pass
-
-    def AddTrackToLibrary(self, idLibrary, newTrack):
-        """
-        Add a Track to Library.
-
-        @param idLibrary
-            The Library Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idLibrary
-         - newTrack
-
-        """
-        pass
-
-    def DeleteLibraryTrack(self, idLibrary, trackNumber):
-        """
-        Delete a Track from a Library
-
-        @param idLibrary
-            The Library Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idLibrary
-         - trackNumber
-
-        """
-        pass
-
-    def AddTrackToPlaylist(self, idPlaylist, newtrack):
-        """
-        Add a Track to Playlist.
-
-        @param idPlaylist
-            The Playlist Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idPlaylist
-         - newtrack
-
-        """
-        pass
-
-    def DeletePlaylistTrack(self, idPlaylist, trackNumber):
-        """
-        Delete a Track from a Playlist
-
-        @param idPlaylist
-            The Playlist Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idPlaylist
-         - trackNumber
-
-        """
-        pass
-
-    def AddTrackToPlayQueue(self, idPlayQueu, newTrack):
-        """
-        Add a Track to PlayQueue.
-
-        @param idPlayQueue
-            The PlayQueue Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idPlayQueu
-         - newTrack
-
-        """
-        pass
-
-    def DeletePlayQueueTrack(self, idPlayQueu, trackNumber):
-        """
-        Delete a Track from a PlayQueue
-
-        @param idPlayQueue
-            The PlayQueue Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idPlayQueu
-         - trackNumber
-
-        """
-        pass
-
-    def GenerateRadioStation(self, gender):
-        """
-        Generate a Radio Station
-
-        @param gender
-            The gender which the radio station will be generated.
-
-        @return tracks
-            List of tracks which belong to the gender entered.
-
-
-        Parameters:
-         - gender
-
-        """
-        pass
-
-    def AddTrackToMedia(self, fileName, audio):
-        """
-        Add track file binary
-
-        @param binary
-            The binary number that will be keep.
-
-        @return bool
-            true or false.
-
-
-        Parameters:
-         - fileName
-         - audio
-
-        """
-        pass
-
-    def GetTrackToMedia(self, fileName, audio):
-        """
-        Get track file binary
-
-        @param fileName
-            The fileName that will be get.
-
-        @return binary
-            binary number audio.
-
-
-        Parameters:
-         - fileName
-         - audio
 
         """
         pass
@@ -376,33 +318,26 @@ class Client(Iface):
             self._oprot = oprot
         self._seqid = 0
 
-    def GetTrackByTitle(self, title):
+    def GetContentCreators(self):
         """
-        Get Track by Title
+        Get ContentCreator
 
-        @param title
-            The Track Title to be obtained
+        @return list<ContentCreator>
+            ContentCreator list
 
-        @return Track
-            Track object
-
-
-        Parameters:
-         - title
 
         """
-        self.send_GetTrackByTitle(title)
-        return self.recv_GetTrackByTitle()
+        self.send_GetContentCreators()
+        return self.recv_GetContentCreators()
 
-    def send_GetTrackByTitle(self, title):
-        self._oprot.writeMessageBegin('GetTrackByTitle', TMessageType.CALL, self._seqid)
-        args = GetTrackByTitle_args()
-        args.title = title
+    def send_GetContentCreators(self):
+        self._oprot.writeMessageBegin('GetContentCreators', TMessageType.CALL, self._seqid)
+        args = GetContentCreators_args()
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetTrackByTitle(self):
+    def recv_GetContentCreators(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -410,44 +345,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetTrackByTitle_result()
+        result = GetContentCreators_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByTitle failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreators failed: unknown result")
 
-    def GetTrackByAlbumId(self, idAlbum):
+    def GetContentCreatorById(self, idContentCreator):
         """
-        Get Track by idAlbum
+        Get ContentCreator by Id
 
-        @param idAlbum
-            The Track Title to be obtained
+        @param idContentCreator
+            The ContentCreator Id to be obtained.
 
-        @return Track
-            list<Track>
+        @return ContentCreator
+            ContentCreator object
 
 
         Parameters:
-         - idAlbum
+         - idContentCreator
 
         """
-        self.send_GetTrackByAlbumId(idAlbum)
-        return self.recv_GetTrackByAlbumId()
+        self.send_GetContentCreatorById(idContentCreator)
+        return self.recv_GetContentCreatorById()
 
-    def send_GetTrackByAlbumId(self, idAlbum):
-        self._oprot.writeMessageBegin('GetTrackByAlbumId', TMessageType.CALL, self._seqid)
-        args = GetTrackByAlbumId_args()
-        args.idAlbum = idAlbum
+    def send_GetContentCreatorById(self, idContentCreator):
+        self._oprot.writeMessageBegin('GetContentCreatorById', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorById_args()
+        args.idContentCreator = idContentCreator
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetTrackByAlbumId(self):
+    def recv_GetContentCreatorById(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -455,44 +392,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetTrackByAlbumId_result()
+        result = GetContentCreatorById_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByAlbumId failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorById failed: unknown result")
 
-    def GetTrackByLibraryId(self, idLibrary):
+    def GetContentCreatorByLibraryId(self, idLibrary):
         """
-        Get Track by idLibrary
+        Get ContentCreator by Library Id
 
         @param idLibrary
-            The Library Id to be obtained
+            The Library Id to be obtained.
 
-        @return Track
-            list<Track>
+        @return ContentCreator list
+            list<ContentCreator>
 
 
         Parameters:
          - idLibrary
 
         """
-        self.send_GetTrackByLibraryId(idLibrary)
-        return self.recv_GetTrackByLibraryId()
+        self.send_GetContentCreatorByLibraryId(idLibrary)
+        return self.recv_GetContentCreatorByLibraryId()
 
-    def send_GetTrackByLibraryId(self, idLibrary):
-        self._oprot.writeMessageBegin('GetTrackByLibraryId', TMessageType.CALL, self._seqid)
-        args = GetTrackByLibraryId_args()
+    def send_GetContentCreatorByLibraryId(self, idLibrary):
+        self._oprot.writeMessageBegin('GetContentCreatorByLibraryId', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByLibraryId_args()
         args.idLibrary = idLibrary
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetTrackByLibraryId(self):
+    def recv_GetContentCreatorByLibraryId(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -500,50 +439,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetTrackByLibraryId_result()
+        result = GetContentCreatorByLibraryId_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByLibraryId failed: unknown result")
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByLibraryId failed: unknown result")
 
-    def AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
+    def GetContentCreatorByEmail(self, email):
         """
-        Add a Track to an Album.
+        Get ContentCreator by email
 
-        @param idAlbum
-            The Album Id which a track will be added
+        @param email
+            The ContentCreator email to be obtained.
 
-        @param newTrack
-
-        @return Track
-            Track object added
+        @return bool
+            bool object
 
 
         Parameters:
-         - idAlbum
-         - newTrack
-         - idContentCreator
+         - email
 
         """
-        self.send_AddTrackToAlbum(idAlbum, newTrack, idContentCreator)
-        return self.recv_AddTrackToAlbum()
+        self.send_GetContentCreatorByEmail(email)
+        return self.recv_GetContentCreatorByEmail()
 
-    def send_AddTrackToAlbum(self, idAlbum, newTrack, idContentCreator):
-        self._oprot.writeMessageBegin('AddTrackToAlbum', TMessageType.CALL, self._seqid)
-        args = AddTrackToAlbum_args()
-        args.idAlbum = idAlbum
-        args.newTrack = newTrack
-        args.idContentCreator = idContentCreator
+    def send_GetContentCreatorByEmail(self, email):
+        self._oprot.writeMessageBegin('GetContentCreatorByEmail', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByEmail_args()
+        args.email = email
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_AddTrackToAlbum(self):
+    def recv_GetContentCreatorByEmail(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -551,43 +486,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = AddTrackToAlbum_result()
+        result = GetContentCreatorByEmail_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToAlbum failed: unknown result")
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByEmail failed: unknown result")
 
-    def AddFeaturingTrack(self, idNewTrack, idContenCreator):
+    def GetContentCreatorByStageName(self, email):
         """
-        Register a featuring Track
+        Get ContentCreator by email
 
-        @param newTrack
+        @param email
+            The ContentCreator email to be obtained.
 
-        @return idNewTrack
-          Featuring added
+        @return bool
+            bool object
 
 
         Parameters:
-         - idNewTrack
-         - idContenCreator
+         - email
 
         """
-        self.send_AddFeaturingTrack(idNewTrack, idContenCreator)
-        return self.recv_AddFeaturingTrack()
+        self.send_GetContentCreatorByStageName(email)
+        return self.recv_GetContentCreatorByStageName()
 
-    def send_AddFeaturingTrack(self, idNewTrack, idContenCreator):
-        self._oprot.writeMessageBegin('AddFeaturingTrack', TMessageType.CALL, self._seqid)
-        args = AddFeaturingTrack_args()
-        args.idNewTrack = idNewTrack
-        args.idContenCreator = idContenCreator
+    def send_GetContentCreatorByStageName(self, email):
+        self._oprot.writeMessageBegin('GetContentCreatorByStageName', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByStageName_args()
+        args.email = email
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_AddFeaturingTrack(self):
+    def recv_GetContentCreatorByStageName(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -595,47 +533,88 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = AddFeaturingTrack_result()
+        result = GetContentCreatorByStageName_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddFeaturingTrack failed: unknown result")
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByStageName failed: unknown result")
 
-    def DeleteAlbumTrack(self, idAlbum, trackNumber):
+    def AddContentCreator(self, newContentCreator):
         """
-        Delete a Track from an Album
+        Register a Content Creator.
 
-        @param idAlbum
-            The Album Id which a track will be deleted.
+        @param newContentCreator
 
-        @param trackNumber
-            The Track number which will be deleted
+        @return ContentCreator
+            ContentCreator object added
+
+
+        Parameters:
+         - newContentCreator
+
+        """
+        self.send_AddContentCreator(newContentCreator)
+        return self.recv_AddContentCreator()
+
+    def send_AddContentCreator(self, newContentCreator):
+        self._oprot.writeMessageBegin('AddContentCreator', TMessageType.CALL, self._seqid)
+        args = AddContentCreator_args()
+        args.newContentCreator = newContentCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddContentCreator(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddContentCreator_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddContentCreator failed: unknown result")
+
+    def DeleteContentCreator(self, email):
+        """
+        Delete a ContentCreator
+
+        @param email
+            The Content Creator email of the Content Creator to be deleted.
 
         @return Id
-            The Track Id of the Track deleted.
+            The Content Creator Id of the Content Creator deleted.
 
 
         Parameters:
-         - idAlbum
-         - trackNumber
+         - email
 
         """
-        self.send_DeleteAlbumTrack(idAlbum, trackNumber)
-        return self.recv_DeleteAlbumTrack()
+        self.send_DeleteContentCreator(email)
+        return self.recv_DeleteContentCreator()
 
-    def send_DeleteAlbumTrack(self, idAlbum, trackNumber):
-        self._oprot.writeMessageBegin('DeleteAlbumTrack', TMessageType.CALL, self._seqid)
-        args = DeleteAlbumTrack_args()
-        args.idAlbum = idAlbum
-        args.trackNumber = trackNumber
+    def send_DeleteContentCreator(self, email):
+        self._oprot.writeMessageBegin('DeleteContentCreator', TMessageType.CALL, self._seqid)
+        args = DeleteContentCreator_args()
+        args.email = email
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_DeleteAlbumTrack(self):
+    def recv_DeleteContentCreator(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -643,7 +622,7 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = DeleteAlbumTrack_result()
+        result = DeleteContentCreator_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
@@ -654,35 +633,452 @@ class Client(Iface):
             raise result.sErrorSystemE
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteAlbumTrack failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteContentCreator failed: unknown result")
 
-    def GetTrackByQuery(self, query):
+    def UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
         """
-        Get Track by Query
+         
+        Update previously registered Content Creator name.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update name.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newName
+         - newLastName
+
+        """
+        self.send_UpdateContentCreatorName(email, currentPassword, newName, newLastName)
+        return self.recv_UpdateContentCreatorName()
+
+    def send_UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
+        self._oprot.writeMessageBegin('UpdateContentCreatorName', TMessageType.CALL, self._seqid)
+        args = UpdateContentCreatorName_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newName = newName
+        args.newLastName = newLastName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateContentCreatorName(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateContentCreatorName_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorName failed: unknown result")
+
+    def UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+        """
+         
+        Update previously registered Content Creator password.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update password.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newPassword
+
+        """
+        self.send_UpdateContentCreatorPassword(email, currentPassword, newPassword)
+        return self.recv_UpdateContentCreatorPassword()
+
+    def send_UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+        self._oprot.writeMessageBegin('UpdateContentCreatorPassword', TMessageType.CALL, self._seqid)
+        args = UpdateContentCreatorPassword_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newPassword = newPassword
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateContentCreatorPassword(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateContentCreatorPassword_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorPassword failed: unknown result")
+
+    def UpdateContentCreatorImage(self, email, newImageStoragePath):
+        """
+         
+        Update previously registered Content Creator image.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update image.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - newImageStoragePath
+
+        """
+        self.send_UpdateContentCreatorImage(email, newImageStoragePath)
+        return self.recv_UpdateContentCreatorImage()
+
+    def send_UpdateContentCreatorImage(self, email, newImageStoragePath):
+        self._oprot.writeMessageBegin('UpdateContentCreatorImage', TMessageType.CALL, self._seqid)
+        args = UpdateContentCreatorImage_args()
+        args.email = email
+        args.newImageStoragePath = newImageStoragePath
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateContentCreatorImage(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateContentCreatorImage_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorImage failed: unknown result")
+
+    def UpdateContentCreatorStageName(self, email, currentPassword, newStageName):
+        """
+         
+        Update previously registered Content Creator stage name.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update stage name.
+
+        @return ContentCreator
+            Modified Content Creator obejct.
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newStageName
+
+        """
+        self.send_UpdateContentCreatorStageName(email, currentPassword, newStageName)
+        return self.recv_UpdateContentCreatorStageName()
+
+    def send_UpdateContentCreatorStageName(self, email, currentPassword, newStageName):
+        self._oprot.writeMessageBegin('UpdateContentCreatorStageName', TMessageType.CALL, self._seqid)
+        args = UpdateContentCreatorStageName_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newStageName = newStageName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateContentCreatorStageName(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateContentCreatorStageName_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorStageName failed: unknown result")
+
+    def UpdateContentCreatorDescription(self, email, currentPassword, newDescription):
+        """
+         
+        Update previously registered Content Creator description.
+
+        @param email
+            The Content Creator Email of the Consumer which require an update description.
+
+        @return ContentCreator
+            Modified Content Creator obejct
+
+
+        Parameters:
+         - email
+         - currentPassword
+         - newDescription
+
+        """
+        self.send_UpdateContentCreatorDescription(email, currentPassword, newDescription)
+        return self.recv_UpdateContentCreatorDescription()
+
+    def send_UpdateContentCreatorDescription(self, email, currentPassword, newDescription):
+        self._oprot.writeMessageBegin('UpdateContentCreatorDescription', TMessageType.CALL, self._seqid)
+        args = UpdateContentCreatorDescription_args()
+        args.email = email
+        args.currentPassword = currentPassword
+        args.newDescription = newDescription
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_UpdateContentCreatorDescription(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = UpdateContentCreatorDescription_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        if result.sErrorInvalidRequestE is not None:
+            raise result.sErrorInvalidRequestE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorDescription failed: unknown result")
+
+    def LoginContentCreator(self, email, password):
+        """
+        Allows the login of a content creator
+
+        @param email
+            The Conntent Creator email
+
+        @param password
+            The Email password of the content creator
+
+        @return Content Creator
+            Content Creator object
+
+
+        Parameters:
+         - email
+         - password
+
+        """
+        self.send_LoginContentCreator(email, password)
+        return self.recv_LoginContentCreator()
+
+    def send_LoginContentCreator(self, email, password):
+        self._oprot.writeMessageBegin('LoginContentCreator', TMessageType.CALL, self._seqid)
+        args = LoginContentCreator_args()
+        args.email = email
+        args.password = password
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_LoginContentCreator(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = LoginContentCreator_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorUserE is not None:
+            raise result.sErrorUserE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "LoginContentCreator failed: unknown result")
+
+    def AddContentCreatorToLibrary(self, idLibrary, newContentCreator):
+        """
+        Add a ContentCreator to Library.
+
+        @param idLibrary
+            The Library Id to which a content creator will be added
+
+        @param newContentCreator
+
+        @return ContentCreator
+            ContentCreator object added
+
+
+        Parameters:
+         - idLibrary
+         - newContentCreator
+
+        """
+        self.send_AddContentCreatorToLibrary(idLibrary, newContentCreator)
+        return self.recv_AddContentCreatorToLibrary()
+
+    def send_AddContentCreatorToLibrary(self, idLibrary, newContentCreator):
+        self._oprot.writeMessageBegin('AddContentCreatorToLibrary', TMessageType.CALL, self._seqid)
+        args = AddContentCreatorToLibrary_args()
+        args.idLibrary = idLibrary
+        args.newContentCreator = newContentCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddContentCreatorToLibrary(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddContentCreatorToLibrary_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddContentCreatorToLibrary failed: unknown result")
+
+    def DeleteLibraryContentCreator(self, idLibrary, idContentCreator):
+        """
+        Delete a Content Creator from a Library
+
+        @param idLibrary
+            The Library Id which a content creator will be deleted.
+
+        @param idContentCreator
+            The Content Creator Id which will be deleted
+
+        @return Id
+            The Content Creator Id of the Content Creator deleted.
+
+
+        Parameters:
+         - idLibrary
+         - idContentCreator
+
+        """
+        self.send_DeleteLibraryContentCreator(idLibrary, idContentCreator)
+        return self.recv_DeleteLibraryContentCreator()
+
+    def send_DeleteLibraryContentCreator(self, idLibrary, idContentCreator):
+        self._oprot.writeMessageBegin('DeleteLibraryContentCreator', TMessageType.CALL, self._seqid)
+        args = DeleteLibraryContentCreator_args()
+        args.idLibrary = idLibrary
+        args.idContentCreator = idContentCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_DeleteLibraryContentCreator(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = DeleteLibraryContentCreator_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteLibraryContentCreator failed: unknown result")
+
+    def GetContentCreatorByQuery(self, query):
+        """
+        Get ContentCreator by Query
 
         @param query
             The query to be obtained
 
-        @return Track
-            list<Track>
+        @return ContentCreator
+            list<contentCreator>
 
 
         Parameters:
          - query
 
         """
-        self.send_GetTrackByQuery(query)
-        return self.recv_GetTrackByQuery()
+        self.send_GetContentCreatorByQuery(query)
+        return self.recv_GetContentCreatorByQuery()
 
-    def send_GetTrackByQuery(self, query):
-        self._oprot.writeMessageBegin('GetTrackByQuery', TMessageType.CALL, self._seqid)
-        args = GetTrackByQuery_args()
+    def send_GetContentCreatorByQuery(self, query):
+        self._oprot.writeMessageBegin('GetContentCreatorByQuery', TMessageType.CALL, self._seqid)
+        args = GetContentCreatorByQuery_args()
         args.query = query
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetTrackByQuery(self):
+    def recv_GetContentCreatorByQuery(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -690,7 +1086,7 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetTrackByQuery_result()
+        result = GetContentCreatorByQuery_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
@@ -699,565 +1095,29 @@ class Client(Iface):
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackByQuery failed: unknown result")
-
-    def UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle):
-        """
-         
-        Update previously registered Album track title.
-
-        @param idAlbum
-            The Album Id of the Album which require an update track title.
-
-        @param trackNumber
-            The Track number of the Track which require an update title
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - trackNumber
-         - newAlbumTrackTitle
-
-        """
-        self.send_UpdateAlbumTrackTitle(idAlbum, trackNumber, newAlbumTrackTitle)
-        return self.recv_UpdateAlbumTrackTitle()
-
-    def send_UpdateAlbumTrackTitle(self, idAlbum, trackNumber, newAlbumTrackTitle):
-        self._oprot.writeMessageBegin('UpdateAlbumTrackTitle', TMessageType.CALL, self._seqid)
-        args = UpdateAlbumTrackTitle_args()
-        args.idAlbum = idAlbum
-        args.trackNumber = trackNumber
-        args.newAlbumTrackTitle = newAlbumTrackTitle
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_UpdateAlbumTrackTitle(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = UpdateAlbumTrackTitle_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumTrackTitle failed: unknown result")
-
-    def UpdateAlbumTrackFeaturing(self, idAlbum, trackNumber, newFeaturing):
-        """
-         
-        Update previously registered Album track featuring.
-
-        @param idAlbum
-            The Album Id of the Album which require an update track featuring.
-
-        @param trackNumber
-            The Track number of the Track which require an update featuring
-
-        @return Album
-            Modified Album obejct.
-
-
-        Parameters:
-         - idAlbum
-         - trackNumber
-         - newFeaturing
-
-        """
-        self.send_UpdateAlbumTrackFeaturing(idAlbum, trackNumber, newFeaturing)
-        return self.recv_UpdateAlbumTrackFeaturing()
-
-    def send_UpdateAlbumTrackFeaturing(self, idAlbum, trackNumber, newFeaturing):
-        self._oprot.writeMessageBegin('UpdateAlbumTrackFeaturing', TMessageType.CALL, self._seqid)
-        args = UpdateAlbumTrackFeaturing_args()
-        args.idAlbum = idAlbum
-        args.trackNumber = trackNumber
-        args.newFeaturing = newFeaturing
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_UpdateAlbumTrackFeaturing(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = UpdateAlbumTrackFeaturing_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumTrackFeaturing failed: unknown result")
-
-    def AddTrackToLibrary(self, idLibrary, newTrack):
-        """
-        Add a Track to Library.
-
-        @param idLibrary
-            The Library Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idLibrary
-         - newTrack
-
-        """
-        self.send_AddTrackToLibrary(idLibrary, newTrack)
-        return self.recv_AddTrackToLibrary()
-
-    def send_AddTrackToLibrary(self, idLibrary, newTrack):
-        self._oprot.writeMessageBegin('AddTrackToLibrary', TMessageType.CALL, self._seqid)
-        args = AddTrackToLibrary_args()
-        args.idLibrary = idLibrary
-        args.newTrack = newTrack
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_AddTrackToLibrary(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = AddTrackToLibrary_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToLibrary failed: unknown result")
-
-    def DeleteLibraryTrack(self, idLibrary, trackNumber):
-        """
-        Delete a Track from a Library
-
-        @param idLibrary
-            The Library Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idLibrary
-         - trackNumber
-
-        """
-        self.send_DeleteLibraryTrack(idLibrary, trackNumber)
-        return self.recv_DeleteLibraryTrack()
-
-    def send_DeleteLibraryTrack(self, idLibrary, trackNumber):
-        self._oprot.writeMessageBegin('DeleteLibraryTrack', TMessageType.CALL, self._seqid)
-        args = DeleteLibraryTrack_args()
-        args.idLibrary = idLibrary
-        args.trackNumber = trackNumber
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_DeleteLibraryTrack(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = DeleteLibraryTrack_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteLibraryTrack failed: unknown result")
-
-    def AddTrackToPlaylist(self, idPlaylist, newtrack):
-        """
-        Add a Track to Playlist.
-
-        @param idPlaylist
-            The Playlist Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idPlaylist
-         - newtrack
-
-        """
-        self.send_AddTrackToPlaylist(idPlaylist, newtrack)
-        return self.recv_AddTrackToPlaylist()
-
-    def send_AddTrackToPlaylist(self, idPlaylist, newtrack):
-        self._oprot.writeMessageBegin('AddTrackToPlaylist', TMessageType.CALL, self._seqid)
-        args = AddTrackToPlaylist_args()
-        args.idPlaylist = idPlaylist
-        args.newtrack = newtrack
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_AddTrackToPlaylist(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = AddTrackToPlaylist_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToPlaylist failed: unknown result")
-
-    def DeletePlaylistTrack(self, idPlaylist, trackNumber):
-        """
-        Delete a Track from a Playlist
-
-        @param idPlaylist
-            The Playlist Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idPlaylist
-         - trackNumber
-
-        """
-        self.send_DeletePlaylistTrack(idPlaylist, trackNumber)
-        return self.recv_DeletePlaylistTrack()
-
-    def send_DeletePlaylistTrack(self, idPlaylist, trackNumber):
-        self._oprot.writeMessageBegin('DeletePlaylistTrack', TMessageType.CALL, self._seqid)
-        args = DeletePlaylistTrack_args()
-        args.idPlaylist = idPlaylist
-        args.trackNumber = trackNumber
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_DeletePlaylistTrack(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = DeletePlaylistTrack_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeletePlaylistTrack failed: unknown result")
-
-    def AddTrackToPlayQueue(self, idPlayQueu, newTrack):
-        """
-        Add a Track to PlayQueue.
-
-        @param idPlayQueue
-            The PlayQueue Id to which a track will be added
-
-        @param newTrack
-
-        @return Track
-            Track object added
-
-
-        Parameters:
-         - idPlayQueu
-         - newTrack
-
-        """
-        self.send_AddTrackToPlayQueue(idPlayQueu, newTrack)
-        return self.recv_AddTrackToPlayQueue()
-
-    def send_AddTrackToPlayQueue(self, idPlayQueu, newTrack):
-        self._oprot.writeMessageBegin('AddTrackToPlayQueue', TMessageType.CALL, self._seqid)
-        args = AddTrackToPlayQueue_args()
-        args.idPlayQueu = idPlayQueu
-        args.newTrack = newTrack
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_AddTrackToPlayQueue(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = AddTrackToPlayQueue_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToPlayQueue failed: unknown result")
-
-    def DeletePlayQueueTrack(self, idPlayQueu, trackNumber):
-        """
-        Delete a Track from a PlayQueue
-
-        @param idPlayQueue
-            The PlayQueue Id which a track will be deleted.
-
-        @param trackNumber
-            The Track number which will be deleted
-
-        @return Id
-            The Track Id of the Track deleted.
-
-
-        Parameters:
-         - idPlayQueu
-         - trackNumber
-
-        """
-        self.send_DeletePlayQueueTrack(idPlayQueu, trackNumber)
-        return self.recv_DeletePlayQueueTrack()
-
-    def send_DeletePlayQueueTrack(self, idPlayQueu, trackNumber):
-        self._oprot.writeMessageBegin('DeletePlayQueueTrack', TMessageType.CALL, self._seqid)
-        args = DeletePlayQueueTrack_args()
-        args.idPlayQueu = idPlayQueu
-        args.trackNumber = trackNumber
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_DeletePlayQueueTrack(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = DeletePlayQueueTrack_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeletePlayQueueTrack failed: unknown result")
-
-    def GenerateRadioStation(self, gender):
-        """
-        Generate a Radio Station
-
-        @param gender
-            The gender which the radio station will be generated.
-
-        @return tracks
-            List of tracks which belong to the gender entered.
-
-
-        Parameters:
-         - gender
-
-        """
-        self.send_GenerateRadioStation(gender)
-        return self.recv_GenerateRadioStation()
-
-    def send_GenerateRadioStation(self, gender):
-        self._oprot.writeMessageBegin('GenerateRadioStation', TMessageType.CALL, self._seqid)
-        args = GenerateRadioStation_args()
-        args.gender = gender
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_GenerateRadioStation(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = GenerateRadioStation_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GenerateRadioStation failed: unknown result")
-
-    def AddTrackToMedia(self, fileName, audio):
-        """
-        Add track file binary
-
-        @param binary
-            The binary number that will be keep.
-
-        @return bool
-            true or false.
-
-
-        Parameters:
-         - fileName
-         - audio
-
-        """
-        self.send_AddTrackToMedia(fileName, audio)
-        return self.recv_AddTrackToMedia()
-
-    def send_AddTrackToMedia(self, fileName, audio):
-        self._oprot.writeMessageBegin('AddTrackToMedia', TMessageType.CALL, self._seqid)
-        args = AddTrackToMedia_args()
-        args.fileName = fileName
-        args.audio = audio
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_AddTrackToMedia(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = AddTrackToMedia_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToMedia failed: unknown result")
-
-    def GetTrackToMedia(self, fileName, audio):
-        """
-        Get track file binary
-
-        @param fileName
-            The fileName that will be get.
-
-        @return binary
-            binary number audio.
-
-
-        Parameters:
-         - fileName
-         - audio
-
-        """
-        self.send_GetTrackToMedia(fileName, audio)
-        return self.recv_GetTrackToMedia()
-
-    def send_GetTrackToMedia(self, fileName, audio):
-        self._oprot.writeMessageBegin('GetTrackToMedia', TMessageType.CALL, self._seqid)
-        args = GetTrackToMedia_args()
-        args.fileName = fileName
-        args.audio = audio
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_GetTrackToMedia(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = GetTrackToMedia_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackToMedia failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetContentCreatorByQuery failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
-        self._processMap["GetTrackByTitle"] = Processor.process_GetTrackByTitle
-        self._processMap["GetTrackByAlbumId"] = Processor.process_GetTrackByAlbumId
-        self._processMap["GetTrackByLibraryId"] = Processor.process_GetTrackByLibraryId
-        self._processMap["AddTrackToAlbum"] = Processor.process_AddTrackToAlbum
-        self._processMap["AddFeaturingTrack"] = Processor.process_AddFeaturingTrack
-        self._processMap["DeleteAlbumTrack"] = Processor.process_DeleteAlbumTrack
-        self._processMap["GetTrackByQuery"] = Processor.process_GetTrackByQuery
-        self._processMap["UpdateAlbumTrackTitle"] = Processor.process_UpdateAlbumTrackTitle
-        self._processMap["UpdateAlbumTrackFeaturing"] = Processor.process_UpdateAlbumTrackFeaturing
-        self._processMap["AddTrackToLibrary"] = Processor.process_AddTrackToLibrary
-        self._processMap["DeleteLibraryTrack"] = Processor.process_DeleteLibraryTrack
-        self._processMap["AddTrackToPlaylist"] = Processor.process_AddTrackToPlaylist
-        self._processMap["DeletePlaylistTrack"] = Processor.process_DeletePlaylistTrack
-        self._processMap["AddTrackToPlayQueue"] = Processor.process_AddTrackToPlayQueue
-        self._processMap["DeletePlayQueueTrack"] = Processor.process_DeletePlayQueueTrack
-        self._processMap["GenerateRadioStation"] = Processor.process_GenerateRadioStation
-        self._processMap["AddTrackToMedia"] = Processor.process_AddTrackToMedia
-        self._processMap["GetTrackToMedia"] = Processor.process_GetTrackToMedia
+        self._processMap["GetContentCreators"] = Processor.process_GetContentCreators
+        self._processMap["GetContentCreatorById"] = Processor.process_GetContentCreatorById
+        self._processMap["GetContentCreatorByLibraryId"] = Processor.process_GetContentCreatorByLibraryId
+        self._processMap["GetContentCreatorByEmail"] = Processor.process_GetContentCreatorByEmail
+        self._processMap["GetContentCreatorByStageName"] = Processor.process_GetContentCreatorByStageName
+        self._processMap["AddContentCreator"] = Processor.process_AddContentCreator
+        self._processMap["DeleteContentCreator"] = Processor.process_DeleteContentCreator
+        self._processMap["UpdateContentCreatorName"] = Processor.process_UpdateContentCreatorName
+        self._processMap["UpdateContentCreatorPassword"] = Processor.process_UpdateContentCreatorPassword
+        self._processMap["UpdateContentCreatorImage"] = Processor.process_UpdateContentCreatorImage
+        self._processMap["UpdateContentCreatorStageName"] = Processor.process_UpdateContentCreatorStageName
+        self._processMap["UpdateContentCreatorDescription"] = Processor.process_UpdateContentCreatorDescription
+        self._processMap["LoginContentCreator"] = Processor.process_LoginContentCreator
+        self._processMap["AddContentCreatorToLibrary"] = Processor.process_AddContentCreatorToLibrary
+        self._processMap["DeleteLibraryContentCreator"] = Processor.process_DeleteLibraryContentCreator
+        self._processMap["GetContentCreatorByQuery"] = Processor.process_GetContentCreatorByQuery
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -1280,22 +1140,25 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
-    def process_GetTrackByTitle(self, seqid, iprot, oprot):
-        args = GetTrackByTitle_args()
+    def process_GetContentCreators(self, seqid, iprot, oprot):
+        args = GetContentCreators_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetTrackByTitle_result()
+        result = GetContentCreators_result()
         try:
-            result.success = self._handler.GetTrackByTitle(args.title)
+            result.success = self._handler.GetContentCreators()
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -1304,27 +1167,30 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackByTitle", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreators", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetTrackByAlbumId(self, seqid, iprot, oprot):
-        args = GetTrackByAlbumId_args()
+    def process_GetContentCreatorById(self, seqid, iprot, oprot):
+        args = GetContentCreatorById_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetTrackByAlbumId_result()
+        result = GetContentCreatorById_result()
         try:
-            result.success = self._handler.GetTrackByAlbumId(args.idAlbum)
+            result.success = self._handler.GetContentCreatorById(args.idContentCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -1333,27 +1199,30 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackByAlbumId", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreatorById", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetTrackByLibraryId(self, seqid, iprot, oprot):
-        args = GetTrackByLibraryId_args()
+    def process_GetContentCreatorByLibraryId(self, seqid, iprot, oprot):
+        args = GetContentCreatorByLibraryId_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetTrackByLibraryId_result()
+        result = GetContentCreatorByLibraryId_result()
         try:
-            result.success = self._handler.GetTrackByLibraryId(args.idLibrary)
+            result.success = self._handler.GetContentCreatorByLibraryId(args.idLibrary)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -1362,24 +1231,30 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackByLibraryId", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreatorByLibraryId", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddTrackToAlbum(self, seqid, iprot, oprot):
-        args = AddTrackToAlbum_args()
+    def process_GetContentCreatorByEmail(self, seqid, iprot, oprot):
+        args = GetContentCreatorByEmail_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddTrackToAlbum_result()
+        result = GetContentCreatorByEmail_result()
         try:
-            result.success = self._handler.AddTrackToAlbum(args.idAlbum, args.newTrack, args.idContentCreator)
+            result.success = self._handler.GetContentCreatorByEmail(args.email)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -1388,24 +1263,30 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToAlbum", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreatorByEmail", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddFeaturingTrack(self, seqid, iprot, oprot):
-        args = AddFeaturingTrack_args()
+    def process_GetContentCreatorByStageName(self, seqid, iprot, oprot):
+        args = GetContentCreatorByStageName_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddFeaturingTrack_result()
+        result = GetContentCreatorByStageName_result()
         try:
-            result.success = self._handler.AddFeaturingTrack(args.idNewTrack, args.idContenCreator)
+            result.success = self._handler.GetContentCreatorByStageName(args.email)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
             msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
         except TApplicationException as ex:
             logging.exception('TApplication exception in handler')
             msg_type = TMessageType.EXCEPTION
@@ -1414,18 +1295,44 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddFeaturingTrack", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreatorByStageName", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_DeleteAlbumTrack(self, seqid, iprot, oprot):
-        args = DeleteAlbumTrack_args()
+    def process_AddContentCreator(self, seqid, iprot, oprot):
+        args = AddContentCreator_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = DeleteAlbumTrack_result()
+        result = AddContentCreator_result()
         try:
-            result.success = self._handler.DeleteAlbumTrack(args.idAlbum, args.trackNumber)
+            result.success = self._handler.AddContentCreator(args.newContentCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddContentCreator", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_DeleteContentCreator(self, seqid, iprot, oprot):
+        args = DeleteContentCreator_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = DeleteContentCreator_result()
+        try:
+            result.success = self._handler.DeleteContentCreator(args.email)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1446,50 +1353,24 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeleteAlbumTrack", msg_type, seqid)
+        oprot.writeMessageBegin("DeleteContentCreator", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetTrackByQuery(self, seqid, iprot, oprot):
-        args = GetTrackByQuery_args()
+    def process_UpdateContentCreatorName(self, seqid, iprot, oprot):
+        args = UpdateContentCreatorName_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetTrackByQuery_result()
+        result = UpdateContentCreatorName_result()
         try:
-            result.success = self._handler.GetTrackByQuery(args.query)
+            result.success = self._handler.UpdateContentCreatorName(args.email, args.currentPassword, args.newName, args.newLastName)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
             msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackByQuery", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_UpdateAlbumTrackTitle(self, seqid, iprot, oprot):
-        args = UpdateAlbumTrackTitle_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = UpdateAlbumTrackTitle_result()
-        try:
-            result.success = self._handler.UpdateAlbumTrackTitle(args.idAlbum, args.trackNumber, args.newAlbumTrackTitle)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
@@ -1507,21 +1388,24 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateAlbumTrackTitle", msg_type, seqid)
+        oprot.writeMessageBegin("UpdateContentCreatorName", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdateAlbumTrackFeaturing(self, seqid, iprot, oprot):
-        args = UpdateAlbumTrackFeaturing_args()
+    def process_UpdateContentCreatorPassword(self, seqid, iprot, oprot):
+        args = UpdateContentCreatorPassword_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = UpdateAlbumTrackFeaturing_result()
+        result = UpdateContentCreatorPassword_result()
         try:
-            result.success = self._handler.UpdateAlbumTrackFeaturing(args.idAlbum, args.trackNumber, args.newFeaturing)
+            result.success = self._handler.UpdateContentCreatorPassword(args.email, args.currentPassword, args.newPassword)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
@@ -1539,18 +1423,152 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateAlbumTrackFeaturing", msg_type, seqid)
+        oprot.writeMessageBegin("UpdateContentCreatorPassword", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddTrackToLibrary(self, seqid, iprot, oprot):
-        args = AddTrackToLibrary_args()
+    def process_UpdateContentCreatorImage(self, seqid, iprot, oprot):
+        args = UpdateContentCreatorImage_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddTrackToLibrary_result()
+        result = UpdateContentCreatorImage_result()
         try:
-            result.success = self._handler.AddTrackToLibrary(args.idLibrary, args.newTrack)
+            result.success = self._handler.UpdateContentCreatorImage(args.email, args.newImageStoragePath)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateContentCreatorImage", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_UpdateContentCreatorStageName(self, seqid, iprot, oprot):
+        args = UpdateContentCreatorStageName_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = UpdateContentCreatorStageName_result()
+        try:
+            result.success = self._handler.UpdateContentCreatorStageName(args.email, args.currentPassword, args.newStageName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateContentCreatorStageName", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_UpdateContentCreatorDescription(self, seqid, iprot, oprot):
+        args = UpdateContentCreatorDescription_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = UpdateContentCreatorDescription_result()
+        try:
+            result.success = self._handler.UpdateContentCreatorDescription(args.email, args.currentPassword, args.newDescription)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
+            msg_type = TMessageType.REPLY
+            result.sErrorInvalidRequestE = sErrorInvalidRequestE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("UpdateContentCreatorDescription", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_LoginContentCreator(self, seqid, iprot, oprot):
+        args = LoginContentCreator_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = LoginContentCreator_result()
+        try:
+            result.success = self._handler.LoginContentCreator(args.email, args.password)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+            msg_type = TMessageType.REPLY
+            result.sErrorUserE = sErrorUserE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("LoginContentCreator", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_AddContentCreatorToLibrary(self, seqid, iprot, oprot):
+        args = AddContentCreatorToLibrary_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddContentCreatorToLibrary_result()
+        try:
+            result.success = self._handler.AddContentCreatorToLibrary(args.idLibrary, args.newContentCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1565,18 +1583,18 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToLibrary", msg_type, seqid)
+        oprot.writeMessageBegin("AddContentCreatorToLibrary", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_DeleteLibraryTrack(self, seqid, iprot, oprot):
-        args = DeleteLibraryTrack_args()
+    def process_DeleteLibraryContentCreator(self, seqid, iprot, oprot):
+        args = DeleteLibraryContentCreator_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = DeleteLibraryTrack_result()
+        result = DeleteLibraryContentCreator_result()
         try:
-            result.success = self._handler.DeleteLibraryTrack(args.idLibrary, args.trackNumber)
+            result.success = self._handler.DeleteLibraryContentCreator(args.idLibrary, args.idContentCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1594,44 +1612,18 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeleteLibraryTrack", msg_type, seqid)
+        oprot.writeMessageBegin("DeleteLibraryContentCreator", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddTrackToPlaylist(self, seqid, iprot, oprot):
-        args = AddTrackToPlaylist_args()
+    def process_GetContentCreatorByQuery(self, seqid, iprot, oprot):
+        args = GetContentCreatorByQuery_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddTrackToPlaylist_result()
+        result = GetContentCreatorByQuery_result()
         try:
-            result.success = self._handler.AddTrackToPlaylist(args.idPlaylist, args.newtrack)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToPlaylist", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_DeletePlaylistTrack(self, seqid, iprot, oprot):
-        args = DeletePlaylistTrack_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = DeletePlaylistTrack_result()
-        try:
-            result.success = self._handler.DeletePlaylistTrack(args.idPlaylist, args.trackNumber)
+            result.success = self._handler.GetContentCreatorByQuery(args.query)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1649,140 +1641,7 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeletePlaylistTrack", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_AddTrackToPlayQueue(self, seqid, iprot, oprot):
-        args = AddTrackToPlayQueue_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = AddTrackToPlayQueue_result()
-        try:
-            result.success = self._handler.AddTrackToPlayQueue(args.idPlayQueu, args.newTrack)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToPlayQueue", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_DeletePlayQueueTrack(self, seqid, iprot, oprot):
-        args = DeletePlayQueueTrack_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = DeletePlayQueueTrack_result()
-        try:
-            result.success = self._handler.DeletePlayQueueTrack(args.idPlayQueu, args.trackNumber)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeletePlayQueueTrack", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_GenerateRadioStation(self, seqid, iprot, oprot):
-        args = GenerateRadioStation_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = GenerateRadioStation_result()
-        try:
-            result.success = self._handler.GenerateRadioStation(args.gender)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GenerateRadioStation", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_AddTrackToMedia(self, seqid, iprot, oprot):
-        args = AddTrackToMedia_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = AddTrackToMedia_result()
-        try:
-            result.success = self._handler.AddTrackToMedia(args.fileName, args.audio)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToMedia", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_GetTrackToMedia(self, seqid, iprot, oprot):
-        args = GetTrackToMedia_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = GetTrackToMedia_result()
-        try:
-            result.success = self._handler.GetTrackToMedia(args.fileName, args.audio)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackToMedia", msg_type, seqid)
+        oprot.writeMessageBegin("GetContentCreatorByQuery", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1790,16 +1649,8 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
-class GetTrackByTitle_args(object):
-    """
-    Attributes:
-     - title
+class GetContentCreators_args(object):
 
-    """
-
-
-    def __init__(self, title=None,):
-        self.title = title
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1810,11 +1661,6 @@ class GetTrackByTitle_args(object):
             (fname, ftype, fid) = iprot.readFieldBegin()
             if ftype == TType.STOP:
                 break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.title = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
             else:
                 iprot.skip(ftype)
             iprot.readFieldEnd()
@@ -1824,11 +1670,7 @@ class GetTrackByTitle_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByTitle_args')
-        if self.title is not None:
-            oprot.writeFieldBegin('title', TType.STRING, 1)
-            oprot.writeString(self.title.encode('utf-8') if sys.version_info[0] == 2 else self.title)
-            oprot.writeFieldEnd()
+        oprot.writeStructBegin('GetContentCreators_args')
         oprot.writeFieldStop()
         oprot.writeStructEnd()
 
@@ -1845,177 +1687,27 @@ class GetTrackByTitle_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByTitle_args)
-GetTrackByTitle_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'title', 'UTF8', None, ),  # 1
+all_structs.append(GetContentCreators_args)
+GetContentCreators_args.thrift_spec = (
 )
 
 
-class GetTrackByTitle_result(object):
+class GetContentCreators_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorSystemE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackByTitle_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackByTitle_result)
-GetTrackByTitle_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class GetTrackByAlbumId_args(object):
-    """
-    Attributes:
-     - idAlbum
-
-    """
-
-
-    def __init__(self, idAlbum=None,):
-        self.idAlbum = idAlbum
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackByAlbumId_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackByAlbumId_args)
-GetTrackByAlbumId_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-)
-
-
-class GetTrackByAlbumId_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2029,24 +1721,30 @@ class GetTrackByAlbumId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype24, _size21) = iprot.readListBegin()
-                    for _i25 in range(_size21):
-                        _elem26 = SpotifakeManagement.ttypes.Track()
-                        _elem26.read(iprot)
-                        self.success.append(_elem26)
+                    (_etype3, _size0) = iprot.readListBegin()
+                    for _i4 in range(_size0):
+                        _elem5 = SpotifakeManagement.ttypes.ContentCreator()
+                        _elem5.read(iprot)
+                        self.success.append(_elem5)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2058,21 +1756,25 @@ class GetTrackByAlbumId_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByAlbumId_result')
+        oprot.writeStructBegin('GetContentCreators_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter27 in self.success:
-                iter27.write(oprot)
+            for iter6 in self.success:
+                iter6.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2090,15 +1792,179 @@ class GetTrackByAlbumId_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByAlbumId_result)
-GetTrackByAlbumId_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Track, None], False), None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(GetContentCreators_result)
+GetContentCreators_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.ContentCreator, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class GetTrackByLibraryId_args(object):
+class GetContentCreatorById_args(object):
+    """
+    Attributes:
+     - idContentCreator
+
+    """
+
+
+    def __init__(self, idContentCreator=None,):
+        self.idContentCreator = idContentCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorById_args')
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 1)
+            oprot.writeI16(self.idContentCreator)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorById_args)
+GetContentCreatorById_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idContentCreator', None, None, ),  # 1
+)
+
+
+class GetContentCreatorById_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorById_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorById_result)
+GetContentCreatorById_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetContentCreatorByLibraryId_args(object):
     """
     Attributes:
      - idLibrary
@@ -2132,7 +1998,7 @@ class GetTrackByLibraryId_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByLibraryId_args')
+        oprot.writeStructBegin('GetContentCreatorByLibraryId_args')
         if self.idLibrary is not None:
             oprot.writeFieldBegin('idLibrary', TType.I16, 1)
             oprot.writeI16(self.idLibrary)
@@ -2153,27 +2019,29 @@ class GetTrackByLibraryId_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByLibraryId_args)
-GetTrackByLibraryId_args.thrift_spec = (
+all_structs.append(GetContentCreatorByLibraryId_args)
+GetContentCreatorByLibraryId_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idLibrary', None, None, ),  # 1
 )
 
 
-class GetTrackByLibraryId_result(object):
+class GetContentCreatorByLibraryId_result(object):
     """
     Attributes:
      - success
+     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorSystemE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
         self.success = success
+        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2187,24 +2055,30 @@ class GetTrackByLibraryId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype31, _size28) = iprot.readListBegin()
-                    for _i32 in range(_size28):
-                        _elem33 = SpotifakeManagement.ttypes.Track()
-                        _elem33.read(iprot)
-                        self.success.append(_elem33)
+                    (_etype10, _size7) = iprot.readListBegin()
+                    for _i11 in range(_size7):
+                        _elem12 = SpotifakeManagement.ttypes.ContentCreator()
+                        _elem12.read(iprot)
+                        self.success.append(_elem12)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 2:
+            elif fid == 3:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2216,21 +2090,25 @@ class GetTrackByLibraryId_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByLibraryId_result')
+        oprot.writeStructBegin('GetContentCreatorByLibraryId_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter34 in self.success:
-                iter34.write(oprot)
+            for iter13 in self.success:
+                iter13.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2248,28 +2126,25 @@ class GetTrackByLibraryId_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByLibraryId_result)
-GetTrackByLibraryId_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Track, None], False), None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+all_structs.append(GetContentCreatorByLibraryId_result)
+GetContentCreatorByLibraryId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.ContentCreator, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class AddTrackToAlbum_args(object):
+class GetContentCreatorByEmail_args(object):
     """
     Attributes:
-     - idAlbum
-     - newTrack
-     - idContentCreator
+     - email
 
     """
 
 
-    def __init__(self, idAlbum=None, newTrack=None, idContentCreator=None,):
-        self.idAlbum = idAlbum
-        self.newTrack = newTrack
-        self.idContentCreator = idContentCreator
+    def __init__(self, email=None,):
+        self.email = email
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2281,99 +2156,94 @@ class AddTrackToAlbum_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetContentCreatorByEmail_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetContentCreatorByEmail_args)
+GetContentCreatorByEmail_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+)
+
+
+class GetContentCreatorByEmail_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.newTrack = SpotifakeManagement.ttypes.Track()
-                    self.newTrack.read(iprot)
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
-                if ftype == TType.I16:
-                    self.idContentCreator = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToAlbum_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        if self.newTrack is not None:
-            oprot.writeFieldBegin('newTrack', TType.STRUCT, 2)
-            self.newTrack.write(oprot)
-            oprot.writeFieldEnd()
-        if self.idContentCreator is not None:
-            oprot.writeFieldBegin('idContentCreator', TType.I16, 3)
-            oprot.writeI16(self.idContentCreator)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToAlbum_args)
-AddTrackToAlbum_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.STRUCT, 'newTrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
-    (3, TType.I16, 'idContentCreator', None, None, ),  # 3
-)
-
-
-class AddTrackToAlbum_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.I16:
-                    self.success = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2385,14 +2255,22 @@ class AddTrackToAlbum_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddTrackToAlbum_result')
+        oprot.writeStructBegin('GetContentCreatorByEmail_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I16, 0)
-            oprot.writeI16(self.success)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2410,25 +2288,25 @@ class AddTrackToAlbum_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddTrackToAlbum_result)
-AddTrackToAlbum_result.thrift_spec = (
-    (0, TType.I16, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+all_structs.append(GetContentCreatorByEmail_result)
+GetContentCreatorByEmail_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class AddFeaturingTrack_args(object):
+class GetContentCreatorByStageName_args(object):
     """
     Attributes:
-     - idNewTrack
-     - idContenCreator
+     - email
 
     """
 
 
-    def __init__(self, idNewTrack=None, idContenCreator=None,):
-        self.idNewTrack = idNewTrack
-        self.idContenCreator = idContenCreator
+    def __init__(self, email=None,):
+        self.email = email
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2440,13 +2318,8 @@ class AddFeaturingTrack_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idNewTrack = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.idContenCreator = iprot.readI16()
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2458,14 +2331,10 @@ class AddFeaturingTrack_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddFeaturingTrack_args')
-        if self.idNewTrack is not None:
-            oprot.writeFieldBegin('idNewTrack', TType.I16, 1)
-            oprot.writeI16(self.idNewTrack)
-            oprot.writeFieldEnd()
-        if self.idContenCreator is not None:
-            oprot.writeFieldBegin('idContenCreator', TType.I16, 2)
-            oprot.writeI16(self.idContenCreator)
+        oprot.writeStructBegin('GetContentCreatorByStageName_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2483,26 +2352,29 @@ class AddFeaturingTrack_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddFeaturingTrack_args)
-AddFeaturingTrack_args.thrift_spec = (
+all_structs.append(GetContentCreatorByStageName_args)
+GetContentCreatorByStageName_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idNewTrack', None, None, ),  # 1
-    (2, TType.I16, 'idContenCreator', None, None, ),  # 2
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
 )
 
 
-class AddFeaturingTrack_result(object):
+class GetContentCreatorByStageName_result(object):
     """
     Attributes:
      - success
-     - sErrorSystemE
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorSystemE=None,):
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
         self.success = success
-        self.sErrorSystemE = sErrorSystemE
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2514,14 +2386,26 @@ class AddFeaturingTrack_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.I16:
-                    self.success = iprot.readI16()
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2533,14 +2417,22 @@ class AddFeaturingTrack_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddFeaturingTrack_result')
+        oprot.writeStructBegin('GetContentCreatorByStageName_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I16, 0)
-            oprot.writeI16(self.success)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2558,25 +2450,25 @@ class AddFeaturingTrack_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddFeaturingTrack_result)
-AddFeaturingTrack_result.thrift_spec = (
-    (0, TType.I16, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+all_structs.append(GetContentCreatorByStageName_result)
+GetContentCreatorByStageName_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class DeleteAlbumTrack_args(object):
+class AddContentCreator_args(object):
     """
     Attributes:
-     - idAlbum
-     - trackNumber
+     - newContentCreator
 
     """
 
 
-    def __init__(self, idAlbum=None, trackNumber=None,):
-        self.idAlbum = idAlbum
-        self.trackNumber = trackNumber
+    def __init__(self, newContentCreator=None,):
+        self.newContentCreator = newContentCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2588,13 +2480,9 @@ class DeleteAlbumTrack_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
+                if ftype == TType.STRUCT:
+                    self.newContentCreator = SpotifakeManagement.ttypes.ContentCreator()
+                    self.newContentCreator.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2606,14 +2494,10 @@ class DeleteAlbumTrack_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteAlbumTrack_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
+        oprot.writeStructBegin('AddContentCreator_args')
+        if self.newContentCreator is not None:
+            oprot.writeFieldBegin('newContentCreator', TType.STRUCT, 1)
+            self.newContentCreator.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2631,15 +2515,151 @@ class DeleteAlbumTrack_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteAlbumTrack_args)
-DeleteAlbumTrack_args.thrift_spec = (
+all_structs.append(AddContentCreator_args)
+AddContentCreator_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
+    (1, TType.STRUCT, 'newContentCreator', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 1
 )
 
 
-class DeleteAlbumTrack_result(object):
+class AddContentCreator_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddContentCreator_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddContentCreator_result)
+AddContentCreator_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+)
+
+
+class DeleteContentCreator_args(object):
+    """
+    Attributes:
+     - email
+
+    """
+
+
+    def __init__(self, email=None,):
+        self.email = email
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteContentCreator_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteContentCreator_args)
+DeleteContentCreator_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+)
+
+
+class DeleteContentCreator_result(object):
     """
     Attributes:
      - success
@@ -2697,7 +2717,7 @@ class DeleteAlbumTrack_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteAlbumTrack_result')
+        oprot.writeStructBegin('DeleteContentCreator_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.I16, 0)
             oprot.writeI16(self.success)
@@ -2730,8 +2750,8 @@ class DeleteAlbumTrack_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteAlbumTrack_result)
-DeleteAlbumTrack_result.thrift_spec = (
+all_structs.append(DeleteContentCreator_result)
+DeleteContentCreator_result.thrift_spec = (
     (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
@@ -2739,7 +2759,1480 @@ DeleteAlbumTrack_result.thrift_spec = (
 )
 
 
-class GetTrackByQuery_args(object):
+class UpdateContentCreatorName_args(object):
+    """
+    Attributes:
+     - email
+     - currentPassword
+     - newName
+     - newLastName
+
+    """
+
+
+    def __init__(self, email=None, currentPassword=None, newName=None, newLastName=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newName = newName
+        self.newLastName = newLastName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.newLastName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorName_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newName is not None:
+            oprot.writeFieldBegin('newName', TType.STRING, 3)
+            oprot.writeString(self.newName.encode('utf-8') if sys.version_info[0] == 2 else self.newName)
+            oprot.writeFieldEnd()
+        if self.newLastName is not None:
+            oprot.writeFieldBegin('newLastName', TType.STRING, 4)
+            oprot.writeString(self.newLastName.encode('utf-8') if sys.version_info[0] == 2 else self.newLastName)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorName_args)
+UpdateContentCreatorName_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newName', 'UTF8', None, ),  # 3
+    (4, TType.STRING, 'newLastName', 'UTF8', None, ),  # 4
+)
+
+
+class UpdateContentCreatorName_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorName_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorName_result)
+UpdateContentCreatorName_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class UpdateContentCreatorPassword_args(object):
+    """
+    Attributes:
+     - email
+     - currentPassword
+     - newPassword
+
+    """
+
+
+    def __init__(self, email=None, currentPassword=None, newPassword=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newPassword = newPassword
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorPassword_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newPassword is not None:
+            oprot.writeFieldBegin('newPassword', TType.STRING, 3)
+            oprot.writeString(self.newPassword.encode('utf-8') if sys.version_info[0] == 2 else self.newPassword)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorPassword_args)
+UpdateContentCreatorPassword_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newPassword', 'UTF8', None, ),  # 3
+)
+
+
+class UpdateContentCreatorPassword_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorPassword_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorPassword_result)
+UpdateContentCreatorPassword_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class UpdateContentCreatorImage_args(object):
+    """
+    Attributes:
+     - email
+     - newImageStoragePath
+
+    """
+
+
+    def __init__(self, email=None, newImageStoragePath=None,):
+        self.email = email
+        self.newImageStoragePath = newImageStoragePath
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.newImageStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorImage_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.newImageStoragePath is not None:
+            oprot.writeFieldBegin('newImageStoragePath', TType.STRING, 2)
+            oprot.writeString(self.newImageStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newImageStoragePath)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorImage_args)
+UpdateContentCreatorImage_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'newImageStoragePath', 'UTF8', None, ),  # 2
+)
+
+
+class UpdateContentCreatorImage_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorImage_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorImage_result)
+UpdateContentCreatorImage_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class UpdateContentCreatorStageName_args(object):
+    """
+    Attributes:
+     - email
+     - currentPassword
+     - newStageName
+
+    """
+
+
+    def __init__(self, email=None, currentPassword=None, newStageName=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newStageName = newStageName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newStageName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorStageName_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newStageName is not None:
+            oprot.writeFieldBegin('newStageName', TType.STRING, 3)
+            oprot.writeString(self.newStageName.encode('utf-8') if sys.version_info[0] == 2 else self.newStageName)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorStageName_args)
+UpdateContentCreatorStageName_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newStageName', 'UTF8', None, ),  # 3
+)
+
+
+class UpdateContentCreatorStageName_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorStageName_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorStageName_result)
+UpdateContentCreatorStageName_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class UpdateContentCreatorDescription_args(object):
+    """
+    Attributes:
+     - email
+     - currentPassword
+     - newDescription
+
+    """
+
+
+    def __init__(self, email=None, currentPassword=None, newDescription=None,):
+        self.email = email
+        self.currentPassword = currentPassword
+        self.newDescription = newDescription
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.newDescription = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorDescription_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.currentPassword is not None:
+            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
+            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
+            oprot.writeFieldEnd()
+        if self.newDescription is not None:
+            oprot.writeFieldBegin('newDescription', TType.STRING, 3)
+            oprot.writeString(self.newDescription.encode('utf-8') if sys.version_info[0] == 2 else self.newDescription)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorDescription_args)
+UpdateContentCreatorDescription_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
+    (3, TType.STRING, 'newDescription', 'UTF8', None, ),  # 3
+)
+
+
+class UpdateContentCreatorDescription_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('UpdateContentCreatorDescription_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(UpdateContentCreatorDescription_result)
+UpdateContentCreatorDescription_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
+    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+)
+
+
+class LoginContentCreator_args(object):
+    """
+    Attributes:
+     - email
+     - password
+
+    """
+
+
+    def __init__(self, email=None, password=None,):
+        self.email = email
+        self.password = password
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.password = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('LoginContentCreator_args')
+        if self.email is not None:
+            oprot.writeFieldBegin('email', TType.STRING, 1)
+            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+            oprot.writeFieldEnd()
+        if self.password is not None:
+            oprot.writeFieldBegin('password', TType.STRING, 2)
+            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(LoginContentCreator_args)
+LoginContentCreator_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
+)
+
+
+class LoginContentCreator_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorUserE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorUserE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorUserE = sErrorUserE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
+                    self.sErrorUserE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('LoginContentCreator_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorUserE is not None:
+            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
+            self.sErrorUserE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(LoginContentCreator_result)
+LoginContentCreator_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+)
+
+
+class AddContentCreatorToLibrary_args(object):
+    """
+    Attributes:
+     - idLibrary
+     - newContentCreator
+
+    """
+
+
+    def __init__(self, idLibrary=None, newContentCreator=None,):
+        self.idLibrary = idLibrary
+        self.newContentCreator = newContentCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.newContentCreator = SpotifakeManagement.ttypes.ContentCreator()
+                    self.newContentCreator.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddContentCreatorToLibrary_args')
+        if self.idLibrary is not None:
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
+            oprot.writeFieldEnd()
+        if self.newContentCreator is not None:
+            oprot.writeFieldBegin('newContentCreator', TType.STRUCT, 2)
+            self.newContentCreator.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddContentCreatorToLibrary_args)
+AddContentCreatorToLibrary_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
+    (2, TType.STRUCT, 'newContentCreator', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 2
+)
+
+
+class AddContentCreatorToLibrary_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.ContentCreator()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddContentCreatorToLibrary_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddContentCreatorToLibrary_result)
+AddContentCreatorToLibrary_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class DeleteLibraryContentCreator_args(object):
+    """
+    Attributes:
+     - idLibrary
+     - idContentCreator
+
+    """
+
+
+    def __init__(self, idLibrary=None, idContentCreator=None,):
+        self.idLibrary = idLibrary
+        self.idContentCreator = idContentCreator
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteLibraryContentCreator_args')
+        if self.idLibrary is not None:
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
+            oprot.writeFieldEnd()
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 2)
+            oprot.writeI16(self.idContentCreator)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteLibraryContentCreator_args)
+DeleteLibraryContentCreator_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
+    (2, TType.I16, 'idContentCreator', None, None, ),  # 2
+)
+
+
+class DeleteLibraryContentCreator_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteLibraryContentCreator_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteLibraryContentCreator_result)
+DeleteLibraryContentCreator_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+)
+
+
+class GetContentCreatorByQuery_args(object):
     """
     Attributes:
      - query
@@ -2773,7 +4266,7 @@ class GetTrackByQuery_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByQuery_args')
+        oprot.writeStructBegin('GetContentCreatorByQuery_args')
         if self.query is not None:
             oprot.writeFieldBegin('query', TType.STRING, 1)
             oprot.writeString(self.query.encode('utf-8') if sys.version_info[0] == 2 else self.query)
@@ -2794,14 +4287,14 @@ class GetTrackByQuery_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByQuery_args)
-GetTrackByQuery_args.thrift_spec = (
+all_structs.append(GetContentCreatorByQuery_args)
+GetContentCreatorByQuery_args.thrift_spec = (
     None,  # 0
     (1, TType.STRING, 'query', 'UTF8', None, ),  # 1
 )
 
 
-class GetTrackByQuery_result(object):
+class GetContentCreatorByQuery_result(object):
     """
     Attributes:
      - success
@@ -2828,11 +4321,11 @@ class GetTrackByQuery_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype38, _size35) = iprot.readListBegin()
-                    for _i39 in range(_size35):
-                        _elem40 = SpotifakeManagement.ttypes.Track()
-                        _elem40.read(iprot)
-                        self.success.append(_elem40)
+                    (_etype17, _size14) = iprot.readListBegin()
+                    for _i18 in range(_size14):
+                        _elem19 = SpotifakeManagement.ttypes.ContentCreator()
+                        _elem19.read(iprot)
+                        self.success.append(_elem19)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2857,12 +4350,12 @@ class GetTrackByQuery_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetTrackByQuery_result')
+        oprot.writeStructBegin('GetContentCreatorByQuery_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter41 in self.success:
-                iter41.write(oprot)
+            for iter20 in self.success:
+                iter20.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -2889,1760 +4382,11 @@ class GetTrackByQuery_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetTrackByQuery_result)
-GetTrackByQuery_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Track, None], False), None, ),  # 0
+all_structs.append(GetContentCreatorByQuery_result)
+GetContentCreatorByQuery_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.ContentCreator, None], False), None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class UpdateAlbumTrackTitle_args(object):
-    """
-    Attributes:
-     - idAlbum
-     - trackNumber
-     - newAlbumTrackTitle
-
-    """
-
-
-    def __init__(self, idAlbum=None, trackNumber=None, newAlbumTrackTitle=None,):
-        self.idAlbum = idAlbum
-        self.trackNumber = trackNumber
-        self.newAlbumTrackTitle = newAlbumTrackTitle
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.newAlbumTrackTitle = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumTrackTitle_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
-            oprot.writeFieldEnd()
-        if self.newAlbumTrackTitle is not None:
-            oprot.writeFieldBegin('newAlbumTrackTitle', TType.STRING, 3)
-            oprot.writeString(self.newAlbumTrackTitle.encode('utf-8') if sys.version_info[0] == 2 else self.newAlbumTrackTitle)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumTrackTitle_args)
-UpdateAlbumTrackTitle_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
-    (3, TType.STRING, 'newAlbumTrackTitle', 'UTF8', None, ),  # 3
-)
-
-
-class UpdateAlbumTrackTitle_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-     - sErrorInvalidRequestE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumTrackTitle_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumTrackTitle_result)
-UpdateAlbumTrackTitle_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
-)
-
-
-class UpdateAlbumTrackFeaturing_args(object):
-    """
-    Attributes:
-     - idAlbum
-     - trackNumber
-     - newFeaturing
-
-    """
-
-
-    def __init__(self, idAlbum=None, trackNumber=None, newFeaturing=None,):
-        self.idAlbum = idAlbum
-        self.trackNumber = trackNumber
-        self.newFeaturing = newFeaturing
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idAlbum = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRUCT:
-                    self.newFeaturing = SpotifakeManagement.ttypes.ContentCreator()
-                    self.newFeaturing.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumTrackFeaturing_args')
-        if self.idAlbum is not None:
-            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
-            oprot.writeI16(self.idAlbum)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
-            oprot.writeFieldEnd()
-        if self.newFeaturing is not None:
-            oprot.writeFieldBegin('newFeaturing', TType.STRUCT, 3)
-            self.newFeaturing.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumTrackFeaturing_args)
-UpdateAlbumTrackFeaturing_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idAlbum', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
-    (3, TType.STRUCT, 'newFeaturing', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 3
-)
-
-
-class UpdateAlbumTrackFeaturing_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-     - sErrorInvalidRequestE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateAlbumTrackFeaturing_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateAlbumTrackFeaturing_result)
-UpdateAlbumTrackFeaturing_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
-)
-
-
-class AddTrackToLibrary_args(object):
-    """
-    Attributes:
-     - idLibrary
-     - newTrack
-
-    """
-
-
-    def __init__(self, idLibrary=None, newTrack=None,):
-        self.idLibrary = idLibrary
-        self.newTrack = newTrack
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idLibrary = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newTrack = SpotifakeManagement.ttypes.Track()
-                    self.newTrack.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToLibrary_args')
-        if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
-            oprot.writeI16(self.idLibrary)
-            oprot.writeFieldEnd()
-        if self.newTrack is not None:
-            oprot.writeFieldBegin('newTrack', TType.STRUCT, 2)
-            self.newTrack.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToLibrary_args)
-AddTrackToLibrary_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.STRUCT, 'newTrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
-)
-
-
-class AddTrackToLibrary_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToLibrary_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToLibrary_result)
-AddTrackToLibrary_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class DeleteLibraryTrack_args(object):
-    """
-    Attributes:
-     - idLibrary
-     - trackNumber
-
-    """
-
-
-    def __init__(self, idLibrary=None, trackNumber=None,):
-        self.idLibrary = idLibrary
-        self.trackNumber = trackNumber
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idLibrary = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeleteLibraryTrack_args')
-        if self.idLibrary is not None:
-            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
-            oprot.writeI16(self.idLibrary)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeleteLibraryTrack_args)
-DeleteLibraryTrack_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
-)
-
-
-class DeleteLibraryTrack_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.I16:
-                    self.success = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeleteLibraryTrack_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I16, 0)
-            oprot.writeI16(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeleteLibraryTrack_result)
-DeleteLibraryTrack_result.thrift_spec = (
-    (0, TType.I16, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class AddTrackToPlaylist_args(object):
-    """
-    Attributes:
-     - idPlaylist
-     - newtrack
-
-    """
-
-
-    def __init__(self, idPlaylist=None, newtrack=None,):
-        self.idPlaylist = idPlaylist
-        self.newtrack = newtrack
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newtrack = SpotifakeManagement.ttypes.Track()
-                    self.newtrack.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToPlaylist_args')
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
-            oprot.writeI16(self.idPlaylist)
-            oprot.writeFieldEnd()
-        if self.newtrack is not None:
-            oprot.writeFieldBegin('newtrack', TType.STRUCT, 2)
-            self.newtrack.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToPlaylist_args)
-AddTrackToPlaylist_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idPlaylist', None, None, ),  # 1
-    (2, TType.STRUCT, 'newtrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
-)
-
-
-class AddTrackToPlaylist_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToPlaylist_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToPlaylist_result)
-AddTrackToPlaylist_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class DeletePlaylistTrack_args(object):
-    """
-    Attributes:
-     - idPlaylist
-     - trackNumber
-
-    """
-
-
-    def __init__(self, idPlaylist=None, trackNumber=None,):
-        self.idPlaylist = idPlaylist
-        self.trackNumber = trackNumber
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlaylist = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeletePlaylistTrack_args')
-        if self.idPlaylist is not None:
-            oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
-            oprot.writeI16(self.idPlaylist)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeletePlaylistTrack_args)
-DeletePlaylistTrack_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idPlaylist', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
-)
-
-
-class DeletePlaylistTrack_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.I16:
-                    self.success = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeletePlaylistTrack_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I16, 0)
-            oprot.writeI16(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeletePlaylistTrack_result)
-DeletePlaylistTrack_result.thrift_spec = (
-    (0, TType.I16, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class AddTrackToPlayQueue_args(object):
-    """
-    Attributes:
-     - idPlayQueu
-     - newTrack
-
-    """
-
-
-    def __init__(self, idPlayQueu=None, newTrack=None,):
-        self.idPlayQueu = idPlayQueu
-        self.newTrack = newTrack
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlayQueu = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newTrack = SpotifakeManagement.ttypes.Track()
-                    self.newTrack.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToPlayQueue_args')
-        if self.idPlayQueu is not None:
-            oprot.writeFieldBegin('idPlayQueu', TType.I16, 1)
-            oprot.writeI16(self.idPlayQueu)
-            oprot.writeFieldEnd()
-        if self.newTrack is not None:
-            oprot.writeFieldBegin('newTrack', TType.STRUCT, 2)
-            self.newTrack.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToPlayQueue_args)
-AddTrackToPlayQueue_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idPlayQueu', None, None, ),  # 1
-    (2, TType.STRUCT, 'newTrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
-)
-
-
-class AddTrackToPlayQueue_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToPlayQueue_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToPlayQueue_result)
-AddTrackToPlayQueue_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class DeletePlayQueueTrack_args(object):
-    """
-    Attributes:
-     - idPlayQueu
-     - trackNumber
-
-    """
-
-
-    def __init__(self, idPlayQueu=None, trackNumber=None,):
-        self.idPlayQueu = idPlayQueu
-        self.trackNumber = trackNumber
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I16:
-                    self.idPlayQueu = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.I16:
-                    self.trackNumber = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeletePlayQueueTrack_args')
-        if self.idPlayQueu is not None:
-            oprot.writeFieldBegin('idPlayQueu', TType.I16, 1)
-            oprot.writeI16(self.idPlayQueu)
-            oprot.writeFieldEnd()
-        if self.trackNumber is not None:
-            oprot.writeFieldBegin('trackNumber', TType.I16, 2)
-            oprot.writeI16(self.trackNumber)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeletePlayQueueTrack_args)
-DeletePlayQueueTrack_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I16, 'idPlayQueu', None, None, ),  # 1
-    (2, TType.I16, 'trackNumber', None, None, ),  # 2
-)
-
-
-class DeletePlayQueueTrack_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorNotFoundE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.I16:
-                    self.success = iprot.readI16()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('DeletePlayQueueTrack_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I16, 0)
-            oprot.writeI16(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(DeletePlayQueueTrack_result)
-DeletePlayQueueTrack_result.thrift_spec = (
-    (0, TType.I16, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
-)
-
-
-class GenerateRadioStation_args(object):
-    """
-    Attributes:
-     - gender
-
-    """
-
-
-    def __init__(self, gender=None,):
-        self.gender = gender
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.I32:
-                    self.gender = iprot.readI32()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GenerateRadioStation_args')
-        if self.gender is not None:
-            oprot.writeFieldBegin('gender', TType.I32, 1)
-            oprot.writeI32(self.gender)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GenerateRadioStation_args)
-GenerateRadioStation_args.thrift_spec = (
-    None,  # 0
-    (1, TType.I32, 'gender', None, None, ),  # 1
-)
-
-
-class GenerateRadioStation_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype45, _size42) = iprot.readListBegin()
-                    for _i46 in range(_size42):
-                        _elem47 = SpotifakeManagement.ttypes.Track()
-                        _elem47.read(iprot)
-                        self.success.append(_elem47)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GenerateRadioStation_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter48 in self.success:
-                iter48.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GenerateRadioStation_result)
-GenerateRadioStation_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Track, None], False), None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class AddTrackToMedia_args(object):
-    """
-    Attributes:
-     - fileName
-     - audio
-
-    """
-
-
-    def __init__(self, fileName=None, audio=None,):
-        self.fileName = fileName
-        self.audio = audio
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.audio = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        if self.audio is not None:
-            oprot.writeFieldBegin('audio', TType.STRING, 2)
-            oprot.writeBinary(self.audio)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToMedia_args)
-AddTrackToMedia_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'audio', 'BINARY', None, ),  # 2
-)
-
-
-class AddTrackToMedia_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.BOOL:
-                    self.success = iprot.readBool()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddTrackToMedia_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.BOOL, 0)
-            oprot.writeBool(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddTrackToMedia_result)
-AddTrackToMedia_result.thrift_spec = (
-    (0, TType.BOOL, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class GetTrackToMedia_args(object):
-    """
-    Attributes:
-     - fileName
-     - audio
-
-    """
-
-
-    def __init__(self, fileName=None, audio=None,):
-        self.fileName = fileName
-        self.audio = audio
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.audio = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        if self.audio is not None:
-            oprot.writeFieldBegin('audio', TType.STRING, 2)
-            oprot.writeBinary(self.audio)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackToMedia_args)
-GetTrackToMedia_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'audio', 'BINARY', None, ),  # 2
-)
-
-
-class GetTrackToMedia_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRING:
-                    self.success = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackToMedia_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRING, 0)
-            oprot.writeBinary(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackToMedia_result)
-GetTrackToMedia_result.thrift_spec = (
-    (0, TType.STRING, 'success', 'BINARY', None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 fix_spec(all_structs)
 del all_structs

@@ -704,7 +704,7 @@ service TrackService {
     *       binary number audio.
     **/
 
-    bool AddTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+    binary GetTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
 }
 

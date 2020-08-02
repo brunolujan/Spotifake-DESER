@@ -19,258 +19,256 @@ all_structs = []
 
 
 class Iface(object):
-    """
-    This file describes the services
-    that needs to be passed to the API methods in order to
-    manage Consumer and Content Creator users and Content.
-
-
-    """
-    def GetConsumerById(self, idConsumer):
+    def GetAlbumByTitle(self, title):
         """
-        Get Consumer by Id
+        Get Album by Title
 
-        @param idConsumer
-            The Consumer Id to be obtained.
+        @param title
+            The Album Title to be obtained
 
-        @return Consumer
-            Consumer object
+        @return Album
+            Album object
 
 
         Parameters:
-         - idConsumer
+         - title
 
         """
         pass
 
-    def GetConsumerByEmail(self, email):
+    def GetAlbumsByContentCreatorId(self, idContentCreator):
         """
-        Get Consumer by email
+        Get list of Track from Content creator by idContentCreator.
 
-        @param email
-            The Consumer email to be obtained.
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
 
-        @return bool
-            bool object
+        @return list<Album>
+            Album found by idContenCreator
 
 
         Parameters:
-         - email
+         - idContentCreator
 
         """
         pass
 
-    def GetConsumerByEmailPassword(self, email, password):
+    def GetSinglesByContentCreatorId(self, idContentCreator):
         """
-        Get Consumer by email and password
+        Get list of Track from Content creator by idContentCreator.
 
-        @param email
-            The Consumer email to be obtained.
-        @param password
-            The Consumer password to be obtained.
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
 
-        @return Consumer
-            Consumer object
+        @return list<String>
+            Album found by idContenCreator
 
 
         Parameters:
-         - email
-         - password
+         - idContentCreator
 
         """
         pass
 
-    def AddConsumer(self, newConsumer):
+    def GetAlbumByLibraryId(self, idLibrary):
         """
-        Register a Consumer.
+        Get list of Album from Library by idLibrary.
 
-        @param newconsumer
+        @param idLibrary
+            The Library Id
 
-        @return Consumer
-            Consumer object added
+        @return list<Album>
+            Album found by idLibrary
 
 
         Parameters:
-         - newConsumer
+         - idLibrary
 
         """
         pass
 
-    def DeleteConsumer(self, email):
+    def AddAlbum(self, newAlbum, idContenCreator):
         """
-        Delete a Consumer
+        Register an Album.
 
-        @param email
-            The Consumer email of the Consumer to be deleted.
+        @param newAlbum
+
+        @return idNewAlbum
+          Album object added
+
+
+        Parameters:
+         - newAlbum
+         - idContenCreator
+
+        """
+        pass
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        """
+        Register a featuring Album.
+
+        @param newAlbum
+
+        @return idNewAlbum
+          Featuring added
+
+
+        Parameters:
+         - idNewAlbum
+         - idContenCreator
+
+        """
+        pass
+
+    def DeleteAlbum(self, idAlbum):
+        """
+        Delete a Album
+
+        @param idAlbum
+            The Album Id of the Album to be deleted.
 
         @return Id
-            The Consumer Id of the Consumer deleted.
+            The Album Id of the Album deleted.
 
 
         Parameters:
-         - email
+         - idAlbum
 
         """
         pass
 
-    def UpdateConsumerName(self, email, currentPassword, newName, newLastName):
+    def UpdateAlbumTitle(self, idAlbum, newAlbumTitle):
         """
          
-        Update previously registered Consumer name.
+        Update previously registered Album title.
 
-        @param email
-            The Consumer Email of the Consumer which require an update name.
+        @param idAlbum
+            The Album Id of the Album which require an update title.
 
-        @return Consumer
-            Modified Consumer obejct.
+        @return Album
+            Modified Album obejct.
 
 
         Parameters:
-         - email
-         - currentPassword
-         - newName
-         - newLastName
+         - idAlbum
+         - newAlbumTitle
 
         """
         pass
 
-    def UpdateConsumerPassword(self, email, currentPassword, newPassword):
+    def UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
         """
          
-        Update previously registered Consumer password.
+        Update previously registered Album cover.
 
-        @param email
-            The Consumer Email of the Consumer which require an update password.
+        @param idAlbum
+            The Album Id of the Album which require an update cover.
 
-        @return Consumer
-            Modified Consumer obejct.
+        @return Album
+            Modified Album obejct.
 
 
         Parameters:
-         - email
-         - currentPassword
-         - newPassword
+         - idAlbum
+         - newCoverStoragePath
 
         """
         pass
 
-    def UpdateConsumerImage(self, email, newImageStoragePath):
+    def AddAlbumToLibrary(self, idLibrary, newAlbum):
         """
-         
-        Update previously registered Consumer image.
+        Add an Album to Library.
 
-        @param email
-            The Consumer Email of the Consumer which require an update image.
+        @param idLibrary
+            The Library Id to which an album will be added
 
-        @return Consumer
-            Modified Consumer obejct.
+        @param newAlbum
+
+        @return Album
+            Album object added
 
 
         Parameters:
-         - email
-         - newImageStoragePath
+         - idLibrary
+         - newAlbum
 
         """
         pass
 
-    def LoginConsumer(self, email, password):
+    def DeleteLibraryAlbum(self, idLibrary, idAlbum):
         """
-        Allows the login of a consumer
+        Delete an Album from a Library
 
-        @param email
-            The Consumer email
+        @param idLibrary
+            The Library Id which an album will be deleted.
 
-        @param password
-            The Email password of the consumer
+        @param idAlbum
+            The Album Id which will be deleted
 
-        @return Consumer
-            Consumer object
+        @return Id
+            The Album Id of the Album deleted.
 
 
         Parameters:
-         - email
-         - password
+         - idLibrary
+         - idAlbum
 
         """
         pass
 
-    def AddImageToMedia(self, fileName, image):
+    def GetAlbumByQuery(self, query):
         """
-        Add image file binary
+        Get Album by Query
 
-        @param binary image
-            The binary number that will be keep.
+        @param query
+            The query to be obtained
 
-        @return bool
-            true or false.
+        @return Album
+            list<Album>
 
 
         Parameters:
-         - fileName
-         - image
-
-        """
-        pass
-
-    def GetImageToMedia(self, fileName):
-        """
-        Get image file binary
-
-        @param binary image
-            The binary number that will be keep.
-
-        @return binary
-            binary image.
-
-
-        Parameters:
-         - fileName
+         - query
 
         """
         pass
 
 
 class Client(Iface):
-    """
-    This file describes the services
-    that needs to be passed to the API methods in order to
-    manage Consumer and Content Creator users and Content.
-
-
-    """
     def __init__(self, iprot, oprot=None):
         self._iprot = self._oprot = iprot
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
 
-    def GetConsumerById(self, idConsumer):
+    def GetAlbumByTitle(self, title):
         """
-        Get Consumer by Id
+        Get Album by Title
 
-        @param idConsumer
-            The Consumer Id to be obtained.
+        @param title
+            The Album Title to be obtained
 
-        @return Consumer
-            Consumer object
+        @return Album
+            Album object
 
 
         Parameters:
-         - idConsumer
+         - title
 
         """
-        self.send_GetConsumerById(idConsumer)
-        return self.recv_GetConsumerById()
+        self.send_GetAlbumByTitle(title)
+        return self.recv_GetAlbumByTitle()
 
-    def send_GetConsumerById(self, idConsumer):
-        self._oprot.writeMessageBegin('GetConsumerById', TMessageType.CALL, self._seqid)
-        args = GetConsumerById_args()
-        args.idConsumer = idConsumer
+    def send_GetAlbumByTitle(self, title):
+        self._oprot.writeMessageBegin('GetAlbumByTitle', TMessageType.CALL, self._seqid)
+        args = GetAlbumByTitle_args()
+        args.title = title
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetConsumerById(self):
+    def recv_GetAlbumByTitle(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -278,46 +276,46 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetConsumerById_result()
+        result = GetAlbumByTitle_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerById failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumByTitle failed: unknown result")
 
-    def GetConsumerByEmail(self, email):
+    def GetAlbumsByContentCreatorId(self, idContentCreator):
         """
-        Get Consumer by email
+        Get list of Track from Content creator by idContentCreator.
 
-        @param email
-            The Consumer email to be obtained.
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
 
-        @return bool
-            bool object
+        @return list<Album>
+            Album found by idContenCreator
 
 
         Parameters:
-         - email
+         - idContentCreator
 
         """
-        self.send_GetConsumerByEmail(email)
-        return self.recv_GetConsumerByEmail()
+        self.send_GetAlbumsByContentCreatorId(idContentCreator)
+        return self.recv_GetAlbumsByContentCreatorId()
 
-    def send_GetConsumerByEmail(self, email):
-        self._oprot.writeMessageBegin('GetConsumerByEmail', TMessageType.CALL, self._seqid)
-        args = GetConsumerByEmail_args()
-        args.email = email
+    def send_GetAlbumsByContentCreatorId(self, idContentCreator):
+        self._oprot.writeMessageBegin('GetAlbumsByContentCreatorId', TMessageType.CALL, self._seqid)
+        args = GetAlbumsByContentCreatorId_args()
+        args.idContentCreator = idContentCreator
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetConsumerByEmail(self):
+    def recv_GetAlbumsByContentCreatorId(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -325,50 +323,44 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetConsumerByEmail_result()
+        result = GetAlbumsByContentCreatorId_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerByEmail failed: unknown result")
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumsByContentCreatorId failed: unknown result")
 
-    def GetConsumerByEmailPassword(self, email, password):
+    def GetSinglesByContentCreatorId(self, idContentCreator):
         """
-        Get Consumer by email and password
+        Get list of Track from Content creator by idContentCreator.
 
-        @param email
-            The Consumer email to be obtained.
-        @param password
-            The Consumer password to be obtained.
+        @param idContentCreator
+            The ContentCreator Id which a track will be added
 
-        @return Consumer
-            Consumer object
+        @return list<String>
+            Album found by idContenCreator
 
 
         Parameters:
-         - email
-         - password
+         - idContentCreator
 
         """
-        self.send_GetConsumerByEmailPassword(email, password)
-        return self.recv_GetConsumerByEmailPassword()
+        self.send_GetSinglesByContentCreatorId(idContentCreator)
+        return self.recv_GetSinglesByContentCreatorId()
 
-    def send_GetConsumerByEmailPassword(self, email, password):
-        self._oprot.writeMessageBegin('GetConsumerByEmailPassword', TMessageType.CALL, self._seqid)
-        args = GetConsumerByEmailPassword_args()
-        args.email = email
-        args.password = password
+    def send_GetSinglesByContentCreatorId(self, idContentCreator):
+        self._oprot.writeMessageBegin('GetSinglesByContentCreatorId', TMessageType.CALL, self._seqid)
+        args = GetSinglesByContentCreatorId_args()
+        args.idContentCreator = idContentCreator
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetConsumerByEmailPassword(self):
+    def recv_GetSinglesByContentCreatorId(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -376,45 +368,44 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetConsumerByEmailPassword_result()
+        result = GetSinglesByContentCreatorId_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetConsumerByEmailPassword failed: unknown result")
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetSinglesByContentCreatorId failed: unknown result")
 
-    def AddConsumer(self, newConsumer):
+    def GetAlbumByLibraryId(self, idLibrary):
         """
-        Register a Consumer.
+        Get list of Album from Library by idLibrary.
 
-        @param newconsumer
+        @param idLibrary
+            The Library Id
 
-        @return Consumer
-            Consumer object added
+        @return list<Album>
+            Album found by idLibrary
 
 
         Parameters:
-         - newConsumer
+         - idLibrary
 
         """
-        self.send_AddConsumer(newConsumer)
-        return self.recv_AddConsumer()
+        self.send_GetAlbumByLibraryId(idLibrary)
+        return self.recv_GetAlbumByLibraryId()
 
-    def send_AddConsumer(self, newConsumer):
-        self._oprot.writeMessageBegin('AddConsumer', TMessageType.CALL, self._seqid)
-        args = AddConsumer_args()
-        args.newConsumer = newConsumer
+    def send_GetAlbumByLibraryId(self, idLibrary):
+        self._oprot.writeMessageBegin('GetAlbumByLibraryId', TMessageType.CALL, self._seqid)
+        args = GetAlbumByLibraryId_args()
+        args.idLibrary = idLibrary
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_AddConsumer(self):
+    def recv_GetAlbumByLibraryId(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -422,42 +413,132 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = AddConsumer_result()
+        result = GetAlbumByLibraryId_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddConsumer failed: unknown result")
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumByLibraryId failed: unknown result")
 
-    def DeleteConsumer(self, email):
+    def AddAlbum(self, newAlbum, idContenCreator):
         """
-        Delete a Consumer
+        Register an Album.
 
-        @param email
-            The Consumer email of the Consumer to be deleted.
+        @param newAlbum
+
+        @return idNewAlbum
+          Album object added
+
+
+        Parameters:
+         - newAlbum
+         - idContenCreator
+
+        """
+        self.send_AddAlbum(newAlbum, idContenCreator)
+        return self.recv_AddAlbum()
+
+    def send_AddAlbum(self, newAlbum, idContenCreator):
+        self._oprot.writeMessageBegin('AddAlbum', TMessageType.CALL, self._seqid)
+        args = AddAlbum_args()
+        args.newAlbum = newAlbum
+        args.idContenCreator = idContenCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddAlbum(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddAlbum_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddAlbum failed: unknown result")
+
+    def AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        """
+        Register a featuring Album.
+
+        @param newAlbum
+
+        @return idNewAlbum
+          Featuring added
+
+
+        Parameters:
+         - idNewAlbum
+         - idContenCreator
+
+        """
+        self.send_AddFeaturingAlbum(idNewAlbum, idContenCreator)
+        return self.recv_AddFeaturingAlbum()
+
+    def send_AddFeaturingAlbum(self, idNewAlbum, idContenCreator):
+        self._oprot.writeMessageBegin('AddFeaturingAlbum', TMessageType.CALL, self._seqid)
+        args = AddFeaturingAlbum_args()
+        args.idNewAlbum = idNewAlbum
+        args.idContenCreator = idContenCreator
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddFeaturingAlbum(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddFeaturingAlbum_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddFeaturingAlbum failed: unknown result")
+
+    def DeleteAlbum(self, idAlbum):
+        """
+        Delete a Album
+
+        @param idAlbum
+            The Album Id of the Album to be deleted.
 
         @return Id
-            The Consumer Id of the Consumer deleted.
+            The Album Id of the Album deleted.
 
 
         Parameters:
-         - email
+         - idAlbum
 
         """
-        self.send_DeleteConsumer(email)
-        return self.recv_DeleteConsumer()
+        self.send_DeleteAlbum(idAlbum)
+        return self.recv_DeleteAlbum()
 
-    def send_DeleteConsumer(self, email):
-        self._oprot.writeMessageBegin('DeleteConsumer', TMessageType.CALL, self._seqid)
-        args = DeleteConsumer_args()
-        args.email = email
+    def send_DeleteAlbum(self, idAlbum):
+        self._oprot.writeMessageBegin('DeleteAlbum', TMessageType.CALL, self._seqid)
+        args = DeleteAlbum_args()
+        args.idAlbum = idAlbum
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_DeleteConsumer(self):
+    def recv_DeleteAlbum(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -465,7 +546,7 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = DeleteConsumer_result()
+        result = DeleteAlbum_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
@@ -476,42 +557,38 @@ class Client(Iface):
             raise result.sErrorSystemE
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteConsumer failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteAlbum failed: unknown result")
 
-    def UpdateConsumerName(self, email, currentPassword, newName, newLastName):
+    def UpdateAlbumTitle(self, idAlbum, newAlbumTitle):
         """
          
-        Update previously registered Consumer name.
+        Update previously registered Album title.
 
-        @param email
-            The Consumer Email of the Consumer which require an update name.
+        @param idAlbum
+            The Album Id of the Album which require an update title.
 
-        @return Consumer
-            Modified Consumer obejct.
+        @return Album
+            Modified Album obejct.
 
 
         Parameters:
-         - email
-         - currentPassword
-         - newName
-         - newLastName
+         - idAlbum
+         - newAlbumTitle
 
         """
-        self.send_UpdateConsumerName(email, currentPassword, newName, newLastName)
-        return self.recv_UpdateConsumerName()
+        self.send_UpdateAlbumTitle(idAlbum, newAlbumTitle)
+        return self.recv_UpdateAlbumTitle()
 
-    def send_UpdateConsumerName(self, email, currentPassword, newName, newLastName):
-        self._oprot.writeMessageBegin('UpdateConsumerName', TMessageType.CALL, self._seqid)
-        args = UpdateConsumerName_args()
-        args.email = email
-        args.currentPassword = currentPassword
-        args.newName = newName
-        args.newLastName = newLastName
+    def send_UpdateAlbumTitle(self, idAlbum, newAlbumTitle):
+        self._oprot.writeMessageBegin('UpdateAlbumTitle', TMessageType.CALL, self._seqid)
+        args = UpdateAlbumTitle_args()
+        args.idAlbum = idAlbum
+        args.newAlbumTitle = newAlbumTitle
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdateConsumerName(self):
+    def recv_UpdateAlbumTitle(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -519,53 +596,49 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdateConsumerName_result()
+        result = UpdateAlbumTitle_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerName failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumTitle failed: unknown result")
 
-    def UpdateConsumerPassword(self, email, currentPassword, newPassword):
+    def UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
         """
          
-        Update previously registered Consumer password.
+        Update previously registered Album cover.
 
-        @param email
-            The Consumer Email of the Consumer which require an update password.
+        @param idAlbum
+            The Album Id of the Album which require an update cover.
 
-        @return Consumer
-            Modified Consumer obejct.
+        @return Album
+            Modified Album obejct.
 
 
         Parameters:
-         - email
-         - currentPassword
-         - newPassword
+         - idAlbum
+         - newCoverStoragePath
 
         """
-        self.send_UpdateConsumerPassword(email, currentPassword, newPassword)
-        return self.recv_UpdateConsumerPassword()
+        self.send_UpdateAlbumCover(idAlbum, newCoverStoragePath)
+        return self.recv_UpdateAlbumCover()
 
-    def send_UpdateConsumerPassword(self, email, currentPassword, newPassword):
-        self._oprot.writeMessageBegin('UpdateConsumerPassword', TMessageType.CALL, self._seqid)
-        args = UpdateConsumerPassword_args()
-        args.email = email
-        args.currentPassword = currentPassword
-        args.newPassword = newPassword
+    def send_UpdateAlbumCover(self, idAlbum, newCoverStoragePath):
+        self._oprot.writeMessageBegin('UpdateAlbumCover', TMessageType.CALL, self._seqid)
+        args = UpdateAlbumCover_args()
+        args.idAlbum = idAlbum
+        args.newCoverStoragePath = newCoverStoragePath
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdateConsumerPassword(self):
+    def recv_UpdateAlbumCover(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -573,51 +646,50 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdateConsumerPassword_result()
+        result = UpdateAlbumCover_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
         if result.sErrorInvalidRequestE is not None:
             raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerPassword failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumCover failed: unknown result")
 
-    def UpdateConsumerImage(self, email, newImageStoragePath):
+    def AddAlbumToLibrary(self, idLibrary, newAlbum):
         """
-         
-        Update previously registered Consumer image.
+        Add an Album to Library.
 
-        @param email
-            The Consumer Email of the Consumer which require an update image.
+        @param idLibrary
+            The Library Id to which an album will be added
 
-        @return Consumer
-            Modified Consumer obejct.
+        @param newAlbum
+
+        @return Album
+            Album object added
 
 
         Parameters:
-         - email
-         - newImageStoragePath
+         - idLibrary
+         - newAlbum
 
         """
-        self.send_UpdateConsumerImage(email, newImageStoragePath)
-        return self.recv_UpdateConsumerImage()
+        self.send_AddAlbumToLibrary(idLibrary, newAlbum)
+        return self.recv_AddAlbumToLibrary()
 
-    def send_UpdateConsumerImage(self, email, newImageStoragePath):
-        self._oprot.writeMessageBegin('UpdateConsumerImage', TMessageType.CALL, self._seqid)
-        args = UpdateConsumerImage_args()
-        args.email = email
-        args.newImageStoragePath = newImageStoragePath
+    def send_AddAlbumToLibrary(self, idLibrary, newAlbum):
+        self._oprot.writeMessageBegin('AddAlbumToLibrary', TMessageType.CALL, self._seqid)
+        args = AddAlbumToLibrary_args()
+        args.idLibrary = idLibrary
+        args.newAlbum = newAlbum
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_UpdateConsumerImage(self):
+    def recv_AddAlbumToLibrary(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -625,53 +697,92 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = UpdateConsumerImage_result()
+        result = AddAlbumToLibrary_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddAlbumToLibrary failed: unknown result")
+
+    def DeleteLibraryAlbum(self, idLibrary, idAlbum):
+        """
+        Delete an Album from a Library
+
+        @param idLibrary
+            The Library Id which an album will be deleted.
+
+        @param idAlbum
+            The Album Id which will be deleted
+
+        @return Id
+            The Album Id of the Album deleted.
+
+
+        Parameters:
+         - idLibrary
+         - idAlbum
+
+        """
+        self.send_DeleteLibraryAlbum(idLibrary, idAlbum)
+        return self.recv_DeleteLibraryAlbum()
+
+    def send_DeleteLibraryAlbum(self, idLibrary, idAlbum):
+        self._oprot.writeMessageBegin('DeleteLibraryAlbum', TMessageType.CALL, self._seqid)
+        args = DeleteLibraryAlbum_args()
+        args.idLibrary = idLibrary
+        args.idAlbum = idAlbum
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_DeleteLibraryAlbum(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = DeleteLibraryAlbum_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
         if result.sErrorNotFoundE is not None:
             raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerImage failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteLibraryAlbum failed: unknown result")
 
-    def LoginConsumer(self, email, password):
+    def GetAlbumByQuery(self, query):
         """
-        Allows the login of a consumer
+        Get Album by Query
 
-        @param email
-            The Consumer email
+        @param query
+            The query to be obtained
 
-        @param password
-            The Email password of the consumer
-
-        @return Consumer
-            Consumer object
+        @return Album
+            list<Album>
 
 
         Parameters:
-         - email
-         - password
+         - query
 
         """
-        self.send_LoginConsumer(email, password)
-        return self.recv_LoginConsumer()
+        self.send_GetAlbumByQuery(query)
+        return self.recv_GetAlbumByQuery()
 
-    def send_LoginConsumer(self, email, password):
-        self._oprot.writeMessageBegin('LoginConsumer', TMessageType.CALL, self._seqid)
-        args = LoginConsumer_args()
-        args.email = email
-        args.password = password
+    def send_GetAlbumByQuery(self, query):
+        self._oprot.writeMessageBegin('GetAlbumByQuery', TMessageType.CALL, self._seqid)
+        args = GetAlbumByQuery_args()
+        args.query = query
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_LoginConsumer(self):
+    def recv_GetAlbumByQuery(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -679,121 +790,34 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = LoginConsumer_result()
+        result = GetAlbumByQuery_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
+        if result.sErrorNotFoundE is not None:
+            raise result.sErrorNotFoundE
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "LoginConsumer failed: unknown result")
-
-    def AddImageToMedia(self, fileName, image):
-        """
-        Add image file binary
-
-        @param binary image
-            The binary number that will be keep.
-
-        @return bool
-            true or false.
-
-
-        Parameters:
-         - fileName
-         - image
-
-        """
-        self.send_AddImageToMedia(fileName, image)
-        return self.recv_AddImageToMedia()
-
-    def send_AddImageToMedia(self, fileName, image):
-        self._oprot.writeMessageBegin('AddImageToMedia', TMessageType.CALL, self._seqid)
-        args = AddImageToMedia_args()
-        args.fileName = fileName
-        args.image = image
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_AddImageToMedia(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = AddImageToMedia_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddImageToMedia failed: unknown result")
-
-    def GetImageToMedia(self, fileName):
-        """
-        Get image file binary
-
-        @param binary image
-            The binary number that will be keep.
-
-        @return binary
-            binary image.
-
-
-        Parameters:
-         - fileName
-
-        """
-        self.send_GetImageToMedia(fileName)
-        return self.recv_GetImageToMedia()
-
-    def send_GetImageToMedia(self, fileName):
-        self._oprot.writeMessageBegin('GetImageToMedia', TMessageType.CALL, self._seqid)
-        args = GetImageToMedia_args()
-        args.fileName = fileName
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_GetImageToMedia(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = GetImageToMedia_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetImageToMedia failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetAlbumByQuery failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
-        self._processMap["GetConsumerById"] = Processor.process_GetConsumerById
-        self._processMap["GetConsumerByEmail"] = Processor.process_GetConsumerByEmail
-        self._processMap["GetConsumerByEmailPassword"] = Processor.process_GetConsumerByEmailPassword
-        self._processMap["AddConsumer"] = Processor.process_AddConsumer
-        self._processMap["DeleteConsumer"] = Processor.process_DeleteConsumer
-        self._processMap["UpdateConsumerName"] = Processor.process_UpdateConsumerName
-        self._processMap["UpdateConsumerPassword"] = Processor.process_UpdateConsumerPassword
-        self._processMap["UpdateConsumerImage"] = Processor.process_UpdateConsumerImage
-        self._processMap["LoginConsumer"] = Processor.process_LoginConsumer
-        self._processMap["AddImageToMedia"] = Processor.process_AddImageToMedia
-        self._processMap["GetImageToMedia"] = Processor.process_GetImageToMedia
+        self._processMap["GetAlbumByTitle"] = Processor.process_GetAlbumByTitle
+        self._processMap["GetAlbumsByContentCreatorId"] = Processor.process_GetAlbumsByContentCreatorId
+        self._processMap["GetSinglesByContentCreatorId"] = Processor.process_GetSinglesByContentCreatorId
+        self._processMap["GetAlbumByLibraryId"] = Processor.process_GetAlbumByLibraryId
+        self._processMap["AddAlbum"] = Processor.process_AddAlbum
+        self._processMap["AddFeaturingAlbum"] = Processor.process_AddFeaturingAlbum
+        self._processMap["DeleteAlbum"] = Processor.process_DeleteAlbum
+        self._processMap["UpdateAlbumTitle"] = Processor.process_UpdateAlbumTitle
+        self._processMap["UpdateAlbumCover"] = Processor.process_UpdateAlbumCover
+        self._processMap["AddAlbumToLibrary"] = Processor.process_AddAlbumToLibrary
+        self._processMap["DeleteLibraryAlbum"] = Processor.process_DeleteLibraryAlbum
+        self._processMap["GetAlbumByQuery"] = Processor.process_GetAlbumByQuery
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -816,135 +840,13 @@ class Processor(Iface, TProcessor):
             self._processMap[name](self, seqid, iprot, oprot)
         return True
 
-    def process_GetConsumerById(self, seqid, iprot, oprot):
-        args = GetConsumerById_args()
+    def process_GetAlbumByTitle(self, seqid, iprot, oprot):
+        args = GetAlbumByTitle_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetConsumerById_result()
+        result = GetAlbumByTitle_result()
         try:
-            result.success = self._handler.GetConsumerById(args.idConsumer)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
-            msg_type = TMessageType.REPLY
-            result.sErrorInvalidRequestE = sErrorInvalidRequestE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetConsumerById", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_GetConsumerByEmail(self, seqid, iprot, oprot):
-        args = GetConsumerByEmail_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = GetConsumerByEmail_result()
-        try:
-            result.success = self._handler.GetConsumerByEmail(args.email)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
-            msg_type = TMessageType.REPLY
-            result.sErrorInvalidRequestE = sErrorInvalidRequestE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetConsumerByEmail", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_GetConsumerByEmailPassword(self, seqid, iprot, oprot):
-        args = GetConsumerByEmailPassword_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = GetConsumerByEmailPassword_result()
-        try:
-            result.success = self._handler.GetConsumerByEmailPassword(args.email, args.password)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
-            msg_type = TMessageType.REPLY
-            result.sErrorInvalidRequestE = sErrorInvalidRequestE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetConsumerByEmailPassword", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_AddConsumer(self, seqid, iprot, oprot):
-        args = AddConsumer_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = AddConsumer_result()
-        try:
-            result.success = self._handler.AddConsumer(args.newConsumer)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddConsumer", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_DeleteConsumer(self, seqid, iprot, oprot):
-        args = DeleteConsumer_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = DeleteConsumer_result()
-        try:
-            result.success = self._handler.DeleteConsumer(args.email)
+            result.success = self._handler.GetAlbumByTitle(args.title)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -965,24 +867,160 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("DeleteConsumer", msg_type, seqid)
+        oprot.writeMessageBegin("GetAlbumByTitle", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdateConsumerName(self, seqid, iprot, oprot):
-        args = UpdateConsumerName_args()
+    def process_GetAlbumsByContentCreatorId(self, seqid, iprot, oprot):
+        args = GetAlbumsByContentCreatorId_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = UpdateConsumerName_result()
+        result = GetAlbumsByContentCreatorId_result()
         try:
-            result.success = self._handler.UpdateConsumerName(args.email, args.currentPassword, args.newName, args.newLastName)
+            result.success = self._handler.GetAlbumsByContentCreatorId(args.idContentCreator)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetAlbumsByContentCreatorId", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetSinglesByContentCreatorId(self, seqid, iprot, oprot):
+        args = GetSinglesByContentCreatorId_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetSinglesByContentCreatorId_result()
+        try:
+            result.success = self._handler.GetSinglesByContentCreatorId(args.idContentCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetSinglesByContentCreatorId", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetAlbumByLibraryId(self, seqid, iprot, oprot):
+        args = GetAlbumByLibraryId_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetAlbumByLibraryId_result()
+        try:
+            result.success = self._handler.GetAlbumByLibraryId(args.idLibrary)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetAlbumByLibraryId", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_AddAlbum(self, seqid, iprot, oprot):
+        args = AddAlbum_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddAlbum_result()
+        try:
+            result.success = self._handler.AddAlbum(args.newAlbum, args.idContenCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddAlbum", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_AddFeaturingAlbum(self, seqid, iprot, oprot):
+        args = AddFeaturingAlbum_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddFeaturingAlbum_result()
+        try:
+            result.success = self._handler.AddFeaturingAlbum(args.idNewAlbum, args.idContenCreator)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddFeaturingAlbum", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_DeleteAlbum(self, seqid, iprot, oprot):
+        args = DeleteAlbum_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = DeleteAlbum_result()
+        try:
+            result.success = self._handler.DeleteAlbum(args.idAlbum)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
@@ -1000,24 +1038,21 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateConsumerName", msg_type, seqid)
+        oprot.writeMessageBegin("DeleteAlbum", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdateConsumerPassword(self, seqid, iprot, oprot):
-        args = UpdateConsumerPassword_args()
+    def process_UpdateAlbumTitle(self, seqid, iprot, oprot):
+        args = UpdateAlbumTitle_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = UpdateConsumerPassword_result()
+        result = UpdateAlbumTitle_result()
         try:
-            result.success = self._handler.UpdateConsumerPassword(args.email, args.currentPassword, args.newPassword)
+            result.success = self._handler.UpdateAlbumTitle(args.idAlbum, args.newAlbumTitle)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
@@ -1035,24 +1070,21 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateConsumerPassword", msg_type, seqid)
+        oprot.writeMessageBegin("UpdateAlbumTitle", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdateConsumerImage(self, seqid, iprot, oprot):
-        args = UpdateConsumerImage_args()
+    def process_UpdateAlbumCover(self, seqid, iprot, oprot):
+        args = UpdateAlbumCover_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = UpdateConsumerImage_result()
+        result = UpdateAlbumCover_result()
         try:
-            result.success = self._handler.UpdateConsumerImage(args.email, args.newImageStoragePath)
+            result.success = self._handler.UpdateAlbumCover(args.idAlbum, args.newCoverStoragePath)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
         except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
             msg_type = TMessageType.REPLY
             result.sErrorNotFoundE = sErrorNotFoundE
@@ -1070,47 +1102,18 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateConsumerImage", msg_type, seqid)
+        oprot.writeMessageBegin("UpdateAlbumCover", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_LoginConsumer(self, seqid, iprot, oprot):
-        args = LoginConsumer_args()
+    def process_AddAlbumToLibrary(self, seqid, iprot, oprot):
+        args = AddAlbumToLibrary_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = LoginConsumer_result()
+        result = AddAlbumToLibrary_result()
         try:
-            result.success = self._handler.LoginConsumer(args.email, args.password)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("LoginConsumer", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
-    def process_AddImageToMedia(self, seqid, iprot, oprot):
-        args = AddImageToMedia_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = AddImageToMedia_result()
-        try:
-            result.success = self._handler.AddImageToMedia(args.fileName, args.image)
+            result.success = self._handler.AddAlbumToLibrary(args.idLibrary, args.newAlbum)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1125,21 +1128,24 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddImageToMedia", msg_type, seqid)
+        oprot.writeMessageBegin("AddAlbumToLibrary", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetImageToMedia(self, seqid, iprot, oprot):
-        args = GetImageToMedia_args()
+    def process_DeleteLibraryAlbum(self, seqid, iprot, oprot):
+        args = DeleteLibraryAlbum_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetImageToMedia_result()
+        result = DeleteLibraryAlbum_result()
         try:
-            result.success = self._handler.GetImageToMedia(args.fileName)
+            result.success = self._handler.DeleteLibraryAlbum(args.idLibrary, args.idAlbum)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
         except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
             msg_type = TMessageType.REPLY
             result.sErrorSystemE = sErrorSystemE
@@ -1151,7 +1157,36 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetImageToMedia", msg_type, seqid)
+        oprot.writeMessageBegin("DeleteLibraryAlbum", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_GetAlbumByQuery(self, seqid, iprot, oprot):
+        args = GetAlbumByQuery_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = GetAlbumByQuery_result()
+        try:
+            result.success = self._handler.GetAlbumByQuery(args.query)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
+            msg_type = TMessageType.REPLY
+            result.sErrorNotFoundE = sErrorNotFoundE
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("GetAlbumByQuery", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -1159,16 +1194,179 @@ class Processor(Iface, TProcessor):
 # HELPER FUNCTIONS AND STRUCTURES
 
 
-class GetConsumerById_args(object):
+class GetAlbumByTitle_args(object):
     """
     Attributes:
-     - idConsumer
+     - title
 
     """
 
 
-    def __init__(self, idConsumer=None,):
-        self.idConsumer = idConsumer
+    def __init__(self, title=None,):
+        self.title = title
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.title = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetAlbumByTitle_args')
+        if self.title is not None:
+            oprot.writeFieldBegin('title', TType.STRING, 1)
+            oprot.writeString(self.title.encode('utf-8') if sys.version_info[0] == 2 else self.title)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetAlbumByTitle_args)
+GetAlbumByTitle_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'title', 'UTF8', None, ),  # 1
+)
+
+
+class GetAlbumByTitle_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+     - sErrorInvalidRequestE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.STRUCT:
+                    self.success = SpotifakeManagement.ttypes.Album()
+                    self.success.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRUCT:
+                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
+                    self.sErrorInvalidRequestE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetAlbumByTitle_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorInvalidRequestE is not None:
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
+            self.sErrorInvalidRequestE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetAlbumByTitle_result)
+GetAlbumByTitle_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+)
+
+
+class GetAlbumsByContentCreatorId_args(object):
+    """
+    Attributes:
+     - idContentCreator
+
+    """
+
+
+    def __init__(self, idContentCreator=None,):
+        self.idContentCreator = idContentCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1181,7 +1379,7 @@ class GetConsumerById_args(object):
                 break
             if fid == 1:
                 if ftype == TType.I16:
-                    self.idConsumer = iprot.readI16()
+                    self.idContentCreator = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1193,10 +1391,10 @@ class GetConsumerById_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerById_args')
-        if self.idConsumer is not None:
-            oprot.writeFieldBegin('idConsumer', TType.I16, 1)
-            oprot.writeI16(self.idConsumer)
+        oprot.writeStructBegin('GetAlbumsByContentCreatorId_args')
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 1)
+            oprot.writeI16(self.idContentCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1214,29 +1412,27 @@ class GetConsumerById_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerById_args)
-GetConsumerById_args.thrift_spec = (
+all_structs.append(GetAlbumsByContentCreatorId_args)
+GetAlbumsByContentCreatorId_args.thrift_spec = (
     None,  # 0
-    (1, TType.I16, 'idConsumer', None, None, ),  # 1
+    (1, TType.I16, 'idContentCreator', None, None, ),  # 1
 )
 
 
-class GetConsumerById_result(object):
+class GetAlbumsByContentCreatorId_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorInvalidRequestE
+     - sErrorSystemE
 
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+        self.sErrorSystemE = sErrorSystemE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1248,27 +1444,26 @@ class GetConsumerById_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
-                    self.success.read(iprot)
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype52, _size49) = iprot.readListBegin()
+                    for _i53 in range(_size49):
+                        _elem54 = SpotifakeManagement.ttypes.Album()
+                        _elem54.read(iprot)
+                        self.success.append(_elem54)
+                    iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1280,22 +1475,21 @@ class GetConsumerById_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerById_result')
+        oprot.writeStructBegin('GetAlbumsByContentCreatorId_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter55 in self.success:
+                iter55.write(oprot)
+            oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1313,25 +1507,24 @@ class GetConsumerById_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerById_result)
-GetConsumerById_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+all_structs.append(GetAlbumsByContentCreatorId_result)
+GetAlbumsByContentCreatorId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 
 
-class GetConsumerByEmail_args(object):
+class GetSinglesByContentCreatorId_args(object):
     """
     Attributes:
-     - email
+     - idContentCreator
 
     """
 
 
-    def __init__(self, email=None,):
-        self.email = email
+    def __init__(self, idContentCreator=None,):
+        self.idContentCreator = idContentCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1343,8 +1536,8 @@ class GetConsumerByEmail_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idContentCreator = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1356,10 +1549,10 @@ class GetConsumerByEmail_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerByEmail_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+        oprot.writeStructBegin('GetSinglesByContentCreatorId_args')
+        if self.idContentCreator is not None:
+            oprot.writeFieldBegin('idContentCreator', TType.I16, 1)
+            oprot.writeI16(self.idContentCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1377,29 +1570,27 @@ class GetConsumerByEmail_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerByEmail_args)
-GetConsumerByEmail_args.thrift_spec = (
+all_structs.append(GetSinglesByContentCreatorId_args)
+GetSinglesByContentCreatorId_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (1, TType.I16, 'idContentCreator', None, None, ),  # 1
 )
 
 
-class GetConsumerByEmail_result(object):
+class GetSinglesByContentCreatorId_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorInvalidRequestE
+     - sErrorSystemE
 
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+        self.sErrorSystemE = sErrorSystemE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1411,26 +1602,26 @@ class GetConsumerByEmail_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.BOOL:
-                    self.success = iprot.readBool()
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype59, _size56) = iprot.readListBegin()
+                    for _i60 in range(_size56):
+                        _elem61 = SpotifakeManagement.ttypes.Album()
+                        _elem61.read(iprot)
+                        self.success.append(_elem61)
+                    iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1442,22 +1633,21 @@ class GetConsumerByEmail_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerByEmail_result')
+        oprot.writeStructBegin('GetSinglesByContentCreatorId_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.BOOL, 0)
-            oprot.writeBool(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter62 in self.success:
+                iter62.write(oprot)
+            oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1475,27 +1665,24 @@ class GetConsumerByEmail_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerByEmail_result)
-GetConsumerByEmail_result.thrift_spec = (
-    (0, TType.BOOL, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+all_structs.append(GetSinglesByContentCreatorId_result)
+GetSinglesByContentCreatorId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 
 
-class GetConsumerByEmailPassword_args(object):
+class GetAlbumByLibraryId_args(object):
     """
     Attributes:
-     - email
-     - password
+     - idLibrary
 
     """
 
 
-    def __init__(self, email=None, password=None,):
-        self.email = email
-        self.password = password
+    def __init__(self, idLibrary=None,):
+        self.idLibrary = idLibrary
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1507,13 +1694,8 @@ class GetConsumerByEmailPassword_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.password = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1525,14 +1707,10 @@ class GetConsumerByEmailPassword_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerByEmailPassword_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
-            oprot.writeFieldEnd()
-        if self.password is not None:
-            oprot.writeFieldBegin('password', TType.STRING, 2)
-            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
+        oprot.writeStructBegin('GetAlbumByLibraryId_args')
+        if self.idLibrary is not None:
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1550,30 +1728,27 @@ class GetConsumerByEmailPassword_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerByEmailPassword_args)
-GetConsumerByEmailPassword_args.thrift_spec = (
+all_structs.append(GetAlbumByLibraryId_args)
+GetAlbumByLibraryId_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
 )
 
 
-class GetConsumerByEmailPassword_result(object):
+class GetAlbumByLibraryId_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
      - sErrorNotFoundE
-     - sErrorInvalidRequestE
+     - sErrorSystemE
 
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
+        self.sErrorSystemE = sErrorSystemE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1585,27 +1760,26 @@ class GetConsumerByEmailPassword_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
-                    self.success.read(iprot)
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype66, _size63) = iprot.readListBegin()
+                    for _i67 in range(_size63):
+                        _elem68 = SpotifakeManagement.ttypes.Album()
+                        _elem68.read(iprot)
+                        self.success.append(_elem68)
+                    iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1617,22 +1791,21 @@ class GetConsumerByEmailPassword_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('GetConsumerByEmailPassword_result')
+        oprot.writeStructBegin('GetAlbumByLibraryId_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter69 in self.success:
+                iter69.write(oprot)
+            oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
-            self.sErrorInvalidRequestE.write(oprot)
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
+            self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1650,25 +1823,26 @@ class GetConsumerByEmailPassword_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(GetConsumerByEmailPassword_result)
-GetConsumerByEmailPassword_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
+all_structs.append(GetAlbumByLibraryId_result)
+GetAlbumByLibraryId_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 
 
-class AddConsumer_args(object):
+class AddAlbum_args(object):
     """
     Attributes:
-     - newConsumer
+     - newAlbum
+     - idContenCreator
 
     """
 
 
-    def __init__(self, newConsumer=None,):
-        self.newConsumer = newConsumer
+    def __init__(self, newAlbum=None, idContenCreator=None,):
+        self.newAlbum = newAlbum
+        self.idContenCreator = idContenCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1681,8 +1855,13 @@ class AddConsumer_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRUCT:
-                    self.newConsumer = SpotifakeManagement.ttypes.Consumer()
-                    self.newConsumer.read(iprot)
+                    self.newAlbum = SpotifakeManagement.ttypes.Album()
+                    self.newAlbum.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idContenCreator = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1694,10 +1873,14 @@ class AddConsumer_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddConsumer_args')
-        if self.newConsumer is not None:
-            oprot.writeFieldBegin('newConsumer', TType.STRUCT, 1)
-            self.newConsumer.write(oprot)
+        oprot.writeStructBegin('AddAlbum_args')
+        if self.newAlbum is not None:
+            oprot.writeFieldBegin('newAlbum', TType.STRUCT, 1)
+            self.newAlbum.write(oprot)
+            oprot.writeFieldEnd()
+        if self.idContenCreator is not None:
+            oprot.writeFieldBegin('idContenCreator', TType.I16, 2)
+            oprot.writeI16(self.idContenCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1715,25 +1898,26 @@ class AddConsumer_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddConsumer_args)
-AddConsumer_args.thrift_spec = (
+all_structs.append(AddAlbum_args)
+AddAlbum_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRUCT, 'newConsumer', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 1
+    (1, TType.STRUCT, 'newAlbum', [SpotifakeManagement.ttypes.Album, None], None, ),  # 1
+    (2, TType.I16, 'idContenCreator', None, None, ),  # 2
 )
 
 
-class AddConsumer_result(object):
+class AddAlbum_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
+     - sErrorSystemE
 
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None,):
+    def __init__(self, success=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
+        self.sErrorSystemE = sErrorSystemE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1745,15 +1929,14 @@ class AddConsumer_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
-                    self.success.read(iprot)
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -1765,14 +1948,14 @@ class AddConsumer_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddConsumer_result')
+        oprot.writeStructBegin('AddAlbum_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
             oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1790,23 +1973,25 @@ class AddConsumer_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddConsumer_result)
-AddConsumer_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+all_structs.append(AddAlbum_result)
+AddAlbum_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 
 
-class DeleteConsumer_args(object):
+class AddFeaturingAlbum_args(object):
     """
     Attributes:
-     - email
+     - idNewAlbum
+     - idContenCreator
 
     """
 
 
-    def __init__(self, email=None,):
-        self.email = email
+    def __init__(self, idNewAlbum=None, idContenCreator=None,):
+        self.idNewAlbum = idNewAlbum
+        self.idContenCreator = idContenCreator
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1818,8 +2003,13 @@ class DeleteConsumer_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idNewAlbum = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idContenCreator = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1831,10 +2021,14 @@ class DeleteConsumer_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteConsumer_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+        oprot.writeStructBegin('AddFeaturingAlbum_args')
+        if self.idNewAlbum is not None:
+            oprot.writeFieldBegin('idNewAlbum', TType.I16, 1)
+            oprot.writeI16(self.idNewAlbum)
+            oprot.writeFieldEnd()
+        if self.idContenCreator is not None:
+            oprot.writeFieldBegin('idContenCreator', TType.I16, 2)
+            oprot.writeI16(self.idContenCreator)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1852,14 +2046,151 @@ class DeleteConsumer_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteConsumer_args)
-DeleteConsumer_args.thrift_spec = (
+all_structs.append(AddFeaturingAlbum_args)
+AddFeaturingAlbum_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
+    (1, TType.I16, 'idNewAlbum', None, None, ),  # 1
+    (2, TType.I16, 'idContenCreator', None, None, ),  # 2
 )
 
 
-class DeleteConsumer_result(object):
+class AddFeaturingAlbum_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddFeaturingAlbum_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddFeaturingAlbum_result)
+AddFeaturingAlbum_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class DeleteAlbum_args(object):
+    """
+    Attributes:
+     - idAlbum
+
+    """
+
+
+    def __init__(self, idAlbum=None,):
+        self.idAlbum = idAlbum
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteAlbum_args')
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
+            oprot.writeI16(self.idAlbum)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteAlbum_args)
+DeleteAlbum_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idAlbum', None, None, ),  # 1
+)
+
+
+class DeleteAlbum_result(object):
     """
     Attributes:
      - success
@@ -1917,7 +2248,7 @@ class DeleteConsumer_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('DeleteConsumer_result')
+        oprot.writeStructBegin('DeleteAlbum_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.I16, 0)
             oprot.writeI16(self.success)
@@ -1950,8 +2281,8 @@ class DeleteConsumer_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(DeleteConsumer_result)
-DeleteConsumer_result.thrift_spec = (
+all_structs.append(DeleteAlbum_result)
+DeleteAlbum_result.thrift_spec = (
     (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
@@ -1959,22 +2290,18 @@ DeleteConsumer_result.thrift_spec = (
 )
 
 
-class UpdateConsumerName_args(object):
+class UpdateAlbumTitle_args(object):
     """
     Attributes:
-     - email
-     - currentPassword
-     - newName
-     - newLastName
+     - idAlbum
+     - newAlbumTitle
 
     """
 
 
-    def __init__(self, email=None, currentPassword=None, newName=None, newLastName=None,):
-        self.email = email
-        self.currentPassword = currentPassword
-        self.newName = newName
-        self.newLastName = newLastName
+    def __init__(self, idAlbum=None, newAlbumTitle=None,):
+        self.idAlbum = idAlbum
+        self.newAlbumTitle = newAlbumTitle
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1986,23 +2313,13 @@ class UpdateConsumerName_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.newName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRING:
-                    self.newLastName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.newAlbumTitle = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2014,22 +2331,14 @@ class UpdateConsumerName_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerName_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+        oprot.writeStructBegin('UpdateAlbumTitle_args')
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
+            oprot.writeI16(self.idAlbum)
             oprot.writeFieldEnd()
-        if self.currentPassword is not None:
-            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
-            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
-            oprot.writeFieldEnd()
-        if self.newName is not None:
-            oprot.writeFieldBegin('newName', TType.STRING, 3)
-            oprot.writeString(self.newName.encode('utf-8') if sys.version_info[0] == 2 else self.newName)
-            oprot.writeFieldEnd()
-        if self.newLastName is not None:
-            oprot.writeFieldBegin('newLastName', TType.STRING, 4)
-            oprot.writeString(self.newLastName.encode('utf-8') if sys.version_info[0] == 2 else self.newLastName)
+        if self.newAlbumTitle is not None:
+            oprot.writeFieldBegin('newAlbumTitle', TType.STRING, 2)
+            oprot.writeString(self.newAlbumTitle.encode('utf-8') if sys.version_info[0] == 2 else self.newAlbumTitle)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2047,21 +2356,18 @@ class UpdateConsumerName_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdateConsumerName_args)
-UpdateConsumerName_args.thrift_spec = (
+all_structs.append(UpdateAlbumTitle_args)
+UpdateAlbumTitle_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
-    (3, TType.STRING, 'newName', 'UTF8', None, ),  # 3
-    (4, TType.STRING, 'newLastName', 'UTF8', None, ),  # 4
+    (1, TType.I16, 'idAlbum', None, None, ),  # 1
+    (2, TType.STRING, 'newAlbumTitle', 'UTF8', None, ),  # 2
 )
 
 
-class UpdateConsumerName_result(object):
+class UpdateAlbumTitle_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
      - sErrorNotFoundE
      - sErrorSystemE
      - sErrorInvalidRequestE
@@ -2069,9 +2375,8 @@ class UpdateConsumerName_result(object):
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
         self.sErrorInvalidRequestE = sErrorInvalidRequestE
@@ -2087,29 +2392,23 @@ class UpdateConsumerName_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success = SpotifakeManagement.ttypes.Album()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 4:
+            elif fid == 3:
                 if ftype == TType.STRUCT:
                     self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
                     self.sErrorInvalidRequestE.read(iprot)
@@ -2124,25 +2423,21 @@ class UpdateConsumerName_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerName_result')
+        oprot.writeStructBegin('UpdateAlbumTitle_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
-            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
             self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
             self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2161,30 +2456,27 @@ class UpdateConsumerName_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdateConsumerName_result)
-UpdateConsumerName_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
-    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+all_structs.append(UpdateAlbumTitle_result)
+UpdateAlbumTitle_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class UpdateConsumerPassword_args(object):
+class UpdateAlbumCover_args(object):
     """
     Attributes:
-     - email
-     - currentPassword
-     - newPassword
+     - idAlbum
+     - newCoverStoragePath
 
     """
 
 
-    def __init__(self, email=None, currentPassword=None, newPassword=None,):
-        self.email = email
-        self.currentPassword = currentPassword
-        self.newPassword = newPassword
+    def __init__(self, idAlbum=None, newCoverStoragePath=None,):
+        self.idAlbum = idAlbum
+        self.newCoverStoragePath = newCoverStoragePath
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2196,18 +2488,13 @@ class UpdateConsumerPassword_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.newPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.newCoverStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2219,18 +2506,14 @@ class UpdateConsumerPassword_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerPassword_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+        oprot.writeStructBegin('UpdateAlbumCover_args')
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 1)
+            oprot.writeI16(self.idAlbum)
             oprot.writeFieldEnd()
-        if self.currentPassword is not None:
-            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
-            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
-            oprot.writeFieldEnd()
-        if self.newPassword is not None:
-            oprot.writeFieldBegin('newPassword', TType.STRING, 3)
-            oprot.writeString(self.newPassword.encode('utf-8') if sys.version_info[0] == 2 else self.newPassword)
+        if self.newCoverStoragePath is not None:
+            oprot.writeFieldBegin('newCoverStoragePath', TType.STRING, 2)
+            oprot.writeString(self.newCoverStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newCoverStoragePath)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2248,20 +2531,18 @@ class UpdateConsumerPassword_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdateConsumerPassword_args)
-UpdateConsumerPassword_args.thrift_spec = (
+all_structs.append(UpdateAlbumCover_args)
+UpdateAlbumCover_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
-    (3, TType.STRING, 'newPassword', 'UTF8', None, ),  # 3
+    (1, TType.I16, 'idAlbum', None, None, ),  # 1
+    (2, TType.STRING, 'newCoverStoragePath', 'UTF8', None, ),  # 2
 )
 
 
-class UpdateConsumerPassword_result(object):
+class UpdateAlbumCover_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
      - sErrorNotFoundE
      - sErrorSystemE
      - sErrorInvalidRequestE
@@ -2269,9 +2550,8 @@ class UpdateConsumerPassword_result(object):
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
         self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
         self.sErrorInvalidRequestE = sErrorInvalidRequestE
@@ -2287,29 +2567,23 @@ class UpdateConsumerPassword_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success = SpotifakeManagement.ttypes.Album()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 4:
+            elif fid == 3:
                 if ftype == TType.STRUCT:
                     self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
                     self.sErrorInvalidRequestE.read(iprot)
@@ -2324,25 +2598,21 @@ class UpdateConsumerPassword_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerPassword_result')
+        oprot.writeStructBegin('UpdateAlbumCover_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.STRUCT, 0)
             self.success.write(oprot)
             oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
-            oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
             self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
+            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 3)
             self.sErrorInvalidRequestE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2361,28 +2631,27 @@ class UpdateConsumerPassword_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdateConsumerPassword_result)
-UpdateConsumerPassword_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
-    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
+all_structs.append(UpdateAlbumCover_result)
+UpdateAlbumCover_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+    (3, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 3
 )
 
 
-class UpdateConsumerImage_args(object):
+class AddAlbumToLibrary_args(object):
     """
     Attributes:
-     - email
-     - newImageStoragePath
+     - idLibrary
+     - newAlbum
 
     """
 
 
-    def __init__(self, email=None, newImageStoragePath=None,):
-        self.email = email
-        self.newImageStoragePath = newImageStoragePath
+    def __init__(self, idLibrary=None, newAlbum=None,):
+        self.idLibrary = idLibrary
+        self.newAlbum = newAlbum
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2394,13 +2663,14 @@ class UpdateConsumerImage_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRING:
-                    self.newImageStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                if ftype == TType.STRUCT:
+                    self.newAlbum = SpotifakeManagement.ttypes.Album()
+                    self.newAlbum.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2412,14 +2682,14 @@ class UpdateConsumerImage_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerImage_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
+        oprot.writeStructBegin('AddAlbumToLibrary_args')
+        if self.idLibrary is not None:
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
-        if self.newImageStoragePath is not None:
-            oprot.writeFieldBegin('newImageStoragePath', TType.STRING, 2)
-            oprot.writeString(self.newImageStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newImageStoragePath)
+        if self.newAlbum is not None:
+            oprot.writeFieldBegin('newAlbum', TType.STRUCT, 2)
+            self.newAlbum.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2437,32 +2707,26 @@ class UpdateConsumerImage_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(UpdateConsumerImage_args)
-UpdateConsumerImage_args.thrift_spec = (
+all_structs.append(AddAlbumToLibrary_args)
+AddAlbumToLibrary_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'newImageStoragePath', 'UTF8', None, ),  # 2
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
+    (2, TType.STRUCT, 'newAlbum', [SpotifakeManagement.ttypes.Album, None], None, ),  # 2
 )
 
 
-class UpdateConsumerImage_result(object):
+class AddAlbumToLibrary_result(object):
     """
     Attributes:
      - success
-     - sErrorUserE
-     - sErrorNotFoundE
      - sErrorSystemE
-     - sErrorInvalidRequestE
 
     """
 
 
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
+    def __init__(self, success=None, sErrorSystemE=None,):
         self.success = success
-        self.sErrorUserE = sErrorUserE
-        self.sErrorNotFoundE = sErrorNotFoundE
         self.sErrorSystemE = sErrorSystemE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2475,32 +2739,170 @@ class UpdateConsumerImage_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
+                    self.success = SpotifakeManagement.ttypes.Album()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddAlbumToLibrary_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.STRUCT, 0)
+            self.success.write(oprot)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddAlbumToLibrary_result)
+AddAlbumToLibrary_result.thrift_spec = (
+    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class DeleteLibraryAlbum_args(object):
+    """
+    Attributes:
+     - idLibrary
+     - idAlbum
+
+    """
+
+
+    def __init__(self, idLibrary=None, idAlbum=None,):
+        self.idLibrary = idLibrary
+        self.idAlbum = idAlbum
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idLibrary = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteLibraryAlbum_args')
+        if self.idLibrary is not None:
+            oprot.writeFieldBegin('idLibrary', TType.I16, 1)
+            oprot.writeI16(self.idLibrary)
+            oprot.writeFieldEnd()
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 2)
+            oprot.writeI16(self.idAlbum)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteLibraryAlbum_args)
+DeleteLibraryAlbum_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idLibrary', None, None, ),  # 1
+    (2, TType.I16, 'idAlbum', None, None, ),  # 2
+)
+
+
+class DeleteLibraryAlbum_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
                 if ftype == TType.STRUCT:
                     self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
                     self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
-            elif fid == 3:
+            elif fid == 2:
                 if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
                 else:
                     iprot.skip(ftype)
             else:
@@ -2512,186 +2914,14 @@ class UpdateConsumerImage_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('UpdateConsumerImage_result')
+        oprot.writeStructBegin('DeleteLibraryAlbum_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
             self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
-            self.sErrorInvalidRequestE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateConsumerImage_result)
-UpdateConsumerImage_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
-    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
-)
-
-
-class LoginConsumer_args(object):
-    """
-    Attributes:
-     - email
-     - password
-
-    """
-
-
-    def __init__(self, email=None, password=None,):
-        self.email = email
-        self.password = password
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.password = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('LoginConsumer_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
-            oprot.writeFieldEnd()
-        if self.password is not None:
-            oprot.writeFieldBegin('password', TType.STRING, 2)
-            oprot.writeString(self.password.encode('utf-8') if sys.version_info[0] == 2 else self.password)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(LoginConsumer_args)
-LoginConsumer_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'password', 'UTF8', None, ),  # 2
-)
-
-
-class LoginConsumer_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorUserE
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorUserE=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorUserE = sErrorUserE
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('LoginConsumer_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
@@ -2713,26 +2943,24 @@ class LoginConsumer_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(LoginConsumer_result)
-LoginConsumer_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
+all_structs.append(DeleteLibraryAlbum_result)
+DeleteLibraryAlbum_result.thrift_spec = (
+    (0, TType.I16, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 
 
-class AddImageToMedia_args(object):
+class GetAlbumByQuery_args(object):
     """
     Attributes:
-     - fileName
-     - image
+     - query
 
     """
 
 
-    def __init__(self, fileName=None, image=None,):
-        self.fileName = fileName
-        self.image = image
+    def __init__(self, query=None,):
+        self.query = query
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2745,84 +2973,88 @@ class AddImageToMedia_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.query = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetAlbumByQuery_args')
+        if self.query is not None:
+            oprot.writeFieldBegin('query', TType.STRING, 1)
+            oprot.writeString(self.query.encode('utf-8') if sys.version_info[0] == 2 else self.query)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetAlbumByQuery_args)
+GetAlbumByQuery_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'query', 'UTF8', None, ),  # 1
+)
+
+
+class GetAlbumByQuery_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorNotFoundE
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorNotFoundE=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorNotFoundE = sErrorNotFoundE
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype73, _size70) = iprot.readListBegin()
+                    for _i74 in range(_size70):
+                        _elem75 = SpotifakeManagement.ttypes.Album()
+                        _elem75.read(iprot)
+                        self.success.append(_elem75)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
+                    self.sErrorNotFoundE.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRING:
-                    self.image = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('AddImageToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        if self.image is not None:
-            oprot.writeFieldBegin('image', TType.STRING, 2)
-            oprot.writeBinary(self.image)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(AddImageToMedia_args)
-AddImageToMedia_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'image', 'BINARY', None, ),  # 2
-)
-
-
-class AddImageToMedia_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.BOOL:
-                    self.success = iprot.readBool()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
                 if ftype == TType.STRUCT:
                     self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
                     self.sErrorSystemE.read(iprot)
@@ -2837,13 +3069,20 @@ class AddImageToMedia_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddImageToMedia_result')
+        oprot.writeStructBegin('GetAlbumByQuery_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.BOOL, 0)
-            oprot.writeBool(self.success)
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter76 in self.success:
+                iter76.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorNotFoundE is not None:
+            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 1)
+            self.sErrorNotFoundE.write(oprot)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 2)
             self.sErrorSystemE.write(oprot)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2862,146 +3101,11 @@ class AddImageToMedia_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddImageToMedia_result)
-AddImageToMedia_result.thrift_spec = (
-    (0, TType.BOOL, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class GetImageToMedia_args(object):
-    """
-    Attributes:
-     - fileName
-
-    """
-
-
-    def __init__(self, fileName=None,):
-        self.fileName = fileName
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetImageToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetImageToMedia_args)
-GetImageToMedia_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-)
-
-
-class GetImageToMedia_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRING:
-                    self.success = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetImageToMedia_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRING, 0)
-            oprot.writeBinary(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetImageToMedia_result)
-GetImageToMedia_result.thrift_spec = (
-    (0, TType.STRING, 'success', 'BINARY', None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+all_structs.append(GetAlbumByQuery_result)
+GetAlbumByQuery_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Album, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
+    (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
 )
 fix_spec(all_structs)
 del all_structs
