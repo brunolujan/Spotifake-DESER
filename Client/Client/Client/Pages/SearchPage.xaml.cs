@@ -23,15 +23,15 @@ namespace Client.Pages {
         }
 
         private void HiddenLists() {
-            ListViewTracks.Visibility = Visibility.Hidden;
+            datagrid_SearchTracks.Visibility = Visibility.Hidden;
         }
 
         public async void GetTrackByQuery() {
             try
             {
-                ListViewTracks.Visibility = Visibility.Visible;
+                datagrid_SearchTracks.Visibility = Visibility.Visible;
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByQueryAsync(TextBox_search.Text);
-                ListViewTracks.ItemsSource = tracks;
+                datagrid_SearchTracks.ItemsSource = tracks.Select(x => new { NUM = x.TrackNumber, TITLE = x.Title, SECONDS = x.DurationSeconds}); 
             }
             catch (Exception ex)
             {
@@ -66,5 +66,6 @@ namespace Client.Pages {
             }
 
         }
+
     }
 }

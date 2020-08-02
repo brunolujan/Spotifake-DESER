@@ -18,7 +18,7 @@
         <TextBlock Grid.Row="0" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center">
         </TextBlock>
         <ComboBox x:Name="ComboBox_filter" Height="auto" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,25,0,0" 
-                   materialDesign:HintAssist.Foreground="White" materialDesign:TextFieldAssist.UnderlineBrush="White" Foreground="Black"
+                   materialDesign:HintAssist.Foreground="WhiteSmoke" materialDesign:TextFieldAssist.UnderlineBrush="WhiteSmoke" Foreground="Black"
                    materialDesign:ColorZoneAssist.Mode="Inverted">
             <ComboBoxItem IsSelected="True">
                 Tracks
@@ -39,19 +39,6 @@
                      materialDesign:HintAssist.Foreground="White" Margin="160,10,0,0" />
         <Button  x:Name="Button_search" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="Buscar"  Height="20" Width="30" Margin="350,33,0,0" Click="Button_search_Click">
         </Button>
-        <DataGrid x:Name="datagrid_Search" HorizontalAlignment="Center" Height="350" Margin="70" Grid.Row="1" VerticalAlignment="Center"
-                  Width="700"  Background="#FF181818" BorderBrush="{x:Null}" FontFamily="Gotham Medium" FontSize="20"/>
-        <ListView Grid.Row="0"  x:Name="ListViewTracks"  ItemsSource="{Binding Track}" VerticalAlignment="Top" FontSize="15" 
-                  HorizontalAlignment="Center"  Visibility="Hidden">
-            <ListView.View >
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding title}" Width="0">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Content="Title" IsHitTestVisible="False" ></GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid x:Name="datagrid_SearchTracks" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
     </Grid>
 </Page>
