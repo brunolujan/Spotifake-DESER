@@ -317,6 +317,9 @@
     <Compile Include="Pages\AlbumsPages.xaml.cs">
       <DependentUpon>AlbumsPages.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ConfigurationConsumerPage.xaml.cs">
+      <DependentUpon>ConfigurationConsumerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ContentCreatorsPages.xaml.cs">
       <DependentUpon>ContentCreatorsPages.xaml</DependentUpon>
     </Compile>
@@ -361,23 +364,27 @@
     </Page>
     <Page Include="Pages\AlbumsPages.xaml">
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Pages\ConfigurationConsumerPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ContentCreatorsPages.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\PlaylistsPages.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\SearchPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\TracksPages.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>

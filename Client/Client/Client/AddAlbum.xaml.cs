@@ -173,7 +173,7 @@ namespace Client {
 
         private void button_SelectFile_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog ofd = new OpenFileDialog();
-            var resultado = ofd.ShowDialog ();
+            var resultado = ofd.ShowDialog();
             path = "";
             if (resultado == true) {
                 path = ofd.FileName;
