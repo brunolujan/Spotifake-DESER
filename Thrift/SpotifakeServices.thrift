@@ -177,7 +177,20 @@ service ConsumerService {
     *       true or false.
     **/
 
-    bool AddTrackToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+    bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+
+    /**
+    *   Get image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return binary
+    *       binary image.
+    **/
+
+    binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service ContentCreatorService {
@@ -677,6 +690,18 @@ service TrackService {
     *
     *   @return bool
     *       true or false.
+    **/
+
+    bool AddTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get track file binary
+    *
+    *   @param fileName
+    *       The fileName that will be get.
+    *
+    *   @return binary
+    *       binary number audio.
     **/
 
     bool AddTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
