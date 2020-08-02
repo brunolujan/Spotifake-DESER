@@ -90,9 +90,12 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
     def GetContentCreatorByQuery(self, query):
         contentCreatorList = []
         contentCreatorFound =  SqlServerContentCreatorManagement.GetContentCreatorByQuery(self, query)
-        if self.connection.cursor.rowcount != 0:
+        if  contentCreatorFound != 0:
                 for n in contentCreatorFound:
-                    contentCreator = ContentCreator(n.IdContentCreator,n.stageName,n.description)
-                    albumList.append(contentCreator)
+                    contentCreatorAux = ContentCreator()            
+                    contentCreatorAux.idContentCreator = n.IdContentCreator
+                    contentCreatorAux.stageName = n.stageName
+                    contentCreatorAux.description = n.description
+                    contentCreatorList.append(contentCreatorAux)
                 return contentCreatorList        
         return False

@@ -81,12 +81,13 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
 
     def GetPlaylistByQuery(self, query):
         playlistList = []
-        playlistFound =  SqlServerPLaylistManagement.GetPlaylistByQuery(self, query)
-        if self.connection.cursor.rowcount != 0:
+        playlistFound =  SqlServerPlaylistManagement.GetPlaylistByQuery(self, query)
+        if playlistFound != 0:
                 for n in playlistFound:
-                    playlist = Playlist(n.IdPlaylist,n.title,n.coverPath,n.creationDate,n.description)
-                    playlist.consumer.idConsumer = n.idConsumer
-                    album.consumer.name = n.name
-                    albumList.append(playlist)
-                return playlisList        
+                    playlistAux = Playlist()
+                    playlistAux.idPlaylist = n.IdPlaylist
+                    playlistAux.name = n.title
+                    playlistAux.description = n.description
+                    playlistList.append(playlistAux)
+                return playlistList        
         return False
