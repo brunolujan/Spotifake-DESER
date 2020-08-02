@@ -31,7 +31,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Id DeleteConsumer(string email)')
     print('  Consumer UpdateConsumerName(string email, string currentPassword, string newName, string newLastName)')
     print('  Consumer UpdateConsumerPassword(string email, string currentPassword, string newPassword)')
-    print('  Consumer UpdateConsumerImage(string email, string fileName)')
+    print('  bool UpdateConsumerImage(string email, string fileName)')
     print('  Consumer LoginConsumer(string email, string password)')
     print('  bool AddImageToMedia(string fileName, string image)')
     print('  string GetImageToMedia(string fileName)')

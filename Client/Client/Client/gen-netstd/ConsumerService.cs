@@ -146,7 +146,7 @@ public partial class ConsumerService
     /// </summary>
     /// <param name="email"></param>
     /// <param name="fileName"></param>
-    Task<Consumer> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken));
+    Task<bool> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Allows the login of a consumer
@@ -502,7 +502,7 @@ public partial class ConsumerService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerPassword failed: unknown result");
     }
 
-    public async Task<Consumer> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Call, SeqId), cancellationToken);
       
@@ -4488,13 +4488,13 @@ public partial class ConsumerService
 
   public partial class UpdateConsumerImageResult : TBase
   {
-    private Consumer _success;
+    private bool _success;
     private SErrorUserException _sErrorUserE;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
     private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public Consumer Success
+    public bool Success
     {
       get
       {
@@ -4592,10 +4592,9 @@ public partial class ConsumerService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -4673,15 +4672,12 @@ public partial class ConsumerService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorUserE)
         {
@@ -4773,12 +4769,12 @@ public partial class ConsumerService
     {
       var sb = new StringBuilder("UpdateConsumerImage_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorUserE != null && __isset.sErrorUserE)
       {

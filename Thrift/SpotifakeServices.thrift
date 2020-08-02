@@ -145,7 +145,7 @@ service ConsumerService {
     *       Modified Consumer obejct.
     **/
 
-    SpotifakeManagement.Consumer UpdateConsumerImage(1: string email, 2: string fileName) 
+    bool UpdateConsumerImage(1: string email, 2: string fileName) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
