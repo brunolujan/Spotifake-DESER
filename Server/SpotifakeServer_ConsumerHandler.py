@@ -46,3 +46,15 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
             return True
         else:
             return False
+
+    def AddImageToMedia(self, fileName, image):
+        file = open("../Media/Imges/"+fileName+".jpg", 'wb')
+        file.write(audio)
+        file.close()
+        return True
+
+    def GetImageToMedia(self, fileName):
+        file = open("../Media/Imges/"+fileName+".jpg", 'r')
+        imageBytes = file.read()
+        file.close()
+        return imageBytes

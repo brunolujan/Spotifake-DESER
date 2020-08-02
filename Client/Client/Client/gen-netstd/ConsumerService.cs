@@ -145,8 +145,8 @@ public partial class ConsumerService
     /// 
     /// </summary>
     /// <param name="email"></param>
-    /// <param name="newImageStoragePath"></param>
-    Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="fileName"></param>
+    Task<Consumer> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Allows the login of a consumer
@@ -502,13 +502,13 @@ public partial class ConsumerService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateConsumerPassword failed: unknown result");
     }
 
-    public async Task<Consumer> UpdateConsumerImageAsync(string email, string newImageStoragePath, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Consumer> UpdateConsumerImageAsync(string email, string fileName, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateConsumerImage", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new UpdateConsumerImageArgs();
       args.Email = email;
-      args.NewImageStoragePath = newImageStoragePath;
+      args.FileName = fileName;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1028,7 +1028,7 @@ public partial class ConsumerService
       {
         try
         {
-          result.Success = await _iAsync.UpdateConsumerImageAsync(args.Email, args.NewImageStoragePath, cancellationToken);
+          result.Success = await _iAsync.UpdateConsumerImageAsync(args.Email, args.FileName, cancellationToken);
         }
         catch (SErrorUserException sErrorUserE)
         {
@@ -4314,7 +4314,7 @@ public partial class ConsumerService
   public partial class UpdateConsumerImageArgs : TBase
   {
     private string _email;
-    private string _newImageStoragePath;
+    private string _fileName;
 
     public string Email
     {
@@ -4329,16 +4329,16 @@ public partial class ConsumerService
       }
     }
 
-    public string NewImageStoragePath
+    public string FileName
     {
       get
       {
-        return _newImageStoragePath;
+        return _fileName;
       }
       set
       {
-        __isset.newImageStoragePath = true;
-        this._newImageStoragePath = value;
+        __isset.fileName = true;
+        this._fileName = value;
       }
     }
 
@@ -4347,7 +4347,7 @@ public partial class ConsumerService
     public struct Isset
     {
       public bool email;
-      public bool newImageStoragePath;
+      public bool fileName;
     }
 
     public UpdateConsumerImageArgs()
@@ -4384,7 +4384,7 @@ public partial class ConsumerService
             case 2:
               if (field.Type == TType.String)
               {
-                NewImageStoragePath = await iprot.ReadStringAsync(cancellationToken);
+                FileName = await iprot.ReadStringAsync(cancellationToken);
               }
               else
               {
@@ -4424,13 +4424,13 @@ public partial class ConsumerService
           await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewImageStoragePath != null && __isset.newImageStoragePath)
+        if (FileName != null && __isset.fileName)
         {
-          field.Name = "newImageStoragePath";
+          field.Name = "fileName";
           field.Type = TType.String;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewImageStoragePath, cancellationToken);
+          await oprot.WriteStringAsync(FileName, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -4448,7 +4448,7 @@ public partial class ConsumerService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.newImageStoragePath == other.__isset.newImageStoragePath) && ((!__isset.newImageStoragePath) || (System.Object.Equals(NewImageStoragePath, other.NewImageStoragePath))));
+        && ((__isset.fileName == other.__isset.fileName) && ((!__isset.fileName) || (System.Object.Equals(FileName, other.FileName))));
     }
 
     public override int GetHashCode() {
@@ -4456,8 +4456,8 @@ public partial class ConsumerService
       unchecked {
         if(__isset.email)
           hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.newImageStoragePath)
-          hashcode = (hashcode * 397) + NewImageStoragePath.GetHashCode();
+        if(__isset.fileName)
+          hashcode = (hashcode * 397) + FileName.GetHashCode();
       }
       return hashcode;
     }
@@ -4473,12 +4473,12 @@ public partial class ConsumerService
         sb.Append("Email: ");
         sb.Append(Email);
       }
-      if (NewImageStoragePath != null && __isset.newImageStoragePath)
+      if (FileName != null && __isset.fileName)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewImageStoragePath: ");
-        sb.Append(NewImageStoragePath);
+        sb.Append("FileName: ");
+        sb.Append(FileName);
       }
       sb.Append(")");
       return sb.ToString();

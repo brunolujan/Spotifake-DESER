@@ -154,7 +154,7 @@ class Iface(object):
         """
         pass
 
-    def UpdateConsumerImage(self, email, newImageStoragePath):
+    def UpdateConsumerImage(self, email, fileName):
         """
          
         Update previously registered Consumer image.
@@ -168,7 +168,7 @@ class Iface(object):
 
         Parameters:
          - email
-         - newImageStoragePath
+         - fileName
 
         """
         pass
@@ -588,7 +588,7 @@ class Client(Iface):
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateConsumerPassword failed: unknown result")
 
-    def UpdateConsumerImage(self, email, newImageStoragePath):
+    def UpdateConsumerImage(self, email, fileName):
         """
          
         Update previously registered Consumer image.
@@ -602,17 +602,17 @@ class Client(Iface):
 
         Parameters:
          - email
-         - newImageStoragePath
+         - fileName
 
         """
-        self.send_UpdateConsumerImage(email, newImageStoragePath)
+        self.send_UpdateConsumerImage(email, fileName)
         return self.recv_UpdateConsumerImage()
 
-    def send_UpdateConsumerImage(self, email, newImageStoragePath):
+    def send_UpdateConsumerImage(self, email, fileName):
         self._oprot.writeMessageBegin('UpdateConsumerImage', TMessageType.CALL, self._seqid)
         args = UpdateConsumerImage_args()
         args.email = email
-        args.newImageStoragePath = newImageStoragePath
+        args.fileName = fileName
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1046,7 +1046,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = UpdateConsumerImage_result()
         try:
-            result.success = self._handler.UpdateConsumerImage(args.email, args.newImageStoragePath)
+            result.success = self._handler.UpdateConsumerImage(args.email, args.fileName)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -2375,14 +2375,14 @@ class UpdateConsumerImage_args(object):
     """
     Attributes:
      - email
-     - newImageStoragePath
+     - fileName
 
     """
 
 
-    def __init__(self, email=None, newImageStoragePath=None,):
+    def __init__(self, email=None, fileName=None,):
         self.email = email
-        self.newImageStoragePath = newImageStoragePath
+        self.fileName = fileName
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2400,7 +2400,7 @@ class UpdateConsumerImage_args(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.newImageStoragePath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2417,9 +2417,9 @@ class UpdateConsumerImage_args(object):
             oprot.writeFieldBegin('email', TType.STRING, 1)
             oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
-        if self.newImageStoragePath is not None:
-            oprot.writeFieldBegin('newImageStoragePath', TType.STRING, 2)
-            oprot.writeString(self.newImageStoragePath.encode('utf-8') if sys.version_info[0] == 2 else self.newImageStoragePath)
+        if self.fileName is not None:
+            oprot.writeFieldBegin('fileName', TType.STRING, 2)
+            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2441,7 +2441,7 @@ all_structs.append(UpdateConsumerImage_args)
 UpdateConsumerImage_args.thrift_spec = (
     None,  # 0
     (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'newImageStoragePath', 'UTF8', None, ),  # 2
+    (2, TType.STRING, 'fileName', 'UTF8', None, ),  # 2
 )
 
 
