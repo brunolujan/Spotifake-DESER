@@ -22,29 +22,29 @@ namespace Client {
         public Main() {
             InitializeComponent();
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            LoadImageBytes();
+            //LoadImageBytes();
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
         }
 
-        private async void LoadImageBytes() {
-            image_Consumer.Source = LoadImage(await Session.serverConnection.consumerService.GetImageToMediaAsync(Session.consumer.ImageStoragePath));
-            image_Consumer.Stretch = Stretch.Uniform;
-        }
+        //private async void LoadImageBytes() {
+        //    image_Consumer.Source = LoadImage(await Session.serverConnection.consumerService.GetImageToMediaAsync(Session.consumer.ImageStoragePath));
+        //    image_Consumer.Stretch = Stretch.Uniform;
+        //}
 
-        private BitmapImage LoadImage(byte[] bytes) {
-            try {
-                MemoryStream ms = new MemoryStream(bytes);
-                BitmapImage src = new BitmapImage();
-                src.BeginInit();
-                src.CacheOption = BitmapCacheOption.OnLoad;
-                src.StreamSource = ms;
-                src.EndInit();
-                return src;
-            } catch (Exception ex) {
-                Console.WriteLine(ex + " in AddAlbum LoadImage");
-                return null;
-            }
-        }
+        //private BitmapImage LoadImage(byte[] bytes) {
+        //    try {
+        //        MemoryStream ms = new MemoryStream(bytes);
+        //        BitmapImage src = new BitmapImage();
+        //        src.BeginInit();
+        //        src.CacheOption = BitmapCacheOption.OnLoad;
+        //        src.StreamSource = ms;
+        //        src.EndInit();
+        //        return src;
+        //    } catch (Exception ex) {
+        //        Console.WriteLine(ex + " in AddAlbum LoadImage");
+        //        return null;
+        //    }
+        //}
 
         private void button_Settings_Click(object sender, RoutedEventArgs e) {
             flyout.IsOpen = true;

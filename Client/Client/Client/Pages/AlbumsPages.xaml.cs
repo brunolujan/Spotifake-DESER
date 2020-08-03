@@ -26,5 +26,13 @@ namespace Client.Pages {
             List<Album> albums = await Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(Session.library.IdLibrary);
             datagrid_Album.ItemsSource = albums;
         }
+
+        private void datagrid_Album_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var albumAux = (Album)datagrid_Album.SelectedItem;
+            if(albumAux != null)
+            {
+                NavigationService.Navigate(new TrackAlbum(albumAux));
+            }
+        }
     }
 }

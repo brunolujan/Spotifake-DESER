@@ -26,5 +26,14 @@ namespace Client.Pages {
             List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByLibraryIdAsync(Session.library.IdLibrary);
             datagrid_Playlist.ItemsSource = playlists;
         }
+
+
+        private void datagrid_Playlist_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var playlistAux = (Playlist)datagrid_Playlist.SelectedItem;
+            if (playlistAux != null)
+            {
+                NavigationService.Navigate(new TracksPlaylistPage(playlistAux));
+            }
+        }
     }
 }

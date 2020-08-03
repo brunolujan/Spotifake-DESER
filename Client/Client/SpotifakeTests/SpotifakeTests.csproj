@@ -52,6 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowContentCreator.xaml.cs">
+      <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowTests.cs" />
     <Compile Include="SignUpTests.cs" />
     <Compile Include="LoginTests.cs" />
@@ -66,6 +69,12 @@
       <Project>{dee2cc3d-e7d2-46e7-bd5c-fe7a2dab807f}</Project>
       <Name>Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindowContentCreator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

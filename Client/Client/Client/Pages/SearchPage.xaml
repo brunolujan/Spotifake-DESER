@@ -17,28 +17,32 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center">
         </TextBlock>
-        <ComboBox x:Name="ComboBox_filter" Height="auto" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,25,0,0" 
-                   materialDesign:HintAssist.Foreground="WhiteSmoke" materialDesign:TextFieldAssist.UnderlineBrush="WhiteSmoke" Foreground="Black"
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <ComboBox x:Name="ComboBox_filter" Height="auto" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,25,0,0" 
+                   materialDesign:HintAssist.Foreground="WhiteSmoke" materialDesign:TextFieldAssist.UnderlineBrush="WhiteSmoke" Foreground="White"
                    materialDesign:ColorZoneAssist.Mode="Inverted">
-            <ComboBoxItem IsSelected="True">
-                Tracks
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Artists
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Albums
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Playlists
-            </ComboBoxItem>
-        </ComboBox>
-        <TextBox x:Name="TextBox_search" materialDesign:HintAssist.Hint="Search" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="auto"  Foreground="{DynamicResource TextColor}" 
+                <ComboBoxItem IsSelected="True">
+                    Tracks
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Artists
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Albums
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Playlists
+                </ComboBoxItem>
+            </ComboBox>
+            <TextBox x:Name="TextBox_search" materialDesign:HintAssist.Hint="Search" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"   Foreground="{DynamicResource TextColor}" 
                  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource TextColor}"
-                     materialDesign:HintAssist.Foreground="White" Margin="160,10,0,0" />
-        <Button  x:Name="Button_search" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="Buscar"  Height="20" Width="30" Margin="350,33,0,0" Click="Button_search_Click">
-        </Button>
+                     materialDesign:HintAssist.Foreground="White" Margin="40,10,0,0" />
+            <Button  x:Name="Button_search"  Background="#FF1CC357"   Content="Buscar" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="80" Margin="30,33,0,0" Click="Button_search_Click">
+            </Button>
+        </StackPanel>
+        
+
         <DataGrid x:Name="datagrid_SearchTracks" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
         <DataGrid x:Name="datagrid_SearchAlbums" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
         <DataGrid x:Name="datagrid_SearchContentCreators" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
