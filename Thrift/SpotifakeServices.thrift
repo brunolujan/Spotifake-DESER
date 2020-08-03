@@ -191,6 +191,18 @@ service ConsumerService {
     **/
 
     binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Delete image file binary
+    *
+    *   @param fileName
+    *       The fileName of file that will be delete.
+    *
+    *   @return bool
+    *       True or False
+    **/
+
+    bool DeleteImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service ContentCreatorService {
@@ -454,6 +466,18 @@ service ContentCreatorService {
     **/
 
     binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Delete image file binary
+    *
+    *   @param fileName
+    *       The fileName of file that will be delete.
+    *
+    *   @return bool
+    *       True or False
+    **/
+
+    bool DeleteImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service TrackService {
@@ -919,6 +943,18 @@ service AlbumService {
     **/
 
     bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return binary
+    *       binary image.
+    **/
+
+    binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service PlaylistService {
@@ -1055,6 +1091,18 @@ service PlaylistService {
     **/
 
     bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Get image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return binary
+    *       binary image.
+    **/
+
+    binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service LibraryService {

@@ -33,6 +33,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Playlist UpdatePlaylistDescription(Id idPlaylist, string newDescription)')
     print('   GetPlaylistByQuery(string query)')
     print('  bool AddImageToMedia(string fileName, string image)')
+    print('  string GetImageToMedia(string fileName)')
     print('')
     sys.exit(0)
 
@@ -165,6 +166,12 @@ elif cmd == 'AddImageToMedia':
         print('AddImageToMedia requires 2 args')
         sys.exit(1)
     pp.pprint(client.AddImageToMedia(args[0], args[1],))
+
+elif cmd == 'GetImageToMedia':
+    if len(args) != 1:
+        print('GetImageToMedia requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.GetImageToMedia(args[0],))
 
 else:
     print('Unrecognized method %s' % cmd)

@@ -158,6 +158,19 @@ public partial class PlaylistService
     /// <param name="image"></param>
     Task<bool> AddImageToMediaAsync(string fileName, byte[] image, CancellationToken cancellationToken = default(CancellationToken));
 
+    /// <summary>
+    /// Get image file binary
+    /// 
+    /// @param binary image
+    ///     The binary number that will be keep.
+    /// 
+    /// @return binary
+    ///     binary image.
+    /// 
+    /// </summary>
+    /// <param name="fileName"></param>
+    Task<byte[]> GetImageToMediaAsync(string fileName, CancellationToken cancellationToken = default(CancellationToken));
+
   }
 
 
@@ -508,6 +521,39 @@ public partial class PlaylistService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "AddImageToMedia failed: unknown result");
     }
 
+    public async Task<byte[]> GetImageToMediaAsync(string fileName, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetImageToMedia", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new GetImageToMediaArgs();
+      args.FileName = fileName;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new GetImageToMediaResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetImageToMedia failed: unknown result");
+    }
+
   }
 
   public class AsyncProcessor : ITAsyncProcessor
@@ -528,6 +574,7 @@ public partial class PlaylistService
       processMap_["UpdatePlaylistDescription"] = UpdatePlaylistDescription_ProcessAsync;
       processMap_["GetPlaylistByQuery"] = GetPlaylistByQuery_ProcessAsync;
       processMap_["AddImageToMedia"] = AddImageToMedia_ProcessAsync;
+      processMap_["GetImageToMedia"] = GetImageToMedia_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -915,6 +962,41 @@ public partial class PlaylistService
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
         await oprot.WriteMessageBeginAsync(new TMessage("AddImageToMedia", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task GetImageToMedia_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new GetImageToMediaArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new GetImageToMediaResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.GetImageToMediaAsync(args.FileName, cancellationToken);
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("GetImageToMedia", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("GetImageToMedia", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -4463,6 +4545,320 @@ public partial class PlaylistService
       var sb = new StringBuilder("AddImageToMedia_result(");
       bool __first = true;
       if (__isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetImageToMediaArgs : TBase
+  {
+    private string _fileName;
+
+    public string FileName
+    {
+      get
+      {
+        return _fileName;
+      }
+      set
+      {
+        __isset.fileName = true;
+        this._fileName = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool fileName;
+    }
+
+    public GetImageToMediaArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.String)
+              {
+                FileName = await iprot.ReadStringAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetImageToMedia_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (FileName != null && __isset.fileName)
+        {
+          field.Name = "fileName";
+          field.Type = TType.String;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteStringAsync(FileName, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetImageToMediaArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.fileName == other.__isset.fileName) && ((!__isset.fileName) || (System.Object.Equals(FileName, other.FileName))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.fileName)
+          hashcode = (hashcode * 397) + FileName.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetImageToMedia_args(");
+      bool __first = true;
+      if (FileName != null && __isset.fileName)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("FileName: ");
+        sb.Append(FileName);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetImageToMediaResult : TBase
+  {
+    private byte[] _success;
+    private SErrorSystemException _sErrorSystemE;
+
+    public byte[] Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorSystemE;
+    }
+
+    public GetImageToMediaResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.String)
+              {
+                Success = await iprot.ReadBinaryAsync(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetImageToMedia_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.String;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await oprot.WriteBinaryAsync(Success, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetImageToMediaResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (TCollections.Equals(Success, other.Success))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + Success.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetImageToMedia_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;

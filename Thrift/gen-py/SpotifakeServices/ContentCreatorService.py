@@ -345,6 +345,23 @@ class Iface(object):
         """
         pass
 
+    def DeleteImageToMedia(self, fileName):
+        """
+        Delete image file binary
+
+        @param fileName
+            The fileName of file that will be delete.
+
+        @return bool
+            True or False
+
+
+        Parameters:
+         - fileName
+
+        """
+        pass
+
 
 class Client(Iface):
     def __init__(self, iprot, oprot=None):
@@ -1220,6 +1237,49 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetImageToMedia failed: unknown result")
 
+    def DeleteImageToMedia(self, fileName):
+        """
+        Delete image file binary
+
+        @param fileName
+            The fileName of file that will be delete.
+
+        @return bool
+            True or False
+
+
+        Parameters:
+         - fileName
+
+        """
+        self.send_DeleteImageToMedia(fileName)
+        return self.recv_DeleteImageToMedia()
+
+    def send_DeleteImageToMedia(self, fileName):
+        self._oprot.writeMessageBegin('DeleteImageToMedia', TMessageType.CALL, self._seqid)
+        args = DeleteImageToMedia_args()
+        args.fileName = fileName
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_DeleteImageToMedia(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = DeleteImageToMedia_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteImageToMedia failed: unknown result")
+
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
@@ -1243,6 +1303,7 @@ class Processor(Iface, TProcessor):
         self._processMap["GetContentCreatorByQuery"] = Processor.process_GetContentCreatorByQuery
         self._processMap["AddImageToMedia"] = Processor.process_AddImageToMedia
         self._processMap["GetImageToMedia"] = Processor.process_GetImageToMedia
+        self._processMap["DeleteImageToMedia"] = Processor.process_DeleteImageToMedia
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -1819,6 +1880,32 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetImageToMedia", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_DeleteImageToMedia(self, seqid, iprot, oprot):
+        args = DeleteImageToMedia_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = DeleteImageToMedia_result()
+        try:
+            result.success = self._handler.DeleteImageToMedia(args.fileName)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("DeleteImageToMedia", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -4847,6 +4934,142 @@ class GetImageToMedia_result(object):
 all_structs.append(GetImageToMedia_result)
 GetImageToMedia_result.thrift_spec = (
     (0, TType.STRING, 'success', 'BINARY', None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class DeleteImageToMedia_args(object):
+    """
+    Attributes:
+     - fileName
+
+    """
+
+
+    def __init__(self, fileName=None,):
+        self.fileName = fileName
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteImageToMedia_args')
+        if self.fileName is not None:
+            oprot.writeFieldBegin('fileName', TType.STRING, 1)
+            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteImageToMedia_args)
+DeleteImageToMedia_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
+)
+
+
+class DeleteImageToMedia_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('DeleteImageToMedia_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(DeleteImageToMedia_result)
+DeleteImageToMedia_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 fix_spec(all_structs)
