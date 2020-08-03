@@ -430,6 +430,30 @@ service ContentCreatorService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Add image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return bool
+    *       true or false.
+    **/
+
+    bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+
+    /**
+    *   Get image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return binary
+    *       binary image.
+    **/
+
+    binary GetImageToMedia(1:string fileName) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service TrackService {
@@ -884,6 +908,17 @@ service AlbumService {
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+    /**
+    *   Add image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return bool
+    *       true or false.
+    **/
+
+    bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service PlaylistService {
@@ -1008,6 +1043,18 @@ service PlaylistService {
     list<SpotifakeManagement.Playlist> GetPlaylistByQuery(1: string query) 
         throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
+    *   Add image file binary
+    *
+    *   @param binary image
+    *       The binary number that will be keep.
+    *
+    *   @return bool
+    *       true or false.
+    **/
+
+    bool AddImageToMedia(1:string fileName, 2:binary image) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service LibraryService {

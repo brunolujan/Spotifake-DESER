@@ -168,6 +168,24 @@ class Iface(object):
         """
         pass
 
+    def AddImageToMedia(self, fileName, image):
+        """
+        Add image file binary
+
+        @param binary image
+            The binary number that will be keep.
+
+        @return bool
+            true or false.
+
+
+        Parameters:
+         - fileName
+         - image
+
+        """
+        pass
+
 
 class Client(Iface):
     def __init__(self, iprot, oprot=None):
@@ -556,6 +574,51 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetPlaylistByQuery failed: unknown result")
 
+    def AddImageToMedia(self, fileName, image):
+        """
+        Add image file binary
+
+        @param binary image
+            The binary number that will be keep.
+
+        @return bool
+            true or false.
+
+
+        Parameters:
+         - fileName
+         - image
+
+        """
+        self.send_AddImageToMedia(fileName, image)
+        return self.recv_AddImageToMedia()
+
+    def send_AddImageToMedia(self, fileName, image):
+        self._oprot.writeMessageBegin('AddImageToMedia', TMessageType.CALL, self._seqid)
+        args = AddImageToMedia_args()
+        args.fileName = fileName
+        args.image = image
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddImageToMedia(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddImageToMedia_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddImageToMedia failed: unknown result")
+
 
 class Processor(Iface, TProcessor):
     def __init__(self, handler):
@@ -569,6 +632,7 @@ class Processor(Iface, TProcessor):
         self._processMap["UpdatePlaylistCover"] = Processor.process_UpdatePlaylistCover
         self._processMap["UpdatePlaylistDescription"] = Processor.process_UpdatePlaylistDescription
         self._processMap["GetPlaylistByQuery"] = Processor.process_GetPlaylistByQuery
+        self._processMap["AddImageToMedia"] = Processor.process_AddImageToMedia
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -822,6 +886,32 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
         oprot.writeMessageBegin("GetPlaylistByQuery", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
+
+    def process_AddImageToMedia(self, seqid, iprot, oprot):
+        args = AddImageToMedia_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddImageToMedia_result()
+        try:
+            result.success = self._handler.AddImageToMedia(args.fileName, args.image)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddImageToMedia", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -2115,6 +2205,154 @@ GetPlaylistByQuery_result.thrift_spec = (
     (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.Playlist, None], False), None, ),  # 0
     (1, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 2
+)
+
+
+class AddImageToMedia_args(object):
+    """
+    Attributes:
+     - fileName
+     - image
+
+    """
+
+
+    def __init__(self, fileName=None, image=None,):
+        self.fileName = fileName
+        self.image = image
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRING:
+                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.STRING:
+                    self.image = iprot.readBinary()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddImageToMedia_args')
+        if self.fileName is not None:
+            oprot.writeFieldBegin('fileName', TType.STRING, 1)
+            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
+            oprot.writeFieldEnd()
+        if self.image is not None:
+            oprot.writeFieldBegin('image', TType.STRING, 2)
+            oprot.writeBinary(self.image)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddImageToMedia_args)
+AddImageToMedia_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
+    (2, TType.STRING, 'image', 'BINARY', None, ),  # 2
+)
+
+
+class AddImageToMedia_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddImageToMedia_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddImageToMedia_result)
+AddImageToMedia_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 fix_spec(all_structs)
 del all_structs
