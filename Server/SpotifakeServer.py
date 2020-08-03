@@ -29,9 +29,11 @@ if __name__ == "__main__":
     processor.registerProcessor("LibraryService", LibraryService.Processor(SpotifakeServerLibraryHandler()))
 
     serverTransport = TSocket.TServerSocket(host="localhost", port=5000)
-    server = TServer.TSimpleServer(processor, serverTransport)
+    server = TServer.TSimpleServer(processor, serverTransport)  
 
     print("Starting service...")
+
+
 
     server.serve()
     
