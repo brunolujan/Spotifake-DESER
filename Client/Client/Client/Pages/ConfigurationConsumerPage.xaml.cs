@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,22 +28,32 @@ namespace Client.Pages {
 
         public ConfigurationConsumerPage() {
             InitializeComponent();
+            imageBytes = null;
             random = new Random();
+            LoadImageBytes();
         }
 
         private byte[] GetImageBytes(string filePath) {
             return File.ReadAllBytes(filePath);
         }
 
-        private void LoadImage(string path) {
+        private async void LoadImageBytes() {
+            image_Consumer.Source = LoadImage(await Session.serverConnection.consumerService.GetImageToMediaAsync(Session.consumer.ImageStoragePath));
+            image_Consumer.Stretch = Stretch.Uniform;
+        }
+
+        private BitmapImage LoadImage(byte[] bytes) {
             try {
+                MemoryStream ms = new MemoryStream(bytes);
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
-                src.UriSource = new Uri(path);
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
                 src.EndInit();
-                image_Consumer.Source = src;
+                return src;
             } catch (Exception ex) {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
+                return null;
             }
         }
 
@@ -51,9 +63,9 @@ namespace Client.Pages {
             string path = "";
             if (resultado == true) {
                 path = ofd.FileName;
-                LoadImage(path);
-                image_Consumer.Stretch = Stretch.Uniform;
                 imageBytes = GetImageBytes(path);
+                image_Consumer.Source = LoadImage(imageBytes);
+                image_Consumer.Stretch = Stretch.Uniform;
             }
         }
 

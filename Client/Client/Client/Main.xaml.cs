@@ -21,16 +21,15 @@ namespace Client {
         public Main() {
             InitializeComponent();
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            if (Session.consumer.ImageStoragePath == null)
+            /*if (Session.consumer.ImageStoragePath == null)
             {
                 image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
             }
             else
             {
                 image.Fill = LoadImage(Session.consumer.ImageStoragePath);
-            }
+            }*/
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
-
         }
 
         private ImageBrush LoadImage(string path) {
