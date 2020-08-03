@@ -340,11 +340,11 @@ service ContentCreatorService {
     *   @param email
     *       The Content Creator Email of the Consumer which require an update image.
     *
-    *   @return ContentCreator
-    *       Modified Content Creator obejct.
+    *   @return bool
+    *       True or False
     **/
 
-    SpotifakeManagement.ContentCreator UpdateContentCreatorImage(1: string email, 2: string newImageStoragePath) 
+    bool UpdateContentCreatorImage(1: string email, 2: string fileName) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
