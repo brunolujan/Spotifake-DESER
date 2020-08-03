@@ -63,6 +63,23 @@ class SqlServerTrackManagement:
         row = connection.cursor.fetchall()
         return row
 
+    def GetTrackByPlaylistId(self,idPlaylist:int):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPC_GetTracksByIdPlaylist]
+                    @idPlaylist= ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        connection.cursor.execute(sql, idPlaylist)
+        row = connection.cursor.fetchall()
+        return row
+
     def GetTrackByIdLibrary(self,idLibrary:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
