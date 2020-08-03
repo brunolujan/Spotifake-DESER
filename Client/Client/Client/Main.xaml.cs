@@ -1,6 +1,7 @@
 ﻿using Client.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,38 +22,29 @@ namespace Client {
         public Main() {
             InitializeComponent();
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            /*if (Session.consumer.ImageStoragePath == null)
-            {
-                image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
-            }
-            else
-            {
-                image.Fill = LoadImage(Session.consumer.ImageStoragePath);
-            }*/
+            LoadImageBytes();
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
         }
 
-        private ImageBrush LoadImage(string path) {
-            try
-            {
-                Image imageX = new Image();
+        private async void LoadImageBytes() {
+            image_Consumer.Source = LoadImage(await Session.serverConnection.consumerService.GetImageToMediaAsync(Session.consumer.ImageStoragePath));
+            image_Consumer.Stretch = Stretch.Uniform;
+        }
+
+        private BitmapImage LoadImage(byte[] bytes) {
+            try {
+                MemoryStream ms = new MemoryStream(bytes);
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
-                src.UriSource = new Uri(path);
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
                 src.EndInit();
-                imageX.Source = src;
-
-                ImageBrush ib = new ImageBrush();
-                ib.ImageSource = src;
-                return ib;
-            }
-            catch (Exception ex)
-            {
+                return src;
+            } catch (Exception ex) {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
                 return null;
             }
         }
-
 
         private void button_Settings_Click(object sender, RoutedEventArgs e) {
             flyout.IsOpen = true;
@@ -66,6 +58,7 @@ namespace Client {
 
         private void button_Configuration_Click(object sender, RoutedEventArgs e) {
             centralFrame.Navigate(new ConfigurationConsumerPage());
+            flyout.IsOpen = false;
         }
 
         private void button_Back_Click(object sender, RoutedEventArgs e) {

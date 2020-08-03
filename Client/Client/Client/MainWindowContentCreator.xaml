@@ -364,7 +364,6 @@
                 <ImageBrush ImageSource="Resources/Button_Search.png" Stretch="Uniform"/>
             </Button.Background>
         </Button>
-        <Rectangle x:Name="image" HorizontalAlignment="Left" Height="129" Margin="63,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="129" RadiusY="63.9" RadiusX="63.9" Grid.RowSpan="2" Fill="White"/>
         <TextBlock x:Name="label_Title" HorizontalAlignment="Left" Margin="295,27.8,0,0" TextWrapping="Wrap" Text="MY ALBUMS" VerticalAlignment="Top" Foreground="#FF707070" Width="131" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -375,10 +374,18 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_Add" Content="+ Add Album" HorizontalAlignment="Left" Margin="1175,25.8,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Add_Click" Grid.Row="1"/>
+        <Button x:Name="button_Add" Content="+ Add Album" HorizontalAlignment="Left" Margin="891,25.4,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Add_Click" Grid.Row="1"/>
         <ScrollViewer Margin="268,74.8,0,37.6" Grid.Row="1">
             <StackPanel x:Name="albumsStackPanel" Orientation="Vertical"/>
         </ScrollViewer>
         <TextBlock x:Name="label_Message" HorizontalAlignment="Left" Margin="268,552.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="467" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
+        <Image x:Name="image_ContentCreator" HorizontalAlignment="Left" Height="148" Margin="54,39,0,0" VerticalAlignment="Top" Width="148" Grid.RowSpan="2">
+            <Image.Clip>
+                <EllipseGeometry
+                    RadiusX="74"
+                    RadiusY="74"
+                    Center="74,74"/>
+            </Image.Clip>
+        </Image>
     </Grid>
 </Controls:MetroWindow>

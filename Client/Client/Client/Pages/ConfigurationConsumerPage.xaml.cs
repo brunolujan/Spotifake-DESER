@@ -70,10 +70,13 @@ namespace Client.Pages {
         }
 
         private async void button_SetConfiguration_Click(object sender, RoutedEventArgs e) {
-            int n = random.Next();
-            string fileName = String.Concat(Session.consumer.GivenName.ToString(), Session.consumer.LastName.ToString(), n);
-            await Session.serverConnection.consumerService.UpdateConsumerImageAsync(Session.consumer.Email, fileName);
-            await Session.serverConnection.consumerService.AddImageToMediaAsync(fileName, imageBytes);
+            if (imageBytes != null) {
+                int n = random.Next();
+                string fileName = String.Concat(Session.consumer.GivenName.ToString(), Session.consumer.LastName.ToString(), n);
+                await Session.serverConnection.consumerService.UpdateConsumerImageAsync(Session.consumer.Email, fileName);
+                await Session.serverConnection.consumerService.AddImageToMediaAsync(fileName, imageBytes);
+            }
+            textBlock_Message.Text = "*Select a pic file";
         }
     }
 }

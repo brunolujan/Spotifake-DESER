@@ -48,11 +48,7 @@ namespace Client {
             audioBytes = new List<byte[]> { null, null, null, null, null };
             random = new Random();
             InitializeComponent();
-            if (contentCreator.ImageStoragePath == null) {
-                image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
-            } else {
-                image.Fill = LoadImage(contentCreator.ImageStoragePath);
-            }
+            LoadImageBytes();
             textBlock_StageName.Text = thisContentCreator.StageName;
             if (var == 0) {
                 LoadNewAlbum();
@@ -91,22 +87,28 @@ namespace Client {
             loginWindow.Show();
         }
 
-        private ImageBrush LoadImage(string path) {
+        private async void LoadImageBytes() {
+            image_ContentCreator.Source = LoadImage(await Session.serverConnection.contentCreatorService.GetImageToMediaAsync(thisContentCreator.ImageStoragePath));
+            image_ContentCreator.Stretch = Stretch.Uniform;
+        }
+
+        private BitmapImage LoadImage(byte[] bytes) {
             try {
-                Image imageX = new Image();
+                MemoryStream ms = new MemoryStream(bytes);
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
-                src.UriSource = new Uri(path);
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
                 src.EndInit();
-                imageX.Source = src;
-
-                ImageBrush ib = new ImageBrush();
-                ib.ImageSource = src;
-                return ib;
+                return src;
             } catch (Exception ex) {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
                 return null;
             }
+        }
+
+        private byte[] GetImageBytes(string filePath) {
+            return File.ReadAllBytes(filePath);
         }
 
         private async void LoadNewSingle() {
@@ -177,8 +179,8 @@ namespace Client {
             path = "";
             if (resultado == true) {
                 path = ofd.FileName;
-                image_albumCover.Fill = LoadImage(path);
-                image_albumCover.Stretch = Stretch.Uniform;
+                image_AlbumCover.Source = LoadImage(GetImageBytes(path));
+                image_AlbumCover.Stretch = Stretch.Uniform;
                 textBox_SelectedFilePath.Text = path;
             }
         }

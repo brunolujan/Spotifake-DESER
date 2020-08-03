@@ -33,11 +33,7 @@ namespace Client {
             thisContentCreator = contentCreator;
             thisVar = var;
             InitializeComponent();
-            if (contentCreator.ImageStoragePath == null) {
-                image.Fill = LoadImage("C:\\Users\\Bruno\\Desktop\\IMAGES\\DefaultCover.jpg");
-            } else {
-                image.Fill = LoadImage(contentCreator.ImageStoragePath);
-            }
+            LoadImageBytes();
             textBlock_StageName.Text = "Hi, " + thisContentCreator.StageName;
             if (var == 0) {
                 label_Title.Text = "MY ALBUMS";
@@ -111,31 +107,33 @@ namespace Client {
             }
         }
 
-        private ImageBrush LoadImage(string path) {
+        private async void LoadImageBytes() {
+            image_ContentCreator.Source = LoadImage(await Session.serverConnection.contentCreatorService.GetImageToMediaAsync(thisContentCreator.ImageStoragePath));
+            image_ContentCreator.Stretch = Stretch.Uniform;
+        }
+
+        private BitmapImage LoadImage(byte[] bytes) {
             try {
-                Image imageX = new Image();
+                MemoryStream ms = new MemoryStream(bytes);
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
-                src.UriSource = new Uri(path);
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
                 src.EndInit();
-                imageX.Source = src;
-
-                ImageBrush ib = new ImageBrush();
-                ib.ImageSource = src;
-                return ib;
+                return src;
             } catch (Exception ex) {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
                 return null;
             }
         }
 
-        private void CreateContentUI(Album album, List<Track> tracks) {
+        private async void CreateContentUI(Album album, List<Track> tracks) {
             StackPanel stackPanel = new StackPanel();
             stackPanel.Orientation = Orientation.Vertical;
             StackPanel albumHeaderStackPanel = new StackPanel();
             albumHeaderStackPanel.Orientation = Orientation.Horizontal;
-            Rectangle albumImage = new Rectangle();
-            albumImage.Fill = LoadImage(album.CoverPath);
+            Image albumImage = new Image();
+            albumImage.Source = LoadImage(await Session.serverConnection.albumService.GetImageToMediaAsync(album.CoverPath));
             albumImage.Margin = new Thickness(30,30,0,0);
             albumImage.Width = 250;
             albumImage.Height = 250;

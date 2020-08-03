@@ -321,11 +321,6 @@
         </TextBlock>
         <ComboBox x:Name="comboBox_Featuring" HorizontalAlignment="Left" Margin="629,268.8,0,0" VerticalAlignment="Top" Width="273" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1">
         </ComboBox>
-        <Rectangle x:Name="image_albumCover" HorizontalAlignment="Left" Height="245" Margin="348,84.8,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="245">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="Resources/DefaultAlbumCover.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
         <TextBlock HorizontalAlignment="Left" Margin="632,325.8,0,0" TextWrapping="Wrap" Text="Gender" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="40" RenderTransformOrigin="0.5,0.5" Height="50" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -515,7 +510,6 @@
         </TextBlock>
         <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,191.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Albums_Click" Grid.Row="1"/>
         <Button x:Name="button_Singles" Content="Singles" HorizontalAlignment="Left" Margin="8,230.8,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_Singles_Click" Grid.Row="1"/>
-        <Rectangle x:Name="image" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="129" Margin="63,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="129" RadiusY="63.9" RadiusX="63.9" Grid.RowSpan="2"/>
         <Button x:Name="button_1stSelectFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="1248,127.8,0,0" VerticalAlignment="Top" Width="149" Click="button_1stSelectFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1" Visibility="Hidden">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
@@ -826,5 +820,14 @@
         <TextBox x:Name="textBox_5thTrack" HorizontalAlignment="Left" Height="29" Margin="1046,470.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="351" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" Controls:TextBoxHelper.Watermark="Put your email" Controls:TextBoxHelper.UseFloatingWatermark="True" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" Controls:TextBoxHelper.HasText="True" Grid.Row="1" IsEnabled="False" Visibility="Hidden"/>
         <TextBlock x:Name="label_5thTrack" HorizontalAlignment="Left" Margin="1014,470.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="27" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="29" FontFamily="Gotham Bold" Grid.Row="1" Text="5." Visibility="Hidden"/>
         <ComboBox x:Name="comboBox_5thGender" HorizontalAlignment="Left" Margin="1046,519.8,0,0" VerticalAlignment="Top" Width="171" FontFamily="Gotham Medium" FontSize="15" Height="30" Background="#FF707070" VerticalContentAlignment="Center" Grid.Row="1" Visibility="Hidden"/>
+        <Image x:Name="image_ContentCreator" HorizontalAlignment="Left" Height="148" Margin="54,39,0,0" VerticalAlignment="Top" Width="148" Grid.RowSpan="2">
+            <Image.Clip>
+                <EllipseGeometry
+                    RadiusX="74"
+                    RadiusY="74"
+                    Center="74,74"/>
+            </Image.Clip>
+        </Image>
+        <Image x:Name="image_AlbumCover" HorizontalAlignment="Left" Height="245" Margin="348,93.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="245"/>
     </Grid>
 </Controls:MetroWindow>

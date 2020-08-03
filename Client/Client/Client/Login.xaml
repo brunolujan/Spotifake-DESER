@@ -92,16 +92,7 @@
         </Button>
         <Image HorizontalAlignment="Left" Height="136" Margin="66,10,0,0" VerticalAlignment="Top" Width="639" Source="Resources/SPOTIFAKE.png"/>
         <TextBlock HorizontalAlignment="Left" Margin="225,490,0,0" TextWrapping="Wrap" Text="Don't you have an account yet?" VerticalAlignment="Top" Foreground="White" Width="333" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold"/>
-        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="153,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.496"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>
-        </TextBlock>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="153,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="222,159,0,0" TextWrapping="Wrap" Text="What are you?" VerticalAlignment="Top" Foreground="White" Width="153" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
