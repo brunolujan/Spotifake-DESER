@@ -54,6 +54,19 @@ public partial class TrackService
     Task<List<Track>> GetTrackByAlbumIdAsync(short idAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
+    /// Get Track by idAlbum
+    /// 
+    /// @param idAlbum
+    ///     The Track Title to be obtained
+    /// 
+    /// @return Track
+    ///     list<Track>
+    /// 
+    /// </summary>
+    /// <param name="idPlaylist"></param>
+    Task<List<Track>> GetTrackByPlaylistIdAsync(short idPlaylist, CancellationToken cancellationToken = default(CancellationToken));
+
+    /// <summary>
     /// Get Track by idLibrary
     /// 
     /// @param idLibrary
@@ -387,6 +400,43 @@ public partial class TrackService
         throw result.SErrorSystemE;
       }
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTrackByAlbumId failed: unknown result");
+    }
+
+    public async Task<List<Track>> GetTrackByPlaylistIdAsync(short idPlaylist, CancellationToken cancellationToken = default(CancellationToken))
+    {
+      await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetTrackByPlaylistId", TMessageType.Call, SeqId), cancellationToken);
+      
+      var args = new GetTrackByPlaylistIdArgs();
+      args.IdPlaylist = idPlaylist;
+      
+      await args.WriteAsync(OutputProtocol, cancellationToken);
+      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
+      await OutputProtocol.Transport.FlushAsync(cancellationToken);
+      
+      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
+      if (msg.Type == TMessageType.Exception)
+      {
+        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
+        await InputProtocol.ReadMessageEndAsync(cancellationToken);
+        throw x;
+      }
+
+      var result = new GetTrackByPlaylistIdResult();
+      await result.ReadAsync(InputProtocol, cancellationToken);
+      await InputProtocol.ReadMessageEndAsync(cancellationToken);
+      if (result.__isset.success)
+      {
+        return result.Success;
+      }
+      if (result.__isset.sErrorNotFoundE)
+      {
+        throw result.SErrorNotFoundE;
+      }
+      if (result.__isset.sErrorSystemE)
+      {
+        throw result.SErrorSystemE;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTrackByPlaylistId failed: unknown result");
     }
 
     public async Task<List<Track>> GetTrackByLibraryIdAsync(short idLibrary, CancellationToken cancellationToken = default(CancellationToken))
@@ -990,6 +1040,7 @@ public partial class TrackService
       _iAsync = iAsync;
       processMap_["GetTrackByTitle"] = GetTrackByTitle_ProcessAsync;
       processMap_["GetTrackByAlbumId"] = GetTrackByAlbumId_ProcessAsync;
+      processMap_["GetTrackByPlaylistId"] = GetTrackByPlaylistId_ProcessAsync;
       processMap_["GetTrackByLibraryId"] = GetTrackByLibraryId_ProcessAsync;
       processMap_["AddTrackToAlbum"] = AddTrackToAlbum_ProcessAsync;
       processMap_["AddFeaturingTrack"] = AddFeaturingTrack_ProcessAsync;
@@ -1120,6 +1171,45 @@ public partial class TrackService
         Console.Error.WriteLine(ex.ToString());
         var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
         await oprot.WriteMessageBeginAsync(new TMessage("GetTrackByAlbumId", TMessageType.Exception, seqid), cancellationToken);
+        await x.WriteAsync(oprot, cancellationToken);
+      }
+      await oprot.WriteMessageEndAsync(cancellationToken);
+      await oprot.Transport.FlushAsync(cancellationToken);
+    }
+
+    public async Task GetTrackByPlaylistId_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
+    {
+      var args = new GetTrackByPlaylistIdArgs();
+      await args.ReadAsync(iprot, cancellationToken);
+      await iprot.ReadMessageEndAsync(cancellationToken);
+      var result = new GetTrackByPlaylistIdResult();
+      try
+      {
+        try
+        {
+          result.Success = await _iAsync.GetTrackByPlaylistIdAsync(args.IdPlaylist, cancellationToken);
+        }
+        catch (SErrorNotFoundException sErrorNotFoundE)
+        {
+          result.SErrorNotFoundE = sErrorNotFoundE;
+        }
+        catch (SErrorSystemException sErrorSystemE)
+        {
+          result.SErrorSystemE = sErrorSystemE;
+        }
+        await oprot.WriteMessageBeginAsync(new TMessage("GetTrackByPlaylistId", TMessageType.Reply, seqid), cancellationToken); 
+        await result.WriteAsync(oprot, cancellationToken);
+      }
+      catch (TTransportException)
+      {
+        throw;
+      }
+      catch (Exception ex)
+      {
+        Console.Error.WriteLine("Error occurred in processor:");
+        Console.Error.WriteLine(ex.ToString());
+        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
+        await oprot.WriteMessageBeginAsync(new TMessage("GetTrackByPlaylistId", TMessageType.Exception, seqid), cancellationToken);
         await x.WriteAsync(oprot, cancellationToken);
       }
       await oprot.WriteMessageEndAsync(cancellationToken);
@@ -2476,6 +2566,386 @@ public partial class TrackService
   }
 
 
+  public partial class GetTrackByPlaylistIdArgs : TBase
+  {
+    private short _idPlaylist;
+
+    public short IdPlaylist
+    {
+      get
+      {
+        return _idPlaylist;
+      }
+      set
+      {
+        __isset.idPlaylist = true;
+        this._idPlaylist = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool idPlaylist;
+    }
+
+    public GetTrackByPlaylistIdArgs()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I16)
+              {
+                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetTrackByPlaylistId_args");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+        if (__isset.idPlaylist)
+        {
+          field.Name = "idPlaylist";
+          field.Type = TType.I16;
+          field.ID = 1;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetTrackByPlaylistIdArgs;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.idPlaylist)
+          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetTrackByPlaylistId_args(");
+      bool __first = true;
+      if (__isset.idPlaylist)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("IdPlaylist: ");
+        sb.Append(IdPlaylist);
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
+  public partial class GetTrackByPlaylistIdResult : TBase
+  {
+    private List<Track> _success;
+    private SErrorNotFoundException _sErrorNotFoundE;
+    private SErrorSystemException _sErrorSystemE;
+
+    public List<Track> Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+    public SErrorNotFoundException SErrorNotFoundE
+    {
+      get
+      {
+        return _sErrorNotFoundE;
+      }
+      set
+      {
+        __isset.sErrorNotFoundE = true;
+        this._sErrorNotFoundE = value;
+      }
+    }
+
+    public SErrorSystemException SErrorSystemE
+    {
+      get
+      {
+        return _sErrorSystemE;
+      }
+      set
+      {
+        __isset.sErrorSystemE = true;
+        this._sErrorSystemE = value;
+      }
+    }
+
+
+    public Isset __isset;
+    public struct Isset
+    {
+      public bool success;
+      public bool sErrorNotFoundE;
+      public bool sErrorSystemE;
+    }
+
+    public GetTrackByPlaylistIdResult()
+    {
+    }
+
+    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
+    {
+      iprot.IncrementRecursionDepth();
+      try
+      {
+        TField field;
+        await iprot.ReadStructBeginAsync(cancellationToken);
+        while (true)
+        {
+          field = await iprot.ReadFieldBeginAsync(cancellationToken);
+          if (field.Type == TType.Stop)
+          {
+            break;
+          }
+
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.List)
+              {
+                {
+                  TList _list16 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list16.Count);
+                  for(int _i17 = 0; _i17 < _list16.Count; ++_i17)
+                  {
+                    Track _elem18;
+                    _elem18 = new Track();
+                    await _elem18.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem18);
+                  }
+                  await iprot.ReadListEndAsync(cancellationToken);
+                }
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct)
+              {
+                SErrorNotFoundE = new SErrorNotFoundException();
+                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct)
+              {
+                SErrorSystemE = new SErrorSystemException();
+                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
+              }
+              else
+              {
+                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              }
+              break;
+            default: 
+              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
+              break;
+          }
+
+          await iprot.ReadFieldEndAsync(cancellationToken);
+        }
+
+        await iprot.ReadStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        iprot.DecrementRecursionDepth();
+      }
+    }
+
+    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
+    {
+      oprot.IncrementRecursionDepth();
+      try
+      {
+        var struc = new TStruct("GetTrackByPlaylistId_result");
+        await oprot.WriteStructBeginAsync(struc, cancellationToken);
+        var field = new TField();
+
+        if(this.__isset.success)
+        {
+          if (Success != null)
+          {
+            field.Name = "Success";
+            field.Type = TType.List;
+            field.ID = 0;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            {
+              await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
+              foreach (Track _iter19 in Success)
+              {
+                await _iter19.WriteAsync(oprot, cancellationToken);
+              }
+              await oprot.WriteListEndAsync(cancellationToken);
+            }
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorNotFoundE)
+        {
+          if (SErrorNotFoundE != null)
+          {
+            field.Name = "SErrorNotFoundE";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        else if(this.__isset.sErrorSystemE)
+        {
+          if (SErrorSystemE != null)
+          {
+            field.Name = "SErrorSystemE";
+            field.Type = TType.Struct;
+            field.ID = 2;
+            await oprot.WriteFieldBeginAsync(field, cancellationToken);
+            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
+            await oprot.WriteFieldEndAsync(cancellationToken);
+          }
+        }
+        await oprot.WriteFieldStopAsync(cancellationToken);
+        await oprot.WriteStructEndAsync(cancellationToken);
+      }
+      finally
+      {
+        oprot.DecrementRecursionDepth();
+      }
+    }
+
+    public override bool Equals(object that)
+    {
+      var other = that as GetTrackByPlaylistIdResult;
+      if (other == null) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (TCollections.Equals(Success, other.Success))))
+        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
+        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))));
+    }
+
+    public override int GetHashCode() {
+      int hashcode = 157;
+      unchecked {
+        if(__isset.success)
+          hashcode = (hashcode * 397) + TCollections.GetHashCode(Success);
+        if(__isset.sErrorNotFoundE)
+          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
+        if(__isset.sErrorSystemE)
+          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
+      }
+      return hashcode;
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder("GetTrackByPlaylistId_result(");
+      bool __first = true;
+      if (Success != null && __isset.success)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("Success: ");
+        sb.Append(Success);
+      }
+      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorNotFoundE: ");
+        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
+      }
+      if (SErrorSystemE != null && __isset.sErrorSystemE)
+      {
+        if(!__first) { sb.Append(", "); }
+        __first = false;
+        sb.Append("SErrorSystemE: ");
+        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
+      }
+      sb.Append(")");
+      return sb.ToString();
+    }
+  }
+
+
   public partial class GetTrackByLibraryIdArgs : TBase
   {
     private short _idLibrary;
@@ -2686,14 +3156,14 @@ public partial class TrackService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list16 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Track>(_list16.Count);
-                  for(int _i17 = 0; _i17 < _list16.Count; ++_i17)
+                  TList _list20 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list20.Count);
+                  for(int _i21 = 0; _i21 < _list20.Count; ++_i21)
                   {
-                    Track _elem18;
-                    _elem18 = new Track();
-                    await _elem18.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem18);
+                    Track _elem22;
+                    _elem22 = new Track();
+                    await _elem22.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem22);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -2760,9 +3230,9 @@ public partial class TrackService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Track _iter19 in Success)
+              foreach (Track _iter23 in Success)
               {
-                await _iter19.WriteAsync(oprot, cancellationToken);
+                await _iter23.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -4272,14 +4742,14 @@ public partial class TrackService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list20 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Track>(_list20.Count);
-                  for(int _i21 = 0; _i21 < _list20.Count; ++_i21)
+                  TList _list24 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list24.Count);
+                  for(int _i25 = 0; _i25 < _list24.Count; ++_i25)
                   {
-                    Track _elem22;
-                    _elem22 = new Track();
-                    await _elem22.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem22);
+                    Track _elem26;
+                    _elem26 = new Track();
+                    await _elem26.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem26);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -4346,9 +4816,9 @@ public partial class TrackService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Track _iter23 in Success)
+              foreach (Track _iter27 in Success)
               {
-                await _iter23.WriteAsync(oprot, cancellationToken);
+                await _iter27.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -7929,14 +8399,14 @@ public partial class TrackService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list24 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Track>(_list24.Count);
-                  for(int _i25 = 0; _i25 < _list24.Count; ++_i25)
+                  TList _list28 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Track>(_list28.Count);
+                  for(int _i29 = 0; _i29 < _list28.Count; ++_i29)
                   {
-                    Track _elem26;
-                    _elem26 = new Track();
-                    await _elem26.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem26);
+                    Track _elem30;
+                    _elem30 = new Track();
+                    await _elem30.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem30);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -7992,9 +8462,9 @@ public partial class TrackService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Track _iter27 in Success)
+              foreach (Track _iter31 in Success)
               {
-                await _iter27.WriteAsync(oprot, cancellationToken);
+                await _iter31.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }

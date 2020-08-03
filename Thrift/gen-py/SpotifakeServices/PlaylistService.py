@@ -1260,11 +1260,11 @@ class GetPlaylistByLibraryId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype80, _size77) = iprot.readListBegin()
-                    for _i81 in range(_size77):
-                        _elem82 = SpotifakeManagement.ttypes.Playlist()
-                        _elem82.read(iprot)
-                        self.success.append(_elem82)
+                    (_etype87, _size84) = iprot.readListBegin()
+                    for _i88 in range(_size84):
+                        _elem89 = SpotifakeManagement.ttypes.Playlist()
+                        _elem89.read(iprot)
+                        self.success.append(_elem89)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1299,8 +1299,8 @@ class GetPlaylistByLibraryId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter83 in self.success:
-                iter83.write(oprot)
+            for iter90 in self.success:
+                iter90.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -2226,11 +2226,11 @@ class GetPlaylistByQuery_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype87, _size84) = iprot.readListBegin()
-                    for _i88 in range(_size84):
-                        _elem89 = SpotifakeManagement.ttypes.Playlist()
-                        _elem89.read(iprot)
-                        self.success.append(_elem89)
+                    (_etype94, _size91) = iprot.readListBegin()
+                    for _i95 in range(_size91):
+                        _elem96 = SpotifakeManagement.ttypes.Playlist()
+                        _elem96.read(iprot)
+                        self.success.append(_elem96)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2259,8 +2259,8 @@ class GetPlaylistByQuery_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter90 in self.success:
-                iter90.write(oprot)
+            for iter97 in self.success:
+                iter97.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:

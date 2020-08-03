@@ -511,6 +511,20 @@ service TrackService {
         2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
+    *   Get Track by idAlbum
+    *
+    *   @param idAlbum
+    *       The Track Title to be obtained
+    *
+    *   @return Track
+    *       list<Track>
+    **/
+
+    list<SpotifakeManagement.Track> GetTrackByPlaylistId(1: SpotifakeManagement.Id idPlaylist) 
+        throws (1: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE, 
+        2: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
     *   Get Track by idLibrary
     *
     *   @param idLibrary
