@@ -2,6 +2,7 @@ import sys
 import thriftpy
 sys.path.append("../")
 sys.path.append("gen-py")
+from os import remove
 from SpotifakeServices import ConsumerService
 from SpotifakeServices.ttypes import *
 from SpotifakeManagement.ttypes import *
@@ -60,4 +61,8 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
 
     def UpdateConsumerImage(self, email, fileName):
         SqlServerConsumerManagement.UpdateConsumerImage(self, email, fileName)
+        return True
+
+    def DeleteImageToMedia(self, fileName):
+        remove("../Media/Images/"+fileName+".jpg")
         return True
