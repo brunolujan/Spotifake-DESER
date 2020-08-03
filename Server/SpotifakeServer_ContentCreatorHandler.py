@@ -99,3 +99,22 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
                     contentCreatorList.append(contentCreatorAux)
                 return contentCreatorList        
         return False
+
+    def AddImageToMedia(self, fileName, image):
+        file = open("../Media/Images/"+fileName+".jpg", 'wb')
+        file.write(image)
+        file.close()
+        return True
+
+    def GetImageToMedia(self, fileName):
+        with open("../Media/Images/"+fileName+".jpg", 'rb') as file:
+            imageBytes = file.read()
+        return imageBytes
+
+    def UpdateConsumerImage(self, email, fileName):
+        SqlServerConsumerManagement.UpdateConsumerImage(self, email, fileName)
+        return True
+
+    def DeleteImageToMedia(self, fileName):
+        remove("../Media/Images/"+fileName+".jpg")
+        return True
