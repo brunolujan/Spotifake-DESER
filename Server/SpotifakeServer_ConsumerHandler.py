@@ -54,9 +54,8 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
         return True
 
     def GetImageToMedia(self, fileName):
-        file = open("../Media/Imges/"+fileName+".jpg", 'r')
-        imageBytes = file.read()
-        file.close()
+        with open("../Media/Images/"+fileName+".jpg", 'rb') as file:
+            imageBytes = file.read()
         return imageBytes
 
     def UpdateConsumerImage(self, email, fileName):
