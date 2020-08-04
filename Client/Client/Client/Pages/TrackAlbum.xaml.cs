@@ -29,7 +29,7 @@ namespace Client.Pages {
             try
             {
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByAlbumIdAsync(album.IdAlbum);
-                datagrid_TrackAlbum.ItemsSource = tracks.Select(x => new { NUM = x.TrackNumber, TITLE = x.Title, DURATION = x.DurationSeconds});
+                datagrid_TrackAlbum.ItemsSource = tracks;
             }
             catch (Exception ex)
             {

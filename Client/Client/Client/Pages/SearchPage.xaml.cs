@@ -34,7 +34,7 @@ namespace Client.Pages {
             {
                 datagrid_SearchTracks.Visibility = Visibility.Visible;
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByQueryAsync(TextBox_search.Text);
-                datagrid_SearchTracks.ItemsSource = tracks.Select(x => new { NUM = x.TrackNumber, TITLE = x.Title, SECONDS = x.DurationSeconds });
+                datagrid_SearchTracks.ItemsSource = tracks;
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Client.Pages {
             {
                 datagrid_SearchContentCreators.Visibility = Visibility.Visible;
                 List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByQueryAsync(TextBox_search.Text);
-                datagrid_SearchContentCreators.ItemsSource = contentCreators.Select(x => new { NAME = x.StageName, DESCRIPTION = x.Description });
+                datagrid_SearchContentCreators.ItemsSource = contentCreators;
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Client.Pages {
             {
                 datagrid_SearchPlaylists.Visibility = Visibility.Visible;
                 List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByQueryAsync(TextBox_search.Text);
-                datagrid_SearchPlaylists.ItemsSource = playlists.Select(x => new { NAME = x.Name, DESCRIPTION = x.Description });
+                datagrid_SearchPlaylists.ItemsSource = playlists;
             }
             catch (Exception ex)
             {
@@ -121,5 +121,20 @@ namespace Client.Pages {
 
         }
 
+        private void datagrid_SearchAlbums_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var albumAux = (Album)datagrid_SearchAlbums.SelectedItem;
+            if (albumAux != null)
+            {
+                NavigationService.Navigate(new TrackAlbum(albumAux));
+            }
+        }
+
+        private void datagrid_SearchPlaylists_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var playlistAux = (Playlist)datagrid_SearchPlaylists.SelectedItem;
+            if (playlistAux != null)
+            {
+                NavigationService.Navigate(new TracksPlaylistPage(playlistAux));
+            }
+        }
     }
 }

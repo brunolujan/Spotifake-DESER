@@ -17,7 +17,13 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Tracks" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
         </TextBlock>
-        <DataGrid x:Name="datagrid_TrackAlbum" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15"/>
+        <DataGrid x:Name="datagrid_TrackAlbum" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False"
+                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="DURATION" Binding ="{Binding Path=DurationSeconds}" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
 
