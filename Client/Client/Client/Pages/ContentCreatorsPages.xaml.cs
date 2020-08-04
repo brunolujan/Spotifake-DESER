@@ -26,5 +26,13 @@ namespace Client.Pages {
             List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByLibraryIdAsync(Session.library.IdLibrary);
             datagrid_ContentCreator.ItemsSource = contentCreators;
         }
+
+        private void datagrid_ContentCreator_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var contentCreatorAux = (ContentCreator)datagrid_ContentCreator.SelectedItem;
+            if (contentCreatorAux != null)
+            {
+                NavigationService.Navigate(new AlbumsContentCreatorPage(contentCreatorAux));
+            }
+        }
     }
 }

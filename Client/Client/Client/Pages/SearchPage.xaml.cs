@@ -136,5 +136,13 @@ namespace Client.Pages {
                 NavigationService.Navigate(new TracksPlaylistPage(playlistAux));
             }
         }
+
+        private void datagrid_SearchContentCreators_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var contentCreatorAux = (ContentCreator)datagrid_SearchContentCreators.SelectedItem;
+            if (contentCreatorAux != null)
+            {
+                NavigationService.Navigate(new AlbumsContentCreatorPage(contentCreatorAux));
+            }
+        }
     }
 }

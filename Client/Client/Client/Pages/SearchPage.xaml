@@ -44,27 +44,32 @@
 
 
         <DataGrid x:Name="datagrid_SearchTracks" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0"
-                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False">
+                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="DURATION" Binding ="{Binding Path=DurationSeconds}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="datagrid_SearchAlbums" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False"
+        <DataGrid x:Name="datagrid_SearchAlbums" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
                   Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchAlbums_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=album.Content}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="datagrid_SearchContentCreators" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False"
-                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
+        <DataGrid x:Name="datagrid_SearchContentCreators" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
+                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchContentCreators_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="NAME" Binding ="{Binding Path=StageName}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=Description}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="datagrid_SearchPlaylists" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchPlaylists_MouseDoubleClick"/>
+        <DataGrid x:Name="datagrid_SearchPlaylists" HorizontalAlignment="Left" Height="277" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
+                  Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchPlaylists_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="NAME" Binding ="{Binding Path=Name}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=Description}" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
 

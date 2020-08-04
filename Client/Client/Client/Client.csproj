@@ -310,6 +310,9 @@
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AlbumsContentCreatorPage.xaml.cs">
+      <DependentUpon>AlbumsContentCreatorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AlbumsPages.xaml.cs">
       <DependentUpon>AlbumsPages.xaml</DependentUpon>
     </Compile>
@@ -360,6 +363,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindowContentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AlbumsContentCreatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

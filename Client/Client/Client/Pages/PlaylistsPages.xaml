@@ -16,8 +16,15 @@
             </RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Playlists" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
-
         </TextBlock>
-        <DataGrid x:Name="datagrid_Playlist" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_Playlist_MouseDoubleClick"/>
+        <DataGrid x:Name="datagrid_Playlist" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" AutoGenerateColumns="False"
+                  VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_Playlist_MouseDoubleClick" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Name}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=Description}" ></DataGridTextColumn>
+                <!--<DataGridTextColumn Header="ARTISTA" Binding ="{Binding Path=ContentCreator.StageName}" ></DataGridTextColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+           
     </Grid>
 </Page>
