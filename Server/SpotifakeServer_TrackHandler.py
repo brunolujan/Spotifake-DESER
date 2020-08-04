@@ -48,14 +48,11 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         trackList = []
         trackFound =  SqlServerTrackManagement.GetTrackByPlaylistId(self, idPlaylist)
         for n in trackFound:
-            trackAux = Track()            
-            trackAux.idTrack = n.IdTrack
-            trackAux.durationSeconds = n.durationSeconds
-
-            trackAux.title = n.title
-            trackAux.trackNumber = n.trackNumber
-            #trackAux.storagePath = n.storagePath
-            #trackAux.gender = n.IdGenre
+            playlistAux = Playlist()
+            playlistAux.idPlaylist = n.IdPlaylist
+            playlistAux.name = n.title
+            playlistAux.description = n.description
+            playlistList.append(playlistAux)
             trackList.append(trackAux)
         return trackList
 
