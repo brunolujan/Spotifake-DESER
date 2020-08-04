@@ -679,7 +679,7 @@ service TrackService {
     *       Track object added
     **/
 
-    SpotifakeManagement.Track AddTrackToPlaylist(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Track newtrack) 
+    SpotifakeManagement.Track AddTrackToPlaylist(1: SpotifakeManagement.Id idPlaylist, 2: SpotifakeManagement.Id idTrack) 
         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**

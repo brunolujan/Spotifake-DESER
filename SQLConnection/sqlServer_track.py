@@ -188,7 +188,7 @@ class SqlServerTrackManagement:
         connection.close()
         print(idLibrary, newTrack.idTrack)
 
-    def AddTrackToPlaylist(self, idPlaylist:int, newTrack):
+    def AddTrackToPlaylist(self, idPlaylist:int, idTrack:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -202,11 +202,12 @@ class SqlServerTrackManagement:
 
             SELECT	@salida as N'@salida'   
         """
-        params = (idPlaylist, newTrack.idTrack)
+        params = (idPlaylist, idTrack)
         connection.cursor.execute(sql, params)
         connection.save()
         connection.close()
-        print(idPlaylist, newTrack.idTrack)
+        print(idPlaylist, idTrack)
+    return true
 
     def GetTrackByQuery(self, query:str):
         connection: SQLConnection = SQLConnection()

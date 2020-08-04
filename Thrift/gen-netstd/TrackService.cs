@@ -223,8 +223,8 @@ public partial class TrackService
     /// 
     /// </summary>
     /// <param name="idPlaylist"></param>
-    /// <param name="newtrack"></param>
-    Task<Track> AddTrackToPlaylistAsync(short idPlaylist, Track newtrack, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idTrack"></param>
+    Task<Track> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Track from a Playlist
@@ -782,13 +782,13 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteLibraryTrack failed: unknown result");
     }
 
-    public async Task<Track> AddTrackToPlaylistAsync(short idPlaylist, Track newtrack, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<Track> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToPlaylist", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddTrackToPlaylistArgs();
       args.IdPlaylist = idPlaylist;
-      args.Newtrack = newtrack;
+      args.IdTrack = idTrack;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1577,7 +1577,7 @@ public partial class TrackService
       {
         try
         {
-          result.Success = await _iAsync.AddTrackToPlaylistAsync(args.IdPlaylist, args.Newtrack, cancellationToken);
+          result.Success = await _iAsync.AddTrackToPlaylistAsync(args.IdPlaylist, args.IdTrack, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -6677,7 +6677,7 @@ public partial class TrackService
   public partial class AddTrackToPlaylistArgs : TBase
   {
     private short _idPlaylist;
-    private Track _newtrack;
+    private short _idTrack;
 
     public short IdPlaylist
     {
@@ -6692,16 +6692,16 @@ public partial class TrackService
       }
     }
 
-    public Track Newtrack
+    public short IdTrack
     {
       get
       {
-        return _newtrack;
+        return _idTrack;
       }
       set
       {
-        __isset.newtrack = true;
-        this._newtrack = value;
+        __isset.idTrack = true;
+        this._idTrack = value;
       }
     }
 
@@ -6710,7 +6710,7 @@ public partial class TrackService
     public struct Isset
     {
       public bool idPlaylist;
-      public bool newtrack;
+      public bool idTrack;
     }
 
     public AddTrackToPlaylistArgs()
@@ -6745,10 +6745,9 @@ public partial class TrackService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                Newtrack = new Track();
-                await Newtrack.ReadAsync(iprot, cancellationToken);
+                IdTrack = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -6788,13 +6787,13 @@ public partial class TrackService
           await oprot.WriteI16Async(IdPlaylist, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (Newtrack != null && __isset.newtrack)
+        if (__isset.idTrack)
         {
-          field.Name = "newtrack";
-          field.Type = TType.Struct;
+          field.Name = "idTrack";
+          field.Type = TType.I16;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await Newtrack.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteI16Async(IdTrack, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -6812,7 +6811,7 @@ public partial class TrackService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))))
-        && ((__isset.newtrack == other.__isset.newtrack) && ((!__isset.newtrack) || (System.Object.Equals(Newtrack, other.Newtrack))));
+        && ((__isset.idTrack == other.__isset.idTrack) && ((!__isset.idTrack) || (System.Object.Equals(IdTrack, other.IdTrack))));
     }
 
     public override int GetHashCode() {
@@ -6820,8 +6819,8 @@ public partial class TrackService
       unchecked {
         if(__isset.idPlaylist)
           hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
-        if(__isset.newtrack)
-          hashcode = (hashcode * 397) + Newtrack.GetHashCode();
+        if(__isset.idTrack)
+          hashcode = (hashcode * 397) + IdTrack.GetHashCode();
       }
       return hashcode;
     }
@@ -6837,12 +6836,12 @@ public partial class TrackService
         sb.Append("IdPlaylist: ");
         sb.Append(IdPlaylist);
       }
-      if (Newtrack != null && __isset.newtrack)
+      if (__isset.idTrack)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Newtrack: ");
-        sb.Append(Newtrack== null ? "<null>" : Newtrack.ToString());
+        sb.Append("IdTrack: ");
+        sb.Append(IdTrack);
       }
       sb.Append(")");
       return sb.ToString();

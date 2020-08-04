@@ -250,7 +250,7 @@ class Iface(object):
         """
         pass
 
-    def AddTrackToPlaylist(self, idPlaylist, newtrack):
+    def AddTrackToPlaylist(self, idPlaylist, idTrack):
         """
         Add a Track to Playlist.
 
@@ -265,7 +265,7 @@ class Iface(object):
 
         Parameters:
          - idPlaylist
-         - newtrack
+         - idTrack
 
         """
         pass
@@ -970,7 +970,7 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteLibraryTrack failed: unknown result")
 
-    def AddTrackToPlaylist(self, idPlaylist, newtrack):
+    def AddTrackToPlaylist(self, idPlaylist, idTrack):
         """
         Add a Track to Playlist.
 
@@ -985,17 +985,17 @@ class Client(Iface):
 
         Parameters:
          - idPlaylist
-         - newtrack
+         - idTrack
 
         """
-        self.send_AddTrackToPlaylist(idPlaylist, newtrack)
+        self.send_AddTrackToPlaylist(idPlaylist, idTrack)
         return self.recv_AddTrackToPlaylist()
 
-    def send_AddTrackToPlaylist(self, idPlaylist, newtrack):
+    def send_AddTrackToPlaylist(self, idPlaylist, idTrack):
         self._oprot.writeMessageBegin('AddTrackToPlaylist', TMessageType.CALL, self._seqid)
         args = AddTrackToPlaylist_args()
         args.idPlaylist = idPlaylist
-        args.newtrack = newtrack
+        args.idTrack = idTrack
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1697,7 +1697,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = AddTrackToPlaylist_result()
         try:
-            result.success = self._handler.AddTrackToPlaylist(args.idPlaylist, args.newtrack)
+            result.success = self._handler.AddTrackToPlaylist(args.idPlaylist, args.idTrack)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -3837,14 +3837,14 @@ class AddTrackToPlaylist_args(object):
     """
     Attributes:
      - idPlaylist
-     - newtrack
+     - idTrack
 
     """
 
 
-    def __init__(self, idPlaylist=None, newtrack=None,):
+    def __init__(self, idPlaylist=None, idTrack=None,):
         self.idPlaylist = idPlaylist
-        self.newtrack = newtrack
+        self.idTrack = idTrack
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -3861,9 +3861,8 @@ class AddTrackToPlaylist_args(object):
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newtrack = SpotifakeManagement.ttypes.Track()
-                    self.newtrack.read(iprot)
+                if ftype == TType.I16:
+                    self.idTrack = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -3880,9 +3879,9 @@ class AddTrackToPlaylist_args(object):
             oprot.writeFieldBegin('idPlaylist', TType.I16, 1)
             oprot.writeI16(self.idPlaylist)
             oprot.writeFieldEnd()
-        if self.newtrack is not None:
-            oprot.writeFieldBegin('newtrack', TType.STRUCT, 2)
-            self.newtrack.write(oprot)
+        if self.idTrack is not None:
+            oprot.writeFieldBegin('idTrack', TType.I16, 2)
+            oprot.writeI16(self.idTrack)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -3904,7 +3903,7 @@ all_structs.append(AddTrackToPlaylist_args)
 AddTrackToPlaylist_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idPlaylist', None, None, ),  # 1
-    (2, TType.STRUCT, 'newtrack', [SpotifakeManagement.ttypes.Track, None], None, ),  # 2
+    (2, TType.I16, 'idTrack', None, None, ),  # 2
 )
 
 

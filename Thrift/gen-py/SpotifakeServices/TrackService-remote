@@ -36,7 +36,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Track UpdateAlbumTrackFeaturing(Id idAlbum, Int trackNumber, ContentCreator newFeaturing)')
     print('  Track AddTrackToLibrary(Id idLibrary, Track newTrack)')
     print('  Id DeleteLibraryTrack(Id idLibrary, Int trackNumber)')
-    print('  Track AddTrackToPlaylist(Id idPlaylist, Track newtrack)')
+    print('  Track AddTrackToPlaylist(Id idPlaylist, Id idTrack)')
     print('  Id DeletePlaylistTrack(Id idPlaylist, Int trackNumber)')
     print('  Track AddTrackToPlayQueue(Id idPlayQueu, Track newTrack)')
     print('  Id DeletePlayQueueTrack(Id idPlayQueu, Int trackNumber)')
