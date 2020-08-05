@@ -191,22 +191,16 @@ class SqlServerTrackManagement:
     def AddTrackToPlaylist(self, idPlaylist:int, idTrack:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
+        
         sql = """
-            DECLARE	@return_value int,
-                    @salida nvarchar(1000)
-
-            EXEC	@return_value = [dbo].[SPI_TrackPlaylist]
+            EXEC	[dbo].[SPI_TrackPlaylist]
                     @idTrack = ?,
-                    @idPlaylist = ?,
-                    @salida = @salida OUTPUT
-
-            SELECT	@salida as N'@salida'   
+                    @idPlaylist = ?
+   
         """
-        params = (idPlaylist, idTrack)
+        params = ( idTrack, idPlaylist) 
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
-        print(idPlaylist, idTrack)
         return True
 
     def GetTrackByQuery(self, query:str):

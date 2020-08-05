@@ -32,9 +32,5 @@ if __name__ == "__main__":
     server = TServer.TSimpleServer(processor, serverTransport)  
 
     print("Starting service...")
-
-
-
     server.serve()
-    
     print("Spotifake Service started.")
