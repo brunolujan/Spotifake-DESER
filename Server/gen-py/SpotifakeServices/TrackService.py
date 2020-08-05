@@ -3930,9 +3930,8 @@ class AddTrackToPlaylist_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Track()
-                    self.success.read(iprot)
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -3952,8 +3951,8 @@ class AddTrackToPlaylist_result(object):
             return
         oprot.writeStructBegin('AddTrackToPlaylist_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
@@ -3977,7 +3976,7 @@ class AddTrackToPlaylist_result(object):
         return not (self == other)
 all_structs.append(AddTrackToPlaylist_result)
 AddTrackToPlaylist_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Track, None], None, ),  # 0
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 

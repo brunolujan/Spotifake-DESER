@@ -224,7 +224,7 @@ public partial class TrackService
     /// </summary>
     /// <param name="idPlaylist"></param>
     /// <param name="idTrack"></param>
-    Task<Track> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken));
+    Task<bool> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Track from a Playlist
@@ -782,7 +782,7 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteLibraryTrack failed: unknown result");
     }
 
-    public async Task<Track> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> AddTrackToPlaylistAsync(short idPlaylist, short idTrack, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToPlaylist", TMessageType.Call, SeqId), cancellationToken);
       
@@ -6851,10 +6851,10 @@ public partial class TrackService
 
   public partial class AddTrackToPlaylistResult : TBase
   {
-    private Track _success;
+    private bool _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Track Success
+    public bool Success
     {
       get
       {
@@ -6910,10 +6910,9 @@ public partial class TrackService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Track();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -6958,15 +6957,12 @@ public partial class TrackService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -7013,12 +7009,12 @@ public partial class TrackService
     {
       var sb = new StringBuilder("AddTrackToPlaylist_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

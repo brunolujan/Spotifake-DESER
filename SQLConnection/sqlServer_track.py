@@ -207,7 +207,7 @@ class SqlServerTrackManagement:
         connection.save()
         connection.close()
         print(idPlaylist, idTrack)
-    return true
+        return True
 
     def GetTrackByQuery(self, query:str):
         connection: SQLConnection = SQLConnection()
