@@ -36,5 +36,18 @@ namespace Client.Pages {
                 MessageBox.Show(ex.Message, "Please try again");
             }
         }
+
+        private void Button_AddToPlaylist_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_TrackAlbum.SelectedItem;
+            if (trackAux != null)
+            {
+                PopUpWindow popUpWindow = new PopUpWindow(new AddTrackToPlayist(trackAux));
+                popUpWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar un track");
+            }
+        }
     }
 }

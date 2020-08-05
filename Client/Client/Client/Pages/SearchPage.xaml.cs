@@ -35,6 +35,7 @@ namespace Client.Pages {
                 datagrid_SearchTracks.Visibility = Visibility.Visible;
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByQueryAsync(TextBox_search.Text);
                 datagrid_SearchTracks.ItemsSource = tracks;
+                Button_AddToPlaylist.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -142,6 +143,19 @@ namespace Client.Pages {
             if (contentCreatorAux != null)
             {
                 NavigationService.Navigate(new AlbumsContentCreatorPage(contentCreatorAux));
+            }
+        }
+
+        private void Button_AddToPlaylist_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_SearchTracks.SelectedItem;
+            if (trackAux != null)
+            {
+                PopUpWindow popUpWindow = new PopUpWindow(new AddTrackToPlayist(trackAux));
+                popUpWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar un track");
             }
         }
     }

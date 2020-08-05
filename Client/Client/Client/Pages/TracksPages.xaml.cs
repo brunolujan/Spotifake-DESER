@@ -28,7 +28,7 @@ namespace Client.Pages {
             datagrid_Track.Items.Refresh();
         }
 
-        private void Button_search_Click(object sender, RoutedEventArgs e) {
+        private void Button_AddToPlaylist_Click(object sender, RoutedEventArgs e) {
             var trackAux = (Track)datagrid_Track.SelectedItem;
             if (trackAux != null)
             {
