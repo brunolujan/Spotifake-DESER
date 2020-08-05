@@ -310,6 +310,9 @@
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddTrackToPlayist.xaml.cs">
+      <DependentUpon>AddTrackToPlayist.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AlbumsContentCreatorPage.xaml.cs">
       <DependentUpon>AlbumsContentCreatorPage.xaml</DependentUpon>
     </Compile>
@@ -337,6 +340,9 @@
     <Compile Include="Pages\TracksPlaylistPage.xaml.cs">
       <DependentUpon>TracksPlaylistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopUpWindow.xaml.cs">
+      <DependentUpon>PopUpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServerConnection.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SingUp.xaml.cs">
@@ -363,6 +369,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindowContentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddTrackToPlayist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -399,6 +409,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\TracksPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

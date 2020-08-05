@@ -27,5 +27,19 @@ namespace Client.Pages {
             datagrid_Track.ItemsSource = tracks;
             datagrid_Track.Items.Refresh();
         }
+
+        private void Button_search_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_Track.SelectedItem;
+            if (trackAux != null)
+            {
+                PopUpWindow popUpWindow = new PopUpWindow(new AddTrackToPlayist(trackAux));
+                popUpWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar un track");
+            }
+            
+        }
     }
 }
