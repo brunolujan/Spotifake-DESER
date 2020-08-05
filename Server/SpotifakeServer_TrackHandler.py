@@ -94,12 +94,6 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         SqlServerTrackManagement.AddFeaturingTrack(self, idNewTrack, idContentCreator)
         return idNewTrack
 
-    def AddTrackToMedia(self, fileName, audio):
-        file = open("../Media/Tracks/"+fileName+".mp3", 'wb')
-        file.write(audio)
-        file.close()
-        return True
-
     def DeleteAlbumTrack(self,idAlbum, trackNumber):
         trackFound = SqlServerTrackManagement.DeleteAlbumTrack(self, idAlbum, trackNumber)
         return trackFound.idTrack
@@ -131,3 +125,21 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
     def DeletePlaylistTrack(self,idPlaylist, IdTrack):
         trackFound = SqlServerTrackManagement.DeletePlaylistTrack(self, idPlaylist, idTrack)
         return trackFound.idTrack
+
+    def GetLocalTracksByIdConsumer(self, idConsumer):
+        localTrackList = []
+        localTrackFound =  SqlServerTrackManagement.GetLocalTracksByIdConsumer(self, idConsumer)
+        print(localTrackFound)
+        for n in localTrackFound:
+            localTrackAux = LocalTrack()            
+            localTrackAux.idConsumer = n.IdConsumer
+            localTrackAux.fileName = n.fileName
+            localTrackAux.artistName = n.artistName
+            localTrackAux.title = n.title
+            localTrackList.append(localTrackAux)
+        return localTrackList
+
+    def AddLocalTrack(self, localTrack):
+        result = SqlServerTrackManagement.AddLocalTrack(self, localTrack)
+        return result
+

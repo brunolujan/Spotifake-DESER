@@ -588,6 +588,109 @@ class Track(object):
         return not (self == other)
 
 
+class LocalTrack(object):
+    """
+    Attributes:
+     - idLocalTrack
+     - idConsumer
+     - fileName
+     - artistName
+     - title
+
+    """
+
+
+    def __init__(self, idLocalTrack=None, idConsumer=None, fileName=None, artistName=None, title=None,):
+        self.idLocalTrack = idLocalTrack
+        self.idConsumer = idConsumer
+        self.fileName = fileName
+        self.artistName = artistName
+        self.title = title
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idLocalTrack = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 2:
+                if ftype == TType.I16:
+                    self.idConsumer = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 3:
+                if ftype == TType.STRING:
+                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 4:
+                if ftype == TType.STRING:
+                    self.artistName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 5:
+                if ftype == TType.STRING:
+                    self.title = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('LocalTrack')
+        if self.idLocalTrack is not None:
+            oprot.writeFieldBegin('idLocalTrack', TType.I16, 1)
+            oprot.writeI16(self.idLocalTrack)
+            oprot.writeFieldEnd()
+        if self.idConsumer is not None:
+            oprot.writeFieldBegin('idConsumer', TType.I16, 2)
+            oprot.writeI16(self.idConsumer)
+            oprot.writeFieldEnd()
+        if self.fileName is not None:
+            oprot.writeFieldBegin('fileName', TType.STRING, 3)
+            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
+            oprot.writeFieldEnd()
+        if self.artistName is not None:
+            oprot.writeFieldBegin('artistName', TType.STRING, 4)
+            oprot.writeString(self.artistName.encode('utf-8') if sys.version_info[0] == 2 else self.artistName)
+            oprot.writeFieldEnd()
+        if self.title is not None:
+            oprot.writeFieldBegin('title', TType.STRING, 5)
+            oprot.writeString(self.title.encode('utf-8') if sys.version_info[0] == 2 else self.title)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        if self.idLocalTrack is None:
+            raise TProtocolException(message='Required field idLocalTrack is unset!')
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
 class Date(object):
     """
     Attributes:
@@ -1409,6 +1512,15 @@ Track.thrift_spec = (
     (4, TType.STRING, 'storagePath', 'UTF8', None, ),  # 4
     (5, TType.STRING, 'title', 'UTF8', None, ),  # 5
     (6, TType.I32, 'gender', None, None, ),  # 6
+)
+all_structs.append(LocalTrack)
+LocalTrack.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idLocalTrack', None, None, ),  # 1
+    (2, TType.I16, 'idConsumer', None, None, ),  # 2
+    (3, TType.STRING, 'fileName', 'UTF8', None, ),  # 3
+    (4, TType.STRING, 'artistName', 'UTF8', None, ),  # 4
+    (5, TType.STRING, 'title', 'UTF8', None, ),  # 5
 )
 all_structs.append(Date)
 Date.thrift_spec = (

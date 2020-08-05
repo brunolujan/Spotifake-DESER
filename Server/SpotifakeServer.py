@@ -16,6 +16,7 @@ from SpotifakeServices import PlaylistService
 from SpotifakeServices import LibraryService
 from SpotifakeServices.ttypes import *
 from Server.TMultiplexedProcessor import TMultiplexedProcessor
+from SpotifakeManagement.ttypes import LocalTrack
 
 if __name__ == "__main__":
 
@@ -33,4 +34,4 @@ if __name__ == "__main__":
 
     print("Starting service...")
     server.serve()
-    print("Spotifake Service started.")
+    

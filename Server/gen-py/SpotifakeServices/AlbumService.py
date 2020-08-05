@@ -1623,11 +1623,11 @@ class GetAlbumsByContentCreatorId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype59, _size56) = iprot.readListBegin()
-                    for _i60 in range(_size56):
-                        _elem61 = SpotifakeManagement.ttypes.Album()
-                        _elem61.read(iprot)
-                        self.success.append(_elem61)
+                    (_etype66, _size63) = iprot.readListBegin()
+                    for _i67 in range(_size63):
+                        _elem68 = SpotifakeManagement.ttypes.Album()
+                        _elem68.read(iprot)
+                        self.success.append(_elem68)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1656,8 +1656,8 @@ class GetAlbumsByContentCreatorId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter62 in self.success:
-                iter62.write(oprot)
+            for iter69 in self.success:
+                iter69.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -1781,11 +1781,11 @@ class GetSinglesByContentCreatorId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype66, _size63) = iprot.readListBegin()
-                    for _i67 in range(_size63):
-                        _elem68 = SpotifakeManagement.ttypes.Album()
-                        _elem68.read(iprot)
-                        self.success.append(_elem68)
+                    (_etype73, _size70) = iprot.readListBegin()
+                    for _i74 in range(_size70):
+                        _elem75 = SpotifakeManagement.ttypes.Album()
+                        _elem75.read(iprot)
+                        self.success.append(_elem75)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1814,8 +1814,8 @@ class GetSinglesByContentCreatorId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter69 in self.success:
-                iter69.write(oprot)
+            for iter76 in self.success:
+                iter76.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -1939,11 +1939,11 @@ class GetAlbumByLibraryId_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype73, _size70) = iprot.readListBegin()
-                    for _i74 in range(_size70):
-                        _elem75 = SpotifakeManagement.ttypes.Album()
-                        _elem75.read(iprot)
-                        self.success.append(_elem75)
+                    (_etype80, _size77) = iprot.readListBegin()
+                    for _i81 in range(_size77):
+                        _elem82 = SpotifakeManagement.ttypes.Album()
+                        _elem82.read(iprot)
+                        self.success.append(_elem82)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1972,8 +1972,8 @@ class GetAlbumByLibraryId_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter76 in self.success:
-                iter76.write(oprot)
+            for iter83 in self.success:
+                iter83.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
@@ -3217,11 +3217,11 @@ class GetAlbumByQuery_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype80, _size77) = iprot.readListBegin()
-                    for _i81 in range(_size77):
-                        _elem82 = SpotifakeManagement.ttypes.Album()
-                        _elem82.read(iprot)
-                        self.success.append(_elem82)
+                    (_etype87, _size84) = iprot.readListBegin()
+                    for _i88 in range(_size84):
+                        _elem89 = SpotifakeManagement.ttypes.Album()
+                        _elem89.read(iprot)
+                        self.success.append(_elem89)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -3250,8 +3250,8 @@ class GetAlbumByQuery_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.STRUCT, len(self.success))
-            for iter83 in self.success:
-                iter83.write(oprot)
+            for iter90 in self.success:
+                iter90.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.sErrorNotFoundE is not None:
