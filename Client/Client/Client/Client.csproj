@@ -283,6 +283,9 @@
     <Compile Include="AddAlbum.xaml.cs">
       <DependentUpon>AddAlbum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="client - stub\RequestTrackAudio.cs" />
+    <Compile Include="client - stub\StreamingService.cs" />
+    <Compile Include="client - stub\TrackAudio.cs" />
     <Compile Include="gen-netstd\Album.cs" />
     <Compile Include="gen-netstd\AlbumService.cs" />
     <Compile Include="gen-netstd\Consumer.cs" />
@@ -293,6 +296,7 @@
     <Compile Include="gen-netstd\ExceptionUser.cs" />
     <Compile Include="gen-netstd\Library.cs" />
     <Compile Include="gen-netstd\LibraryService.cs" />
+    <Compile Include="gen-netstd\LocalTrack.cs" />
     <Compile Include="gen-netstd\MusicGender.cs" />
     <Compile Include="gen-netstd\Playlist.cs" />
     <Compile Include="gen-netstd\PlaylistService.cs" />
@@ -324,6 +328,9 @@
     </Compile>
     <Compile Include="Pages\ContentCreatorsPages.xaml.cs">
       <DependentUpon>ContentCreatorsPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MyOwnTracksPage.xaml.cs">
+      <DependentUpon>MyOwnTracksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PlaylistsPages.xaml.cs">
       <DependentUpon>PlaylistsPages.xaml</DependentUpon>
@@ -391,6 +398,10 @@
     <Page Include="Pages\ContentCreatorsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Pages\MyOwnTracksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PlaylistsPages.xaml">
       <SubType>Designer</SubType>

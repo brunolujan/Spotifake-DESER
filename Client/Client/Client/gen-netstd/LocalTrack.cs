@@ -182,10 +182,10 @@ public partial class LocalTrack : TBase
       }
 
       await iprot.ReadStructEndAsync(cancellationToken);
-      if (!isset_idLocalTrack)
-      {
-        throw new TProtocolException(TProtocolException.INVALID_DATA);
-      }
+      //if (!isset_idLocalTrack)
+      //{
+      //  throw new TProtocolException(TProtocolException.INVALID_DATA);
+      //}
     }
     finally
     {

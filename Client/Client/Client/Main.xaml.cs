@@ -83,5 +83,9 @@ namespace Client {
         private void button_Search_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             centralFrame.Navigate(new SearchPage());
         }
+
+        private void button_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            centralFrame.Navigate(new MyOwnTracksPage());
+        }
     }
 }
