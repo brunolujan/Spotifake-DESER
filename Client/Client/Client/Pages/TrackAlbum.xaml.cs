@@ -46,7 +46,19 @@ namespace Client.Pages {
             }
             else
             {
-                MessageBox.Show("Debes seleccionar un track");
+                MessageBox.Show("Please select a track");
+            }
+        }
+
+        private async void Button_AddToLibrary_Click(object sender, RoutedEventArgs e) {
+            if (datagrid_TrackAlbum.SelectedItem != null)
+            {
+                Track trackAux = (Track)datagrid_TrackAlbum.SelectedItem;
+                await Session.serverConnection.trackService.AddTrackToLibraryAsync(Session.library.IdLibrary, trackAux.IdTrack);
+            }
+            else
+            {
+                MessageBox.Show("Please select a track");
             }
         }
     }

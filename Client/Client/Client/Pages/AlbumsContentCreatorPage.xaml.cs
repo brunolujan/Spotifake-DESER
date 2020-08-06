@@ -44,5 +44,17 @@ namespace Client.Pages {
                 NavigationService.Navigate(new TrackAlbum(albumAux));
             }
         }
+
+        private async void Button_AddToLibrary_Click(object sender, RoutedEventArgs e) {
+            if (datagrid_AlbumContentCreator.SelectedItem != null)
+            {
+                Album albumAux = (Album)datagrid_AlbumContentCreator.SelectedItem;
+                await Session.serverConnection.albumService.AddAlbumToLibraryAsync(Session.library.IdLibrary, albumAux.IdAlbum);
+            }
+            else
+            {
+                MessageBox.Show("Please select an album");
+            }
+        }
     }
 }

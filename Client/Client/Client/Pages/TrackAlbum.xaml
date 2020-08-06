@@ -28,6 +28,9 @@
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
             <Button  x:Name="Button_AddToPlaylist"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Playlist" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">
             </Button>
+            <Button  x:Name="Button_AddToLibrary"  Background="#FF1CC357"  BorderBrush="Transparent" 
+                     Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToLibrary_Click">
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

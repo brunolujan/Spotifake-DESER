@@ -37,5 +37,16 @@ namespace Client.Pages {
             }
         }
 
+        private async void Button_AddToLibrary_Click(object sender, RoutedEventArgs e) {
+            if (datagrid_TrackPlaylist.SelectedItem != null)
+            {
+                Track trackAux = (Track)datagrid_TrackPlaylist.SelectedItem;
+                await Session.serverConnection.trackService.AddTrackToLibraryAsync(Session.library.IdLibrary, trackAux.IdTrack);
+            }
+            else
+            {
+                MessageBox.Show("Please select a track");
+            }
+        }
     }
 }
