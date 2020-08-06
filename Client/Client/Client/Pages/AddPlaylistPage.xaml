@@ -1,0 +1,103 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Client.Pages.AddPlaylistPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="800"  Background="#FF181818"
+      Title="AlbumsPages">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="image_Consumer" HorizontalAlignment="Left" Height="245" Margin="33,0,0,0" VerticalAlignment="Top" Width="245" Grid.Row="1"/>
+        <Button x:Name="button_Create" Content="CREATE" Margin="33,361.438,0,0" VerticalAlignment="Top" Width="735" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1" Click="button_Create_Click"/>
+        <Button x:Name="button_SelectFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="33,272,0,0" VerticalAlignment="Top" Width="245" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1" Click="button_SelectFile_Click">
+            <Button.Resources>
+                <Style x:Key="FocusVisual">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+                <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF1CC357"/>
+                <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF1CC357"/>
+                <SolidColorBrush x:Key="Button.Pressed.Background" Color="Green"/>
+                <SolidColorBrush x:Key="Button.Pressed.Border" Color="Green"/>
+                <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+                <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+                <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+                <Style x:Key="Example" TargetType="{x:Type Button}">
+                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                    <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsDefaulted" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="35,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="733" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
+        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="276,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="249" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="CREATE PLAYLIST"/>
+        <TextBox x:Name="textBox_Name" HorizontalAlignment="Left" Height="30" Margin="305,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="470" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" mah:TextBoxHelper.Watermark="Put your email" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.IsWaitingForData="True" mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" mah:TextBoxHelper.HasText="True" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="307,2,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Foreground="White" Width="118" FontSize="30" RenderTransformOrigin="0.5,0.5" Height="34" FontFamily="Gotham Bold" Grid.Row="1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.022"/>
+                    <TranslateTransform X="0.499" Y="-0.03"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="307,90,0,0" TextWrapping="Wrap" Text="Description&#x9;" VerticalAlignment="Top" Foreground="White" Width="214" FontSize="30" RenderTransformOrigin="0.5,0.5" Height="36" FontFamily="Gotham Bold" Grid.Row="1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.022"/>
+                    <TranslateTransform X="-0.481" Y="0.002"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="textBox_Description" HorizontalAlignment="Left" Height="110" Margin="305,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="470" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" mah:TextBoxHelper.Watermark="Put your email" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.IsWaitingForData="True" mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" mah:TextBoxHelper.HasText="True" Grid.Row="1"/>
+    </Grid>
+</Page>
