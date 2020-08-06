@@ -647,7 +647,7 @@ service TrackService {
     *       Track object added
     **/
 
-    SpotifakeManagement.Track AddTrackToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Track newTrack) 
+    bool AddTrackToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idTrack) 
         throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
     
     /**

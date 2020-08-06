@@ -168,7 +168,7 @@ class SqlServerTrackManagement:
         connection.save()
         return row
 
-    def AddTrackToLibrary(self, idLibrary:int, newTrack):
+    def AddTrackToLibrary(self, idLibrary:int, idTrack:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -182,11 +182,10 @@ class SqlServerTrackManagement:
 
             SELECT	@salida as N'@salida'   
         """
-        params = (idLibrary, newTrack.idTrack)
+        params = (idLibrary, idTrack)
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
-        print(idLibrary, newTrack.idTrack)
+        return True
 
     def AddTrackToPlaylist(self, idPlaylist:int, idTrack:int):
         connection: SQLConnection = SQLConnection()

@@ -34,7 +34,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('   GetTrackByQuery(string query)')
     print('  Track UpdateAlbumTrackTitle(Id idAlbum, Int trackNumber, string newAlbumTrackTitle)')
     print('  Track UpdateAlbumTrackFeaturing(Id idAlbum, Int trackNumber, ContentCreator newFeaturing)')
-    print('  Track AddTrackToLibrary(Id idLibrary, Track newTrack)')
+    print('  bool AddTrackToLibrary(Id idLibrary, Id idTrack)')
     print('  Id DeleteLibraryTrack(Id idLibrary, Int trackNumber)')
     print('  bool AddTrackToPlaylist(Id idPlaylist, Id idTrack)')
     print('  Id DeletePlaylistTrack(Id idPlaylist, Int trackNumber)')

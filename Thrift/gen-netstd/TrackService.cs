@@ -190,8 +190,8 @@ public partial class TrackService
     /// 
     /// </summary>
     /// <param name="idLibrary"></param>
-    /// <param name="newTrack"></param>
-    Task<Track> AddTrackToLibraryAsync(short idLibrary, Track newTrack, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idTrack"></param>
+    Task<bool> AddTrackToLibraryAsync(short idLibrary, short idTrack, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Track from a Library
@@ -708,13 +708,13 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateAlbumTrackFeaturing failed: unknown result");
     }
 
-    public async Task<Track> AddTrackToLibraryAsync(short idLibrary, Track newTrack, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> AddTrackToLibraryAsync(short idLibrary, short idTrack, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddTrackToLibrary", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddTrackToLibraryArgs();
       args.IdLibrary = idLibrary;
-      args.NewTrack = newTrack;
+      args.IdTrack = idTrack;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1499,7 +1499,7 @@ public partial class TrackService
       {
         try
         {
-          result.Success = await _iAsync.AddTrackToLibraryAsync(args.IdLibrary, args.NewTrack, cancellationToken);
+          result.Success = await _iAsync.AddTrackToLibraryAsync(args.IdLibrary, args.IdTrack, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -5910,7 +5910,7 @@ public partial class TrackService
   public partial class AddTrackToLibraryArgs : TBase
   {
     private short _idLibrary;
-    private Track _newTrack;
+    private short _idTrack;
 
     public short IdLibrary
     {
@@ -5925,16 +5925,16 @@ public partial class TrackService
       }
     }
 
-    public Track NewTrack
+    public short IdTrack
     {
       get
       {
-        return _newTrack;
+        return _idTrack;
       }
       set
       {
-        __isset.newTrack = true;
-        this._newTrack = value;
+        __isset.idTrack = true;
+        this._idTrack = value;
       }
     }
 
@@ -5943,7 +5943,7 @@ public partial class TrackService
     public struct Isset
     {
       public bool idLibrary;
-      public bool newTrack;
+      public bool idTrack;
     }
 
     public AddTrackToLibraryArgs()
@@ -5978,10 +5978,9 @@ public partial class TrackService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                NewTrack = new Track();
-                await NewTrack.ReadAsync(iprot, cancellationToken);
+                IdTrack = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -6021,13 +6020,13 @@ public partial class TrackService
           await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewTrack != null && __isset.newTrack)
+        if (__isset.idTrack)
         {
-          field.Name = "newTrack";
-          field.Type = TType.Struct;
+          field.Name = "idTrack";
+          field.Type = TType.I16;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewTrack.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteI16Async(IdTrack, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -6045,7 +6044,7 @@ public partial class TrackService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.newTrack == other.__isset.newTrack) && ((!__isset.newTrack) || (System.Object.Equals(NewTrack, other.NewTrack))));
+        && ((__isset.idTrack == other.__isset.idTrack) && ((!__isset.idTrack) || (System.Object.Equals(IdTrack, other.IdTrack))));
     }
 
     public override int GetHashCode() {
@@ -6053,8 +6052,8 @@ public partial class TrackService
       unchecked {
         if(__isset.idLibrary)
           hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.newTrack)
-          hashcode = (hashcode * 397) + NewTrack.GetHashCode();
+        if(__isset.idTrack)
+          hashcode = (hashcode * 397) + IdTrack.GetHashCode();
       }
       return hashcode;
     }
@@ -6070,12 +6069,12 @@ public partial class TrackService
         sb.Append("IdLibrary: ");
         sb.Append(IdLibrary);
       }
-      if (NewTrack != null && __isset.newTrack)
+      if (__isset.idTrack)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewTrack: ");
-        sb.Append(NewTrack== null ? "<null>" : NewTrack.ToString());
+        sb.Append("IdTrack: ");
+        sb.Append(IdTrack);
       }
       sb.Append(")");
       return sb.ToString();
@@ -6085,10 +6084,10 @@ public partial class TrackService
 
   public partial class AddTrackToLibraryResult : TBase
   {
-    private Track _success;
+    private bool _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Track Success
+    public bool Success
     {
       get
       {
@@ -6144,10 +6143,9 @@ public partial class TrackService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Track();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -6192,15 +6190,12 @@ public partial class TrackService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -6247,12 +6242,12 @@ public partial class TrackService
     {
       var sb = new StringBuilder("AddTrackToLibrary_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {
