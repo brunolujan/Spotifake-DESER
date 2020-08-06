@@ -41,8 +41,8 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Track AddTrackToPlayQueue(Id idPlayQueu, Track newTrack)')
     print('  Id DeletePlayQueueTrack(Id idPlayQueu, Int trackNumber)')
     print('   GenerateRadioStation(MusicGender gender)')
-    print('  bool AddTrackToMedia(string fileName, string audio)')
-    print('  string GetTrackToMedia(string fileName, string audio)')
+    print('   GetLocalTracksByIdConsumer(Id idConsumer)')
+    print('  bool AddLocalTrack(LocalTrack LocalTrack)')
     print('')
     sys.exit(0)
 
@@ -224,17 +224,17 @@ elif cmd == 'GenerateRadioStation':
         sys.exit(1)
     pp.pprint(client.GenerateRadioStation(eval(args[0]),))
 
-elif cmd == 'AddTrackToMedia':
-    if len(args) != 2:
-        print('AddTrackToMedia requires 2 args')
+elif cmd == 'GetLocalTracksByIdConsumer':
+    if len(args) != 1:
+        print('GetLocalTracksByIdConsumer requires 1 args')
         sys.exit(1)
-    pp.pprint(client.AddTrackToMedia(args[0], args[1],))
+    pp.pprint(client.GetLocalTracksByIdConsumer(eval(args[0]),))
 
-elif cmd == 'GetTrackToMedia':
-    if len(args) != 2:
-        print('GetTrackToMedia requires 2 args')
+elif cmd == 'AddLocalTrack':
+    if len(args) != 1:
+        print('AddLocalTrack requires 1 args')
         sys.exit(1)
-    pp.pprint(client.GetTrackToMedia(args[0], args[1],))
+    pp.pprint(client.AddLocalTrack(eval(args[0]),))
 
 else:
     print('Unrecognized method %s' % cmd)

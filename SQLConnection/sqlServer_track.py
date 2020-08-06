@@ -198,7 +198,7 @@ class SqlServerTrackManagement:
                     @idPlaylist = ?
    
         """
-        params = ( idTrack, idPlaylist) 
+        params = (idTrack, idPlaylist) 
         connection.cursor.execute(sql, params)
         connection.save()
         return True
@@ -213,7 +213,42 @@ class SqlServerTrackManagement:
         connection.cursor.execute(sql, query)
         rows = connection.cursor.fetchall()
         return rows
+
+    def GetLocalTracksByIdConsumer(self, idConsumer:int):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+            EXEC	@return_value = [dbo].[SPC_GetLocalTracks]
+                    @idConsumer = ?,
+                    @salida = @salida OUTPUT
+        """
+        connection.cursor.execute(sql, idConsumer)
+        row = connection.cursor.fetchall()
+        return row
         
+    def AddLocalTrack(self, localTrack):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_LocalTrack]
+                    @IdConsumer = ?,
+                    @fileName = ?,
+                    @artistName = ?,
+                    @title = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+        """
+        params = (localTrack.idConsumer, localTrack.fileName, localTrack.artistName,localTrack.title)
+        connection.cursor.execute(sql,params)
+        connection.save()
+        return True
+
         
         
 

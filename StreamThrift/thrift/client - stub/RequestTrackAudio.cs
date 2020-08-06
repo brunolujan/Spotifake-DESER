@@ -24,10 +24,14 @@ using Thrift.Processor;
 
 
 
-public partial class TrackRequest : TBase
+/// <summary>
+/// Application Programming Interface definition for Spotijake Streaming Services.
+/// this parent thrift file is contains all service interfaces. The data models are
+/// described in respective thrift files.
+/// </summary>
+public partial class RequestTrackAudio : TBase
 {
   private string _filename;
-  private Quality _quality;
 
   public string Filename
   {
@@ -42,32 +46,14 @@ public partial class TrackRequest : TBase
     }
   }
 
-  /// <summary>
-  /// 
-  /// <seealso cref="Quality"/>
-  /// </summary>
-  public Quality Quality
-  {
-    get
-    {
-      return _quality;
-    }
-    set
-    {
-      __isset.quality = true;
-      this._quality = value;
-    }
-  }
-
 
   public Isset __isset;
   public struct Isset
   {
     public bool filename;
-    public bool quality;
   }
 
-  public TrackRequest()
+  public RequestTrackAudio()
   {
   }
 
@@ -98,16 +84,6 @@ public partial class TrackRequest : TBase
               await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
             }
             break;
-          case 2:
-            if (field.Type == TType.I32)
-            {
-              Quality = (Quality)await iprot.ReadI32Async(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
           default: 
             await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
             break;
@@ -129,7 +105,7 @@ public partial class TrackRequest : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      var struc = new TStruct("TrackRequest");
+      var struc = new TStruct("RequestTrackAudio");
       await oprot.WriteStructBeginAsync(struc, cancellationToken);
       var field = new TField();
       if (Filename != null && __isset.filename)
@@ -139,15 +115,6 @@ public partial class TrackRequest : TBase
         field.ID = 1;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         await oprot.WriteStringAsync(Filename, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (__isset.quality)
-      {
-        field.Name = "quality";
-        field.Type = TType.I32;
-        field.ID = 2;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteI32Async((int)Quality, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       await oprot.WriteFieldStopAsync(cancellationToken);
@@ -161,11 +128,10 @@ public partial class TrackRequest : TBase
 
   public override bool Equals(object that)
   {
-    var other = that as TrackRequest;
+    var other = that as RequestTrackAudio;
     if (other == null) return false;
     if (ReferenceEquals(this, other)) return true;
-    return ((__isset.filename == other.__isset.filename) && ((!__isset.filename) || (System.Object.Equals(Filename, other.Filename))))
-      && ((__isset.quality == other.__isset.quality) && ((!__isset.quality) || (System.Object.Equals(Quality, other.Quality))));
+    return ((__isset.filename == other.__isset.filename) && ((!__isset.filename) || (System.Object.Equals(Filename, other.Filename))));
   }
 
   public override int GetHashCode() {
@@ -173,15 +139,13 @@ public partial class TrackRequest : TBase
     unchecked {
       if(__isset.filename)
         hashcode = (hashcode * 397) + Filename.GetHashCode();
-      if(__isset.quality)
-        hashcode = (hashcode * 397) + Quality.GetHashCode();
     }
     return hashcode;
   }
 
   public override string ToString()
   {
-    var sb = new StringBuilder("TrackRequest(");
+    var sb = new StringBuilder("RequestTrackAudio(");
     bool __first = true;
     if (Filename != null && __isset.filename)
     {
@@ -189,13 +153,6 @@ public partial class TrackRequest : TBase
       __first = false;
       sb.Append("Filename: ");
       sb.Append(Filename);
-    }
-    if (__isset.quality)
-    {
-      if(!__first) { sb.Append(", "); }
-      __first = false;
-      sb.Append("Quality: ");
-      sb.Append(Quality);
     }
     sb.Append(")");
     return sb.ToString();

@@ -27,11 +27,9 @@ public partial class StreamingService
 {
   public interface IAsync
   {
-    Task<TrackAudio> GetTrackAudioAsync(TrackRequest trackRequest, CancellationToken cancellationToken = default(CancellationToken));
+    Task<TrackAudio> GetTrackAudioAsync(RequestTrackAudio requestTrackAudio, CancellationToken cancellationToken = default(CancellationToken));
 
     Task<bool> UploadTrackAsync(TrackAudio trackAudio, CancellationToken cancellationToken = default(CancellationToken));
-
-    Task<bool> UploadPersonalTrackAsync(TrackAudio trackAudio, CancellationToken cancellationToken = default(CancellationToken));
 
   }
 
@@ -44,12 +42,12 @@ public partial class StreamingService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
-    public async Task<TrackAudio> GetTrackAudioAsync(TrackRequest trackRequest, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<TrackAudio> GetTrackAudioAsync(RequestTrackAudio requestTrackAudio, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("GetTrackAudio", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new GetTrackAudioArgs();
-      args.TrackRequest = trackRequest;
+      args.RequestTrackAudio = requestTrackAudio;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -102,35 +100,6 @@ public partial class StreamingService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UploadTrack failed: unknown result");
     }
 
-    public async Task<bool> UploadPersonalTrackAsync(TrackAudio trackAudio, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UploadPersonalTrack", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new UploadPersonalTrackArgs();
-      args.TrackAudio = trackAudio;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new UploadPersonalTrackResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UploadPersonalTrack failed: unknown result");
-    }
-
   }
 
   public class AsyncProcessor : ITAsyncProcessor
@@ -144,7 +113,6 @@ public partial class StreamingService
       _iAsync = iAsync;
       processMap_["GetTrackAudio"] = GetTrackAudio_ProcessAsync;
       processMap_["UploadTrack"] = UploadTrack_ProcessAsync;
-      processMap_["UploadPersonalTrack"] = UploadPersonalTrack_ProcessAsync;
     }
 
     protected delegate Task ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken);
@@ -195,7 +163,7 @@ public partial class StreamingService
       var result = new GetTrackAudioResult();
       try
       {
-        result.Success = await _iAsync.GetTrackAudioAsync(args.TrackRequest, cancellationToken);
+        result.Success = await _iAsync.GetTrackAudioAsync(args.RequestTrackAudio, cancellationToken);
         await oprot.WriteMessageBeginAsync(new TMessage("GetTrackAudio", TMessageType.Reply, seqid), cancellationToken); 
         await result.WriteAsync(oprot, cancellationToken);
       }
@@ -243,51 +211,23 @@ public partial class StreamingService
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UploadPersonalTrack_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
-    {
-      var args = new UploadPersonalTrackArgs();
-      await args.ReadAsync(iprot, cancellationToken);
-      await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UploadPersonalTrackResult();
-      try
-      {
-        result.Success = await _iAsync.UploadPersonalTrackAsync(args.TrackAudio, cancellationToken);
-        await oprot.WriteMessageBeginAsync(new TMessage("UploadPersonalTrack", TMessageType.Reply, seqid), cancellationToken); 
-        await result.WriteAsync(oprot, cancellationToken);
-      }
-      catch (TTransportException)
-      {
-        throw;
-      }
-      catch (Exception ex)
-      {
-        Console.Error.WriteLine("Error occurred in processor:");
-        Console.Error.WriteLine(ex.ToString());
-        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UploadPersonalTrack", TMessageType.Exception, seqid), cancellationToken);
-        await x.WriteAsync(oprot, cancellationToken);
-      }
-      await oprot.WriteMessageEndAsync(cancellationToken);
-      await oprot.Transport.FlushAsync(cancellationToken);
-    }
-
   }
 
 
   public partial class GetTrackAudioArgs : TBase
   {
-    private TrackRequest _trackRequest;
+    private RequestTrackAudio _requestTrackAudio;
 
-    public TrackRequest TrackRequest
+    public RequestTrackAudio RequestTrackAudio
     {
       get
       {
-        return _trackRequest;
+        return _requestTrackAudio;
       }
       set
       {
-        __isset.trackRequest = true;
-        this._trackRequest = value;
+        __isset.requestTrackAudio = true;
+        this._requestTrackAudio = value;
       }
     }
 
@@ -295,7 +235,7 @@ public partial class StreamingService
     public Isset __isset;
     public struct Isset
     {
-      public bool trackRequest;
+      public bool requestTrackAudio;
     }
 
     public GetTrackAudioArgs()
@@ -322,8 +262,8 @@ public partial class StreamingService
             case 1:
               if (field.Type == TType.Struct)
               {
-                TrackRequest = new TrackRequest();
-                await TrackRequest.ReadAsync(iprot, cancellationToken);
+                RequestTrackAudio = new RequestTrackAudio();
+                await RequestTrackAudio.ReadAsync(iprot, cancellationToken);
               }
               else
               {
@@ -354,13 +294,13 @@ public partial class StreamingService
         var struc = new TStruct("GetTrackAudio_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (TrackRequest != null && __isset.trackRequest)
+        if (RequestTrackAudio != null && __isset.requestTrackAudio)
         {
-          field.Name = "trackRequest";
+          field.Name = "requestTrackAudio";
           field.Type = TType.Struct;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await TrackRequest.WriteAsync(oprot, cancellationToken);
+          await RequestTrackAudio.WriteAsync(oprot, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -377,14 +317,14 @@ public partial class StreamingService
       var other = that as GetTrackAudioArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.trackRequest == other.__isset.trackRequest) && ((!__isset.trackRequest) || (System.Object.Equals(TrackRequest, other.TrackRequest))));
+      return ((__isset.requestTrackAudio == other.__isset.requestTrackAudio) && ((!__isset.requestTrackAudio) || (System.Object.Equals(RequestTrackAudio, other.RequestTrackAudio))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.trackRequest)
-          hashcode = (hashcode * 397) + TrackRequest.GetHashCode();
+        if(__isset.requestTrackAudio)
+          hashcode = (hashcode * 397) + RequestTrackAudio.GetHashCode();
       }
       return hashcode;
     }
@@ -393,12 +333,12 @@ public partial class StreamingService
     {
       var sb = new StringBuilder("GetTrackAudio_args(");
       bool __first = true;
-      if (TrackRequest != null && __isset.trackRequest)
+      if (RequestTrackAudio != null && __isset.requestTrackAudio)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("TrackRequest: ");
-        sb.Append(TrackRequest== null ? "<null>" : TrackRequest.ToString());
+        sb.Append("RequestTrackAudio: ");
+        sb.Append(RequestTrackAudio== null ? "<null>" : RequestTrackAudio.ToString());
       }
       sb.Append(")");
       return sb.ToString();
@@ -792,270 +732,6 @@ public partial class StreamingService
     public override string ToString()
     {
       var sb = new StringBuilder("UploadTrack_result(");
-      bool __first = true;
-      if (__isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class UploadPersonalTrackArgs : TBase
-  {
-    private TrackAudio _trackAudio;
-
-    public TrackAudio TrackAudio
-    {
-      get
-      {
-        return _trackAudio;
-      }
-      set
-      {
-        __isset.trackAudio = true;
-        this._trackAudio = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool trackAudio;
-    }
-
-    public UploadPersonalTrackArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                TrackAudio = new TrackAudio();
-                await TrackAudio.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("UploadPersonalTrack_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (TrackAudio != null && __isset.trackAudio)
-        {
-          field.Name = "trackAudio";
-          field.Type = TType.Struct;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await TrackAudio.WriteAsync(oprot, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as UploadPersonalTrackArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.trackAudio == other.__isset.trackAudio) && ((!__isset.trackAudio) || (System.Object.Equals(TrackAudio, other.TrackAudio))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.trackAudio)
-          hashcode = (hashcode * 397) + TrackAudio.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("UploadPersonalTrack_args(");
-      bool __first = true;
-      if (TrackAudio != null && __isset.trackAudio)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("TrackAudio: ");
-        sb.Append(TrackAudio== null ? "<null>" : TrackAudio.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class UploadPersonalTrackResult : TBase
-  {
-    private bool _success;
-
-    public bool Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-    }
-
-    public UploadPersonalTrackResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Bool)
-              {
-                Success = await iprot.ReadBoolAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("UploadPersonalTrack_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          field.Name = "Success";
-          field.Type = TType.Bool;
-          field.ID = 0;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteBoolAsync(Success, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as UploadPersonalTrackResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("UploadPersonalTrack_result(");
       bool __first = true;
       if (__isset.success)
       {

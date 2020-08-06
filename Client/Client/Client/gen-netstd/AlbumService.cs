@@ -1986,14 +1986,14 @@ public partial class AlbumService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list32 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Album>(_list32.Count);
-                  for(int _i33 = 0; _i33 < _list32.Count; ++_i33)
+                  TList _list36 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Album>(_list36.Count);
+                  for(int _i37 = 0; _i37 < _list36.Count; ++_i37)
                   {
-                    Album _elem34;
-                    _elem34 = new Album();
-                    await _elem34.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem34);
+                    Album _elem38;
+                    _elem38 = new Album();
+                    await _elem38.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem38);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -2060,9 +2060,9 @@ public partial class AlbumService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Album _iter35 in Success)
+              foreach (Album _iter39 in Success)
               {
-                await _iter35.WriteAsync(oprot, cancellationToken);
+                await _iter39.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -2366,14 +2366,14 @@ public partial class AlbumService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list36 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Album>(_list36.Count);
-                  for(int _i37 = 0; _i37 < _list36.Count; ++_i37)
+                  TList _list40 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Album>(_list40.Count);
+                  for(int _i41 = 0; _i41 < _list40.Count; ++_i41)
                   {
-                    Album _elem38;
-                    _elem38 = new Album();
-                    await _elem38.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem38);
+                    Album _elem42;
+                    _elem42 = new Album();
+                    await _elem42.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem42);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -2440,9 +2440,9 @@ public partial class AlbumService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Album _iter39 in Success)
+              foreach (Album _iter43 in Success)
               {
-                await _iter39.WriteAsync(oprot, cancellationToken);
+                await _iter43.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -2746,14 +2746,14 @@ public partial class AlbumService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list40 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Album>(_list40.Count);
-                  for(int _i41 = 0; _i41 < _list40.Count; ++_i41)
+                  TList _list44 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Album>(_list44.Count);
+                  for(int _i45 = 0; _i45 < _list44.Count; ++_i45)
                   {
-                    Album _elem42;
-                    _elem42 = new Album();
-                    await _elem42.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem42);
+                    Album _elem46;
+                    _elem46 = new Album();
+                    await _elem46.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem46);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -2820,9 +2820,9 @@ public partial class AlbumService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Album _iter43 in Success)
+              foreach (Album _iter47 in Success)
               {
-                await _iter43.WriteAsync(oprot, cancellationToken);
+                await _iter47.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -5917,14 +5917,14 @@ public partial class AlbumService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list44 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Album>(_list44.Count);
-                  for(int _i45 = 0; _i45 < _list44.Count; ++_i45)
+                  TList _list48 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Album>(_list48.Count);
+                  for(int _i49 = 0; _i49 < _list48.Count; ++_i49)
                   {
-                    Album _elem46;
-                    _elem46 = new Album();
-                    await _elem46.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem46);
+                    Album _elem50;
+                    _elem50 = new Album();
+                    await _elem50.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem50);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -5991,9 +5991,9 @@ public partial class AlbumService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Album _iter47 in Success)
+              foreach (Album _iter51 in Success)
               {
-                await _iter47.WriteAsync(oprot, cancellationToken);
+                await _iter51.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }

@@ -102,6 +102,13 @@ struct Track {
     6: MusicGender      gender
 }
 
+struct LocalTrack{
+    1: required Id      idLocalTrack
+    2: Id               idConsumer
+    3: Name             fileName
+    4: Name             artistName
+    5: string           title
+}
 
 struct Date {
     1: Int              day

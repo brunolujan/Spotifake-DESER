@@ -1642,14 +1642,14 @@ public partial class PlaylistService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list48 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Playlist>(_list48.Count);
-                  for(int _i49 = 0; _i49 < _list48.Count; ++_i49)
+                  TList _list52 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Playlist>(_list52.Count);
+                  for(int _i53 = 0; _i53 < _list52.Count; ++_i53)
                   {
-                    Playlist _elem50;
-                    _elem50 = new Playlist();
-                    await _elem50.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem50);
+                    Playlist _elem54;
+                    _elem54 = new Playlist();
+                    await _elem54.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem54);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -1727,9 +1727,9 @@ public partial class PlaylistService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Playlist _iter51 in Success)
+              foreach (Playlist _iter55 in Success)
               {
-                await _iter51.WriteAsync(oprot, cancellationToken);
+                await _iter55.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }
@@ -4039,14 +4039,14 @@ public partial class PlaylistService
               if (field.Type == TType.List)
               {
                 {
-                  TList _list52 = await iprot.ReadListBeginAsync(cancellationToken);
-                  Success = new List<Playlist>(_list52.Count);
-                  for(int _i53 = 0; _i53 < _list52.Count; ++_i53)
+                  TList _list56 = await iprot.ReadListBeginAsync(cancellationToken);
+                  Success = new List<Playlist>(_list56.Count);
+                  for(int _i57 = 0; _i57 < _list56.Count; ++_i57)
                   {
-                    Playlist _elem54;
-                    _elem54 = new Playlist();
-                    await _elem54.ReadAsync(iprot, cancellationToken);
-                    Success.Add(_elem54);
+                    Playlist _elem58;
+                    _elem58 = new Playlist();
+                    await _elem58.ReadAsync(iprot, cancellationToken);
+                    Success.Add(_elem58);
                   }
                   await iprot.ReadListEndAsync(cancellationToken);
                 }
@@ -4113,9 +4113,9 @@ public partial class PlaylistService
             await oprot.WriteFieldBeginAsync(field, cancellationToken);
             {
               await oprot.WriteListBeginAsync(new TList(TType.Struct, Success.Count), cancellationToken);
-              foreach (Playlist _iter55 in Success)
+              foreach (Playlist _iter59 in Success)
               {
-                await _iter55.WriteAsync(oprot, cancellationToken);
+                await _iter59.WriteAsync(oprot, cancellationToken);
               }
               await oprot.WriteListEndAsync(cancellationToken);
             }

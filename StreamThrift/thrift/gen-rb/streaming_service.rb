@@ -11,13 +11,13 @@ module StreamingService
   class Client
     include ::Thrift::Client
 
-    def GetTrackAudio(trackRequest)
-      send_GetTrackAudio(trackRequest)
+    def GetTrackAudio(requestTrackAudio)
+      send_GetTrackAudio(requestTrackAudio)
       return recv_GetTrackAudio()
     end
 
-    def send_GetTrackAudio(trackRequest)
-      send_message('GetTrackAudio', GetTrackAudio_args, :trackRequest => trackRequest)
+    def send_GetTrackAudio(requestTrackAudio)
+      send_message('GetTrackAudio', GetTrackAudio_args, :requestTrackAudio => requestTrackAudio)
     end
 
     def recv_GetTrackAudio()
@@ -41,21 +41,6 @@ module StreamingService
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'UploadTrack failed: unknown result')
     end
 
-    def UploadPersonalTrack(trackAudio)
-      send_UploadPersonalTrack(trackAudio)
-      return recv_UploadPersonalTrack()
-    end
-
-    def send_UploadPersonalTrack(trackAudio)
-      send_message('UploadPersonalTrack', UploadPersonalTrack_args, :trackAudio => trackAudio)
-    end
-
-    def recv_UploadPersonalTrack()
-      result = receive_message(UploadPersonalTrack_result)
-      return result.success unless result.success.nil?
-      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'UploadPersonalTrack failed: unknown result')
-    end
-
   end
 
   class Processor
@@ -64,7 +49,7 @@ module StreamingService
     def process_GetTrackAudio(seqid, iprot, oprot)
       args = read_args(iprot, GetTrackAudio_args)
       result = GetTrackAudio_result.new()
-      result.success = @handler.GetTrackAudio(args.trackRequest)
+      result.success = @handler.GetTrackAudio(args.requestTrackAudio)
       write_result(result, oprot, 'GetTrackAudio', seqid)
     end
 
@@ -75,23 +60,16 @@ module StreamingService
       write_result(result, oprot, 'UploadTrack', seqid)
     end
 
-    def process_UploadPersonalTrack(seqid, iprot, oprot)
-      args = read_args(iprot, UploadPersonalTrack_args)
-      result = UploadPersonalTrack_result.new()
-      result.success = @handler.UploadPersonalTrack(args.trackAudio)
-      write_result(result, oprot, 'UploadPersonalTrack', seqid)
-    end
-
   end
 
   # HELPER FUNCTIONS AND STRUCTURES
 
   class GetTrackAudio_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
-    TRACKREQUEST = 1
+    REQUESTTRACKAUDIO = 1
 
     FIELDS = {
-      TRACKREQUEST => {:type => ::Thrift::Types::STRUCT, :name => 'trackRequest', :class => ::TrackRequest}
+      REQUESTTRACKAUDIO => {:type => ::Thrift::Types::STRUCT, :name => 'requestTrackAudio', :class => ::RequestTrackAudio}
     }
 
     def struct_fields; FIELDS; end
@@ -135,38 +113,6 @@ module StreamingService
   end
 
   class UploadTrack_result
-    include ::Thrift::Struct, ::Thrift::Struct_Union
-    SUCCESS = 0
-
-    FIELDS = {
-      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
-    }
-
-    def struct_fields; FIELDS; end
-
-    def validate
-    end
-
-    ::Thrift::Struct.generate_accessors self
-  end
-
-  class UploadPersonalTrack_args
-    include ::Thrift::Struct, ::Thrift::Struct_Union
-    TRACKAUDIO = 1
-
-    FIELDS = {
-      TRACKAUDIO => {:type => ::Thrift::Types::STRUCT, :name => 'trackAudio', :class => ::TrackAudio}
-    }
-
-    def struct_fields; FIELDS; end
-
-    def validate
-    end
-
-    ::Thrift::Struct.generate_accessors self
-  end
-
-  class UploadPersonalTrack_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 

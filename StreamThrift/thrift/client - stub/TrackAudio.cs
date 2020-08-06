@@ -26,46 +26,32 @@ using Thrift.Processor;
 
 public partial class TrackAudio : TBase
 {
-  private string _idTrack;
-  private string _trackName;
-  private byte[] _audio;
+  private byte[] _song;
+  private string _filename;
 
-  public string IdTrack
+  public byte[] Song
   {
     get
     {
-      return _idTrack;
+      return _song;
     }
     set
     {
-      __isset.idTrack = true;
-      this._idTrack = value;
+      __isset.song = true;
+      this._song = value;
     }
   }
 
-  public string TrackName
+  public string Filename
   {
     get
     {
-      return _trackName;
+      return _filename;
     }
     set
     {
-      __isset.trackName = true;
-      this._trackName = value;
-    }
-  }
-
-  public byte[] Audio
-  {
-    get
-    {
-      return _audio;
-    }
-    set
-    {
-      __isset.audio = true;
-      this._audio = value;
+      __isset.filename = true;
+      this._filename = value;
     }
   }
 
@@ -73,9 +59,8 @@ public partial class TrackAudio : TBase
   public Isset __isset;
   public struct Isset
   {
-    public bool idTrack;
-    public bool trackName;
-    public bool audio;
+    public bool song;
+    public bool filename;
   }
 
   public TrackAudio()
@@ -102,7 +87,7 @@ public partial class TrackAudio : TBase
           case 1:
             if (field.Type == TType.String)
             {
-              IdTrack = await iprot.ReadStringAsync(cancellationToken);
+              Song = await iprot.ReadBinaryAsync(cancellationToken);
             }
             else
             {
@@ -112,17 +97,7 @@ public partial class TrackAudio : TBase
           case 2:
             if (field.Type == TType.String)
             {
-              TrackName = await iprot.ReadStringAsync(cancellationToken);
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 3:
-            if (field.Type == TType.String)
-            {
-              Audio = await iprot.ReadBinaryAsync(cancellationToken);
+              Filename = await iprot.ReadStringAsync(cancellationToken);
             }
             else
             {
@@ -153,31 +128,22 @@ public partial class TrackAudio : TBase
       var struc = new TStruct("TrackAudio");
       await oprot.WriteStructBeginAsync(struc, cancellationToken);
       var field = new TField();
-      if (IdTrack != null && __isset.idTrack)
+      if (Song != null && __isset.song)
       {
-        field.Name = "idTrack";
+        field.Name = "song";
         field.Type = TType.String;
         field.ID = 1;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(IdTrack, cancellationToken);
+        await oprot.WriteBinaryAsync(Song, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (TrackName != null && __isset.trackName)
+      if (Filename != null && __isset.filename)
       {
-        field.Name = "trackName";
+        field.Name = "filename";
         field.Type = TType.String;
         field.ID = 2;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteStringAsync(TrackName, cancellationToken);
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
-      if (Audio != null && __isset.audio)
-      {
-        field.Name = "audio";
-        field.Type = TType.String;
-        field.ID = 3;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        await oprot.WriteBinaryAsync(Audio, cancellationToken);
+        await oprot.WriteStringAsync(Filename, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
       await oprot.WriteFieldStopAsync(cancellationToken);
@@ -194,20 +160,17 @@ public partial class TrackAudio : TBase
     var other = that as TrackAudio;
     if (other == null) return false;
     if (ReferenceEquals(this, other)) return true;
-    return ((__isset.idTrack == other.__isset.idTrack) && ((!__isset.idTrack) || (System.Object.Equals(IdTrack, other.IdTrack))))
-      && ((__isset.trackName == other.__isset.trackName) && ((!__isset.trackName) || (System.Object.Equals(TrackName, other.TrackName))))
-      && ((__isset.audio == other.__isset.audio) && ((!__isset.audio) || (TCollections.Equals(Audio, other.Audio))));
+    return ((__isset.song == other.__isset.song) && ((!__isset.song) || (TCollections.Equals(Song, other.Song))))
+      && ((__isset.filename == other.__isset.filename) && ((!__isset.filename) || (System.Object.Equals(Filename, other.Filename))));
   }
 
   public override int GetHashCode() {
     int hashcode = 157;
     unchecked {
-      if(__isset.idTrack)
-        hashcode = (hashcode * 397) + IdTrack.GetHashCode();
-      if(__isset.trackName)
-        hashcode = (hashcode * 397) + TrackName.GetHashCode();
-      if(__isset.audio)
-        hashcode = (hashcode * 397) + Audio.GetHashCode();
+      if(__isset.song)
+        hashcode = (hashcode * 397) + Song.GetHashCode();
+      if(__isset.filename)
+        hashcode = (hashcode * 397) + Filename.GetHashCode();
     }
     return hashcode;
   }
@@ -216,26 +179,19 @@ public partial class TrackAudio : TBase
   {
     var sb = new StringBuilder("TrackAudio(");
     bool __first = true;
-    if (IdTrack != null && __isset.idTrack)
+    if (Song != null && __isset.song)
     {
       if(!__first) { sb.Append(", "); }
       __first = false;
-      sb.Append("IdTrack: ");
-      sb.Append(IdTrack);
+      sb.Append("Song: ");
+      sb.Append(Song);
     }
-    if (TrackName != null && __isset.trackName)
+    if (Filename != null && __isset.filename)
     {
       if(!__first) { sb.Append(", "); }
       __first = false;
-      sb.Append("TrackName: ");
-      sb.Append(TrackName);
-    }
-    if (Audio != null && __isset.audio)
-    {
-      if(!__first) { sb.Append(", "); }
-      __first = false;
-      sb.Append("Audio: ");
-      sb.Append(Audio);
+      sb.Append("Filename: ");
+      sb.Append(Filename);
     }
     sb.Append(")");
     return sb.ToString();

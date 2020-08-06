@@ -349,38 +349,36 @@ class Iface(object):
         """
         pass
 
-    def AddTrackToMedia(self, fileName, audio):
+    def GetLocalTracksByIdConsumer(self, idConsumer):
         """
-        Add track file binary
+        Get Local Tracks By Id Consumer.
 
-        @param binary
-            The binary number that will be keep.
+        @param idConsumer
+            The Consumer Id which is required to get Tracks
 
-        @return bool
-            true or false.
+        @return LocalTracks
+            List of tracks which belong to idConsumer
 
 
         Parameters:
-         - fileName
-         - audio
+         - idConsumer
 
         """
         pass
 
-    def GetTrackToMedia(self, fileName, audio):
+    def AddLocalTrack(self, LocalTrack):
         """
-        Get track file binary
+        Add Local Track.
 
-        @param fileName
-            The fileName that will be get.
+        @param LocalTrack
+            The Local Track which will be added
 
-        @return binary
-            binary number audio.
+         @return LocalTracks
+            List of tracks which belong to idConsumer
 
 
         Parameters:
-         - fileName
-         - audio
+         - LocalTrack
 
         """
         pass
@@ -1207,35 +1205,33 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GenerateRadioStation failed: unknown result")
 
-    def AddTrackToMedia(self, fileName, audio):
+    def GetLocalTracksByIdConsumer(self, idConsumer):
         """
-        Add track file binary
+        Get Local Tracks By Id Consumer.
 
-        @param binary
-            The binary number that will be keep.
+        @param idConsumer
+            The Consumer Id which is required to get Tracks
 
-        @return bool
-            true or false.
+        @return LocalTracks
+            List of tracks which belong to idConsumer
 
 
         Parameters:
-         - fileName
-         - audio
+         - idConsumer
 
         """
-        self.send_AddTrackToMedia(fileName, audio)
-        return self.recv_AddTrackToMedia()
+        self.send_GetLocalTracksByIdConsumer(idConsumer)
+        return self.recv_GetLocalTracksByIdConsumer()
 
-    def send_AddTrackToMedia(self, fileName, audio):
-        self._oprot.writeMessageBegin('AddTrackToMedia', TMessageType.CALL, self._seqid)
-        args = AddTrackToMedia_args()
-        args.fileName = fileName
-        args.audio = audio
+    def send_GetLocalTracksByIdConsumer(self, idConsumer):
+        self._oprot.writeMessageBegin('GetLocalTracksByIdConsumer', TMessageType.CALL, self._seqid)
+        args = GetLocalTracksByIdConsumer_args()
+        args.idConsumer = idConsumer
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_AddTrackToMedia(self):
+    def recv_GetLocalTracksByIdConsumer(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -1243,44 +1239,42 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = AddTrackToMedia_result()
+        result = GetLocalTracksByIdConsumer_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddTrackToMedia failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetLocalTracksByIdConsumer failed: unknown result")
 
-    def GetTrackToMedia(self, fileName, audio):
+    def AddLocalTrack(self, LocalTrack):
         """
-        Get track file binary
+        Add Local Track.
 
-        @param fileName
-            The fileName that will be get.
+        @param LocalTrack
+            The Local Track which will be added
 
-        @return binary
-            binary number audio.
+         @return LocalTracks
+            List of tracks which belong to idConsumer
 
 
         Parameters:
-         - fileName
-         - audio
+         - LocalTrack
 
         """
-        self.send_GetTrackToMedia(fileName, audio)
-        return self.recv_GetTrackToMedia()
+        self.send_AddLocalTrack(LocalTrack)
+        return self.recv_AddLocalTrack()
 
-    def send_GetTrackToMedia(self, fileName, audio):
-        self._oprot.writeMessageBegin('GetTrackToMedia', TMessageType.CALL, self._seqid)
-        args = GetTrackToMedia_args()
-        args.fileName = fileName
-        args.audio = audio
+    def send_AddLocalTrack(self, LocalTrack):
+        self._oprot.writeMessageBegin('AddLocalTrack', TMessageType.CALL, self._seqid)
+        args = AddLocalTrack_args()
+        args.LocalTrack = LocalTrack
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_GetTrackToMedia(self):
+    def recv_AddLocalTrack(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -1288,14 +1282,14 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = GetTrackToMedia_result()
+        result = AddLocalTrack_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
         if result.sErrorSystemE is not None:
             raise result.sErrorSystemE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "GetTrackToMedia failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddLocalTrack failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
@@ -1319,8 +1313,8 @@ class Processor(Iface, TProcessor):
         self._processMap["AddTrackToPlayQueue"] = Processor.process_AddTrackToPlayQueue
         self._processMap["DeletePlayQueueTrack"] = Processor.process_DeletePlayQueueTrack
         self._processMap["GenerateRadioStation"] = Processor.process_GenerateRadioStation
-        self._processMap["AddTrackToMedia"] = Processor.process_AddTrackToMedia
-        self._processMap["GetTrackToMedia"] = Processor.process_GetTrackToMedia
+        self._processMap["GetLocalTracksByIdConsumer"] = Processor.process_GetLocalTracksByIdConsumer
+        self._processMap["AddLocalTrack"] = Processor.process_AddLocalTrack
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -1827,13 +1821,13 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_AddTrackToMedia(self, seqid, iprot, oprot):
-        args = AddTrackToMedia_args()
+    def process_GetLocalTracksByIdConsumer(self, seqid, iprot, oprot):
+        args = GetLocalTracksByIdConsumer_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = AddTrackToMedia_result()
+        result = GetLocalTracksByIdConsumer_result()
         try:
-            result.success = self._handler.AddTrackToMedia(args.fileName, args.audio)
+            result.success = self._handler.GetLocalTracksByIdConsumer(args.idConsumer)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1848,18 +1842,18 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("AddTrackToMedia", msg_type, seqid)
+        oprot.writeMessageBegin("GetLocalTracksByIdConsumer", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_GetTrackToMedia(self, seqid, iprot, oprot):
-        args = GetTrackToMedia_args()
+    def process_AddLocalTrack(self, seqid, iprot, oprot):
+        args = AddLocalTrack_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = GetTrackToMedia_result()
+        result = AddLocalTrack_result()
         try:
-            result.success = self._handler.GetTrackToMedia(args.fileName, args.audio)
+            result.success = self._handler.AddLocalTrack(args.LocalTrack)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1874,7 +1868,7 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("GetTrackToMedia", msg_type, seqid)
+        oprot.writeMessageBegin("AddLocalTrack", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -4598,18 +4592,16 @@ GenerateRadioStation_result.thrift_spec = (
 )
 
 
-class AddTrackToMedia_args(object):
+class GetLocalTracksByIdConsumer_args(object):
     """
     Attributes:
-     - fileName
-     - audio
+     - idConsumer
 
     """
 
 
-    def __init__(self, fileName=None, audio=None,):
-        self.fileName = fileName
-        self.audio = audio
+    def __init__(self, idConsumer=None,):
+        self.idConsumer = idConsumer
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -4621,13 +4613,8 @@ class AddTrackToMedia_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.audio = iprot.readBinary()
+                if ftype == TType.I16:
+                    self.idConsumer = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -4639,14 +4626,10 @@ class AddTrackToMedia_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddTrackToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        if self.audio is not None:
-            oprot.writeFieldBegin('audio', TType.STRING, 2)
-            oprot.writeBinary(self.audio)
+        oprot.writeStructBegin('GetLocalTracksByIdConsumer_args')
+        if self.idConsumer is not None:
+            oprot.writeFieldBegin('idConsumer', TType.I16, 1)
+            oprot.writeI16(self.idConsumer)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -4664,15 +4647,160 @@ class AddTrackToMedia_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddTrackToMedia_args)
-AddTrackToMedia_args.thrift_spec = (
+all_structs.append(GetLocalTracksByIdConsumer_args)
+GetLocalTracksByIdConsumer_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'audio', 'BINARY', None, ),  # 2
+    (1, TType.I16, 'idConsumer', None, None, ),  # 1
 )
 
 
-class AddTrackToMedia_result(object):
+class GetLocalTracksByIdConsumer_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.LIST:
+                    self.success = []
+                    (_etype59, _size56) = iprot.readListBegin()
+                    for _i60 in range(_size56):
+                        _elem61 = SpotifakeManagement.ttypes.LocalTrack()
+                        _elem61.read(iprot)
+                        self.success.append(_elem61)
+                    iprot.readListEnd()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('GetLocalTracksByIdConsumer_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.LIST, 0)
+            oprot.writeListBegin(TType.STRUCT, len(self.success))
+            for iter62 in self.success:
+                iter62.write(oprot)
+            oprot.writeListEnd()
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(GetLocalTracksByIdConsumer_result)
+GetLocalTracksByIdConsumer_result.thrift_spec = (
+    (0, TType.LIST, 'success', (TType.STRUCT, [SpotifakeManagement.ttypes.LocalTrack, None], False), None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
+
+
+class AddLocalTrack_args(object):
+    """
+    Attributes:
+     - LocalTrack
+
+    """
+
+
+    def __init__(self, LocalTrack=None,):
+        self.LocalTrack = LocalTrack
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.STRUCT:
+                    self.LocalTrack = SpotifakeManagement.ttypes.LocalTrack()
+                    self.LocalTrack.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddLocalTrack_args')
+        if self.LocalTrack is not None:
+            oprot.writeFieldBegin('LocalTrack', TType.STRUCT, 1)
+            self.LocalTrack.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddLocalTrack_args)
+AddLocalTrack_args.thrift_spec = (
+    None,  # 0
+    (1, TType.STRUCT, 'LocalTrack', [SpotifakeManagement.ttypes.LocalTrack, None], None, ),  # 1
+)
+
+
+class AddLocalTrack_result(object):
     """
     Attributes:
      - success
@@ -4714,7 +4842,7 @@ class AddTrackToMedia_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('AddTrackToMedia_result')
+        oprot.writeStructBegin('AddLocalTrack_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.BOOL, 0)
             oprot.writeBool(self.success)
@@ -4739,157 +4867,9 @@ class AddTrackToMedia_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(AddTrackToMedia_result)
-AddTrackToMedia_result.thrift_spec = (
+all_structs.append(AddLocalTrack_result)
+AddLocalTrack_result.thrift_spec = (
     (0, TType.BOOL, 'success', None, None, ),  # 0
-    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
-)
-
-
-class GetTrackToMedia_args(object):
-    """
-    Attributes:
-     - fileName
-     - audio
-
-    """
-
-
-    def __init__(self, fileName=None, audio=None,):
-        self.fileName = fileName
-        self.audio = audio
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.fileName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.audio = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackToMedia_args')
-        if self.fileName is not None:
-            oprot.writeFieldBegin('fileName', TType.STRING, 1)
-            oprot.writeString(self.fileName.encode('utf-8') if sys.version_info[0] == 2 else self.fileName)
-            oprot.writeFieldEnd()
-        if self.audio is not None:
-            oprot.writeFieldBegin('audio', TType.STRING, 2)
-            oprot.writeBinary(self.audio)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackToMedia_args)
-GetTrackToMedia_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'fileName', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'audio', 'BINARY', None, ),  # 2
-)
-
-
-class GetTrackToMedia_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorSystemE
-
-    """
-
-
-    def __init__(self, success=None, sErrorSystemE=None,):
-        self.success = success
-        self.sErrorSystemE = sErrorSystemE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRING:
-                    self.success = iprot.readBinary()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('GetTrackToMedia_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRING, 0)
-            oprot.writeBinary(self.success)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(GetTrackToMedia_result)
-GetTrackToMedia_result.thrift_spec = (
-    (0, TType.STRING, 'success', 'BINARY', None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 fix_spec(all_structs)

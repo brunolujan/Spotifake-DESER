@@ -744,30 +744,33 @@ service TrackService {
     list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.MusicGender gender) 
          throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
-    /**
-    *   Add track file binary
-    *
-    *   @param binary
-    *       The binary number that will be keep.
-    *
-    *   @return bool
-    *       true or false.
-    **/
-
-    bool AddTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
-    *   Get track file binary
+    *   Get Local Tracks By Id Consumer.
     *
-    *   @param fileName
-    *       The fileName that will be get.
+    *   @param idConsumer
+    *       The Consumer Id which is required to get Tracks
     *
-    *   @return binary
-    *       binary number audio.
+    *   @return LocalTracks
+    *       List of tracks which belong to idConsumer
     **/
 
-    binary GetTrackToMedia(1:string fileName, 2:binary audio) throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
+    list<SpotifakeManagement.LocalTrack> GetLocalTracksByIdConsumer(1: SpotifakeManagement.Id idConsumer)
+        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
+
+    /**
+    *   Add Local Track.
+    *
+    *   @param LocalTrack
+    *       The Local Track which will be added
+    *
+    *    @return LocalTracks
+    *       List of tracks which belong to idConsumer
+    **/
+
+    bool AddLocalTrack(1: SpotifakeManagement.LocalTrack LocalTrack)
+        throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 }
 
 service AlbumService {

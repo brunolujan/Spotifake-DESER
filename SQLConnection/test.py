@@ -86,6 +86,9 @@ query: SqlServerTrackManagement = SqlServerTrackManagement()
 
 #query.GetTrackByQuery("E")
 
+#query.GetLocalTracksByIdConsumer(6)
+
+
 
 
 #PLAYLIST MANAGEMENT
