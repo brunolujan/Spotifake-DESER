@@ -289,7 +289,7 @@ namespace Client {
                     }
                 }
             }
-            await Session.serverConnection.trackService.AddTrackToMediaAsync(newTrack.StoragePath, GetTrackBytes(textBox_SingleSelectTrackFile.Text));
+            //await Session.serverConnection.trackService.AddTrackToMediaAsync(newTrack.StoragePath, GetTrackBytes(textBox_SingleSelectTrackFile.Text));
         }
 
         private void button_1stSelectFile_Click(object sender, RoutedEventArgs e) {
@@ -474,7 +474,11 @@ namespace Client {
         private async void AddAlbumTrack(short idNewAlbum, List<Track> albumTracks) {
             for (int n = 0; n <= 4; n++) {
                 await Session.serverConnection.trackService.AddTrackToAlbumAsync(idNewAlbum, albumTracks[n], thisContentCreator.IdContentCreator);
-                await Session.serverConnection.trackService.AddTrackToMediaAsync(fileNames[n], audioBytes[n]);
+<<<<<<< HEAD
+                //await Session.serverConnection.trackService.AddTrackToMediaAsync(fileNames[n], audioBytes[n]);
+=======
+               // await Session.serverConnection.trackService.AddTrackToMediaAsync(fileNames[n], audioBytes[n]);
+>>>>>>> 05bc6ba047f9b6437e8d73a3efafc6a95dcdd85f
             }
         }
     }

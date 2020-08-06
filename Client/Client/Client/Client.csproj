@@ -267,7 +267,7 @@
       <HintPath>..\packages\TagLibSharp.2.2.0\lib\net45\TagLibSharp.dll</HintPath>
     </Reference>
     <Reference Include="Thrift">
-      <HintPath>..\..\..\..\..\SPOTIFAKE\Spotifake-DESER\Client\Client\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
+      <HintPath>..\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
@@ -283,6 +283,9 @@
     <Compile Include="AddAlbum.xaml.cs">
       <DependentUpon>AddAlbum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="client - stub\RequestTrackAudio.cs" />
+    <Compile Include="client - stub\StreamingService.cs" />
+    <Compile Include="client - stub\TrackAudio.cs" />
     <Compile Include="gen-netstd\Album.cs" />
     <Compile Include="gen-netstd\AlbumService.cs" />
     <Compile Include="gen-netstd\Consumer.cs" />
@@ -293,6 +296,7 @@
     <Compile Include="gen-netstd\ExceptionUser.cs" />
     <Compile Include="gen-netstd\Library.cs" />
     <Compile Include="gen-netstd\LibraryService.cs" />
+    <Compile Include="gen-netstd\LocalTrack.cs" />
     <Compile Include="gen-netstd\MusicGender.cs" />
     <Compile Include="gen-netstd\Playlist.cs" />
     <Compile Include="gen-netstd\PlaylistService.cs" />
@@ -310,6 +314,9 @@
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddPlaylistPage.xaml.cs">
+      <DependentUpon>AddPlaylistPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AddTrackToPlayist.xaml.cs">
       <DependentUpon>AddTrackToPlayist.xaml</DependentUpon>
     </Compile>
@@ -324,6 +331,9 @@
     </Compile>
     <Compile Include="Pages\ContentCreatorsPages.xaml.cs">
       <DependentUpon>ContentCreatorsPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MyOwnTracksPage.xaml.cs">
+      <DependentUpon>MyOwnTracksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PlaylistsPages.xaml.cs">
       <DependentUpon>PlaylistsPages.xaml</DependentUpon>
@@ -340,10 +350,14 @@
     <Compile Include="Pages\TracksPlaylistPage.xaml.cs">
       <DependentUpon>TracksPlaylistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UploadLocalTrackPage.xaml.cs">
+      <DependentUpon>UploadLocalTrackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopUpWindow.xaml.cs">
       <DependentUpon>PopUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServerConnection.cs" />
+    <Compile Include="ServerStreamingConnection.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SingUp.xaml.cs">
       <DependentUpon>SingUp.xaml</DependentUpon>
@@ -372,6 +386,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AddPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddTrackToPlayist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -392,6 +410,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Pages\MyOwnTracksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PlaylistsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -409,6 +431,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\TracksPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UploadLocalTrackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

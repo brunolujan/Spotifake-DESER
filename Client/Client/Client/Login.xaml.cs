@@ -71,6 +71,7 @@ namespace Client
                             Main main = new Main();
                             main.Show();
                             this.Close();
+                            
                         }
                     } catch (NullReferenceException ex)
                     {

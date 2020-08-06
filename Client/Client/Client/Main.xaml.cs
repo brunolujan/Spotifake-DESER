@@ -83,5 +83,15 @@ namespace Client {
         private void button_Search_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             centralFrame.Navigate(new SearchPage());
         }
+
+<<<<<<< HEAD
+        private void button_NewPlaylist_Click(object sender, RoutedEventArgs e) {
+            PopUpWindow popUpWindow = new PopUpWindow(new AddPlaylistPage());
+            popUpWindow.ShowDialog();
+=======
+        private void button_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            centralFrame.Navigate(new MyOwnTracksPage());
+>>>>>>> 05bc6ba047f9b6437e8d73a3efafc6a95dcdd85f
+        }
     }
 }
