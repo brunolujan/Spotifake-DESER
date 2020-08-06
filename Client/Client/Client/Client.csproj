@@ -347,10 +347,14 @@
     <Compile Include="Pages\TracksPlaylistPage.xaml.cs">
       <DependentUpon>TracksPlaylistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UploadLocalTrackPage.xaml.cs">
+      <DependentUpon>UploadLocalTrackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopUpWindow.xaml.cs">
       <DependentUpon>PopUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServerConnection.cs" />
+    <Compile Include="ServerStreamingConnection.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SingUp.xaml.cs">
       <DependentUpon>SingUp.xaml</DependentUpon>
@@ -420,6 +424,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\TracksPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UploadLocalTrackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

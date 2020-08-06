@@ -34,11 +34,16 @@ namespace Client.Pages {
 
                 Console.WriteLine(ex.Message);
             }
-  
         }
 
         private void datagrid_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
 
+        }
+
+        private void Button_AddLocalTrack_Click(object sender, RoutedEventArgs e) {
+            PopUpWindow popUpWindow = new PopUpWindow(new UploadLocalTrackPage());
+            popUpWindow.ShowDialog();
+            LoadLocalTracks();
         }
     }
 }
