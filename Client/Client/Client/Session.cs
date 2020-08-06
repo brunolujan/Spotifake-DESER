@@ -11,7 +11,7 @@ namespace Client
     public class Session
     {
         public static ServerConnection serverConnection = new ServerConnection();
-        //public static StreamingService streamingServerConnection = new StreamingService();
+        public static ServerStreamingConnection streamingServerConnection = new ServerStreamingConnection();
         public static Consumer consumer;
         public static Library library = new Library();
     }

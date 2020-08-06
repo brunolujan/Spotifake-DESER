@@ -283,6 +283,9 @@
     <Compile Include="AddAlbum.xaml.cs">
       <DependentUpon>AddAlbum.xaml</DependentUpon>
     </Compile>
+    <Compile Include="client - stub\RequestTrackAudio.cs" />
+    <Compile Include="client - stub\StreamingService.cs" />
+    <Compile Include="client - stub\TrackAudio.cs" />
     <Compile Include="gen-netstd\Album.cs" />
     <Compile Include="gen-netstd\AlbumService.cs" />
     <Compile Include="gen-netstd\Consumer.cs" />
@@ -329,6 +332,9 @@
     <Compile Include="Pages\ContentCreatorsPages.xaml.cs">
       <DependentUpon>ContentCreatorsPages.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MyOwnTracksPage.xaml.cs">
+      <DependentUpon>MyOwnTracksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PlaylistsPages.xaml.cs">
       <DependentUpon>PlaylistsPages.xaml</DependentUpon>
     </Compile>
@@ -344,10 +350,14 @@
     <Compile Include="Pages\TracksPlaylistPage.xaml.cs">
       <DependentUpon>TracksPlaylistPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UploadLocalTrackPage.xaml.cs">
+      <DependentUpon>UploadLocalTrackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopUpWindow.xaml.cs">
       <DependentUpon>PopUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServerConnection.cs" />
+    <Compile Include="ServerStreamingConnection.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SingUp.xaml.cs">
       <DependentUpon>SingUp.xaml</DependentUpon>
@@ -400,6 +410,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Pages\MyOwnTracksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PlaylistsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -417,6 +431,10 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Pages\TracksPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UploadLocalTrackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
