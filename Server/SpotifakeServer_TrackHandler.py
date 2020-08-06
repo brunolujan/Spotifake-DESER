@@ -39,8 +39,8 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
             trackAux.durationSeconds = n.durationSeconds
             trackAux.title = n.title
             trackAux.trackNumber = n.trackNumber
-            #trackAux.storagePath = n.storagePath
-            #trackAux.gender = n.IdGenre
+            trackAux.storagePath = n.storagePath
+            trackAux.gender = n.IdGenre
             trackList.append(trackAux)
         return trackList
 
