@@ -267,7 +267,7 @@
       <HintPath>..\packages\TagLibSharp.2.2.0\lib\net45\TagLibSharp.dll</HintPath>
     </Reference>
     <Reference Include="Thrift">
-      <HintPath>..\..\..\..\..\SPOTIFAKE\Spotifake-DESER\Client\Client\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
+      <HintPath>..\packages\ApacheThrift.0.13.0.1\lib\netstandard2.0\Thrift.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
@@ -313,6 +313,9 @@
     </Compile>
     <Compile Include="MainWindowContentCreator.xaml.cs">
       <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddPlaylistPage.xaml.cs">
+      <DependentUpon>AddPlaylistPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddTrackToPlayist.xaml.cs">
       <DependentUpon>AddTrackToPlayist.xaml</DependentUpon>
@@ -380,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindowContentCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddPlaylistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

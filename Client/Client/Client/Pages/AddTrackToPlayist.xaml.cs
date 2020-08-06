@@ -14,9 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para AddTrackToPlayist.xaml
-    /// </summary>
+
     public partial class AddTrackToPlayist : Page {
 
         private Track track;
