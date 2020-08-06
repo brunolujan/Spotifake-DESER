@@ -70,7 +70,7 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
             contentCreatorList.append(contentCreatorAux)
         return contentCreatorList
 
-    def AddContentCreatorToLibrary(self, idLibrary, idLibrary):
+    def AddContentCreatorToLibrary(self, idLibrary, idContentCreator):
         result = SqlServerContentCreatorManagement.AddContentCreatorToLibrary(self, idLibrary,idContentCreator)
         return result
 
