@@ -48,20 +48,9 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
             playlistList.append(playlistAux)
         return playlistList
 
-    def AddPlaylistToLibrary(idLibrary, newPlaylist):
-        playlistAux = Playlist()
-        playlistFound = SqlServerPlaylistManagement.AddPLaylistToLibrary(self, idLibrary, newPlaylist)
-        playlistAux = Playlist()
-        playlistAux.idPlylist = playlistFound.IdPlaylist
-        playlistAux.name = playlistFound.name
-        playlistAux.description = playlistFound.description
-        date = Date()
-        date.day = playlistFound.creationDate.day
-        date.month = playlistFound.creationDate.month
-        date.year = playlistFound.creationDate.year
-        playlistAux.creationDate = date
-        playlistAux.coverPath = playlistFound.coverPath
-        return playlistFound
+    def AddPlaylistToLibrary(idLibrary, idPlaylist):
+        result = SqlServerPlaylistManagement.AddPlaylistToLibrary(self, idLibrary, idPlaylist)
+        return result
 
     def DeleteLibraryPlaylist(self,idLibrary, idPlylist):
         playlistFound = SqlServerPlaylistManagement.DeleteLibraryPlaylist(self, idLibrary, idPlylist)

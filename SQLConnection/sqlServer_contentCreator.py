@@ -216,7 +216,7 @@ class SqlServerContentCreatorManagement:
         connection.close()
         print(newContentCreator.stageName, newContentCreator.password)
 
-    def AddContentCreatorToLibrary(self, idLibrary:int, newContentCreator):
+    def AddContentCreatorToLibrary(self, idLibrary:int, idContentCreator:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -230,9 +230,8 @@ class SqlServerContentCreatorManagement:
 
             SELECT	@salida as N'@salida'
         """
-        params = (idLibrary, newContentCreator.idContentCreator)
+        params = (idLibrary, idContentCreator)
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
-        print(idLibrary, newContentCreator.idContentCreator)
+        return True
 

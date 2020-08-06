@@ -409,7 +409,7 @@ service ContentCreatorService {
     *   @return ContentCreator
     *       ContentCreator object added
     **/
-    SpotifakeManagement.ContentCreator AddContentCreatorToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.ContentCreator newContentCreator) 
+    bool AddContentCreatorToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idContenCreator) 
         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
     
     /**
@@ -915,7 +915,7 @@ service AlbumService {
     *   @return Album
     *       Album object added
     **/
-    SpotifakeManagement.Album AddAlbumToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Album  newAlbum) 
+    bool AddAlbumToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idAlbum) 
          throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
     
     /**
@@ -1018,7 +1018,7 @@ service PlaylistService {
     *       Playlist object added
     **/
 
-    SpotifakeManagement.Playlist AddPlaylistToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Playlist newPlaylist) 
+    bool AddPlaylistToLibrary(1: SpotifakeManagement.Id idLibrary, 2: SpotifakeManagement.Id idPlaylist) 
         throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
     
     /**

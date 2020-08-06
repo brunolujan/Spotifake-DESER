@@ -26,7 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Functions:')
     print('  Playlist GetPlaylistByTitle(string title)')
     print('   GetPlaylistByLibraryId(Id idLibrary)')
-    print('  Playlist AddPlaylistToLibrary(Id idLibrary, Playlist newPlaylist)')
+    print('  bool AddPlaylistToLibrary(Id idLibrary, Id idPlaylist)')
     print('  Id DeleteLibraryPlaylist(Id idLibrary, Id idPlaylist)')
     print('  Playlist UpdatePlaylistTitle(Id idPlaylist, string newPlaylistTitle)')
     print('  Playlist UpdatePlaylistCover(Id idPlaylist, string newImageStoragePath)')

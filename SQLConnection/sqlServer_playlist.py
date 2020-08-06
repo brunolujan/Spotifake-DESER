@@ -91,7 +91,7 @@ class SqlServerPlaylistManagement:
         print("Playlist has been deleted")
         self.connection.close()
 
-    def AddPlaylistToLibrary(self, idLibrary:int, newPlaylist):
+    def AddPlaylistToLibrary(self, idLibrary:int, idPlaylist:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -105,11 +105,10 @@ class SqlServerPlaylistManagement:
 
             SELECT	@salida as N'@salida'   
         """
-        params = (idLibrary, newPlaylist.idPlaylist)
+        params = (idLibrary, idPlaylist)
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
-        print(idLibrary, newPlaylist.idPlaylist)
+        return True
 
     def GetPlaylistByQuery(self, query:str):
         connection: SQLConnection = SQLConnection()

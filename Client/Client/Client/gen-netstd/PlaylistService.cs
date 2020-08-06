@@ -66,8 +66,8 @@ public partial class PlaylistService
     /// 
     /// </summary>
     /// <param name="idLibrary"></param>
-    /// <param name="newPlaylist"></param>
-    Task<Playlist> AddPlaylistToLibraryAsync(short idLibrary, Playlist newPlaylist, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idPlaylist"></param>
+    Task<bool> AddPlaylistToLibraryAsync(short idLibrary, short idPlaylist, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Playlist from a Library
@@ -264,13 +264,13 @@ public partial class PlaylistService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetPlaylistByLibraryId failed: unknown result");
     }
 
-    public async Task<Playlist> AddPlaylistToLibraryAsync(short idLibrary, Playlist newPlaylist, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> AddPlaylistToLibraryAsync(short idLibrary, short idPlaylist, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddPlaylistToLibrary", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddPlaylistToLibraryArgs();
       args.IdLibrary = idLibrary;
-      args.NewPlaylist = newPlaylist;
+      args.IdPlaylist = idPlaylist;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -713,7 +713,7 @@ public partial class PlaylistService
       {
         try
         {
-          result.Success = await _iAsync.AddPlaylistToLibraryAsync(args.IdLibrary, args.NewPlaylist, cancellationToken);
+          result.Success = await _iAsync.AddPlaylistToLibraryAsync(args.IdLibrary, args.IdPlaylist, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -1848,7 +1848,7 @@ public partial class PlaylistService
   public partial class AddPlaylistToLibraryArgs : TBase
   {
     private short _idLibrary;
-    private Playlist _newPlaylist;
+    private short _idPlaylist;
 
     public short IdLibrary
     {
@@ -1863,16 +1863,16 @@ public partial class PlaylistService
       }
     }
 
-    public Playlist NewPlaylist
+    public short IdPlaylist
     {
       get
       {
-        return _newPlaylist;
+        return _idPlaylist;
       }
       set
       {
-        __isset.newPlaylist = true;
-        this._newPlaylist = value;
+        __isset.idPlaylist = true;
+        this._idPlaylist = value;
       }
     }
 
@@ -1881,7 +1881,7 @@ public partial class PlaylistService
     public struct Isset
     {
       public bool idLibrary;
-      public bool newPlaylist;
+      public bool idPlaylist;
     }
 
     public AddPlaylistToLibraryArgs()
@@ -1916,10 +1916,9 @@ public partial class PlaylistService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                NewPlaylist = new Playlist();
-                await NewPlaylist.ReadAsync(iprot, cancellationToken);
+                IdPlaylist = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -1959,13 +1958,13 @@ public partial class PlaylistService
           await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewPlaylist != null && __isset.newPlaylist)
+        if (__isset.idPlaylist)
         {
-          field.Name = "newPlaylist";
-          field.Type = TType.Struct;
+          field.Name = "idPlaylist";
+          field.Type = TType.I16;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewPlaylist.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteI16Async(IdPlaylist, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -1983,7 +1982,7 @@ public partial class PlaylistService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.newPlaylist == other.__isset.newPlaylist) && ((!__isset.newPlaylist) || (System.Object.Equals(NewPlaylist, other.NewPlaylist))));
+        && ((__isset.idPlaylist == other.__isset.idPlaylist) && ((!__isset.idPlaylist) || (System.Object.Equals(IdPlaylist, other.IdPlaylist))));
     }
 
     public override int GetHashCode() {
@@ -1991,8 +1990,8 @@ public partial class PlaylistService
       unchecked {
         if(__isset.idLibrary)
           hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.newPlaylist)
-          hashcode = (hashcode * 397) + NewPlaylist.GetHashCode();
+        if(__isset.idPlaylist)
+          hashcode = (hashcode * 397) + IdPlaylist.GetHashCode();
       }
       return hashcode;
     }
@@ -2008,12 +2007,12 @@ public partial class PlaylistService
         sb.Append("IdLibrary: ");
         sb.Append(IdLibrary);
       }
-      if (NewPlaylist != null && __isset.newPlaylist)
+      if (__isset.idPlaylist)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewPlaylist: ");
-        sb.Append(NewPlaylist== null ? "<null>" : NewPlaylist.ToString());
+        sb.Append("IdPlaylist: ");
+        sb.Append(IdPlaylist);
       }
       sb.Append(")");
       return sb.ToString();
@@ -2023,10 +2022,10 @@ public partial class PlaylistService
 
   public partial class AddPlaylistToLibraryResult : TBase
   {
-    private Playlist _success;
+    private bool _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Playlist Success
+    public bool Success
     {
       get
       {
@@ -2082,10 +2081,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Playlist();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -2130,15 +2128,12 @@ public partial class PlaylistService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -2185,12 +2180,12 @@ public partial class PlaylistService
     {
       var sb = new StringBuilder("AddPlaylistToLibrary_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

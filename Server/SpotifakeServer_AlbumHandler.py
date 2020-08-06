@@ -110,21 +110,9 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumId = SpotifakeServerAlbumManagement.UpdateAlbumCover(self, idAlbum, newStoragePath)
         return albumId
 
-    def AddAlbumToLibrary(self, idLibrary, newAlbum):
-        albumAux = Album()
-        albumFound = SqlServerAlbumManagement.AddAlbumToLibrary(self, idLibrary, newAlbum)
-        albumAux = Album()
-        albumAux.idAlbum = albumFound.IdAlbum
-        albumAux.title = albumFound.title
-        albumAux.coverPath = albumFound.coverPath
-        date = Date()
-        date.day = albumFound.releaseDate.day
-        date.month = albumFound.releaseDate.month
-        date.year = albumFound.releaseDate.year
-        albumAux.releaseDate = date
-        albumAux.gender = albumFound.IdGenre
-        albumAux.isSingle = albumFound.type
-        return albumFound
+    def AddAlbumToLibrary(self, idLibrary, idAlbum):
+        result = SqlServerAlbumManagement.AddAlbumToLibrary(self, idLibrary,idAlbum)
+        return result
 
     def DeleteLibraryAlbum(self,idLibrary, idAlbum):
         albumFound = SqlServerAlbumManagement.DeleteLibraryAlbum(self, idLibrary, idAlbum)

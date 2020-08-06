@@ -70,6 +70,10 @@ class SpotifakeServerContentCreatorHandler(ContentCreatorService.Iface):
             contentCreatorList.append(contentCreatorAux)
         return contentCreatorList
 
+    def AddContentCreatorToLibrary(self, idLibrary, idLibrary):
+        result = SqlServerContentCreatorManagement.AddContentCreatorToLibrary(self, idLibrary,idContentCreator)
+        return result
+
     def LoginContentCreator(self, email, password):
         contentCreator = ContentCreator()
         contentCreatorFound = SqlServerContentCreatorManagement.GetContentCreatorByEmailPassword(self, email, password)

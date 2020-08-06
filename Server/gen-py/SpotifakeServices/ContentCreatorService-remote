@@ -37,7 +37,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  ContentCreator UpdateContentCreatorStageName(string email, string currentPassword, string newStageName)')
     print('  ContentCreator UpdateContentCreatorDescription(string email, string currentPassword, string newDescription)')
     print('  ContentCreator LoginContentCreator(string email, string password)')
-    print('  ContentCreator AddContentCreatorToLibrary(Id idLibrary, ContentCreator newContentCreator)')
+    print('  bool AddContentCreatorToLibrary(Id idLibrary, Id idContenCreator)')
     print('  Id DeleteLibraryContentCreator(Id idLibrary, Id idContentCreator)')
     print('   GetContentCreatorByQuery(string query)')
     print('  bool AddImageToMedia(string fileName, string image)')

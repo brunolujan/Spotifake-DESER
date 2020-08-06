@@ -51,7 +51,8 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.UpdateContentCreatorImage("coldplay@gmail.com", "RutaImagen")
 
-#query.AddContentCreatorToLibrary(1,1)
+#query.AddContentCreatorToLibrary(6,16)
+
 
 
 
@@ -68,9 +69,11 @@ from SQLConnection.sqlServer_playlist import SqlServerPlaylistManagement
 
 #query.DeleteLibraryAlbum(1,1)
 
+#query.AddAlbumToLibrary(6,1076)
+
 
 #TRACK MANAGEMENT
-query: SqlServerTrackManagement = SqlServerTrackManagement()
+#query: SqlServerTrackManagement = SqlServerTrackManagement()
 
 #query.GetTrackByIdLibrary(1)
 
@@ -88,6 +91,8 @@ query: SqlServerTrackManagement = SqlServerTrackManagement()
 
 #query.GetLocalTracksByIdConsumer(6)
 
+#query.AddTrackToLibrary(6,55)
+
 
 
 
@@ -101,3 +106,5 @@ query: SqlServerTrackManagement = SqlServerTrackManagement()
 #query.UpdatePlaylistDescription(1,"Ya me canséeeee")
 
 #query.DeleteLibraryPlaylist(1,1)
+
+#query.AddPlaylistToLibrary(2,1)

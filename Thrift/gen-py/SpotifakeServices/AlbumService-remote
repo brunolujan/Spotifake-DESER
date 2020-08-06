@@ -33,7 +33,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Id DeleteAlbum(Id idAlbum)')
     print('  Album UpdateAlbumTitle(Id idAlbum, string newAlbumTitle)')
     print('  Album UpdateAlbumCover(Id idAlbum, string newCoverStoragePath)')
-    print('  Album AddAlbumToLibrary(Id idLibrary, Album newAlbum)')
+    print('  bool AddAlbumToLibrary(Id idLibrary, Id idAlbum)')
     print('  Id DeleteLibraryAlbum(Id idLibrary, Id idAlbum)')
     print('   GetAlbumByQuery(string query)')
     print('  bool AddImageToMedia(string fileName, string image)')

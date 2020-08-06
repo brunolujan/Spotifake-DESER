@@ -223,8 +223,8 @@ public partial class ContentCreatorService
     /// 
     /// </summary>
     /// <param name="idLibrary"></param>
-    /// <param name="newContentCreator"></param>
-    Task<ContentCreator> AddContentCreatorToLibraryAsync(short idLibrary, ContentCreator newContentCreator, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idContenCreator"></param>
+    Task<bool> AddContentCreatorToLibraryAsync(short idLibrary, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Content Creator from a Library
@@ -858,13 +858,13 @@ public partial class ContentCreatorService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "LoginContentCreator failed: unknown result");
     }
 
-    public async Task<ContentCreator> AddContentCreatorToLibraryAsync(short idLibrary, ContentCreator newContentCreator, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> AddContentCreatorToLibraryAsync(short idLibrary, short idContenCreator, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddContentCreatorToLibrary", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddContentCreatorToLibraryArgs();
       args.IdLibrary = idLibrary;
-      args.NewContentCreator = newContentCreator;
+      args.IdContenCreator = idContenCreator;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1716,7 +1716,7 @@ public partial class ContentCreatorService
       {
         try
         {
-          result.Success = await _iAsync.AddContentCreatorToLibraryAsync(args.IdLibrary, args.NewContentCreator, cancellationToken);
+          result.Success = await _iAsync.AddContentCreatorToLibraryAsync(args.IdLibrary, args.IdContenCreator, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -7821,7 +7821,7 @@ public partial class ContentCreatorService
   public partial class AddContentCreatorToLibraryArgs : TBase
   {
     private short _idLibrary;
-    private ContentCreator _newContentCreator;
+    private short _idContenCreator;
 
     public short IdLibrary
     {
@@ -7836,16 +7836,16 @@ public partial class ContentCreatorService
       }
     }
 
-    public ContentCreator NewContentCreator
+    public short IdContenCreator
     {
       get
       {
-        return _newContentCreator;
+        return _idContenCreator;
       }
       set
       {
-        __isset.newContentCreator = true;
-        this._newContentCreator = value;
+        __isset.idContenCreator = true;
+        this._idContenCreator = value;
       }
     }
 
@@ -7854,7 +7854,7 @@ public partial class ContentCreatorService
     public struct Isset
     {
       public bool idLibrary;
-      public bool newContentCreator;
+      public bool idContenCreator;
     }
 
     public AddContentCreatorToLibraryArgs()
@@ -7889,10 +7889,9 @@ public partial class ContentCreatorService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                NewContentCreator = new ContentCreator();
-                await NewContentCreator.ReadAsync(iprot, cancellationToken);
+                IdContenCreator = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -7932,13 +7931,13 @@ public partial class ContentCreatorService
           await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewContentCreator != null && __isset.newContentCreator)
+        if (__isset.idContenCreator)
         {
-          field.Name = "newContentCreator";
-          field.Type = TType.Struct;
+          field.Name = "idContenCreator";
+          field.Type = TType.I16;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewContentCreator.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteI16Async(IdContenCreator, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -7956,7 +7955,7 @@ public partial class ContentCreatorService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.newContentCreator == other.__isset.newContentCreator) && ((!__isset.newContentCreator) || (System.Object.Equals(NewContentCreator, other.NewContentCreator))));
+        && ((__isset.idContenCreator == other.__isset.idContenCreator) && ((!__isset.idContenCreator) || (System.Object.Equals(IdContenCreator, other.IdContenCreator))));
     }
 
     public override int GetHashCode() {
@@ -7964,8 +7963,8 @@ public partial class ContentCreatorService
       unchecked {
         if(__isset.idLibrary)
           hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.newContentCreator)
-          hashcode = (hashcode * 397) + NewContentCreator.GetHashCode();
+        if(__isset.idContenCreator)
+          hashcode = (hashcode * 397) + IdContenCreator.GetHashCode();
       }
       return hashcode;
     }
@@ -7981,12 +7980,12 @@ public partial class ContentCreatorService
         sb.Append("IdLibrary: ");
         sb.Append(IdLibrary);
       }
-      if (NewContentCreator != null && __isset.newContentCreator)
+      if (__isset.idContenCreator)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewContentCreator: ");
-        sb.Append(NewContentCreator== null ? "<null>" : NewContentCreator.ToString());
+        sb.Append("IdContenCreator: ");
+        sb.Append(IdContenCreator);
       }
       sb.Append(")");
       return sb.ToString();
@@ -7996,10 +7995,10 @@ public partial class ContentCreatorService
 
   public partial class AddContentCreatorToLibraryResult : TBase
   {
-    private ContentCreator _success;
+    private bool _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public ContentCreator Success
+    public bool Success
     {
       get
       {
@@ -8055,10 +8054,9 @@ public partial class ContentCreatorService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new ContentCreator();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -8103,15 +8101,12 @@ public partial class ContentCreatorService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -8158,12 +8153,12 @@ public partial class ContentCreatorService
     {
       var sb = new StringBuilder("AddContentCreatorToLibrary_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

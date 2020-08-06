@@ -173,7 +173,7 @@ class SqlServerAlbumManagement:
         connection.save()
         return row
     
-    def AddAlbumToLibrary(self, idLibrary:int, newAlbum):
+    def AddAlbumToLibrary(self, idLibrary:int, idAlbum:int):
         connection: SQLConnection = SQLConnection()
         connection.open()
         sql = """
@@ -187,11 +187,10 @@ class SqlServerAlbumManagement:
 
             SELECT	@salida as N'@salida'   
         """
-        params = (idLibrary, newTrack.idAlbum)
+        params = (idLibrary, idAlbum)
         connection.cursor.execute(sql, params)
         connection.save()
-        connection.close()
-        print(idLibrary, newAlbum.idAlbum)
+        return True
 
     def GetAlbumByQuery(self, query:str):
         connection: SQLConnection = SQLConnection()

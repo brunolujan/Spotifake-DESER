@@ -161,8 +161,8 @@ public partial class AlbumService
     /// 
     /// </summary>
     /// <param name="idLibrary"></param>
-    /// <param name="newAlbum"></param>
-    Task<Album> AddAlbumToLibraryAsync(short idLibrary, Album newAlbum, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idAlbum"></param>
+    Task<bool> AddAlbumToLibraryAsync(short idLibrary, short idAlbum, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete an Album from a Library
@@ -577,13 +577,13 @@ public partial class AlbumService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateAlbumCover failed: unknown result");
     }
 
-    public async Task<Album> AddAlbumToLibraryAsync(short idLibrary, Album newAlbum, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> AddAlbumToLibraryAsync(short idLibrary, short idAlbum, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddAlbumToLibrary", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new AddAlbumToLibraryArgs();
       args.IdLibrary = idLibrary;
-      args.NewAlbum = newAlbum;
+      args.IdAlbum = idAlbum;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1189,7 +1189,7 @@ public partial class AlbumService
       {
         try
         {
-          result.Success = await _iAsync.AddAlbumToLibraryAsync(args.IdLibrary, args.NewAlbum, cancellationToken);
+          result.Success = await _iAsync.AddAlbumToLibraryAsync(args.IdLibrary, args.IdAlbum, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -4947,7 +4947,7 @@ public partial class AlbumService
   public partial class AddAlbumToLibraryArgs : TBase
   {
     private short _idLibrary;
-    private Album _newAlbum;
+    private short _idAlbum;
 
     public short IdLibrary
     {
@@ -4962,16 +4962,16 @@ public partial class AlbumService
       }
     }
 
-    public Album NewAlbum
+    public short IdAlbum
     {
       get
       {
-        return _newAlbum;
+        return _idAlbum;
       }
       set
       {
-        __isset.newAlbum = true;
-        this._newAlbum = value;
+        __isset.idAlbum = true;
+        this._idAlbum = value;
       }
     }
 
@@ -4980,7 +4980,7 @@ public partial class AlbumService
     public struct Isset
     {
       public bool idLibrary;
-      public bool newAlbum;
+      public bool idAlbum;
     }
 
     public AddAlbumToLibraryArgs()
@@ -5015,10 +5015,9 @@ public partial class AlbumService
               }
               break;
             case 2:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                NewAlbum = new Album();
-                await NewAlbum.ReadAsync(iprot, cancellationToken);
+                IdAlbum = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -5058,13 +5057,13 @@ public partial class AlbumService
           await oprot.WriteI16Async(IdLibrary, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (NewAlbum != null && __isset.newAlbum)
+        if (__isset.idAlbum)
         {
-          field.Name = "newAlbum";
-          field.Type = TType.Struct;
+          field.Name = "idAlbum";
+          field.Type = TType.I16;
           field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await NewAlbum.WriteAsync(oprot, cancellationToken);
+          await oprot.WriteI16Async(IdAlbum, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -5082,7 +5081,7 @@ public partial class AlbumService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.idLibrary == other.__isset.idLibrary) && ((!__isset.idLibrary) || (System.Object.Equals(IdLibrary, other.IdLibrary))))
-        && ((__isset.newAlbum == other.__isset.newAlbum) && ((!__isset.newAlbum) || (System.Object.Equals(NewAlbum, other.NewAlbum))));
+        && ((__isset.idAlbum == other.__isset.idAlbum) && ((!__isset.idAlbum) || (System.Object.Equals(IdAlbum, other.IdAlbum))));
     }
 
     public override int GetHashCode() {
@@ -5090,8 +5089,8 @@ public partial class AlbumService
       unchecked {
         if(__isset.idLibrary)
           hashcode = (hashcode * 397) + IdLibrary.GetHashCode();
-        if(__isset.newAlbum)
-          hashcode = (hashcode * 397) + NewAlbum.GetHashCode();
+        if(__isset.idAlbum)
+          hashcode = (hashcode * 397) + IdAlbum.GetHashCode();
       }
       return hashcode;
     }
@@ -5107,12 +5106,12 @@ public partial class AlbumService
         sb.Append("IdLibrary: ");
         sb.Append(IdLibrary);
       }
-      if (NewAlbum != null && __isset.newAlbum)
+      if (__isset.idAlbum)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("NewAlbum: ");
-        sb.Append(NewAlbum== null ? "<null>" : NewAlbum.ToString());
+        sb.Append("IdAlbum: ");
+        sb.Append(IdAlbum);
       }
       sb.Append(")");
       return sb.ToString();
@@ -5122,10 +5121,10 @@ public partial class AlbumService
 
   public partial class AddAlbumToLibraryResult : TBase
   {
-    private Album _success;
+    private bool _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public Album Success
+    public bool Success
     {
       get
       {
@@ -5181,10 +5180,9 @@ public partial class AlbumService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new Album();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -5229,15 +5227,12 @@ public partial class AlbumService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
         {
@@ -5284,12 +5279,12 @@ public partial class AlbumService
     {
       var sb = new StringBuilder("AddAlbumToLibrary_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorSystemE != null && __isset.sErrorSystemE)
       {

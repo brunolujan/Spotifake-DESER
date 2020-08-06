@@ -176,7 +176,7 @@ class Iface(object):
         """
         pass
 
-    def AddAlbumToLibrary(self, idLibrary, newAlbum):
+    def AddAlbumToLibrary(self, idLibrary, idAlbum):
         """
         Add an Album to Library.
 
@@ -191,7 +191,7 @@ class Iface(object):
 
         Parameters:
          - idLibrary
-         - newAlbum
+         - idAlbum
 
         """
         pass
@@ -694,7 +694,7 @@ class Client(Iface):
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateAlbumCover failed: unknown result")
 
-    def AddAlbumToLibrary(self, idLibrary, newAlbum):
+    def AddAlbumToLibrary(self, idLibrary, idAlbum):
         """
         Add an Album to Library.
 
@@ -709,17 +709,17 @@ class Client(Iface):
 
         Parameters:
          - idLibrary
-         - newAlbum
+         - idAlbum
 
         """
-        self.send_AddAlbumToLibrary(idLibrary, newAlbum)
+        self.send_AddAlbumToLibrary(idLibrary, idAlbum)
         return self.recv_AddAlbumToLibrary()
 
-    def send_AddAlbumToLibrary(self, idLibrary, newAlbum):
+    def send_AddAlbumToLibrary(self, idLibrary, idAlbum):
         self._oprot.writeMessageBegin('AddAlbumToLibrary', TMessageType.CALL, self._seqid)
         args = AddAlbumToLibrary_args()
         args.idLibrary = idLibrary
-        args.newAlbum = newAlbum
+        args.idAlbum = idAlbum
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1238,7 +1238,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = AddAlbumToLibrary_result()
         try:
-            result.success = self._handler.AddAlbumToLibrary(args.idLibrary, args.newAlbum)
+            result.success = self._handler.AddAlbumToLibrary(args.idLibrary, args.idAlbum)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -2821,14 +2821,14 @@ class AddAlbumToLibrary_args(object):
     """
     Attributes:
      - idLibrary
-     - newAlbum
+     - idAlbum
 
     """
 
 
-    def __init__(self, idLibrary=None, newAlbum=None,):
+    def __init__(self, idLibrary=None, idAlbum=None,):
         self.idLibrary = idLibrary
-        self.newAlbum = newAlbum
+        self.idAlbum = idAlbum
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -2845,9 +2845,8 @@ class AddAlbumToLibrary_args(object):
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newAlbum = SpotifakeManagement.ttypes.Album()
-                    self.newAlbum.read(iprot)
+                if ftype == TType.I16:
+                    self.idAlbum = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2864,9 +2863,9 @@ class AddAlbumToLibrary_args(object):
             oprot.writeFieldBegin('idLibrary', TType.I16, 1)
             oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
-        if self.newAlbum is not None:
-            oprot.writeFieldBegin('newAlbum', TType.STRUCT, 2)
-            self.newAlbum.write(oprot)
+        if self.idAlbum is not None:
+            oprot.writeFieldBegin('idAlbum', TType.I16, 2)
+            oprot.writeI16(self.idAlbum)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2888,7 +2887,7 @@ all_structs.append(AddAlbumToLibrary_args)
 AddAlbumToLibrary_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.STRUCT, 'newAlbum', [SpotifakeManagement.ttypes.Album, None], None, ),  # 2
+    (2, TType.I16, 'idAlbum', None, None, ),  # 2
 )
 
 
@@ -2915,9 +2914,8 @@ class AddAlbumToLibrary_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Album()
-                    self.success.read(iprot)
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -2937,8 +2935,8 @@ class AddAlbumToLibrary_result(object):
             return
         oprot.writeStructBegin('AddAlbumToLibrary_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
@@ -2962,7 +2960,7 @@ class AddAlbumToLibrary_result(object):
         return not (self == other)
 all_structs.append(AddAlbumToLibrary_result)
 AddAlbumToLibrary_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Album, None], None, ),  # 0
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 

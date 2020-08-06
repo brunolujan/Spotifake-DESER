@@ -53,7 +53,7 @@ class Iface(object):
         """
         pass
 
-    def AddPlaylistToLibrary(self, idLibrary, newPlaylist):
+    def AddPlaylistToLibrary(self, idLibrary, idPlaylist):
         """
         Add a Playlist to Library.
 
@@ -68,7 +68,7 @@ class Iface(object):
 
         Parameters:
          - idLibrary
-         - newPlaylist
+         - idPlaylist
 
         """
         pass
@@ -305,7 +305,7 @@ class Client(Iface):
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "GetPlaylistByLibraryId failed: unknown result")
 
-    def AddPlaylistToLibrary(self, idLibrary, newPlaylist):
+    def AddPlaylistToLibrary(self, idLibrary, idPlaylist):
         """
         Add a Playlist to Library.
 
@@ -320,17 +320,17 @@ class Client(Iface):
 
         Parameters:
          - idLibrary
-         - newPlaylist
+         - idPlaylist
 
         """
-        self.send_AddPlaylistToLibrary(idLibrary, newPlaylist)
+        self.send_AddPlaylistToLibrary(idLibrary, idPlaylist)
         return self.recv_AddPlaylistToLibrary()
 
-    def send_AddPlaylistToLibrary(self, idLibrary, newPlaylist):
+    def send_AddPlaylistToLibrary(self, idLibrary, idPlaylist):
         self._oprot.writeMessageBegin('AddPlaylistToLibrary', TMessageType.CALL, self._seqid)
         args = AddPlaylistToLibrary_args()
         args.idLibrary = idLibrary
-        args.newPlaylist = newPlaylist
+        args.idPlaylist = idPlaylist
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -786,7 +786,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = AddPlaylistToLibrary_result()
         try:
-            result.success = self._handler.AddPlaylistToLibrary(args.idLibrary, args.newPlaylist)
+            result.success = self._handler.AddPlaylistToLibrary(args.idLibrary, args.idPlaylist)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -1344,14 +1344,14 @@ class AddPlaylistToLibrary_args(object):
     """
     Attributes:
      - idLibrary
-     - newPlaylist
+     - idPlaylist
 
     """
 
 
-    def __init__(self, idLibrary=None, newPlaylist=None,):
+    def __init__(self, idLibrary=None, idPlaylist=None,):
         self.idLibrary = idLibrary
-        self.newPlaylist = newPlaylist
+        self.idPlaylist = idPlaylist
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -1368,9 +1368,8 @@ class AddPlaylistToLibrary_args(object):
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.newPlaylist = SpotifakeManagement.ttypes.Playlist()
-                    self.newPlaylist.read(iprot)
+                if ftype == TType.I16:
+                    self.idPlaylist = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1387,9 +1386,9 @@ class AddPlaylistToLibrary_args(object):
             oprot.writeFieldBegin('idLibrary', TType.I16, 1)
             oprot.writeI16(self.idLibrary)
             oprot.writeFieldEnd()
-        if self.newPlaylist is not None:
-            oprot.writeFieldBegin('newPlaylist', TType.STRUCT, 2)
-            self.newPlaylist.write(oprot)
+        if self.idPlaylist is not None:
+            oprot.writeFieldBegin('idPlaylist', TType.I16, 2)
+            oprot.writeI16(self.idPlaylist)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1411,7 +1410,7 @@ all_structs.append(AddPlaylistToLibrary_args)
 AddPlaylistToLibrary_args.thrift_spec = (
     None,  # 0
     (1, TType.I16, 'idLibrary', None, None, ),  # 1
-    (2, TType.STRUCT, 'newPlaylist', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 2
+    (2, TType.I16, 'idPlaylist', None, None, ),  # 2
 )
 
 
@@ -1438,9 +1437,8 @@ class AddPlaylistToLibrary_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Playlist()
-                    self.success.read(iprot)
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -1460,8 +1458,8 @@ class AddPlaylistToLibrary_result(object):
             return
         oprot.writeStructBegin('AddPlaylistToLibrary_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
         if self.sErrorSystemE is not None:
             oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
@@ -1485,7 +1483,7 @@ class AddPlaylistToLibrary_result(object):
         return not (self == other)
 all_structs.append(AddPlaylistToLibrary_result)
 AddPlaylistToLibrary_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Playlist, None], None, ),  # 0
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
 )
 
