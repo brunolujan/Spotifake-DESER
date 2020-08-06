@@ -48,7 +48,8 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
             playlistList.append(playlistAux)
         return playlistList
 
-    def AddPlaylistToLibrary(idLibrary, idPlaylist):
+    def AddPlaylistToLibrary(self, idLibrary, idPlaylist):
+        print(idLibrary, idPlaylist)
         result = SqlServerPlaylistManagement.AddPlaylistToLibrary(self, idLibrary, idPlaylist)
         return result
 
