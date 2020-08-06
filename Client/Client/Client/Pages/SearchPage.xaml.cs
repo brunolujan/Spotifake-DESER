@@ -33,9 +33,11 @@ namespace Client.Pages {
             try
             {
                 datagrid_SearchTracks.Visibility = Visibility.Visible;
+                Button_AddToPlaylist.Visibility = Visibility.Visible;
+                Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByQueryAsync(TextBox_search.Text);
                 datagrid_SearchTracks.ItemsSource = tracks;
-                Button_AddToPlaylist.Visibility = Visibility.Visible;
+                
             }
             catch (Exception ex)
             {
@@ -47,6 +49,8 @@ namespace Client.Pages {
             try
             {
                 datagrid_SearchAlbums.Visibility = Visibility.Visible;
+                Button_AddToPlaylist.Visibility = Visibility.Hidden;
+                Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<Album> albums = await Session.serverConnection.albumService.GetAlbumByQueryAsync(TextBox_search.Text);
                 datagrid_SearchAlbums.ItemsSource = albums;
             }
@@ -60,6 +64,8 @@ namespace Client.Pages {
             try
             {
                 datagrid_SearchContentCreators.Visibility = Visibility.Visible;
+                Button_AddToPlaylist.Visibility = Visibility.Hidden;
+                Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByQueryAsync(TextBox_search.Text);
                 datagrid_SearchContentCreators.ItemsSource = contentCreators;
             }
@@ -73,6 +79,8 @@ namespace Client.Pages {
             try
             {
                 datagrid_SearchPlaylists.Visibility = Visibility.Visible;
+                Button_AddToPlaylist.Visibility = Visibility.Hidden;
+                Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByQueryAsync(TextBox_search.Text);
                 datagrid_SearchPlaylists.ItemsSource = playlists;
             }
@@ -155,8 +163,49 @@ namespace Client.Pages {
             }
             else
             {
-                MessageBox.Show("Debes seleccionar un track");
+                MessageBox.Show("Please select a track");
             }
+        }
+
+        private async void Button_AddToLibrary_Click(object sender, RoutedEventArgs e) {
+            if (await AddToLibrary())
+            {
+
+                MessageBox.Show("Item added to library");
+            }
+            else
+            {
+                MessageBox.Show("Please select an item");
+            }
+        }
+
+        private async Task<bool> AddToLibrary() {
+            bool result = true;
+            if (datagrid_SearchAlbums.SelectedItem != null)
+            {
+                Album albumAux = (Album)datagrid_SearchAlbums.SelectedItem;
+                await Session.serverConnection.albumService.AddAlbumToLibraryAsync(Session.library.IdLibrary, albumAux.IdAlbum);
+            }
+            else if (datagrid_SearchContentCreators.SelectedItem != null)
+            {
+                ContentCreator contentCreatorAux = (ContentCreator)datagrid_SearchContentCreators.SelectedItem;
+                await Session.serverConnection.contentCreatorService.AddContentCreatorToLibraryAsync(Session.library.IdLibrary, contentCreatorAux.IdContentCreator);
+            }
+            else if (datagrid_SearchPlaylists.SelectedItem != null)
+            {
+                Playlist playlistAux = (Playlist)datagrid_SearchPlaylists.SelectedItem;
+                await Session.serverConnection.playlistService.AddPlaylistToLibraryAsync(Session.library.IdLibrary, playlistAux.IdPlaylist);
+            }
+            else if (datagrid_SearchTracks.SelectedItem != null)
+            {
+                Track trackAux = (Track)datagrid_SearchTracks.SelectedItem;
+                await Session.serverConnection.trackService.AddTrackToLibraryAsync(Session.library.IdLibrary, trackAux.IdTrack);
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
