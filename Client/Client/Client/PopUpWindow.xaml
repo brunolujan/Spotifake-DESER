@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="PopUpWindow" Height="550" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/LogoSpotifake.png">
+        Title="" Height="550" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/LogoSpotifake.png">
   
     <Grid>
         <Frame x:Name="centralFrame">

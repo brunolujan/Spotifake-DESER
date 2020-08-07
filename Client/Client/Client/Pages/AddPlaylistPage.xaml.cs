@@ -26,6 +26,7 @@ namespace Client.Pages {
             InitializeComponent();
             LoadImageBytes();
             imageBytes = null;
+            random = new Random();
         }
 
         private byte[] GetImageBytes(string filePath) {
@@ -52,7 +53,7 @@ namespace Client.Pages {
             }
         }
 
-        private void button_Create_Click(object sender, RoutedEventArgs e) {
+        private async void button_Create_Click(object sender, RoutedEventArgs e) {
             if (imageBytes != null) {
                 Playlist newPlaylist = new Playlist();
                 Date date = new Date();
@@ -66,7 +67,9 @@ namespace Client.Pages {
                 date.Year = Convert.ToInt16(today.Year);
                 newPlaylist.CreationDate = date;
                 newPlaylist.CoverPath = fileName;
-                Session.serverConnection.playlistService.AddImageToMediaAsync(fileName, imageBytes);
+                await Session.serverConnection.playlistService.AddPlaylistAsync(newPlaylist, Session.consumer.IdConsumer);
+                await Session.serverConnection.playlistService.AddImageToMediaAsync(fileName, imageBytes);
+                MessageBox.Show(newPlaylist.Name + " has been added");
                 Window.GetWindow(this).Close();
             } else {
                 textBlock_Message.Text = "*Select a pic file";

@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <Image x:Name="image_Consumer" HorizontalAlignment="Left" Height="245" Margin="33,27,0,0" VerticalAlignment="Top" Width="245" Grid.RowSpan="2">
+        <Image x:Name="image_Consumer" HorizontalAlignment="Left" Height="245" Margin="33,81,0,0" VerticalAlignment="Top" Width="245" Grid.RowSpan="2">
             <Image.Clip>
                 <EllipseGeometry
                     RadiusX="122.5"
@@ -23,8 +23,8 @@
                     Center="122.5,122.5"/>
             </Image.Clip>
         </Image>
-        <Button x:Name="button_SetConfiguration" Content="SET CONFIGURATION" Margin="33,307.5,0,0" VerticalAlignment="Top" Width="729.2" Click="button_SetConfiguration_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1"/>
-        <Button x:Name="button_SelectFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="33,207,0,0" VerticalAlignment="Top" Width="245" Click="button_SelectFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
+        <Button x:Name="button_SetConfiguration" Content="SET CONFIGURATION" Margin="33,361.5,0,0" VerticalAlignment="Top" Width="729.2" Click="button_SetConfiguration_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1"/>
+        <Button x:Name="button_SelectFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="33,261,0,0" VerticalAlignment="Top" Width="245" Click="button_SelectFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
                     <Setter Property="Control.Template">
@@ -83,6 +83,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="33,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="33,332,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
+        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="300,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="249" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="CONFIGURATION"/>
     </Grid>
 </Page>
