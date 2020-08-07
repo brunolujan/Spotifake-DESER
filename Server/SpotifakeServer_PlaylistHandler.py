@@ -17,6 +17,10 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
     def __init__(self):
         pass
 
+    def AddPlaylist(self, newPlaylist, idConsumer):
+        idPlaylist =  SqlServerPlaylistManagement.AddPlaylist(self, newPlaylist, idConsumer)
+        return True
+
     def GetPlaylistByTitle(self,title):
         playlistAux = Playlist()
         playlistFound = SqlServerPlaylistManagement.GetPlaylistByTitle(self,title)

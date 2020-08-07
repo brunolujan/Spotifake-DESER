@@ -1,8 +1,34 @@
 from SQLConnection.connection import SQLConnection
+import datetime
 
 class SqlServerPlaylistManagement:
     def __init__(self):
         self.connection: SQLConnection = SQLConnection()
+
+    def AddPlaylist(self, newPlaylist, idConsumer):
+        creationDate = datetime.datetime(newPlaylist.creationDate.year, newPlaylist.creationDate.month, newPlaylist.creationDate.day)
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            DECLARE	@return_value int,
+                    @salida nvarchar(1000)
+
+            EXEC	@return_value = [dbo].[SPI_Playlist]
+                    @creationDate = ?,
+                    @title = ?,
+                    @description = ?,
+                    @IdConsumer = ?,
+                    @coverPath = ?,
+                    @salida = @salida OUTPUT
+
+            SELECT	@salida as N'@salida'
+                    """
+        params = (creationDate, newPlaylist.name, newPlaylist.description, idConsumer, newPlaylist.coverPath,)
+        connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = int(connection.cursor.fetchval())
+        connection.save()
+        return row
 
     def GetPlaylistByTitle(self,title:str):
         self.connection.open()
