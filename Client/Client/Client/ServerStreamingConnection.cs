@@ -13,7 +13,7 @@ namespace Client {
 
         public StreamingService.Client streamingService;
 
-        /*public static void Connection() {
+        public ServerStreamingConnection() {
             try {
                 TTransport transport = new TSocketTransport("localhost", 8000);
                 TProtocol protocol = new TBinaryProtocol(transport);
@@ -22,38 +22,5 @@ namespace Client {
                 Console.WriteLine(ex);
             }
         }
-
-        public static void Disconnect() {
-            try {
-                streamingService = null;
-            } catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public static async Task<byte[]> GetTrackAudio(string fileName) {
-            TrackAudio trackAudio;
-            try {
-                trackAudio = await streamingService.GetTrackAudioAsync(new RequestTrackAudio() { Filename = fileName });
-                Console.WriteLine("Recuperado" + trackAudio.Song.Length);
-
-            } catch (Exception ex) {
-                throw ex;
-            }
-
-            return trackAudio.Song;
-        }
-
-        public static async Task<TrackUploaded> UploadTrack(TrackAudio trackAudio) {
-            TrackUploaded trackUploaded;
-            try {
-                trackUploaded = await streamingService.UploadTrackAsync(trackAudio);
-
-            } catch (Exception ex) {
-
-                throw ex;
-            }
-            return trackUploaded;
-        }*/
     }
 }
