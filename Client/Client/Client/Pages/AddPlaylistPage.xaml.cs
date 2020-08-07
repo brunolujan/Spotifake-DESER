@@ -67,7 +67,8 @@ namespace Client.Pages {
                 date.Year = Convert.ToInt16(today.Year);
                 newPlaylist.CreationDate = date;
                 newPlaylist.CoverPath = fileName;
-                await Session.serverConnection.playlistService.AddPlaylistAsync(newPlaylist, Session.consumer.IdConsumer);
+                short idNewPlaylist = await Session.serverConnection.playlistService.AddPlaylistAsync(newPlaylist, Session.consumer.IdConsumer);
+                await Session.serverConnection.playlistService.AddPlaylistToLibraryAsync(Session.library.IdLibrary, idNewPlaylist);
                 await Session.serverConnection.playlistService.AddImageToMediaAsync(fileName, imageBytes);
                 MessageBox.Show(newPlaylist.Name + " has been added");
                 Window.GetWindow(this).Close();

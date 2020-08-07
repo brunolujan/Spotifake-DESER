@@ -16,9 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para UploadLocalTrackPage.xaml
-    /// </summary>
+
     public partial class UploadLocalTrackPage : Page {
 
         private string filePath;
