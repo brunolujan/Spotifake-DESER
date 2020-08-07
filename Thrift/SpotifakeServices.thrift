@@ -977,6 +977,18 @@ service AlbumService {
 service PlaylistService {
 
     /**
+    * Register a Playlist
+    *
+    * @param newPlaylist
+    * 
+    * @return bool
+    *   True or False
+    **/
+    
+    bool AddPlaylist(1: SpotifakeManagement.Playlist newPlaylist, 2:SpotifakeManagement.Id idConsumer) 
+        throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
+
+    /**
     *   Get Playlist by Title
     *
     *   @param title
@@ -1123,6 +1135,17 @@ service PlaylistService {
 }
 
 service LibraryService {
+
+    /**
+    * Register a Library.
+    *
+    * @param idConsumer
+    * 
+    * @return bool
+    *   True or False
+    **/
+
+    bool AddLibrary(1: SpotifakeManagement.Id idConsumer) throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**
     *   Get Library

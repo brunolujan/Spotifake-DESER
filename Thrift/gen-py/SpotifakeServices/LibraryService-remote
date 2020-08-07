@@ -24,6 +24,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Usage: ' + sys.argv[0] + ' [-h host[:port]] [-u url] [-f[ramed]] [-s[sl]] [-novalidate] [-ca_certs certs] [-keyfile keyfile] [-certfile certfile] function [arg1 [arg2...]]')
     print('')
     print('Functions:')
+    print('  bool AddLibrary(Id idConsumer)')
     print('  Id getLibraryByIdConsumer(Id idConsumer)')
     print('')
     sys.exit(0)
@@ -104,7 +105,13 @@ protocol = TBinaryProtocol(transport)
 client = LibraryService.Client(protocol)
 transport.open()
 
-if cmd == 'getLibraryByIdConsumer':
+if cmd == 'AddLibrary':
+    if len(args) != 1:
+        print('AddLibrary requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.AddLibrary(eval(args[0]),))
+
+elif cmd == 'getLibraryByIdConsumer':
     if len(args) != 1:
         print('getLibraryByIdConsumer requires 1 args')
         sys.exit(1)

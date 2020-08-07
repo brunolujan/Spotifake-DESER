@@ -19,6 +19,22 @@ all_structs = []
 
 
 class Iface(object):
+    def AddLibrary(self, idConsumer):
+        """
+        Register a Library.
+
+        @param idConsumer
+
+        @return bool
+          True or False
+
+
+        Parameters:
+         - idConsumer
+
+        """
+        pass
+
     def getLibraryByIdConsumer(self, idConsumer):
         """
         Get Library
@@ -43,6 +59,48 @@ class Client(Iface):
         if oprot is not None:
             self._oprot = oprot
         self._seqid = 0
+
+    def AddLibrary(self, idConsumer):
+        """
+        Register a Library.
+
+        @param idConsumer
+
+        @return bool
+          True or False
+
+
+        Parameters:
+         - idConsumer
+
+        """
+        self.send_AddLibrary(idConsumer)
+        return self.recv_AddLibrary()
+
+    def send_AddLibrary(self, idConsumer):
+        self._oprot.writeMessageBegin('AddLibrary', TMessageType.CALL, self._seqid)
+        args = AddLibrary_args()
+        args.idConsumer = idConsumer
+        args.write(self._oprot)
+        self._oprot.writeMessageEnd()
+        self._oprot.trans.flush()
+
+    def recv_AddLibrary(self):
+        iprot = self._iprot
+        (fname, mtype, rseqid) = iprot.readMessageBegin()
+        if mtype == TMessageType.EXCEPTION:
+            x = TApplicationException()
+            x.read(iprot)
+            iprot.readMessageEnd()
+            raise x
+        result = AddLibrary_result()
+        result.read(iprot)
+        iprot.readMessageEnd()
+        if result.success is not None:
+            return result.success
+        if result.sErrorSystemE is not None:
+            raise result.sErrorSystemE
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "AddLibrary failed: unknown result")
 
     def getLibraryByIdConsumer(self, idConsumer):
         """
@@ -94,6 +152,7 @@ class Processor(Iface, TProcessor):
     def __init__(self, handler):
         self._handler = handler
         self._processMap = {}
+        self._processMap["AddLibrary"] = Processor.process_AddLibrary
         self._processMap["getLibraryByIdConsumer"] = Processor.process_getLibraryByIdConsumer
         self._on_message_begin = None
 
@@ -116,6 +175,32 @@ class Processor(Iface, TProcessor):
         else:
             self._processMap[name](self, seqid, iprot, oprot)
         return True
+
+    def process_AddLibrary(self, seqid, iprot, oprot):
+        args = AddLibrary_args()
+        args.read(iprot)
+        iprot.readMessageEnd()
+        result = AddLibrary_result()
+        try:
+            result.success = self._handler.AddLibrary(args.idConsumer)
+            msg_type = TMessageType.REPLY
+        except TTransport.TTransportException:
+            raise
+        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
+            msg_type = TMessageType.REPLY
+            result.sErrorSystemE = sErrorSystemE
+        except TApplicationException as ex:
+            logging.exception('TApplication exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = ex
+        except Exception:
+            logging.exception('Unexpected exception in handler')
+            msg_type = TMessageType.EXCEPTION
+            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
+        oprot.writeMessageBegin("AddLibrary", msg_type, seqid)
+        result.write(oprot)
+        oprot.writeMessageEnd()
+        oprot.trans.flush()
 
     def process_getLibraryByIdConsumer(self, seqid, iprot, oprot):
         args = getLibraryByIdConsumer_args()
@@ -147,6 +232,142 @@ class Processor(Iface, TProcessor):
         oprot.trans.flush()
 
 # HELPER FUNCTIONS AND STRUCTURES
+
+
+class AddLibrary_args(object):
+    """
+    Attributes:
+     - idConsumer
+
+    """
+
+
+    def __init__(self, idConsumer=None,):
+        self.idConsumer = idConsumer
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 1:
+                if ftype == TType.I16:
+                    self.idConsumer = iprot.readI16()
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddLibrary_args')
+        if self.idConsumer is not None:
+            oprot.writeFieldBegin('idConsumer', TType.I16, 1)
+            oprot.writeI16(self.idConsumer)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddLibrary_args)
+AddLibrary_args.thrift_spec = (
+    None,  # 0
+    (1, TType.I16, 'idConsumer', None, None, ),  # 1
+)
+
+
+class AddLibrary_result(object):
+    """
+    Attributes:
+     - success
+     - sErrorSystemE
+
+    """
+
+
+    def __init__(self, success=None, sErrorSystemE=None,):
+        self.success = success
+        self.sErrorSystemE = sErrorSystemE
+
+    def read(self, iprot):
+        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
+            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
+            return
+        iprot.readStructBegin()
+        while True:
+            (fname, ftype, fid) = iprot.readFieldBegin()
+            if ftype == TType.STOP:
+                break
+            if fid == 0:
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
+                else:
+                    iprot.skip(ftype)
+            elif fid == 1:
+                if ftype == TType.STRUCT:
+                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
+                    self.sErrorSystemE.read(iprot)
+                else:
+                    iprot.skip(ftype)
+            else:
+                iprot.skip(ftype)
+            iprot.readFieldEnd()
+        iprot.readStructEnd()
+
+    def write(self, oprot):
+        if oprot._fast_encode is not None and self.thrift_spec is not None:
+            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
+            return
+        oprot.writeStructBegin('AddLibrary_result')
+        if self.success is not None:
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
+            oprot.writeFieldEnd()
+        if self.sErrorSystemE is not None:
+            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 1)
+            self.sErrorSystemE.write(oprot)
+            oprot.writeFieldEnd()
+        oprot.writeFieldStop()
+        oprot.writeStructEnd()
+
+    def validate(self):
+        return
+
+    def __repr__(self):
+        L = ['%s=%r' % (key, value)
+             for key, value in self.__dict__.items()]
+        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        return not (self == other)
+all_structs.append(AddLibrary_result)
+AddLibrary_result.thrift_spec = (
+    (0, TType.BOOL, 'success', None, None, ),  # 0
+    (1, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 1
+)
 
 
 class getLibraryByIdConsumer_args(object):

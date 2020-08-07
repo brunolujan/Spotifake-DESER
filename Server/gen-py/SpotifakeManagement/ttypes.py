@@ -892,22 +892,16 @@ class Playlist(object):
      - name
      - description
      - creationDate
-     - Tracks
      - coverPath
 
     """
 
 
-    def __init__(self, idPlaylist=None, name=None, description=None, creationDate=None, Tracks=[
-    ], coverPath=None,):
+    def __init__(self, idPlaylist=None, name=None, description=None, creationDate=None, coverPath=None,):
         self.idPlaylist = idPlaylist
         self.name = name
         self.description = description
         self.creationDate = creationDate
-        if Tracks is self.thrift_spec[5][4]:
-            Tracks = [
-            ]
-        self.Tracks = Tracks
         self.coverPath = coverPath
 
     def read(self, iprot):
@@ -941,17 +935,6 @@ class Playlist(object):
                 else:
                     iprot.skip(ftype)
             elif fid == 5:
-                if ftype == TType.LIST:
-                    self.Tracks = []
-                    (_etype3, _size0) = iprot.readListBegin()
-                    for _i4 in range(_size0):
-                        _elem5 = Track()
-                        _elem5.read(iprot)
-                        self.Tracks.append(_elem5)
-                    iprot.readListEnd()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 6:
                 if ftype == TType.STRING:
                     self.coverPath = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
@@ -982,15 +965,8 @@ class Playlist(object):
             oprot.writeFieldBegin('creationDate', TType.STRUCT, 4)
             self.creationDate.write(oprot)
             oprot.writeFieldEnd()
-        if self.Tracks is not None:
-            oprot.writeFieldBegin('Tracks', TType.LIST, 5)
-            oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter6 in self.Tracks:
-                iter6.write(oprot)
-            oprot.writeListEnd()
-            oprot.writeFieldEnd()
         if self.coverPath is not None:
-            oprot.writeFieldBegin('coverPath', TType.STRING, 6)
+            oprot.writeFieldBegin('coverPath', TType.STRING, 5)
             oprot.writeString(self.coverPath.encode('utf-8') if sys.version_info[0] == 2 else self.coverPath)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1047,11 +1023,11 @@ class PlayQueue(object):
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.Tracks = []
-                    (_etype10, _size7) = iprot.readListBegin()
-                    for _i11 in range(_size7):
-                        _elem12 = Track()
-                        _elem12.read(iprot)
-                        self.Tracks.append(_elem12)
+                    (_etype3, _size0) = iprot.readListBegin()
+                    for _i4 in range(_size0):
+                        _elem5 = Track()
+                        _elem5.read(iprot)
+                        self.Tracks.append(_elem5)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -1072,8 +1048,8 @@ class PlayQueue(object):
         if self.Tracks is not None:
             oprot.writeFieldBegin('Tracks', TType.LIST, 2)
             oprot.writeListBegin(TType.STRUCT, len(self.Tracks))
-            for iter13 in self.Tracks:
-                iter13.write(oprot)
+            for iter6 in self.Tracks:
+                iter6.write(oprot)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -1546,9 +1522,7 @@ Playlist.thrift_spec = (
     (2, TType.STRING, 'name', 'UTF8', None, ),  # 2
     (3, TType.STRING, 'description', 'UTF8', None, ),  # 3
     (4, TType.STRUCT, 'creationDate', [Date, None], None, ),  # 4
-    (5, TType.LIST, 'Tracks', (TType.STRUCT, [Track, None], False), [
-    ], ),  # 5
-    (6, TType.STRING, 'coverPath', 'UTF8', None, ),  # 6
+    (5, TType.STRING, 'coverPath', 'UTF8', None, ),  # 5
 )
 all_structs.append(PlayQueue)
 PlayQueue.thrift_spec = (

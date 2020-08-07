@@ -29,7 +29,6 @@ public partial class Playlist : TBase
   private string _name;
   private string _description;
   private Date _creationDate;
-  private List<Track> _Tracks;
   private string _coverPath;
 
   public short IdPlaylist { get; set; }
@@ -73,19 +72,6 @@ public partial class Playlist : TBase
     }
   }
 
-  public List<Track> Tracks
-  {
-    get
-    {
-      return _Tracks;
-    }
-    set
-    {
-      __isset.Tracks = true;
-      this._Tracks = value;
-    }
-  }
-
   public string CoverPath
   {
     get
@@ -106,14 +92,11 @@ public partial class Playlist : TBase
     public bool name;
     public bool description;
     public bool creationDate;
-    public bool Tracks;
     public bool coverPath;
   }
 
   public Playlist()
   {
-    this._Tracks = new List<Track>();
-    this.__isset.Tracks = true;
   }
 
   public Playlist(short idPlaylist) : this()
@@ -182,27 +165,6 @@ public partial class Playlist : TBase
             }
             break;
           case 5:
-            if (field.Type == TType.List)
-            {
-              {
-                TList _list0 = await iprot.ReadListBeginAsync(cancellationToken);
-                Tracks = new List<Track>(_list0.Count);
-                for(int _i1 = 0; _i1 < _list0.Count; ++_i1)
-                {
-                  Track _elem2;
-                  _elem2 = new Track();
-                  await _elem2.ReadAsync(iprot, cancellationToken);
-                  Tracks.Add(_elem2);
-                }
-                await iprot.ReadListEndAsync(cancellationToken);
-              }
-            }
-            else
-            {
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-            }
-            break;
-          case 6:
             if (field.Type == TType.String)
             {
               CoverPath = await iprot.ReadStringAsync(cancellationToken);
@@ -273,27 +235,11 @@ public partial class Playlist : TBase
         await CreationDate.WriteAsync(oprot, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
       }
-      if (Tracks != null && __isset.Tracks)
-      {
-        field.Name = "Tracks";
-        field.Type = TType.List;
-        field.ID = 5;
-        await oprot.WriteFieldBeginAsync(field, cancellationToken);
-        {
-          await oprot.WriteListBeginAsync(new TList(TType.Struct, Tracks.Count), cancellationToken);
-          foreach (Track _iter3 in Tracks)
-          {
-            await _iter3.WriteAsync(oprot, cancellationToken);
-          }
-          await oprot.WriteListEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldEndAsync(cancellationToken);
-      }
       if (CoverPath != null && __isset.coverPath)
       {
         field.Name = "coverPath";
         field.Type = TType.String;
-        field.ID = 6;
+        field.ID = 5;
         await oprot.WriteFieldBeginAsync(field, cancellationToken);
         await oprot.WriteStringAsync(CoverPath, cancellationToken);
         await oprot.WriteFieldEndAsync(cancellationToken);
@@ -316,7 +262,6 @@ public partial class Playlist : TBase
       && ((__isset.name == other.__isset.name) && ((!__isset.name) || (System.Object.Equals(Name, other.Name))))
       && ((__isset.description == other.__isset.description) && ((!__isset.description) || (System.Object.Equals(Description, other.Description))))
       && ((__isset.creationDate == other.__isset.creationDate) && ((!__isset.creationDate) || (System.Object.Equals(CreationDate, other.CreationDate))))
-      && ((__isset.Tracks == other.__isset.Tracks) && ((!__isset.Tracks) || (TCollections.Equals(Tracks, other.Tracks))))
       && ((__isset.coverPath == other.__isset.coverPath) && ((!__isset.coverPath) || (System.Object.Equals(CoverPath, other.CoverPath))));
   }
 
@@ -330,8 +275,6 @@ public partial class Playlist : TBase
         hashcode = (hashcode * 397) + Description.GetHashCode();
       if(__isset.creationDate)
         hashcode = (hashcode * 397) + CreationDate.GetHashCode();
-      if(__isset.Tracks)
-        hashcode = (hashcode * 397) + TCollections.GetHashCode(Tracks);
       if(__isset.coverPath)
         hashcode = (hashcode * 397) + CoverPath.GetHashCode();
     }
@@ -357,11 +300,6 @@ public partial class Playlist : TBase
     {
       sb.Append(", CreationDate: ");
       sb.Append(CreationDate== null ? "<null>" : CreationDate.ToString());
-    }
-    if (Tracks != null && __isset.Tracks)
-    {
-      sb.Append(", Tracks: ");
-      sb.Append(Tracks);
     }
     if (CoverPath != null && __isset.coverPath)
     {

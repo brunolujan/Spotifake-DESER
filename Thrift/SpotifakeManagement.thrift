@@ -132,8 +132,7 @@ struct Playlist{
     2: string           name
     3: string           description
     4: Date             creationDate
-    5: list<Track>      Tracks = []
-    6: Path             coverPath
+    5: Path             coverPath
 }
 
 
