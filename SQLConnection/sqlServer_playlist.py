@@ -23,11 +23,12 @@ class SqlServerPlaylistManagement:
 
             SELECT	@salida as N'@salida'
                     """
-        params = (creationDate, newPlaylist.name, newPlaylist.description, idConsumer, newPlaylist.coverPath,)
+        params = (creationDate, newPlaylist.name, newPlaylist.description, idConsumer, newPlaylist.coverPath)
         connection.cursor.execute(sql, params)
         connection.cursor.nextset()
         row = int(connection.cursor.fetchval())
         connection.save()
+        print(newPlaylist.name, row)
         return row
 
     def GetPlaylistByTitle(self,title:str):
