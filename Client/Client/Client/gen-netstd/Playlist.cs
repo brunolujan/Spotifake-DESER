@@ -32,6 +32,7 @@ public partial class Playlist : TBase
   private string _coverPath;
 
   public short IdPlaylist { get; set; }
+  public System.Windows.Media.Imaging.BitmapImage PlaylistImage { get; set; }  
 
   public string Name
   {
