@@ -33,8 +33,9 @@ public partial class Album : TBase
   private bool _isSingle;
 
   public short IdAlbum { get; set; }
+  public System.Windows.Media.Imaging.BitmapImage AlbumImage { get; set; }
 
-  public string Title
+    public string Title
   {
     get
     {
