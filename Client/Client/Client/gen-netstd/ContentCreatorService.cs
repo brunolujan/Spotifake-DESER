@@ -115,23 +115,6 @@ public partial class ContentCreatorService
 
     /// <summary>
     ///  
-    /// Update previously registered Content Creator name.
-    /// 
-    /// @param email
-    ///     The Content Creator Email of the Consumer which require an update name.
-    /// 
-    /// @return ContentCreator
-    ///     Modified Content Creator obejct.
-    /// 
-    /// </summary>
-    /// <param name="email"></param>
-    /// <param name="currentPassword"></param>
-    /// <param name="newName"></param>
-    /// <param name="newLastName"></param>
-    Task<ContentCreator> UpdateContentCreatorNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken));
-
-    /// <summary>
-    ///  
     /// Update previously registered Content Creator password.
     /// 
     /// @param email
@@ -142,9 +125,8 @@ public partial class ContentCreatorService
     /// 
     /// </summary>
     /// <param name="email"></param>
-    /// <param name="currentPassword"></param>
     /// <param name="newPassword"></param>
-    Task<ContentCreator> UpdateContentCreatorPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken));
+    Task<bool> UpdateContentCreatorPasswordAsync(string email, string newPassword, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     ///  
@@ -585,61 +567,12 @@ public partial class ContentCreatorService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeleteContentCreator failed: unknown result");
     }
 
-    public async Task<ContentCreator> UpdateContentCreatorNameAsync(string email, string currentPassword, string newName, string newLastName, CancellationToken cancellationToken = default(CancellationToken))
-    {
-      await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateContentCreatorName", TMessageType.Call, SeqId), cancellationToken);
-      
-      var args = new UpdateContentCreatorNameArgs();
-      args.Email = email;
-      args.CurrentPassword = currentPassword;
-      args.NewName = newName;
-      args.NewLastName = newLastName;
-      
-      await args.WriteAsync(OutputProtocol, cancellationToken);
-      await OutputProtocol.WriteMessageEndAsync(cancellationToken);
-      await OutputProtocol.Transport.FlushAsync(cancellationToken);
-      
-      var msg = await InputProtocol.ReadMessageBeginAsync(cancellationToken);
-      if (msg.Type == TMessageType.Exception)
-      {
-        var x = await TApplicationException.ReadAsync(InputProtocol, cancellationToken);
-        await InputProtocol.ReadMessageEndAsync(cancellationToken);
-        throw x;
-      }
-
-      var result = new UpdateContentCreatorNameResult();
-      await result.ReadAsync(InputProtocol, cancellationToken);
-      await InputProtocol.ReadMessageEndAsync(cancellationToken);
-      if (result.__isset.success)
-      {
-        return result.Success;
-      }
-      if (result.__isset.sErrorUserE)
-      {
-        throw result.SErrorUserE;
-      }
-      if (result.__isset.sErrorNotFoundE)
-      {
-        throw result.SErrorNotFoundE;
-      }
-      if (result.__isset.sErrorSystemE)
-      {
-        throw result.SErrorSystemE;
-      }
-      if (result.__isset.sErrorInvalidRequestE)
-      {
-        throw result.SErrorInvalidRequestE;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "UpdateContentCreatorName failed: unknown result");
-    }
-
-    public async Task<ContentCreator> UpdateContentCreatorPasswordAsync(string email, string currentPassword, string newPassword, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<bool> UpdateContentCreatorPasswordAsync(string email, string newPassword, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("UpdateContentCreatorPassword", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new UpdateContentCreatorPasswordArgs();
       args.Email = email;
-      args.CurrentPassword = currentPassword;
       args.NewPassword = newPassword;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
@@ -1085,7 +1018,6 @@ public partial class ContentCreatorService
       processMap_["GetContentCreatorByStageName"] = GetContentCreatorByStageName_ProcessAsync;
       processMap_["AddContentCreator"] = AddContentCreator_ProcessAsync;
       processMap_["DeleteContentCreator"] = DeleteContentCreator_ProcessAsync;
-      processMap_["UpdateContentCreatorName"] = UpdateContentCreatorName_ProcessAsync;
       processMap_["UpdateContentCreatorPassword"] = UpdateContentCreatorPassword_ProcessAsync;
       processMap_["UpdateContentCreatorImage"] = UpdateContentCreatorImage_ProcessAsync;
       processMap_["UpdateContentCreatorStageName"] = UpdateContentCreatorStageName_ProcessAsync;
@@ -1432,53 +1364,6 @@ public partial class ContentCreatorService
       await oprot.Transport.FlushAsync(cancellationToken);
     }
 
-    public async Task UpdateContentCreatorName_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
-    {
-      var args = new UpdateContentCreatorNameArgs();
-      await args.ReadAsync(iprot, cancellationToken);
-      await iprot.ReadMessageEndAsync(cancellationToken);
-      var result = new UpdateContentCreatorNameResult();
-      try
-      {
-        try
-        {
-          result.Success = await _iAsync.UpdateContentCreatorNameAsync(args.Email, args.CurrentPassword, args.NewName, args.NewLastName, cancellationToken);
-        }
-        catch (SErrorUserException sErrorUserE)
-        {
-          result.SErrorUserE = sErrorUserE;
-        }
-        catch (SErrorNotFoundException sErrorNotFoundE)
-        {
-          result.SErrorNotFoundE = sErrorNotFoundE;
-        }
-        catch (SErrorSystemException sErrorSystemE)
-        {
-          result.SErrorSystemE = sErrorSystemE;
-        }
-        catch (SErrorInvalidRequestException sErrorInvalidRequestE)
-        {
-          result.SErrorInvalidRequestE = sErrorInvalidRequestE;
-        }
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateContentCreatorName", TMessageType.Reply, seqid), cancellationToken); 
-        await result.WriteAsync(oprot, cancellationToken);
-      }
-      catch (TTransportException)
-      {
-        throw;
-      }
-      catch (Exception ex)
-      {
-        Console.Error.WriteLine("Error occurred in processor:");
-        Console.Error.WriteLine(ex.ToString());
-        var x = new TApplicationException(TApplicationException.ExceptionType.InternalError," Internal error.");
-        await oprot.WriteMessageBeginAsync(new TMessage("UpdateContentCreatorName", TMessageType.Exception, seqid), cancellationToken);
-        await x.WriteAsync(oprot, cancellationToken);
-      }
-      await oprot.WriteMessageEndAsync(cancellationToken);
-      await oprot.Transport.FlushAsync(cancellationToken);
-    }
-
     public async Task UpdateContentCreatorPassword_ProcessAsync(int seqid, TProtocol iprot, TProtocol oprot, CancellationToken cancellationToken)
     {
       var args = new UpdateContentCreatorPasswordArgs();
@@ -1489,7 +1374,7 @@ public partial class ContentCreatorService
       {
         try
         {
-          result.Success = await _iAsync.UpdateContentCreatorPasswordAsync(args.Email, args.CurrentPassword, args.NewPassword, cancellationToken);
+          result.Success = await _iAsync.UpdateContentCreatorPasswordAsync(args.Email, args.NewPassword, cancellationToken);
         }
         catch (SErrorUserException sErrorUserE)
         {
@@ -4680,601 +4565,9 @@ public partial class ContentCreatorService
   }
 
 
-  public partial class UpdateContentCreatorNameArgs : TBase
-  {
-    private string _email;
-    private string _currentPassword;
-    private string _newName;
-    private string _newLastName;
-
-    public string Email
-    {
-      get
-      {
-        return _email;
-      }
-      set
-      {
-        __isset.email = true;
-        this._email = value;
-      }
-    }
-
-    public string CurrentPassword
-    {
-      get
-      {
-        return _currentPassword;
-      }
-      set
-      {
-        __isset.currentPassword = true;
-        this._currentPassword = value;
-      }
-    }
-
-    public string NewName
-    {
-      get
-      {
-        return _newName;
-      }
-      set
-      {
-        __isset.newName = true;
-        this._newName = value;
-      }
-    }
-
-    public string NewLastName
-    {
-      get
-      {
-        return _newLastName;
-      }
-      set
-      {
-        __isset.newLastName = true;
-        this._newLastName = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool email;
-      public bool currentPassword;
-      public bool newName;
-      public bool newLastName;
-    }
-
-    public UpdateContentCreatorNameArgs()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 1:
-              if (field.Type == TType.String)
-              {
-                Email = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.String)
-              {
-                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.String)
-              {
-                NewName = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 4:
-              if (field.Type == TType.String)
-              {
-                NewLastName = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("UpdateContentCreatorName_args");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-        if (Email != null && __isset.email)
-        {
-          field.Name = "email";
-          field.Type = TType.String;
-          field.ID = 1;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(Email, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (CurrentPassword != null && __isset.currentPassword)
-        {
-          field.Name = "currentPassword";
-          field.Type = TType.String;
-          field.ID = 2;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (NewName != null && __isset.newName)
-        {
-          field.Name = "newName";
-          field.Type = TType.String;
-          field.ID = 3;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewName, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        if (NewLastName != null && __isset.newLastName)
-        {
-          field.Name = "newLastName";
-          field.Type = TType.String;
-          field.ID = 4;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(NewLastName, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as UpdateContentCreatorNameArgs;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
-        && ((__isset.newName == other.__isset.newName) && ((!__isset.newName) || (System.Object.Equals(NewName, other.NewName))))
-        && ((__isset.newLastName == other.__isset.newLastName) && ((!__isset.newLastName) || (System.Object.Equals(NewLastName, other.NewLastName))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.email)
-          hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.currentPassword)
-          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
-        if(__isset.newName)
-          hashcode = (hashcode * 397) + NewName.GetHashCode();
-        if(__isset.newLastName)
-          hashcode = (hashcode * 397) + NewLastName.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("UpdateContentCreatorName_args(");
-      bool __first = true;
-      if (Email != null && __isset.email)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Email: ");
-        sb.Append(Email);
-      }
-      if (CurrentPassword != null && __isset.currentPassword)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("CurrentPassword: ");
-        sb.Append(CurrentPassword);
-      }
-      if (NewName != null && __isset.newName)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewName: ");
-        sb.Append(NewName);
-      }
-      if (NewLastName != null && __isset.newLastName)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("NewLastName: ");
-        sb.Append(NewLastName);
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
-  public partial class UpdateContentCreatorNameResult : TBase
-  {
-    private ContentCreator _success;
-    private SErrorUserException _sErrorUserE;
-    private SErrorNotFoundException _sErrorNotFoundE;
-    private SErrorSystemException _sErrorSystemE;
-    private SErrorInvalidRequestException _sErrorInvalidRequestE;
-
-    public ContentCreator Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-    public SErrorUserException SErrorUserE
-    {
-      get
-      {
-        return _sErrorUserE;
-      }
-      set
-      {
-        __isset.sErrorUserE = true;
-        this._sErrorUserE = value;
-      }
-    }
-
-    public SErrorNotFoundException SErrorNotFoundE
-    {
-      get
-      {
-        return _sErrorNotFoundE;
-      }
-      set
-      {
-        __isset.sErrorNotFoundE = true;
-        this._sErrorNotFoundE = value;
-      }
-    }
-
-    public SErrorSystemException SErrorSystemE
-    {
-      get
-      {
-        return _sErrorSystemE;
-      }
-      set
-      {
-        __isset.sErrorSystemE = true;
-        this._sErrorSystemE = value;
-      }
-    }
-
-    public SErrorInvalidRequestException SErrorInvalidRequestE
-    {
-      get
-      {
-        return _sErrorInvalidRequestE;
-      }
-      set
-      {
-        __isset.sErrorInvalidRequestE = true;
-        this._sErrorInvalidRequestE = value;
-      }
-    }
-
-
-    public Isset __isset;
-    public struct Isset
-    {
-      public bool success;
-      public bool sErrorUserE;
-      public bool sErrorNotFoundE;
-      public bool sErrorSystemE;
-      public bool sErrorInvalidRequestE;
-    }
-
-    public UpdateContentCreatorNameResult()
-    {
-    }
-
-    public async Task ReadAsync(TProtocol iprot, CancellationToken cancellationToken)
-    {
-      iprot.IncrementRecursionDepth();
-      try
-      {
-        TField field;
-        await iprot.ReadStructBeginAsync(cancellationToken);
-        while (true)
-        {
-          field = await iprot.ReadFieldBeginAsync(cancellationToken);
-          if (field.Type == TType.Stop)
-          {
-            break;
-          }
-
-          switch (field.ID)
-          {
-            case 0:
-              if (field.Type == TType.Struct)
-              {
-                Success = new ContentCreator();
-                await Success.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 1:
-              if (field.Type == TType.Struct)
-              {
-                SErrorUserE = new SErrorUserException();
-                await SErrorUserE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.Struct)
-              {
-                SErrorNotFoundE = new SErrorNotFoundException();
-                await SErrorNotFoundE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Struct)
-              {
-                SErrorSystemE = new SErrorSystemException();
-                await SErrorSystemE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 4:
-              if (field.Type == TType.Struct)
-              {
-                SErrorInvalidRequestE = new SErrorInvalidRequestException();
-                await SErrorInvalidRequestE.ReadAsync(iprot, cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            default: 
-              await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              break;
-          }
-
-          await iprot.ReadFieldEndAsync(cancellationToken);
-        }
-
-        await iprot.ReadStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        iprot.DecrementRecursionDepth();
-      }
-    }
-
-    public async Task WriteAsync(TProtocol oprot, CancellationToken cancellationToken)
-    {
-      oprot.IncrementRecursionDepth();
-      try
-      {
-        var struc = new TStruct("UpdateContentCreatorName_result");
-        await oprot.WriteStructBeginAsync(struc, cancellationToken);
-        var field = new TField();
-
-        if(this.__isset.success)
-        {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorUserE)
-        {
-          if (SErrorUserE != null)
-          {
-            field.Name = "SErrorUserE";
-            field.Type = TType.Struct;
-            field.ID = 1;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorUserE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorNotFoundE)
-        {
-          if (SErrorNotFoundE != null)
-          {
-            field.Name = "SErrorNotFoundE";
-            field.Type = TType.Struct;
-            field.ID = 2;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorNotFoundE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorSystemE)
-        {
-          if (SErrorSystemE != null)
-          {
-            field.Name = "SErrorSystemE";
-            field.Type = TType.Struct;
-            field.ID = 3;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorSystemE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        else if(this.__isset.sErrorInvalidRequestE)
-        {
-          if (SErrorInvalidRequestE != null)
-          {
-            field.Name = "SErrorInvalidRequestE";
-            field.Type = TType.Struct;
-            field.ID = 4;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await SErrorInvalidRequestE.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
-        }
-        await oprot.WriteFieldStopAsync(cancellationToken);
-        await oprot.WriteStructEndAsync(cancellationToken);
-      }
-      finally
-      {
-        oprot.DecrementRecursionDepth();
-      }
-    }
-
-    public override bool Equals(object that)
-    {
-      var other = that as UpdateContentCreatorNameResult;
-      if (other == null) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return ((__isset.success == other.__isset.success) && ((!__isset.success) || (System.Object.Equals(Success, other.Success))))
-        && ((__isset.sErrorUserE == other.__isset.sErrorUserE) && ((!__isset.sErrorUserE) || (System.Object.Equals(SErrorUserE, other.SErrorUserE))))
-        && ((__isset.sErrorNotFoundE == other.__isset.sErrorNotFoundE) && ((!__isset.sErrorNotFoundE) || (System.Object.Equals(SErrorNotFoundE, other.SErrorNotFoundE))))
-        && ((__isset.sErrorSystemE == other.__isset.sErrorSystemE) && ((!__isset.sErrorSystemE) || (System.Object.Equals(SErrorSystemE, other.SErrorSystemE))))
-        && ((__isset.sErrorInvalidRequestE == other.__isset.sErrorInvalidRequestE) && ((!__isset.sErrorInvalidRequestE) || (System.Object.Equals(SErrorInvalidRequestE, other.SErrorInvalidRequestE))));
-    }
-
-    public override int GetHashCode() {
-      int hashcode = 157;
-      unchecked {
-        if(__isset.success)
-          hashcode = (hashcode * 397) + Success.GetHashCode();
-        if(__isset.sErrorUserE)
-          hashcode = (hashcode * 397) + SErrorUserE.GetHashCode();
-        if(__isset.sErrorNotFoundE)
-          hashcode = (hashcode * 397) + SErrorNotFoundE.GetHashCode();
-        if(__isset.sErrorSystemE)
-          hashcode = (hashcode * 397) + SErrorSystemE.GetHashCode();
-        if(__isset.sErrorInvalidRequestE)
-          hashcode = (hashcode * 397) + SErrorInvalidRequestE.GetHashCode();
-      }
-      return hashcode;
-    }
-
-    public override string ToString()
-    {
-      var sb = new StringBuilder("UpdateContentCreatorName_result(");
-      bool __first = true;
-      if (Success != null && __isset.success)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
-      }
-      if (SErrorUserE != null && __isset.sErrorUserE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorUserE: ");
-        sb.Append(SErrorUserE== null ? "<null>" : SErrorUserE.ToString());
-      }
-      if (SErrorNotFoundE != null && __isset.sErrorNotFoundE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorNotFoundE: ");
-        sb.Append(SErrorNotFoundE== null ? "<null>" : SErrorNotFoundE.ToString());
-      }
-      if (SErrorSystemE != null && __isset.sErrorSystemE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorSystemE: ");
-        sb.Append(SErrorSystemE== null ? "<null>" : SErrorSystemE.ToString());
-      }
-      if (SErrorInvalidRequestE != null && __isset.sErrorInvalidRequestE)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("SErrorInvalidRequestE: ");
-        sb.Append(SErrorInvalidRequestE== null ? "<null>" : SErrorInvalidRequestE.ToString());
-      }
-      sb.Append(")");
-      return sb.ToString();
-    }
-  }
-
-
   public partial class UpdateContentCreatorPasswordArgs : TBase
   {
     private string _email;
-    private string _currentPassword;
     private string _newPassword;
 
     public string Email
@@ -5287,19 +4580,6 @@ public partial class ContentCreatorService
       {
         __isset.email = true;
         this._email = value;
-      }
-    }
-
-    public string CurrentPassword
-    {
-      get
-      {
-        return _currentPassword;
-      }
-      set
-      {
-        __isset.currentPassword = true;
-        this._currentPassword = value;
       }
     }
 
@@ -5321,7 +4601,6 @@ public partial class ContentCreatorService
     public struct Isset
     {
       public bool email;
-      public bool currentPassword;
       public bool newPassword;
     }
 
@@ -5357,16 +4636,6 @@ public partial class ContentCreatorService
               }
               break;
             case 2:
-              if (field.Type == TType.String)
-              {
-                CurrentPassword = await iprot.ReadStringAsync(cancellationToken);
-              }
-              else
-              {
-                await TProtocolUtil.SkipAsync(iprot, field.Type, cancellationToken);
-              }
-              break;
-            case 3:
               if (field.Type == TType.String)
               {
                 NewPassword = await iprot.ReadStringAsync(cancellationToken);
@@ -5409,20 +4678,11 @@ public partial class ContentCreatorService
           await oprot.WriteStringAsync(Email, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
-        if (CurrentPassword != null && __isset.currentPassword)
-        {
-          field.Name = "currentPassword";
-          field.Type = TType.String;
-          field.ID = 2;
-          await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteStringAsync(CurrentPassword, cancellationToken);
-          await oprot.WriteFieldEndAsync(cancellationToken);
-        }
         if (NewPassword != null && __isset.newPassword)
         {
           field.Name = "newPassword";
           field.Type = TType.String;
-          field.ID = 3;
+          field.ID = 2;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
           await oprot.WriteStringAsync(NewPassword, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
@@ -5442,7 +4702,6 @@ public partial class ContentCreatorService
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
       return ((__isset.email == other.__isset.email) && ((!__isset.email) || (System.Object.Equals(Email, other.Email))))
-        && ((__isset.currentPassword == other.__isset.currentPassword) && ((!__isset.currentPassword) || (System.Object.Equals(CurrentPassword, other.CurrentPassword))))
         && ((__isset.newPassword == other.__isset.newPassword) && ((!__isset.newPassword) || (System.Object.Equals(NewPassword, other.NewPassword))));
     }
 
@@ -5451,8 +4710,6 @@ public partial class ContentCreatorService
       unchecked {
         if(__isset.email)
           hashcode = (hashcode * 397) + Email.GetHashCode();
-        if(__isset.currentPassword)
-          hashcode = (hashcode * 397) + CurrentPassword.GetHashCode();
         if(__isset.newPassword)
           hashcode = (hashcode * 397) + NewPassword.GetHashCode();
       }
@@ -5470,13 +4727,6 @@ public partial class ContentCreatorService
         sb.Append("Email: ");
         sb.Append(Email);
       }
-      if (CurrentPassword != null && __isset.currentPassword)
-      {
-        if(!__first) { sb.Append(", "); }
-        __first = false;
-        sb.Append("CurrentPassword: ");
-        sb.Append(CurrentPassword);
-      }
       if (NewPassword != null && __isset.newPassword)
       {
         if(!__first) { sb.Append(", "); }
@@ -5492,13 +4742,13 @@ public partial class ContentCreatorService
 
   public partial class UpdateContentCreatorPasswordResult : TBase
   {
-    private ContentCreator _success;
+    private bool _success;
     private SErrorUserException _sErrorUserE;
     private SErrorNotFoundException _sErrorNotFoundE;
     private SErrorSystemException _sErrorSystemE;
     private SErrorInvalidRequestException _sErrorInvalidRequestE;
 
-    public ContentCreator Success
+    public bool Success
     {
       get
       {
@@ -5596,10 +4846,9 @@ public partial class ContentCreatorService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.Bool)
               {
-                Success = new ContentCreator();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadBoolAsync(cancellationToken);
               }
               else
               {
@@ -5677,15 +4926,12 @@ public partial class ContentCreatorService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.Bool;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorUserE)
         {
@@ -5777,12 +5023,12 @@ public partial class ContentCreatorService
     {
       var sb = new StringBuilder("UpdateContentCreatorPassword_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorUserE != null && __isset.sErrorUserE)
       {

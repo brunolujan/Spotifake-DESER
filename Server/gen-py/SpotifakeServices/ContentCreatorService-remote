@@ -31,8 +31,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  bool GetContentCreatorByStageName(string email)')
     print('  ContentCreator AddContentCreator(ContentCreator newContentCreator)')
     print('  Id DeleteContentCreator(string email)')
-    print('  ContentCreator UpdateContentCreatorName(string email, string currentPassword, string newName, string newLastName)')
-    print('  ContentCreator UpdateContentCreatorPassword(string email, string currentPassword, string newPassword)')
+    print('  bool UpdateContentCreatorPassword(string email, string newPassword)')
     print('  bool UpdateContentCreatorImage(string email, string fileName)')
     print('  ContentCreator UpdateContentCreatorStageName(string email, string currentPassword, string newStageName)')
     print('  ContentCreator UpdateContentCreatorDescription(string email, string currentPassword, string newDescription)')
@@ -164,17 +163,11 @@ elif cmd == 'DeleteContentCreator':
         sys.exit(1)
     pp.pprint(client.DeleteContentCreator(args[0],))
 
-elif cmd == 'UpdateContentCreatorName':
-    if len(args) != 4:
-        print('UpdateContentCreatorName requires 4 args')
-        sys.exit(1)
-    pp.pprint(client.UpdateContentCreatorName(args[0], args[1], args[2], args[3],))
-
 elif cmd == 'UpdateContentCreatorPassword':
-    if len(args) != 3:
-        print('UpdateContentCreatorPassword requires 3 args')
+    if len(args) != 2:
+        print('UpdateContentCreatorPassword requires 2 args')
         sys.exit(1)
-    pp.pprint(client.UpdateContentCreatorPassword(args[0], args[1], args[2],))
+    pp.pprint(client.UpdateContentCreatorPassword(args[0], args[1],))
 
 elif cmd == 'UpdateContentCreatorImage':
     if len(args) != 2:

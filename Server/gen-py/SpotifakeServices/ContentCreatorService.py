@@ -131,28 +131,7 @@ class Iface(object):
         """
         pass
 
-    def UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
-        """
-         
-        Update previously registered Content Creator name.
-
-        @param email
-            The Content Creator Email of the Consumer which require an update name.
-
-        @return ContentCreator
-            Modified Content Creator obejct.
-
-
-        Parameters:
-         - email
-         - currentPassword
-         - newName
-         - newLastName
-
-        """
-        pass
-
-    def UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+    def UpdateContentCreatorPassword(self, email, newPassword):
         """
          
         Update previously registered Content Creator password.
@@ -166,7 +145,6 @@ class Iface(object):
 
         Parameters:
          - email
-         - currentPassword
          - newPassword
 
         """
@@ -687,63 +665,7 @@ class Client(Iface):
             raise result.sErrorInvalidRequestE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "DeleteContentCreator failed: unknown result")
 
-    def UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
-        """
-         
-        Update previously registered Content Creator name.
-
-        @param email
-            The Content Creator Email of the Consumer which require an update name.
-
-        @return ContentCreator
-            Modified Content Creator obejct.
-
-
-        Parameters:
-         - email
-         - currentPassword
-         - newName
-         - newLastName
-
-        """
-        self.send_UpdateContentCreatorName(email, currentPassword, newName, newLastName)
-        return self.recv_UpdateContentCreatorName()
-
-    def send_UpdateContentCreatorName(self, email, currentPassword, newName, newLastName):
-        self._oprot.writeMessageBegin('UpdateContentCreatorName', TMessageType.CALL, self._seqid)
-        args = UpdateContentCreatorName_args()
-        args.email = email
-        args.currentPassword = currentPassword
-        args.newName = newName
-        args.newLastName = newLastName
-        args.write(self._oprot)
-        self._oprot.writeMessageEnd()
-        self._oprot.trans.flush()
-
-    def recv_UpdateContentCreatorName(self):
-        iprot = self._iprot
-        (fname, mtype, rseqid) = iprot.readMessageBegin()
-        if mtype == TMessageType.EXCEPTION:
-            x = TApplicationException()
-            x.read(iprot)
-            iprot.readMessageEnd()
-            raise x
-        result = UpdateContentCreatorName_result()
-        result.read(iprot)
-        iprot.readMessageEnd()
-        if result.success is not None:
-            return result.success
-        if result.sErrorUserE is not None:
-            raise result.sErrorUserE
-        if result.sErrorNotFoundE is not None:
-            raise result.sErrorNotFoundE
-        if result.sErrorSystemE is not None:
-            raise result.sErrorSystemE
-        if result.sErrorInvalidRequestE is not None:
-            raise result.sErrorInvalidRequestE
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "UpdateContentCreatorName failed: unknown result")
-
-    def UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+    def UpdateContentCreatorPassword(self, email, newPassword):
         """
          
         Update previously registered Content Creator password.
@@ -757,18 +679,16 @@ class Client(Iface):
 
         Parameters:
          - email
-         - currentPassword
          - newPassword
 
         """
-        self.send_UpdateContentCreatorPassword(email, currentPassword, newPassword)
+        self.send_UpdateContentCreatorPassword(email, newPassword)
         return self.recv_UpdateContentCreatorPassword()
 
-    def send_UpdateContentCreatorPassword(self, email, currentPassword, newPassword):
+    def send_UpdateContentCreatorPassword(self, email, newPassword):
         self._oprot.writeMessageBegin('UpdateContentCreatorPassword', TMessageType.CALL, self._seqid)
         args = UpdateContentCreatorPassword_args()
         args.email = email
-        args.currentPassword = currentPassword
         args.newPassword = newPassword
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
@@ -1292,7 +1212,6 @@ class Processor(Iface, TProcessor):
         self._processMap["GetContentCreatorByStageName"] = Processor.process_GetContentCreatorByStageName
         self._processMap["AddContentCreator"] = Processor.process_AddContentCreator
         self._processMap["DeleteContentCreator"] = Processor.process_DeleteContentCreator
-        self._processMap["UpdateContentCreatorName"] = Processor.process_UpdateContentCreatorName
         self._processMap["UpdateContentCreatorPassword"] = Processor.process_UpdateContentCreatorPassword
         self._processMap["UpdateContentCreatorImage"] = Processor.process_UpdateContentCreatorImage
         self._processMap["UpdateContentCreatorStageName"] = Processor.process_UpdateContentCreatorStageName
@@ -1544,48 +1463,13 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_UpdateContentCreatorName(self, seqid, iprot, oprot):
-        args = UpdateContentCreatorName_args()
-        args.read(iprot)
-        iprot.readMessageEnd()
-        result = UpdateContentCreatorName_result()
-        try:
-            result.success = self._handler.UpdateContentCreatorName(args.email, args.currentPassword, args.newName, args.newLastName)
-            msg_type = TMessageType.REPLY
-        except TTransport.TTransportException:
-            raise
-        except SpotifakeManagement.ttypes.SErrorUserException as sErrorUserE:
-            msg_type = TMessageType.REPLY
-            result.sErrorUserE = sErrorUserE
-        except SpotifakeManagement.ttypes.SErrorNotFoundException as sErrorNotFoundE:
-            msg_type = TMessageType.REPLY
-            result.sErrorNotFoundE = sErrorNotFoundE
-        except SpotifakeManagement.ttypes.SErrorSystemException as sErrorSystemE:
-            msg_type = TMessageType.REPLY
-            result.sErrorSystemE = sErrorSystemE
-        except SpotifakeManagement.ttypes.SErrorInvalidRequestException as sErrorInvalidRequestE:
-            msg_type = TMessageType.REPLY
-            result.sErrorInvalidRequestE = sErrorInvalidRequestE
-        except TApplicationException as ex:
-            logging.exception('TApplication exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = ex
-        except Exception:
-            logging.exception('Unexpected exception in handler')
-            msg_type = TMessageType.EXCEPTION
-            result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("UpdateContentCreatorName", msg_type, seqid)
-        result.write(oprot)
-        oprot.writeMessageEnd()
-        oprot.trans.flush()
-
     def process_UpdateContentCreatorPassword(self, seqid, iprot, oprot):
         args = UpdateContentCreatorPassword_args()
         args.read(iprot)
         iprot.readMessageEnd()
         result = UpdateContentCreatorPassword_result()
         try:
-            result.success = self._handler.UpdateContentCreatorPassword(args.email, args.currentPassword, args.newPassword)
+            result.success = self._handler.UpdateContentCreatorPassword(args.email, args.newPassword)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -3023,231 +2907,17 @@ DeleteContentCreator_result.thrift_spec = (
 )
 
 
-class UpdateContentCreatorName_args(object):
-    """
-    Attributes:
-     - email
-     - currentPassword
-     - newName
-     - newLastName
-
-    """
-
-
-    def __init__(self, email=None, currentPassword=None, newName=None, newLastName=None,):
-        self.email = email
-        self.currentPassword = currentPassword
-        self.newName = newName
-        self.newLastName = newLastName
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 1:
-                if ftype == TType.STRING:
-                    self.email = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRING:
-                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
-                    self.newName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRING:
-                    self.newLastName = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateContentCreatorName_args')
-        if self.email is not None:
-            oprot.writeFieldBegin('email', TType.STRING, 1)
-            oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
-            oprot.writeFieldEnd()
-        if self.currentPassword is not None:
-            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
-            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
-            oprot.writeFieldEnd()
-        if self.newName is not None:
-            oprot.writeFieldBegin('newName', TType.STRING, 3)
-            oprot.writeString(self.newName.encode('utf-8') if sys.version_info[0] == 2 else self.newName)
-            oprot.writeFieldEnd()
-        if self.newLastName is not None:
-            oprot.writeFieldBegin('newLastName', TType.STRING, 4)
-            oprot.writeString(self.newLastName.encode('utf-8') if sys.version_info[0] == 2 else self.newLastName)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateContentCreatorName_args)
-UpdateContentCreatorName_args.thrift_spec = (
-    None,  # 0
-    (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
-    (3, TType.STRING, 'newName', 'UTF8', None, ),  # 3
-    (4, TType.STRING, 'newLastName', 'UTF8', None, ),  # 4
-)
-
-
-class UpdateContentCreatorName_result(object):
-    """
-    Attributes:
-     - success
-     - sErrorUserE
-     - sErrorNotFoundE
-     - sErrorSystemE
-     - sErrorInvalidRequestE
-
-    """
-
-
-    def __init__(self, success=None, sErrorUserE=None, sErrorNotFoundE=None, sErrorSystemE=None, sErrorInvalidRequestE=None,):
-        self.success = success
-        self.sErrorUserE = sErrorUserE
-        self.sErrorNotFoundE = sErrorNotFoundE
-        self.sErrorSystemE = sErrorSystemE
-        self.sErrorInvalidRequestE = sErrorInvalidRequestE
-
-    def read(self, iprot):
-        if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
-            iprot._fast_decode(self, iprot, [self.__class__, self.thrift_spec])
-            return
-        iprot.readStructBegin()
-        while True:
-            (fname, ftype, fid) = iprot.readFieldBegin()
-            if ftype == TType.STOP:
-                break
-            if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.ContentCreator()
-                    self.success.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 1:
-                if ftype == TType.STRUCT:
-                    self.sErrorUserE = SpotifakeManagement.ttypes.SErrorUserException()
-                    self.sErrorUserE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 2:
-                if ftype == TType.STRUCT:
-                    self.sErrorNotFoundE = SpotifakeManagement.ttypes.SErrorNotFoundException()
-                    self.sErrorNotFoundE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRUCT:
-                    self.sErrorSystemE = SpotifakeManagement.ttypes.SErrorSystemException()
-                    self.sErrorSystemE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            elif fid == 4:
-                if ftype == TType.STRUCT:
-                    self.sErrorInvalidRequestE = SpotifakeManagement.ttypes.SErrorInvalidRequestException()
-                    self.sErrorInvalidRequestE.read(iprot)
-                else:
-                    iprot.skip(ftype)
-            else:
-                iprot.skip(ftype)
-            iprot.readFieldEnd()
-        iprot.readStructEnd()
-
-    def write(self, oprot):
-        if oprot._fast_encode is not None and self.thrift_spec is not None:
-            oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
-            return
-        oprot.writeStructBegin('UpdateContentCreatorName_result')
-        if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorUserE is not None:
-            oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
-            self.sErrorUserE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorNotFoundE is not None:
-            oprot.writeFieldBegin('sErrorNotFoundE', TType.STRUCT, 2)
-            self.sErrorNotFoundE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorSystemE is not None:
-            oprot.writeFieldBegin('sErrorSystemE', TType.STRUCT, 3)
-            self.sErrorSystemE.write(oprot)
-            oprot.writeFieldEnd()
-        if self.sErrorInvalidRequestE is not None:
-            oprot.writeFieldBegin('sErrorInvalidRequestE', TType.STRUCT, 4)
-            self.sErrorInvalidRequestE.write(oprot)
-            oprot.writeFieldEnd()
-        oprot.writeFieldStop()
-        oprot.writeStructEnd()
-
-    def validate(self):
-        return
-
-    def __repr__(self):
-        L = ['%s=%r' % (key, value)
-             for key, value in self.__dict__.items()]
-        return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not (self == other)
-all_structs.append(UpdateContentCreatorName_result)
-UpdateContentCreatorName_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
-    (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
-    (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
-    (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3
-    (4, TType.STRUCT, 'sErrorInvalidRequestE', [SpotifakeManagement.ttypes.SErrorInvalidRequestException, None], None, ),  # 4
-)
-
-
 class UpdateContentCreatorPassword_args(object):
     """
     Attributes:
      - email
-     - currentPassword
      - newPassword
 
     """
 
 
-    def __init__(self, email=None, currentPassword=None, newPassword=None,):
+    def __init__(self, email=None, newPassword=None,):
         self.email = email
-        self.currentPassword = currentPassword
         self.newPassword = newPassword
 
     def read(self, iprot):
@@ -3266,11 +2936,6 @@ class UpdateContentCreatorPassword_args(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRING:
-                    self.currentPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
-                else:
-                    iprot.skip(ftype)
-            elif fid == 3:
-                if ftype == TType.STRING:
                     self.newPassword = iprot.readString().decode('utf-8') if sys.version_info[0] == 2 else iprot.readString()
                 else:
                     iprot.skip(ftype)
@@ -3288,12 +2953,8 @@ class UpdateContentCreatorPassword_args(object):
             oprot.writeFieldBegin('email', TType.STRING, 1)
             oprot.writeString(self.email.encode('utf-8') if sys.version_info[0] == 2 else self.email)
             oprot.writeFieldEnd()
-        if self.currentPassword is not None:
-            oprot.writeFieldBegin('currentPassword', TType.STRING, 2)
-            oprot.writeString(self.currentPassword.encode('utf-8') if sys.version_info[0] == 2 else self.currentPassword)
-            oprot.writeFieldEnd()
         if self.newPassword is not None:
-            oprot.writeFieldBegin('newPassword', TType.STRING, 3)
+            oprot.writeFieldBegin('newPassword', TType.STRING, 2)
             oprot.writeString(self.newPassword.encode('utf-8') if sys.version_info[0] == 2 else self.newPassword)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -3316,8 +2977,7 @@ all_structs.append(UpdateContentCreatorPassword_args)
 UpdateContentCreatorPassword_args.thrift_spec = (
     None,  # 0
     (1, TType.STRING, 'email', 'UTF8', None, ),  # 1
-    (2, TType.STRING, 'currentPassword', 'UTF8', None, ),  # 2
-    (3, TType.STRING, 'newPassword', 'UTF8', None, ),  # 3
+    (2, TType.STRING, 'newPassword', 'UTF8', None, ),  # 2
 )
 
 
@@ -3350,9 +3010,8 @@ class UpdateContentCreatorPassword_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.ContentCreator()
-                    self.success.read(iprot)
+                if ftype == TType.BOOL:
+                    self.success = iprot.readBool()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -3390,8 +3049,8 @@ class UpdateContentCreatorPassword_result(object):
             return
         oprot.writeStructBegin('UpdateContentCreatorPassword_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.BOOL, 0)
+            oprot.writeBool(self.success)
             oprot.writeFieldEnd()
         if self.sErrorUserE is not None:
             oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
@@ -3427,7 +3086,7 @@ class UpdateContentCreatorPassword_result(object):
         return not (self == other)
 all_structs.append(UpdateContentCreatorPassword_result)
 UpdateContentCreatorPassword_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.ContentCreator, None], None, ),  # 0
+    (0, TType.BOOL, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
     (2, TType.STRUCT, 'sErrorNotFoundE', [SpotifakeManagement.ttypes.SErrorNotFoundException, None], None, ),  # 2
     (3, TType.STRUCT, 'sErrorSystemE', [SpotifakeManagement.ttypes.SErrorSystemException, None], None, ),  # 3

@@ -104,22 +104,6 @@ service ConsumerService {
 
     /**
     *    
-    *   Update previously registered Consumer name.
-    *
-    *   @param email
-    *       The Consumer Email of the Consumer which require an update name.
-    *
-    *   @return Consumer
-    *       Modified Consumer obejct.
-    **/
-
-    SpotifakeManagement.Consumer UpdateConsumerName(1: string email, 2: string currentPassword, 3: string newName, 4: string newLastName) 
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
-        3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-
-    /**
-    *    
     *   Update previously registered Consumer password.
     *
     *   @param email
@@ -129,7 +113,7 @@ service ConsumerService {
     *       Modified Consumer obejct.
     **/
 
-    SpotifakeManagement.Consumer UpdateConsumerPassword(1: string email, 2: string currentPassword, 3: string newPassword) 
+    bool UpdateConsumerPassword(1: string email, 2: string newPassword) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
@@ -303,22 +287,6 @@ service ContentCreatorService {
 
     /**
     *    
-    *   Update previously registered Content Creator name.
-    *
-    *   @param email
-    *       The Content Creator Email of the Consumer which require an update name.
-    *
-    *   @return ContentCreator
-    *       Modified Content Creator obejct.
-    **/
-
-    SpotifakeManagement.ContentCreator UpdateContentCreatorName(1: string email, 2: string currentPassword, 3: string newName, 4: string newLastName) 
-        throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
-        3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
-        4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
-
-    /**
-    *    
     *   Update previously registered Content Creator password.
     *
     *   @param email
@@ -328,7 +296,7 @@ service ContentCreatorService {
     *       Modified Content Creator obejct.
     **/
 
-    SpotifakeManagement.ContentCreator UpdateContentCreatorPassword(1: string email, 2: string currentPassword, 3: string newPassword) 
+    bool UpdateContentCreatorPassword(1: string email, 2: string newPassword) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE, 2: SpotifakeManagement.SErrorNotFoundException sErrorNotFoundE,
         3: SpotifakeManagement.SErrorSystemException sErrorSystemE,
         4: SpotifakeManagement.SErrorInvalidRequestException sErrorInvalidRequestE)
@@ -985,7 +953,7 @@ service PlaylistService {
     *   True or False
     **/
     
-    bool AddPlaylist(1: SpotifakeManagement.Playlist newPlaylist, 2:SpotifakeManagement.Id idConsumer) 
+    SpotifakeManagement.Id AddPlaylist(1: SpotifakeManagement.Playlist newPlaylist, 2:SpotifakeManagement.Id idConsumer) 
         throws (1: SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
     /**

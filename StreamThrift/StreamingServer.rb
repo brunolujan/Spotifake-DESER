@@ -4,6 +4,7 @@ require 'streaming_service'
 require 'streaming_services_types'
 
 class StreamingServiceHandler
+    
     def GetTrackAudio(requestTrackAudio)
         puts requestTrackAudio.filename
         audio = ''

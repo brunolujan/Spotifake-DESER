@@ -38,7 +38,7 @@ public partial class PlaylistService
     /// </summary>
     /// <param name="newPlaylist"></param>
     /// <param name="idConsumer"></param>
-    Task<bool> AddPlaylistAsync(Playlist newPlaylist, short idConsumer, CancellationToken cancellationToken = default(CancellationToken));
+    Task<short> AddPlaylistAsync(Playlist newPlaylist, short idConsumer, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Get Playlist by Title
@@ -195,7 +195,7 @@ public partial class PlaylistService
 
     public Client(TProtocol inputProtocol, TProtocol outputProtocol) : base(inputProtocol, outputProtocol)    {
     }
-    public async Task<bool> AddPlaylistAsync(Playlist newPlaylist, short idConsumer, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> AddPlaylistAsync(Playlist newPlaylist, short idConsumer, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddPlaylist", TMessageType.Call, SeqId), cancellationToken);
       
@@ -1267,10 +1267,10 @@ public partial class PlaylistService
 
   public partial class AddPlaylistResult : TBase
   {
-    private bool _success;
+    private short _success;
     private SErrorSystemException _sErrorSystemE;
 
-    public bool Success
+    public short Success
     {
       get
       {
@@ -1326,9 +1326,9 @@ public partial class PlaylistService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Bool)
+              if (field.Type == TType.I16)
               {
-                Success = await iprot.ReadBoolAsync(cancellationToken);
+                Success = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -1374,10 +1374,10 @@ public partial class PlaylistService
         if(this.__isset.success)
         {
           field.Name = "Success";
-          field.Type = TType.Bool;
+          field.Type = TType.I16;
           field.ID = 0;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteBoolAsync(Success, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorSystemE)
