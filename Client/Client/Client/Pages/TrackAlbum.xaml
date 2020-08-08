@@ -16,7 +16,7 @@
             </RowDefinition>
             <RowDefinition Height=".3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Tracks" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="ALBUM TRACKS&#x9;" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold" Margin="319,16,263,16" Width="218">
         </TextBlock>
         <DataGrid x:Name="datagrid_TrackAlbum" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False"
                   Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
@@ -26,12 +26,14 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
-            <Button  x:Name="Button_AddToPlaylist"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Playlist" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">
+            <Button  x:Name="Button_AddToPlaylist"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Add To Playlist" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="160" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click" Foreground="White" FontSize="15" FontFamily="Gotham Medium">
             </Button>
-            <Button  x:Name="Button_AddToLibrary"  Background="#FF1CC357"  BorderBrush="Transparent" 
-                     Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToLibrary_Click">
-            </Button>
+            <Button  x:Name="Button_AddToLibrary"  Background="{x:Null}"  BorderBrush="#FF707070" 
+                     Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="149" Margin="25,0,0,0" Click="Button_AddToLibrary_Click" Foreground="White" FontSize="15" FontFamily="Gotham Medium" RenderTransformOrigin="0.5,0.5"/>
+            <Button  x:Name="Button_AddToQueue"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Add To Queue" VerticalAlignment="Center" Height="30" Width="142" Margin="25,0,0,0" Click="Button_AddToQueue_Click" FontFamily="Gotham Medium" FontSize="15" Foreground="White"/>
         </StackPanel>
+        <Button x:Name="button_LetsPlay" Content="Play" Margin="555.697,4,0,0" VerticalAlignment="Top" Width="126" Click="button_LetsPlay_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="38" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="2"/>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="27,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="2"/>
     </Grid>
 </Page>
 

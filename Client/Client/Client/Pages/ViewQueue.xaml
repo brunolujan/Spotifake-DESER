@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="368,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="103" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="QUEUE"/>
+        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="368,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="103" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="QUEUE"/>
         <DataGrid x:Name="datagrid_Track" HorizontalAlignment="Left" Height="277" Margin="90,46.6,0,0" AutoGenerateColumns="False"
             Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
             <DataGrid.Columns>

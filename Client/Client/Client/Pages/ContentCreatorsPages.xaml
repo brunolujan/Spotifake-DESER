@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Artists" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="ARTISTS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="GothaM Bold">
 
         </TextBlock>
         <DataGrid x:Name="datagrid_ContentCreator" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" AutoGenerateColumns="False"

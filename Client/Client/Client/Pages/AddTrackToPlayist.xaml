@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Add To Playlist" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="ADD TO PLAYLIST" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Gotham Medium" Margin="285,16,268,0" Width="247">
         </TextBlock>
         <DataGrid x:Name="datagrid_Playlist" HorizontalAlignment="Left" Height="277" Margin="90,50,0,0" Grid.Row="1" AutoGenerateColumns="False"
                   VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" IsReadOnly="True" MouseDoubleClick="datagrid_Playlist_MouseDoubleClick">

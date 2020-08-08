@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Albums" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="ALBUMS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold">
 
         </TextBlock>
     
@@ -28,8 +28,8 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="NAME: " Foreground="White" Margin="8,0,0,0"/>
-                                <TextBlock Text="{Binding Path=Title}" Foreground="White" />
+                                <TextBlock Text="" Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Title}" Foreground="White" FontFamily="Gotham Bold" FontSize = '15'/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

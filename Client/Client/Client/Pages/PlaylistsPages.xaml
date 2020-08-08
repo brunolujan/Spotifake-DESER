@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Playlists" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="PLAYLISTS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold">
         </TextBlock>
 
         <ListView Grid.Row="1" x:Name="datagrid_Playlist" Padding="5" Margin="50,10,50,10" MouseDoubleClick="datagrid_Playlist_MouseDoubleClick" >
@@ -27,12 +27,12 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="NAME: " Foreground="White" Margin="8,0,0,0"/>
-                                <TextBlock Text="{Binding Path=Name}" Foreground="White" />
+                                <TextBlock Text="" Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Name}" Foreground="White" FontFamily="Gotham Bold" FontSize = '15'/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="DESCRIPTION: " Foreground="White" Margin="8,0,0,0"/>
-                                <TextBlock Text="{Binding Path=Description}" Foreground="White" />
+                                <TextBlock Text="" Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Description}" Foreground="White" FontFamily="Gotham Medium" FontSize = '10'/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

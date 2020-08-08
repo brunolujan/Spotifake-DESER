@@ -39,20 +39,23 @@ namespace Client.Pages {
             }
             else
             {
-                MessageBox.Show("Debes seleccionar un track");
+                textBlock_Message.Text = "*Select a track";
             }
         }
 
         private void Button_AddToQueue_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
             var trackAux = (Track)datagrid_Track.SelectedItem;
             if (trackAux != null) {
                 StreamingPlayer.AddTrackToQueue(trackAux);
+                textBlock_Message.Text = "*Track added to Queue";
             } else {
                 textBlock_Message.Text = "*Select a track";
             }
         }
 
         private async void button_LetsPlay_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
             var trackAux = (Track)datagrid_Track.SelectedItem;
             if (trackAux != null) {
                 await StreamingPlayer.UploadTrackAsync(trackAux);

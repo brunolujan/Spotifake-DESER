@@ -21,9 +21,7 @@
             </RowDefinition>
 
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Upload Local Tracks" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
-
-        </TextBlock>
+        <TextBlock Grid.Row="0" Text="UPLOAD LOCAL TRACK&#x9;" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold" Margin="151,5,149,3.8" Width="500"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
 
             <TextBox
@@ -35,7 +33,7 @@
                 VerticalAlignment="Center" 
                 Foreground="Black"
                 Padding="5,0,0,0" FontWeight="DemiBold" Width="300" Height="50"
-                FontSize="15"/>
+                FontSize="15" FontFamily="Gotham Medium"/>
             <TextBox
                 x:Name="TextBox_ArtistNameLocalTrack" Margin="100,0,0,0"
                 materialDesign:HintAssist.Hint="Local Track Artist" Grid.Row="1"
@@ -45,22 +43,22 @@
                 VerticalAlignment="Center" 
                 Foreground="Black"
                 Padding="5,0,0,0" FontWeight="DemiBold" Width="300" Height="50"
-                FontSize="15"/>
+                FontSize="15" FontFamily="Gotham Medium"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
-            <Button x:Name="Button_upload_file" Foreground="Black" Padding="0" Background="#FF1CC357" BorderBrush="Transparent" 
+            <Button x:Name="Button_upload_file" Foreground="Black" Padding="0" Background="{x:Null}" BorderBrush="#FF707070" 
                         Height="40" Width="150" Click="Button_upload_file_Click"   >
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="FileUpload" Width="30" Height="30"/>
-                    <TextBlock Text="Upload File " FontSize="18" Foreground="Black" Margin="10,0,0,0"/>
+                    <materialDesign:PackIcon Kind="FileUpload" Width="30" Height="30" Foreground="White"/>
+                    <TextBlock Text="Upload File " FontSize="15" Foreground="White" Margin="10,0,0,0" FontFamily="Gotham Medium" Height="15"/>
                 </StackPanel>
             </Button>
             <TextBlock Grid.Column="1" x:Name="TextBlock_LocalTrackFileName" Text="FileName" VerticalAlignment="Center"
                     Margin="10,0,0,0" FontSize="15" Width="200" Foreground="{DynamicResource TextColor}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
         </StackPanel>
 
-        <Button x:Name="Button_AddLocalTrack"  Grid.Row="3" Foreground="Black" Padding="0" Background="#FF1CC357" BorderBrush="Transparent" 
-                        Height="40" Width="150"   FontSize="15" Content="Add Local Track" VerticalAlignment="Center" Click="Button_AddLocalTrack_Click">
+        <Button x:Name="Button_AddLocalTrack"  Grid.Row="3" Foreground="White" Padding="0" Background="#FF1CC357" BorderBrush="{x:Null}" 
+                        Height="40" Width="150"   FontSize="15" Content="Add Local Track" VerticalAlignment="Center" Click="Button_AddLocalTrack_Click" FontFamily="Gotham Medium">
         </Button>
         
     </Grid>

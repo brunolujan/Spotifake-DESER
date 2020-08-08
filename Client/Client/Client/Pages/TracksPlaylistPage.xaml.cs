@@ -14,9 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para TracksPlaylistPage.xaml
-    /// </summary>
+
     public partial class TracksPlaylistPage : Page {
         private Playlist playlist;
         public TracksPlaylistPage(Playlist playlist) {
@@ -58,6 +56,27 @@ namespace Client.Pages {
             }
             return result;
 
+        }
+
+        private void Button_AddToQueue_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
+            var trackAux = (Track)datagrid_TrackPlaylist.SelectedItem;
+            if (trackAux != null) {
+                StreamingPlayer.AddTrackToQueue(trackAux);
+                textBlock_Message.Text = "*Track added to Queue";
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
+        }
+
+        private async void button_LetsPlay_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
+            var trackAux = (Track)datagrid_TrackPlaylist.SelectedItem;
+            if (trackAux != null) {
+                await StreamingPlayer.UploadTrackAsync(trackAux);
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
         }
     }
 }

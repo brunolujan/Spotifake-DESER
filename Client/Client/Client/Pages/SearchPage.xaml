@@ -20,28 +20,27 @@
         <TextBlock Grid.Row="0" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center">
         </TextBlock>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ComboBox x:Name="ComboBox_filter" Height="auto" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,25,0,0" 
+            <ComboBox x:Name="ComboBox_filter" Height="26" Width="109" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,38,0,9.6" 
                    materialDesign:HintAssist.Foreground="WhiteSmoke" materialDesign:TextFieldAssist.UnderlineBrush="WhiteSmoke" Foreground="White"
                    materialDesign:ColorZoneAssist.Mode="Inverted">
                 <ComboBoxItem IsSelected="True">
-                    Tracks
+                    TRACKS
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    Artists
+                    ARTISTS
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    Albums
+                    ALBUMS
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    Playlists
+                    PLAYLISTS
                 </ComboBoxItem>
             </ComboBox>
             <TextBox x:Name="TextBox_search" materialDesign:HintAssist.Hint="Search" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"   Foreground="{DynamicResource TextColor}" 
                  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource TextColor}"
                      materialDesign:HintAssist.Foreground="White" Margin="40,10,0,0" />
-            <Button  x:Name="Button_search"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Buscar" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="80" Margin="30,33,0,0" Click="Button_search_Click">
-            </Button>
+            <Button  x:Name="Button_search"  Background="{x:Null}"  BorderBrush="#FF707070" BorderThickness="3" Content="SEARCH" VerticalAlignment="Center" ToolTip="Buscar"  Height="47" Width="104" Margin="30,21,0,5.6" Click="Button_search_Click" FontSize="15" FontFamily="Gotham Medium" Foreground="White"/>
         </StackPanel>
 
 

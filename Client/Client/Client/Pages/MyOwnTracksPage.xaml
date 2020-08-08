@@ -16,7 +16,7 @@
             </RowDefinition>
             <RowDefinition Height=".3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="My Own Tracks" Foreground="White" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Medium">
+        <TextBlock Grid.Row="0" Text="MY OWN TRACKS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold">
 
         </TextBlock>
         <DataGrid x:Name="datagrid_MyOwnTracks" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" Grid.Row="1" AutoGenerateColumns="False"
@@ -27,8 +27,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
-            <Button  x:Name="Button_AddLocalTrack"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add Local Track" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="140" Margin="25,0,0,0" Click="Button_AddLocalTrack_Click">
-            </Button>
+            <Button  x:Name="Button_AddLocalTrack"  BorderBrush="{x:Null}"  Content="Add Local Track" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="162" Margin="25,0,0,0" Click="Button_AddLocalTrack_Click" FontSize="15" FontFamily="Gotham Medium" Foreground="White" Background="#FF1CC357"/>
         </StackPanel>
 
     </Grid>
