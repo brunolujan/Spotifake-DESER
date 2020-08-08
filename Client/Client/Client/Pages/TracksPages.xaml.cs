@@ -52,7 +52,7 @@ namespace Client.Pages {
             }
         }
 
-        private async void Button_Play_Click(object sender, RoutedEventArgs e) {
+        private async void button_LetsPlay_Click(object sender, RoutedEventArgs e) {
             var trackAux = (Track)datagrid_Track.SelectedItem;
             if (trackAux != null) {
                 await StreamingPlayer.UploadTrackAsync(trackAux);
