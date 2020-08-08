@@ -82,6 +82,7 @@ class SpotifakeServerPlaylistHandler(PlaylistService.Iface):
                     playlistAux.idPlaylist = n.IdPlaylist
                     playlistAux.name = n.title
                     playlistAux.description = n.description
+                    playlistAux.coverPath = n.coverPath
                     playlistList.append(playlistAux)
                 return playlistList        
         return False

@@ -123,8 +123,11 @@ class SpotifakeServerAlbumHandler(AlbumService.Iface):
         albumFound =  SqlServerAlbumManagement.GetAlbumByQuery(self, query)
         if  albumFound != 0:
                 for n in albumFound:
-                    album = Album(n.IdAlbum, n.title)
-                    albumList.append(album)
+                    albumAux = Album()
+                    albumAux.idAlbum = n.IdAlbum
+                    albumAux.title = n.title
+                    albumAux.coverPath = n.coverPath
+                    albumList.append(albumAux)
                 return albumList        
         return False
 
