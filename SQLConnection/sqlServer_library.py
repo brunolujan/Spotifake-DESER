@@ -28,5 +28,4 @@ class SqlServerLibraryManagement:
             INSERT INTO Library (IdConsumer) VALUES (?);
         """
         connection.cursor.execute(sql, idConsumer)
-        row = connection.cursor.fetchval()
-        return row
+        connection.save()
