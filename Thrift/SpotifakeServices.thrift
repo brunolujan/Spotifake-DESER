@@ -84,7 +84,7 @@ service ConsumerService {
     *       Consumer object added
     **/
 
-    SpotifakeManagement.Consumer AddConsumer(1: SpotifakeManagement.Consumer newConsumer) 
+    SpotifakeManagement.Id AddConsumer(1: SpotifakeManagement.Consumer newConsumer) 
         throws (1: SpotifakeManagement.SErrorUserException sErrorUserE)
 
     /**

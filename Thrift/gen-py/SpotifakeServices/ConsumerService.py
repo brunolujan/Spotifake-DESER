@@ -1716,9 +1716,8 @@ class AddConsumer_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.STRUCT:
-                    self.success = SpotifakeManagement.ttypes.Consumer()
-                    self.success.read(iprot)
+                if ftype == TType.I16:
+                    self.success = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
@@ -1738,8 +1737,8 @@ class AddConsumer_result(object):
             return
         oprot.writeStructBegin('AddConsumer_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.STRUCT, 0)
-            self.success.write(oprot)
+            oprot.writeFieldBegin('success', TType.I16, 0)
+            oprot.writeI16(self.success)
             oprot.writeFieldEnd()
         if self.sErrorUserE is not None:
             oprot.writeFieldBegin('sErrorUserE', TType.STRUCT, 1)
@@ -1763,7 +1762,7 @@ class AddConsumer_result(object):
         return not (self == other)
 all_structs.append(AddConsumer_result)
 AddConsumer_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SpotifakeManagement.ttypes.Consumer, None], None, ),  # 0
+    (0, TType.I16, 'success', None, None, ),  # 0
     (1, TType.STRUCT, 'sErrorUserE', [SpotifakeManagement.ttypes.SErrorUserException, None], None, ),  # 1
 )
 

@@ -25,7 +25,8 @@ class SpotifakeServerConsumerHandler(ConsumerService.Iface):
         connection.GetConsumerByEmailPassword(email, password)
 
     def AddConsumer(self, newConsumer):
-        SqlServerConsumerManagement.AddConsumer(self, newConsumer)
+        idNewConsumer = SqlServerConsumerManagement.AddConsumer(self, newConsumer)
+        return idNewConsumer
 
     def LoginConsumer(self, email, password):
         consumer = Consumer()

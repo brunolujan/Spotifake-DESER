@@ -104,9 +104,11 @@ class SqlServerConsumerManagement:
         params = (newConsumer.givenName, newConsumer.lastName, newConsumer.email, 
             newConsumer.password, newConsumer.imageStoragePath)
         connection.cursor.execute(sql, params)
+        connection.cursor.nextset()
+        row = int(connection.cursor.fetchval())
         connection.save()
-        connection.close()
         print(newConsumer.givenName, newConsumer.lastName)
+        return row
 
     def UpdateConsumerImage(self, email:str, fileName:str):
         connection: SQLConnection = SQLConnection()

@@ -27,7 +27,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Consumer GetConsumerById(Id idConsumer)')
     print('  bool GetConsumerByEmail(string email)')
     print('  Consumer GetConsumerByEmailPassword(string email, string password)')
-    print('  Consumer AddConsumer(Consumer newConsumer)')
+    print('  Id AddConsumer(Consumer newConsumer)')
     print('  Id DeleteConsumer(string email)')
     print('  bool UpdateConsumerPassword(string email, string newPassword)')
     print('  bool UpdateConsumerImage(string email, string fileName)')

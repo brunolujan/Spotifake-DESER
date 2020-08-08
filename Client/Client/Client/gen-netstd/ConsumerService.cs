@@ -85,7 +85,7 @@ public partial class ConsumerService
     /// 
     /// </summary>
     /// <param name="newConsumer"></param>
-    Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken));
+    Task<short> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Delete a Consumer
@@ -328,7 +328,7 @@ public partial class ConsumerService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetConsumerByEmailPassword failed: unknown result");
     }
 
-    public async Task<Consumer> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<short> AddConsumerAsync(Consumer newConsumer, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("AddConsumer", TMessageType.Call, SeqId), cancellationToken);
       
@@ -2551,10 +2551,10 @@ public partial class ConsumerService
 
   public partial class AddConsumerResult : TBase
   {
-    private Consumer _success;
+    private short _success;
     private SErrorUserException _sErrorUserE;
 
-    public Consumer Success
+    public short Success
     {
       get
       {
@@ -2610,10 +2610,9 @@ public partial class ConsumerService
           switch (field.ID)
           {
             case 0:
-              if (field.Type == TType.Struct)
+              if (field.Type == TType.I16)
               {
-                Success = new Consumer();
-                await Success.ReadAsync(iprot, cancellationToken);
+                Success = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -2658,15 +2657,12 @@ public partial class ConsumerService
 
         if(this.__isset.success)
         {
-          if (Success != null)
-          {
-            field.Name = "Success";
-            field.Type = TType.Struct;
-            field.ID = 0;
-            await oprot.WriteFieldBeginAsync(field, cancellationToken);
-            await Success.WriteAsync(oprot, cancellationToken);
-            await oprot.WriteFieldEndAsync(cancellationToken);
-          }
+          field.Name = "Success";
+          field.Type = TType.I16;
+          field.ID = 0;
+          await oprot.WriteFieldBeginAsync(field, cancellationToken);
+          await oprot.WriteI16Async(Success, cancellationToken);
+          await oprot.WriteFieldEndAsync(cancellationToken);
         }
         else if(this.__isset.sErrorUserE)
         {
@@ -2713,12 +2709,12 @@ public partial class ConsumerService
     {
       var sb = new StringBuilder("AddConsumer_result(");
       bool __first = true;
-      if (Success != null && __isset.success)
+      if (__isset.success)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
         sb.Append("Success: ");
-        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(Success);
       }
       if (SErrorUserE != null && __isset.sErrorUserE)
       {

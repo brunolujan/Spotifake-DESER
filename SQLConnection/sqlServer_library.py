@@ -20,3 +20,13 @@ class SqlServerLibraryManagement:
         connection.cursor.execute(sql, idConsumer)
         row = connection.cursor.fetchval()
         return row
+    
+    def AddLibrary(self, idConsumer):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql ="""
+            INSERT INTO Library (IdConsumer) VALUES (?);
+        """
+        connection.cursor.execute(sql, idConsumer)
+        row = connection.cursor.fetchval()
+        return row
