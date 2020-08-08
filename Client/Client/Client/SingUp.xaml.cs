@@ -145,7 +145,7 @@ namespace Client
             }
         }
 
-        private void SendConsumer()
+        private async void SendConsumer()
         {
             try
             {
@@ -153,8 +153,9 @@ namespace Client
                 newConsumer.LastName = textBox_LastName.Text;
                 newConsumer.Email = textBox_Email.Text;
                 newConsumer.Password = passwordBox_Password.Password;
-                newConsumer.ImageStoragePath = null;
-                Session.serverConnection.consumerService.AddConsumerAsync(newConsumer);
+                newConsumer.ImageStoragePath = "DefaultCover";
+                short idNewConsumer = await Session.serverConnection.consumerService.AddConsumerAsync(newConsumer);
+                await Session.serverConnection.libraryService.AddLibraryAsync(idNewConsumer);
             } catch (Exception ex)
             {
                 Console.WriteLine(ex + " in SingUp Send Consumer");
