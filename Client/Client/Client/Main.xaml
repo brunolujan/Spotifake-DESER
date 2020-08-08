@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Client" 
-        xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Modern"
-        mc:Ignorable="d"
+        xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Modern" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                      mc:Ignorable="d"
         Title="Spotifake" Height="700" Width="1100" Icon="Resources/LogoSpotifake.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
@@ -221,7 +221,6 @@
 
         </Frame>
         <Rectangle Fill="Black" HorizontalAlignment="Left" Height="639" VerticalAlignment="Top" Width="263" Grid.RowSpan="2"/>
-        <Rectangle Fill="#FF282828" HorizontalAlignment="Left" Height="100" Margin="0,510,0,0" VerticalAlignment="Top" Width="1100" Grid.Row="1"/>
         <TextBlock x:Name="textBlock_NameUser" HorizontalAlignment="Left" Margin="508,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="554" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold">
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -389,6 +388,69 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Rectangle Fill="#FF282828" Height="102" Margin="0,510.4,-0.4,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="949,538.4,0,30.4" Grid.Row="1" Width="135">
+            <Button x:Name="Buttom_volume" Height="30" Width="30" Padding="0" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="VolumeMedium" Width="30" Height="30" />
+            </Button>
+            <Slider x:Name="Slider_volume" Orientation="Horizontal" Maximum="100" Minimum="0" Value="50"
+                            Width="100" Foreground="White"
+                            VerticalAlignment="Center" ValueChanged="Slider_volume_ValueChanged"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="316,0,238.6,0.4" Height="100" Width="539" Grid.Row="1">
+            <TextBlock x:Name="TextBlock_initial_duration" Text="0:00" Foreground="{DynamicResource TextColor}" Margin="0,62,0,0" FontFamily="Gotham Medium"/>
+            <Slider x:Name="Slider_track_duration" Orientation="Horizontal" Maximum="100" Minimum="0" Value="0"
+                            Width="446" Foreground="White"
+                            VerticalAlignment="Center" Margin="10,62,10,10" ValueChanged="Slider_track_duration_ValueChanged" Height="28"/>
+            <TextBlock  x:Name="TextBlock_final_duration" Text="00:00" Foreground="{DynamicResource TextColor}" Margin="0,62,0,0" FontFamily="Gotham Medium"/>
+        </StackPanel>
+        <Button x:Name="Button_track_previous" Height="Auto" Padding="0" Foreground="{DynamicResource TextColor}" Click="Button_track_previous_Click" Margin="468,518.4,574.6,46.4" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}">
+            <materialDesign:PackIcon Kind="SkipPrevious"  Height="44" Width="50" />
+        </Button>
+        <Button x:Name="Button_track_playPause" Height="Auto" Padding="0" Foreground="White" Click="Button_track_playPause_Click" Margin="556,518.4,488.6,47.4" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}">
+            <materialDesign:PackIcon x:Name="icon_playPause_button" Kind="PlayArrow"  Height="44" Width="44" />
+        </Button>
+        <Button x:Name="Button_track_next" Height="Auto" Padding="0" Foreground="{DynamicResource TextColor}" Click="Button_track_next_Click" Margin="638,518.4,403.6,46.4" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}">
+            <materialDesign:PackIcon  Kind="SkipNext"  Height="43" Width="45" />
+        </Button>
+        <Button x:Name="Buttom_view_queue" Height="Auto" Padding="0" Foreground="{DynamicResource TextColor}"
+                            Background="Transparent" Click="Buttom_view_queue_Click" Margin="891,542.4,164.6,36.4" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <materialDesign:PackIcon Kind="ReorderHorizontal" Width="30" Height="30" />
+        </Button>
+        <Image x:Name="image_TrackStreaming" HorizontalAlignment="Left" Height="82" Margin="10,520.4,0,0" VerticalAlignment="Top" Width="83" Grid.Row="1">
+            <Image.Clip>
+                <EllipseGeometry
+                    RadiusX="74"
+                    RadiusY="74"
+                    Center="74,74"/>
+            </Image.Clip>
+        </Image>
+        <TextBlock x:Name="textBlock_TrackName" HorizontalAlignment="Left" Margin="102,528.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="199" FontSize="15" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.496"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform></TextBlock>
+        <TextBlock x:Name="textBlock_ContentCreatorName" HorizontalAlignment="Left" Margin="102,560.4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="199" FontSize="15" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham" Grid.Row="1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.496"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform></TextBlock>
     </Grid>
 </Controls:MetroWindow>
 

@@ -14,14 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Client {
     
     public partial class Main {
 
+        DispatcherTimer loadProgressTrackTimer;
+
         public Main() {
             InitializeComponent();
+            loadProgressTrackTimer = new DispatcherTimer();
+            loadProgressTrackTimer.Tick += new EventHandler(PrintProgress);
+            loadProgressTrackTimer.Interval = new TimeSpan(0, 0, 0, 1);
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            StreamingPlayer.Initialize();
             //LoadImageBytes();
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
         }
@@ -93,6 +100,80 @@ namespace Client {
 
         private void button_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             centralFrame.Navigate(new MyOwnTracksPage());
+        }
+
+        private void PrintProgress(object sender, EventArgs e) {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(StreamingPlayer.GetTotalSecondsTrack());
+            TextBlock_final_duration.Text = string.Format("{0}:{1}", timeSpan.Duration().Minutes, timeSpan.Duration().Seconds);
+            var time = StreamingPlayer.GetCurretTimeSeconds();
+            TimeSpan timeInitial = TimeSpan.FromSeconds(time);
+            TextBlock_initial_duration.Text = timeInitial.ToString(@"mm\:ss");
+            Slider_track_duration.Value = StreamingPlayer.GetCurretTimeForSlider();
+            if (StreamingPlayer.IsTrackOver()) {
+                StopTrack();
+                GoToNextTrack();
+            }
+        }
+
+        private void StartTrack() {
+            if (StreamingPlayer.StartPlayer()) {
+                icon_playPause_button.Kind = (MaterialDesignThemes.Wpf.PackIconKind)Enum.Parse(typeof(MaterialDesignThemes.Wpf.PackIconKind), "Pause");
+                loadProgressTrackTimer.Start();
+            }
+        }
+
+        private void StopTrack() {
+            if (StreamingPlayer.StopPlayer()) {
+                icon_playPause_button.Kind = (MaterialDesignThemes.Wpf.PackIconKind)Enum.Parse(typeof(MaterialDesignThemes.Wpf.PackIconKind), "Play");
+                loadProgressTrackTimer.Stop();
+            }
+        }
+
+        public async void GoToNextTrack() {
+            Track track = await StreamingPlayer.UploadNextTrack();
+            if (track != null) {
+                UpdateInfoPlayer(track);
+                StartTrack();
+            }
+        }
+
+        public async void UpdateInfoPlayer(Track track) {
+            textBlock_TrackName.Text = track.Title;
+            textBlock_ContentCreatorName.Text = ""; //MODIFICAR
+            StartTrack();
+            image_TrackStreaming.Source = null; //MODIFICAR
+        }
+
+        public void Button_track_previous_Click(object sender, RoutedEventArgs e) {
+            StreamingPlayer.RestartTrack();
+        }
+
+        public void Button_track_playPause_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (StreamingPlayer.IsTrackPlaying()) {
+                    StopTrack();
+                } else {
+                    StartTrack();
+                }
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public void Button_track_next_Click(object sender, RoutedEventArgs e) {
+            GoToNextTrack();
+        }
+
+        private void Slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            StreamingPlayer.UpdateVolume(Slider_volume.Value);
+        }
+
+        private void Slider_track_duration_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            StreamingPlayer.UpdatePositionTrack(Slider_track_duration.Value);
+        }
+
+        private void Buttom_view_queue_Click(object sender, RoutedEventArgs e) {
+            centralFrame.Navigate(new ViewQueue());
         }
     }
 }

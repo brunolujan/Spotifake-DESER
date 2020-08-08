@@ -25,12 +25,14 @@
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="DURATION" Binding ="{Binding Path=DurationSeconds}" ></DataGridTextColumn>
             </DataGrid.Columns>
-         </DataGrid>
+        </DataGrid>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
-            <Button  x:Name="Button_AddToPLaylist"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Playlist" VerticalAlignment="Center" ToolTip="Buscar"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">
-            </Button>
+            <Button  x:Name="Button_AddToPLaylist"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Playlist" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click"/>
+            <Button  x:Name="Button_AddToQueue"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Queue" VerticalAlignment="Center" Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToQueue_Click"/>
+            <Button  x:Name="Button_AddToQueue_Copy"  Background="#FF1CC357"  BorderBrush="Transparent"  Content="Add To Queue" VerticalAlignment="Center" Height="30" Width="125" Margin="25,0,0,0" Click="Button_Play_Click"/>
         </StackPanel>
-        
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="31,72.2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="2"/>
+
 
     </Grid>
 </Page>

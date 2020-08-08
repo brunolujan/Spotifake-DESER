@@ -7,11 +7,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Client.Pages {
    
@@ -39,7 +41,24 @@ namespace Client.Pages {
             {
                 MessageBox.Show("Debes seleccionar un track");
             }
-            
+        }
+
+        private void Button_AddToQueue_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_Track.SelectedItem;
+            if (trackAux != null) {
+                StreamingPlayer.AddTrackToQueue(trackAux);
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
+        }
+
+        private async void Button_Play_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_Track.SelectedItem;
+            if (trackAux != null) {
+                await StreamingPlayer.UploadTrackAsync(trackAux);
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
         }
     }
 }
