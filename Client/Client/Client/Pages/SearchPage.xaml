@@ -52,12 +52,23 @@
                 <DataGridTextColumn Header="DURATION" Binding ="{Binding Path=DurationSeconds}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="datagrid_SearchAlbums" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
-                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchAlbums_MouseDoubleClick">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListView Grid.Row="1" x:Name="datagrid_SearchAlbums" Padding="5" Margin="50,10,50,10" MouseDoubleClick="datagrid_SearchAlbums_MouseDoubleClick" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <Image Source="{Binding Path=AlbumImage}" Height="70"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="TITLE: " Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Title}" Foreground="White" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <DataGrid x:Name="datagrid_SearchContentCreators" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
                   Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchContentCreators_MouseDoubleClick">
             <DataGrid.Columns>
@@ -65,13 +76,27 @@
                 <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=Description}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="datagrid_SearchPlaylists" HorizontalAlignment="Left" Height="277" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True"
-                  Margin="90,65,0,0" Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_SearchPlaylists_MouseDoubleClick">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="NAME" Binding ="{Binding Path=Name}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="DESCRIPTION" Binding ="{Binding Path=Description}" ></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListView Grid.Row="1" x:Name="datagrid_SearchPlaylists" Padding="5" Margin="50,10,50,10" MouseDoubleClick="datagrid_SearchPlaylists_MouseDoubleClick" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <Image Source="{Binding Path=PlaylistImage}" Height="70"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="NAME: " Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Name}" Foreground="White" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="DESCRIPTION: " Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Description}" Foreground="White" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
             <Button  x:Name="Button_AddToPlaylist"  Background="#FF1CC357"  BorderBrush="Transparent" Visibility="Hidden" 
                      Content="Add To Playlist" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">

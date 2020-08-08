@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,11 +53,34 @@ namespace Client.Pages {
                 Button_AddToPlaylist.Visibility = Visibility.Hidden;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<Album> albums = await Session.serverConnection.albumService.GetAlbumByQueryAsync(TextBox_search.Text);
+                foreach (var album in albums)
+                {
+                    album.AlbumImage = await GetImageAlbum(album.CoverPath);
+                }
                 datagrid_SearchAlbums.ItemsSource = albums;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Please try again");
+            }
+        }
+
+        private async Task<BitmapImage> GetImageAlbum(String CoverPath) {
+            try
+            {
+                var imageBytes = await Session.serverConnection.albumService.GetImageToMediaAsync(CoverPath);
+                MemoryStream ms = new MemoryStream(imageBytes);
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
+                src.EndInit();
+                return src;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex + " in AddAlbum LoadImage");
+                return null;
             }
         }
 
@@ -82,11 +106,34 @@ namespace Client.Pages {
                 Button_AddToPlaylist.Visibility = Visibility.Hidden;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
                 List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByQueryAsync(TextBox_search.Text);
+                foreach (var playlist in playlists)
+                {
+                    playlist.PlaylistImage = await GetImagePlaylist(playlist.CoverPath);
+                }
                 datagrid_SearchPlaylists.ItemsSource = playlists;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Please try again");
+            }
+        }
+
+        private async Task<BitmapImage> GetImagePlaylist(String CoverPath) {
+            try
+            {
+                var imageBytes = await Session.serverConnection.playlistService.GetImageToMediaAsync(CoverPath);
+                MemoryStream ms = new MemoryStream(imageBytes);
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.StreamSource = ms;
+                src.EndInit();
+                return src;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex + " in AddAlbum LoadImage");
+                return null;
             }
         }
 

@@ -27,11 +27,11 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Nombre: " Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="NAME: " Foreground="White" Margin="8,0,0,0"/>
                                 <TextBlock Text="{Binding Path=Name}" Foreground="White" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Descripcion: " Foreground="White" Margin="8,0,0,0"/>
+                                <TextBlock Text="DESCRIPTION: " Foreground="White" Margin="8,0,0,0"/>
                                 <TextBlock Text="{Binding Path=Description}" Foreground="White" />
                             </StackPanel>
                         </StackPanel>
