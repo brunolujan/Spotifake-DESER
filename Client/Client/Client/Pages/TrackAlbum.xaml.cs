@@ -51,15 +51,26 @@ namespace Client.Pages {
         }
 
         private async void Button_AddToLibrary_Click(object sender, RoutedEventArgs e) {
+            if (await AddToLibrary())
+            {
+
+                MessageBox.Show("Item added to library");
+            }
+            else
+            {
+                MessageBox.Show("Please select an item");
+            }
+        }
+
+        private async Task<bool> AddToLibrary() {
+            bool result = true;
             if (datagrid_TrackAlbum.SelectedItem != null)
             {
                 Track trackAux = (Track)datagrid_TrackAlbum.SelectedItem;
                 await Session.serverConnection.trackService.AddTrackToLibraryAsync(Session.library.IdLibrary, trackAux.IdTrack);
             }
-            else
-            {
-                MessageBox.Show("Please select a track");
-            }
+            return result; 
+  
         }
     }
 }
