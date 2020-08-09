@@ -234,4 +234,19 @@ class SqlServerContentCreatorManagement:
         connection.cursor.execute(sql, params)
         connection.save()
         return True
+    
+    def UpdateContentCreatorImage(self, email:str, fileName:str):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            UPDATE ContentCreator
+            SET imageStoragePath = ?
+            Where email = ? 
+        """
+        params = (fileName, email)
+
+        connection.cursor.execute(sql, params)
+        connection.save()
+        print("Your image has been updated")
+        connection.close()
 
