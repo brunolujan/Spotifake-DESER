@@ -52,14 +52,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="MainWindowTests.cs" />
-=======
     <Compile Include="AlbumPagesTests.cs" />
     <Compile Include="ContentCreatorPagesTests.cs" />
     <Compile Include="PlaylistPageTests.cs" />
     <Compile Include="SearchPageTests.cs" />
->>>>>>> bab0f81f32b0bf55026352baa3e9f018fa40a46b
     <Compile Include="SignUpTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

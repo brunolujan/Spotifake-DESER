@@ -24,16 +24,16 @@
                    materialDesign:HintAssist.Foreground="WhiteSmoke" materialDesign:TextFieldAssist.UnderlineBrush="WhiteSmoke" Foreground="White"
                    materialDesign:ColorZoneAssist.Mode="Inverted">
                 <ComboBoxItem IsSelected="True">
-                    TRACKS
+                    Tracks
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    ARTISTS
+                    Artists
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    ALBUMS
+                    Albums
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    PLAYLISTS
+                    Playlists
                 </ComboBoxItem>
             </ComboBox>
             <TextBox x:Name="TextBox_search" materialDesign:HintAssist.Hint="Search" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
