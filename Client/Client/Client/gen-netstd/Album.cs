@@ -34,7 +34,7 @@ public partial class Album : TBase
 
   public short IdAlbum { get; set; }
   public System.Windows.Media.Imaging.BitmapImage AlbumImage { get; set; }
-
+  public string AlbumYear { get; set; }
     public string Title
   {
     get

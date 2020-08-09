@@ -1,9 +1,9 @@
-﻿<Page x:Class="Client.Pages.ViewQueue"
+﻿<Page x:Class="Client.ContentCreatorPages.ConfigurationContentCreatorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Client.Pages" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:Client.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="800"  Background="#FF181818"
       Title="AlbumsPages">
@@ -15,15 +15,16 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="368,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="103" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="QUEUE"/>
-        <DataGrid x:Name="datagrid_Track" HorizontalAlignment="Left" Height="277" Margin="90,46.6,0,0" AutoGenerateColumns="False"
-            Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="TITLE" Binding ="{Binding Title}" />
-                <DataGridTextColumn Header="DURATION" Binding ="{Binding DurationSeconds}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="button_clear_queue" Content="CLEAR QUEUE" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="245" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1" Click="Button_clear_queue_Click">
+        <Image x:Name="image_ContentCreator" HorizontalAlignment="Left" Height="245" Margin="33,81,0,0" VerticalAlignment="Top" Width="245" Grid.RowSpan="2">
+            <Image.Clip>
+                <EllipseGeometry
+                    RadiusX="122.5"
+                    RadiusY="122.5"
+                    Center="122.5,122.5"/>
+            </Image.Clip>
+        </Image>
+        <Button x:Name="button_SetConfiguration" Content="SET CONFIGURATION" Margin="33,361.5,0,0" VerticalAlignment="Top" Width="729.2" Click="button_SetConfiguration_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1"/>
+        <Button x:Name="button_SelectFile" Content="SELECT FILE" HorizontalAlignment="Left" Margin="33,261,0,0" VerticalAlignment="Top" Width="245" Click="button_SelectFile_Click" Background="{x:Null}" Foreground="White" Cursor="Hand" Height="51" FontSize="20" FontFamily="Gotham Bold" BorderThickness="3" UseLayoutRounding="True" IsTabStop="True" Style="{DynamicResource Example}" Grid.Row="1">
             <Button.Resources>
                 <Style x:Key="FocusVisual">
                     <Setter Property="Control.Template">
@@ -82,5 +83,7 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="33,332,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="1"/>
+        <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="300,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="249" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="CONFIGURATION"/>
     </Grid>
 </Page>

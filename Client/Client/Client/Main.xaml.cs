@@ -29,7 +29,7 @@ namespace Client {
             loadProgressTrackTimer.Interval = new TimeSpan(0, 0, 0, 1);
             centralFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             StreamingPlayer.Initialize();
-            //LoadImageBytes();
+            LoadImageBytes();
             textBlock_NameUser.Text = "Hi, " + Session.consumer.GivenName;
         }
 

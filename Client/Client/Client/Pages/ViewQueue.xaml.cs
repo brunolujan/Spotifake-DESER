@@ -31,12 +31,6 @@ namespace Client.Pages {
             }
         }
 
-        private void Button_go_back_Click(object sender, RoutedEventArgs e) {
-            if (NavigationService.CanGoBack) {
-                NavigationService.GoBack();
-            }
-        }
-
         private void Button_clear_queue_Click(object sender, RoutedEventArgs e) {
             StreamingPlayer.queueTracks.Clear();
             LoadTracks();

@@ -1,32 +1,28 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
-namespace Client.Pages {
+namespace Client.ContentCreatorPages {
 
-    public partial class ConfigurationConsumerPage : Page {
+    public partial class ConfigurationContentCreatorPage : Page {
 
-        byte[] imageBytes;
+        byte[] imageBytes = null;
         Random random;
 
-        public ConfigurationConsumerPage() {
+        public ConfigurationContentCreatorPage() {
             InitializeComponent();
             imageBytes = null;
             random = new Random();
@@ -38,8 +34,8 @@ namespace Client.Pages {
         }
 
         private async void LoadImageBytes() {
-            image_Consumer.Source = LoadImage(await Session.serverConnection.consumerService.GetImageToMediaAsync(Session.consumer.ImageStoragePath));
-            image_Consumer.Stretch = Stretch.Uniform;
+            image_ContentCreator.Source = LoadImage(await Session.serverConnection.contentCreatorService.GetImageToMediaAsync(Session.contentCreator.ImageStoragePath));
+            image_ContentCreator.Stretch = Stretch.Uniform;
         }
 
         private BitmapImage LoadImage(byte[] bytes) {
@@ -58,29 +54,32 @@ namespace Client.Pages {
         }
 
         private void button_SelectFile_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
             OpenFileDialog ofd = new OpenFileDialog();
             var resultado = ofd.ShowDialog();
             string path = "";
             if (resultado == true) {
                 path = ofd.FileName;
                 imageBytes = GetImageBytes(path);
-                image_Consumer.Source = LoadImage(imageBytes);
-                image_Consumer.Stretch = Stretch.Uniform;
+                image_ContentCreator.Source = LoadImage(imageBytes);
+                image_ContentCreator.Stretch = Stretch.Uniform;
             }
         }
 
         private async void button_SetConfiguration_Click(object sender, RoutedEventArgs e) {
             if (imageBytes != null) {
                 int n = random.Next();
-                string fileName = String.Concat(Session.consumer.GivenName.ToString(), Session.consumer.LastName.ToString(), n);
-                await Session.serverConnection.consumerService.UpdateConsumerImageAsync(Session.consumer.Email, fileName);
-                if (Session.consumer.ImageStoragePath != "DefaultCover") {
-                    await Session.serverConnection.consumerService.DeleteImageToMediaAsync(Session.consumer.ImageStoragePath);
+                string fileName = String.Concat(Session.contentCreator.StageName.ToString(), n);
+                await Session.serverConnection.contentCreatorService.UpdateContentCreatorImageAsync(Session.contentCreator.Email, fileName);
+                if (Session.contentCreator.ImageStoragePath != "DefaultCover") {
+                    await Session.serverConnection.contentCreatorService.DeleteImageToMediaAsync(Session.contentCreator.ImageStoragePath);
                 }
-                Session.consumer.ImageStoragePath = fileName;
-                await Session.serverConnection.consumerService.AddImageToMediaAsync(fileName, imageBytes);
+                Session.contentCreator.ImageStoragePath = fileName;
+                await Session.serverConnection.contentCreatorService.AddImageToMediaAsync(fileName, imageBytes);
+                textBlock_Message.Text = "*Configuration has been update";
+            } else {
+                textBlock_Message.Text = "*Select a pic file";
             }
-            textBlock_Message.Text = "*Select a pic file";
         }
     }
 }

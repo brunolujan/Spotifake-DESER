@@ -1,4 +1,4 @@
-﻿<Page x:Class="Client.Pages.AlbumsPages"
+﻿<Page x:Class="Client.ContentCreatorPages.AlbumsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,13 +18,13 @@
         <TextBlock Grid.Row="0" Text="ALBUMS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold">
 
         </TextBlock>
-    
-        <ListView Grid.Row="1" x:Name="datagrid_Album" Padding="5" Margin="50,10,50,10" MouseDoubleClick="datagrid_Album_MouseDoubleClick" >
+
+        <ListView Grid.Row="1" x:Name="datagrid_Album" Padding="5" Margin="50,10,50,10" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
-                            <Image Source="{Binding Path=AlbumImage}" Height="70"/>
+                            <Image Source="{Binding Path=AlbumImage}" Height="100"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Vertical">

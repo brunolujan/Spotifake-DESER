@@ -13,6 +13,7 @@ namespace Client
         public static ServerConnection serverConnection = new ServerConnection();
         public static ServerStreamingConnection streamingServerConnection = new ServerStreamingConnection();
         public static Consumer consumer;
+        public static ContentCreator contentCreator;
         public static Library library = new Library();
     }
 }

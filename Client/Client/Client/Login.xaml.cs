@@ -102,7 +102,8 @@ namespace Client
                         ContentCreator ContentCreatorLog = await Session.serverConnection.contentCreatorService.LoginContentCreatorAsync(textBox_Email.Text, passwordBox_Password.Password);
                         if (ContentCreatorLog != null)
                         {
-                            MainWindowContentCreator mainWindowCC = new MainWindowContentCreator(ContentCreatorLog, 0);
+                            Session.contentCreator = ContentCreatorLog;
+                            ContentCreatorMain mainWindowCC = new ContentCreatorMain();
                             mainWindowCC.Show();
                             this.Close();
                         }

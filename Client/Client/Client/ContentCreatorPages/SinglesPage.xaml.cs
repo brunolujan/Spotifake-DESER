@@ -14,28 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Client.Pages {
+namespace Client.ContentCreatorPages {
 
-    public partial class AlbumsPages : Page {
+    public partial class SinglesPage : Page {
 
-        public AlbumsPages() {
+        public SinglesPage() {
             InitializeComponent();
-            LoadAlbums();
+            LoadSingles();
         }
 
-        public async void LoadAlbums() {
-            List<Album> albums = await Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(Session.library.IdLibrary);
-            foreach (var album in albums)
-            {
-                album.AlbumImage = await GetImage(album.CoverPath);
-                album.AlbumYear = album.ReleaseDate.Year.ToString();
+        public async void LoadSingles() {
+            List<Album> singles = await Session.serverConnection.albumService.GetSinglesByContentCreatorIdAsync(Session.contentCreator.IdContentCreator);
+            foreach (var single in singles) {
+                single.AlbumImage = await GetImage(single.CoverPath);
+                single.AlbumYear = single.ReleaseDate.Year.ToString();
             }
-            datagrid_Album.ItemsSource = albums;
+            datagrid_Single.ItemsSource = singles;
         }
 
         private async Task<BitmapImage> GetImage(String CoverPath) {
-            try
-            {
+            try {
                 var imageBytes = await Session.serverConnection.albumService.GetImageToMediaAsync(CoverPath);
                 MemoryStream ms = new MemoryStream(imageBytes);
                 BitmapImage src = new BitmapImage();
@@ -44,19 +42,9 @@ namespace Client.Pages {
                 src.StreamSource = ms;
                 src.EndInit();
                 return src;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Console.WriteLine(ex + " in AddAlbum LoadImage");
                 return null;
-            }
-        }
-
-        private void datagrid_Album_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-            var albumAux = (Album)datagrid_Album.SelectedItem;
-            if(albumAux != null)
-            {
-                NavigationService.Navigate(new TrackAlbum(albumAux));
             }
         }
     }
