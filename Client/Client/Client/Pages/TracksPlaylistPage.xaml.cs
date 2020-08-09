@@ -69,12 +69,30 @@ namespace Client.Pages {
             }
         }
 
-        private async void button_LetsPlay_Click(object sender, RoutedEventArgs e) {
+        private async void Button_GenerateRadioStation_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_TrackPlaylist.SelectedItem;
+            if (trackAux != null)
+            {
+                int idGender = (int)Enum.Parse(typeof(MusicGender), trackAux.Gender.ToString());
+                var trackList = await Session.serverConnection.trackService.GenerateRadioStationAsync((short)idGender);
+                StreamingPlayer.AddListTracksToQueue(trackList);
+                MessageBox.Show("Radio station has been generated: " + trackAux.Gender);
+            }
+            else
+            {
+                textBlock_Message.Text = "*Select a track";
+            }
+        }
+
+        private async void datagrid_TrackPlaylist_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             textBlock_Message.Text = "";
             var trackAux = (Track)datagrid_TrackPlaylist.SelectedItem;
-            if (trackAux != null) {
+            if (trackAux != null)
+            {
                 await StreamingPlayer.UploadTrackAsync(trackAux);
-            } else {
+            }
+            else
+            {
                 textBlock_Message.Text = "*Select a track";
             }
         }

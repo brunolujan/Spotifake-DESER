@@ -45,7 +45,7 @@
 
 
         <DataGrid x:Name="datagrid_SearchTracks" HorizontalAlignment="Left" Height="277" Margin="90,65,0,0"
-                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True">
+                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False" Visibility="Hidden" IsReadOnly="True" MouseDoubleClick="datagrid_SearchTracks_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="DURATION" Binding ="{Binding Path=DurationSeconds}" ></DataGridTextColumn>
@@ -97,12 +97,14 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,50">
-            <Button  x:Name="Button_AddToPlaylist"  Background="#FF1CC357"  BorderBrush="Transparent" Visibility="Hidden" 
-                     Content="Add To Playlist" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">
+            <Button  x:Name="Button_AddToPlaylist"  Background="{x:Null}"  BorderBrush="#FF707070" Visibility="Hidden" FontSize="15" Foreground="White"
+                     Content="Add To Playlist" VerticalAlignment="Center"  Height="30" Width="150" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click">
             </Button>
-            <Button  x:Name="Button_AddToLibrary"  Background="#FF1CC357"  BorderBrush="Transparent"  Visibility="Hidden"
-                     Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="125" Margin="25,0,0,0" Click="Button_AddToLibrary_Click">
+            <Button  x:Name="Button_AddToLibrary"  Background="{x:Null}" FontSize="15"  Visibility="Hidden" Foreground="White"
+                     Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="140" Margin="25,0,0,0" Click="Button_AddToLibrary_Click">
             </Button>
+            <Button  x:Name="Button_GenerateRadioStation"  Background="{x:Null}"  BorderBrush="#FF707070" Visibility="Hidden"
+                     Content="Generate Radio Station" VerticalAlignment="Center"  Height="30" Width="190" Margin="25,0,0,0" FontFamily="Gotham Medium" FontSize="15" Foreground="White" Click="Button_GenerateRadioStation_Click"/>
         </StackPanel>
     </Grid>
 </Page>

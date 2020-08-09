@@ -18,20 +18,20 @@
             </RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold"><Run Text="TRACK"/><Run Text="S"/><Run Text=" PLAYLIST"/></TextBlock>
-        <DataGrid x:Name="datagrid_TrackPlaylist" HorizontalAlignment="Left" Height="277" Margin="90,0,0,0" 
-                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False">
+        <DataGrid x:Name="datagrid_TrackPlaylist" HorizontalAlignment="Left" Height="277" Margin="90,0,0,0" IsReadOnly="True"
+                  Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" AutoGenerateColumns="False" MouseDoubleClick="datagrid_TrackPlaylist_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Path=Title}"></DataGridTextColumn>
                 <DataGridTextColumn Header="DURATION" Binding="{Binding Path=DurationSeconds}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Height="30" VerticalAlignment="Top">
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  VerticalAlignment="Top">
             <Button  x:Name="Button_AddToLibrary"  Background="{x:Null}"  BorderBrush="#FF707070" 
                      Content="Add To Library" VerticalAlignment="Center"  Height="30" Width="156" Margin="25,0,0,0.4" Click="Button_AddToLibrary_Click" FontFamily="Gotham Medium" FontSize="15" Foreground="White">
             </Button>
             <Button  x:Name="Button_AddToQueue"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Add To Queue" VerticalAlignment="Center" Height="30" Width="142" Margin="25,0.2,0,0.2" Click="Button_AddToQueue_Click" FontFamily="Gotham Medium" FontSize="15" Foreground="White"/>
+            <Button  x:Name="Button_GenerateRadioStation"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Generate Radio Station" VerticalAlignment="Center"  Height="30" Width="190" Margin="25,0,0,0" FontFamily="Gotham Medium" FontSize="15" Foreground="White" Click="Button_GenerateRadioStation_Click"/>
         </StackPanel>
-        <Button x:Name="button_LetsPlay" Content="Play" Margin="368.107,292,0,0" VerticalAlignment="Top" Width="126" Click="button_LetsPlay_Click" Background="#FF1CC357" Foreground="White" ClipToBounds="False" Cursor="Hand" Height="38" FontSize="20" FontFamily="Gotham Bold" HorizontalContentAlignment="Center" UseLayoutRounding="False" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource RoundButtonTemplate}" Grid.Row="1" Grid.RowSpan="2"/>
         <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="25,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="2"/>
 
     </Grid>

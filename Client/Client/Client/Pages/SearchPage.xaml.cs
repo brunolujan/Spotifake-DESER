@@ -36,6 +36,7 @@ namespace Client.Pages {
                 datagrid_SearchTracks.Visibility = Visibility.Visible;
                 Button_AddToPlaylist.Visibility = Visibility.Visible;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
+                Button_GenerateRadioStation.Visibility = Visibility.Visible;
                 List<Track> tracks = await Session.serverConnection.trackService.GetTrackByQueryAsync(TextBox_search.Text);
                 datagrid_SearchTracks.ItemsSource = tracks;
                 
@@ -52,6 +53,7 @@ namespace Client.Pages {
                 datagrid_SearchAlbums.Visibility = Visibility.Visible;
                 Button_AddToPlaylist.Visibility = Visibility.Hidden;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
+                Button_GenerateRadioStation.Visibility = Visibility.Visible;
                 List<Album> albums = await Session.serverConnection.albumService.GetAlbumByQueryAsync(TextBox_search.Text);
                 foreach (var album in albums)
                 {
@@ -90,6 +92,7 @@ namespace Client.Pages {
                 datagrid_SearchContentCreators.Visibility = Visibility.Visible;
                 Button_AddToPlaylist.Visibility = Visibility.Hidden;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
+                Button_GenerateRadioStation.Visibility = Visibility.Visible;
                 List<ContentCreator> contentCreators = await Session.serverConnection.contentCreatorService.GetContentCreatorByQueryAsync(TextBox_search.Text);
                 datagrid_SearchContentCreators.ItemsSource = contentCreators;
             }
@@ -105,6 +108,7 @@ namespace Client.Pages {
                 datagrid_SearchPlaylists.Visibility = Visibility.Visible;
                 Button_AddToPlaylist.Visibility = Visibility.Hidden;
                 Button_AddToLibrary.Visibility = Visibility.Visible;
+                Button_GenerateRadioStation.Visibility = Visibility.Visible;
                 List<Playlist> playlists = await Session.serverConnection.playlistService.GetPlaylistByQueryAsync(TextBox_search.Text);
                 foreach (var playlist in playlists)
                 {
@@ -253,6 +257,33 @@ namespace Client.Pages {
                 result = false;
             }
             return result;
+        }
+
+        private async void Button_GenerateRadioStation_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_SearchTracks.SelectedItem;
+            if (trackAux != null)
+            {
+                int idGender = (int)Enum.Parse(typeof(MusicGender), trackAux.Gender.ToString());
+                var trackList = await Session.serverConnection.trackService.GenerateRadioStationAsync((short)idGender);
+                StreamingPlayer.AddListTracksToQueue(trackList);
+                MessageBox.Show("Radio station has been generated: " + trackAux.Gender);
+            }
+            else
+            {
+                MessageBox.Show("*Select a track");
+            }
+        }
+
+        private async void datagrid_SearchTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var trackAux = (Track)datagrid_SearchTracks.SelectedItem;
+            if (trackAux != null)
+            {
+                await StreamingPlayer.UploadTrackAsync(trackAux);
+            }
+            else
+            {
+                MessageBox.Show("*Select a track");
+            }
         }
     }
 }
