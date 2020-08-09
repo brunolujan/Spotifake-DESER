@@ -174,7 +174,6 @@ namespace Client.Pages {
                         break;
                 }
             }
-
         }
 
         private void datagrid_SearchAlbums_MouseDoubleClick(object sender, MouseButtonEventArgs e) {

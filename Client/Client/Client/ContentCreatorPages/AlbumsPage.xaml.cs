@@ -47,5 +47,10 @@ namespace Client.ContentCreatorPages {
                 return null;
             }
         }
+
+        private void button_AddAlbum_Click(object sender, RoutedEventArgs e) {
+            PopUpWindow popUpWindow = new PopUpWindow(new AddAlbumPage());
+            popUpWindow.ShowDialog();
+        }
     }
 }
