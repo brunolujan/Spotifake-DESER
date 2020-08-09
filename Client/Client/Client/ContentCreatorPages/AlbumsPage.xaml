@@ -15,7 +15,7 @@
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="ALBUMS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold">
+        <TextBlock Grid.Row="0" Text="ALBUMS" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold" Margin="50,34,640,31">
 
         </TextBlock>
 
@@ -40,5 +40,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button x:Name="button_AddAlbum" Content="+ Add Album" HorizontalAlignment="Left" Margin="557,30,0,0" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Click="button_AddAlbum_Click"/>
     </Grid>
 </Page>

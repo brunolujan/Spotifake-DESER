@@ -292,6 +292,12 @@
     <Compile Include="ContentCreatorMain.xaml.cs">
       <DependentUpon>ContentCreatorMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentCreatorPages\AddAlbumPage.xaml.cs">
+      <DependentUpon>AddAlbumPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContentCreatorPages\AddSinglePage.xaml.cs">
+      <DependentUpon>AddSinglePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ContentCreatorPages\AlbumsPage.xaml.cs">
       <DependentUpon>AlbumsPage.xaml</DependentUpon>
     </Compile>
@@ -386,6 +392,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ContentCreatorMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentCreatorPages\AddAlbumPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentCreatorPages\AddSinglePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

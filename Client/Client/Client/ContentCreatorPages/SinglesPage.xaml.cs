@@ -47,5 +47,10 @@ namespace Client.ContentCreatorPages {
                 return null;
             }
         }
+
+        private void button_AddSingle_Click(object sender, RoutedEventArgs e) {
+            PopUpWindow popUpWindow = new PopUpWindow(new AddSinglePage());
+            popUpWindow.ShowDialog();
+        }
     }
 }
