@@ -709,7 +709,7 @@ service TrackService {
     *       List of tracks which belong to the gender entered.
     **/
 
-    list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.MusicGender gender) 
+    list<SpotifakeManagement.Track> GenerateRadioStation(1: SpotifakeManagement.Id idGender) 
          throws (1:SpotifakeManagement.SErrorSystemException sErrorSystemE)
 
 

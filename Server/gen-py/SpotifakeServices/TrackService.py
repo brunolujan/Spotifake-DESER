@@ -332,7 +332,7 @@ class Iface(object):
         """
         pass
 
-    def GenerateRadioStation(self, gender):
+    def GenerateRadioStation(self, idGender):
         """
         Generate a Radio Station
 
@@ -344,7 +344,7 @@ class Iface(object):
 
 
         Parameters:
-         - gender
+         - idGender
 
         """
         pass
@@ -1162,7 +1162,7 @@ class Client(Iface):
             raise result.sErrorSystemE
         raise TApplicationException(TApplicationException.MISSING_RESULT, "DeletePlayQueueTrack failed: unknown result")
 
-    def GenerateRadioStation(self, gender):
+    def GenerateRadioStation(self, idGender):
         """
         Generate a Radio Station
 
@@ -1174,16 +1174,16 @@ class Client(Iface):
 
 
         Parameters:
-         - gender
+         - idGender
 
         """
-        self.send_GenerateRadioStation(gender)
+        self.send_GenerateRadioStation(idGender)
         return self.recv_GenerateRadioStation()
 
-    def send_GenerateRadioStation(self, gender):
+    def send_GenerateRadioStation(self, idGender):
         self._oprot.writeMessageBegin('GenerateRadioStation', TMessageType.CALL, self._seqid)
         args = GenerateRadioStation_args()
-        args.gender = gender
+        args.idGender = idGender
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
@@ -1801,7 +1801,7 @@ class Processor(Iface, TProcessor):
         iprot.readMessageEnd()
         result = GenerateRadioStation_result()
         try:
-            result.success = self._handler.GenerateRadioStation(args.gender)
+            result.success = self._handler.GenerateRadioStation(args.idGender)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -4448,13 +4448,13 @@ DeletePlayQueueTrack_result.thrift_spec = (
 class GenerateRadioStation_args(object):
     """
     Attributes:
-     - gender
+     - idGender
 
     """
 
 
-    def __init__(self, gender=None,):
-        self.gender = gender
+    def __init__(self, idGender=None,):
+        self.idGender = idGender
 
     def read(self, iprot):
         if iprot._fast_decode is not None and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None:
@@ -4466,8 +4466,8 @@ class GenerateRadioStation_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I32:
-                    self.gender = iprot.readI32()
+                if ftype == TType.I16:
+                    self.idGender = iprot.readI16()
                 else:
                     iprot.skip(ftype)
             else:
@@ -4480,9 +4480,9 @@ class GenerateRadioStation_args(object):
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
         oprot.writeStructBegin('GenerateRadioStation_args')
-        if self.gender is not None:
-            oprot.writeFieldBegin('gender', TType.I32, 1)
-            oprot.writeI32(self.gender)
+        if self.idGender is not None:
+            oprot.writeFieldBegin('idGender', TType.I16, 1)
+            oprot.writeI16(self.idGender)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -4503,7 +4503,7 @@ class GenerateRadioStation_args(object):
 all_structs.append(GenerateRadioStation_args)
 GenerateRadioStation_args.thrift_spec = (
     None,  # 0
-    (1, TType.I32, 'gender', None, None, ),  # 1
+    (1, TType.I16, 'idGender', None, None, ),  # 1
 )
 
 

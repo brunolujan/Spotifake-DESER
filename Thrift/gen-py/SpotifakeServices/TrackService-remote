@@ -40,7 +40,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('  Id DeletePlaylistTrack(Id idPlaylist, Int trackNumber)')
     print('  Track AddTrackToPlayQueue(Id idPlayQueu, Track newTrack)')
     print('  Id DeletePlayQueueTrack(Id idPlayQueu, Int trackNumber)')
-    print('   GenerateRadioStation(MusicGender gender)')
+    print('   GenerateRadioStation(Id idGender)')
     print('   GetLocalTracksByIdConsumer(Id idConsumer)')
     print('  bool AddLocalTrack(LocalTrack LocalTrack)')
     print('')

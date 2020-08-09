@@ -82,6 +82,7 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
                     track = Track(n.IdTrack, n.trackNumber, n.durationSeconds, n.storagePath, n.title)
                     track.title = n.title
                     track.stageName = n.ContentCreatorName
+                    track.gender = n.IdGenre
                     trackList.append(track)
                 return trackList        
         return False
@@ -135,3 +136,17 @@ class SpotifakeServerTrackHandler(TrackService.Iface):
         result = SqlServerTrackManagement.AddLocalTrack(self, localTrack)
         return result
 
+    def GenerateRadioStation(self, idGender):
+        trackList = []
+        trackFound = SqlServerTrackManagement.GenerateRadioStation(self, idGender)
+        if trackFound != 0:
+            for n in trackFound:
+                trackAux = Track()            
+                trackAux.idTrack = n.IdTrack
+                trackAux.durationSeconds = n.durationSeconds
+                trackAux.title = n.title
+                trackAux.trackNumber = n.trackNumber
+                trackAux.storagePath = n.storagePath
+                trackAux.gender = n.IdGenre
+                trackList.append(trackAux)
+        return trackList 

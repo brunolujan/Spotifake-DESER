@@ -248,6 +248,17 @@ class SqlServerTrackManagement:
         connection.save()
         return True
 
+    def GenerateRadioStation(self,idGender):
+        connection: SQLConnection = SQLConnection()
+        connection.open()
+        sql = """
+            SELECT * FROM Track WHERE Track.IdGenre = ?
+        """
+        connection.cursor.execute(sql, idGender)
+        rows = connection.cursor.fetchall()
+        return rows
+
+
         
         
 

@@ -286,8 +286,8 @@ public partial class TrackService
     ///     List of tracks which belong to the gender entered.
     /// 
     /// </summary>
-    /// <param name="gender"></param>
-    Task<List<Track>> GenerateRadioStationAsync(MusicGender gender, CancellationToken cancellationToken = default(CancellationToken));
+    /// <param name="idGender"></param>
+    Task<List<Track>> GenerateRadioStationAsync(short idGender, CancellationToken cancellationToken = default(CancellationToken));
 
     /// <summary>
     /// Get Local Tracks By Id Consumer.
@@ -924,12 +924,12 @@ public partial class TrackService
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DeletePlayQueueTrack failed: unknown result");
     }
 
-    public async Task<List<Track>> GenerateRadioStationAsync(MusicGender gender, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task<List<Track>> GenerateRadioStationAsync(short idGender, CancellationToken cancellationToken = default(CancellationToken))
     {
       await OutputProtocol.WriteMessageBeginAsync(new TMessage("GenerateRadioStation", TMessageType.Call, SeqId), cancellationToken);
       
       var args = new GenerateRadioStationArgs();
-      args.Gender = gender;
+      args.IdGender = idGender;
       
       await args.WriteAsync(OutputProtocol, cancellationToken);
       await OutputProtocol.WriteMessageEndAsync(cancellationToken);
@@ -1721,7 +1721,7 @@ public partial class TrackService
       {
         try
         {
-          result.Success = await _iAsync.GenerateRadioStationAsync(args.Gender, cancellationToken);
+          result.Success = await _iAsync.GenerateRadioStationAsync(args.IdGender, cancellationToken);
         }
         catch (SErrorSystemException sErrorSystemE)
         {
@@ -8188,22 +8188,18 @@ public partial class TrackService
 
   public partial class GenerateRadioStationArgs : TBase
   {
-    private MusicGender _gender;
+    private short _idGender;
 
-    /// <summary>
-    /// 
-    /// <seealso cref=".MusicGender"/>
-    /// </summary>
-    public MusicGender Gender
+    public short IdGender
     {
       get
       {
-        return _gender;
+        return _idGender;
       }
       set
       {
-        __isset.gender = true;
-        this._gender = value;
+        __isset.idGender = true;
+        this._idGender = value;
       }
     }
 
@@ -8211,7 +8207,7 @@ public partial class TrackService
     public Isset __isset;
     public struct Isset
     {
-      public bool gender;
+      public bool idGender;
     }
 
     public GenerateRadioStationArgs()
@@ -8236,9 +8232,9 @@ public partial class TrackService
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I32)
+              if (field.Type == TType.I16)
               {
-                Gender = (MusicGender)await iprot.ReadI32Async(cancellationToken);
+                IdGender = await iprot.ReadI16Async(cancellationToken);
               }
               else
               {
@@ -8269,13 +8265,13 @@ public partial class TrackService
         var struc = new TStruct("GenerateRadioStation_args");
         await oprot.WriteStructBeginAsync(struc, cancellationToken);
         var field = new TField();
-        if (__isset.gender)
+        if (__isset.idGender)
         {
-          field.Name = "gender";
-          field.Type = TType.I32;
+          field.Name = "idGender";
+          field.Type = TType.I16;
           field.ID = 1;
           await oprot.WriteFieldBeginAsync(field, cancellationToken);
-          await oprot.WriteI32Async((int)Gender, cancellationToken);
+          await oprot.WriteI16Async(IdGender, cancellationToken);
           await oprot.WriteFieldEndAsync(cancellationToken);
         }
         await oprot.WriteFieldStopAsync(cancellationToken);
@@ -8292,14 +8288,14 @@ public partial class TrackService
       var other = that as GenerateRadioStationArgs;
       if (other == null) return false;
       if (ReferenceEquals(this, other)) return true;
-      return ((__isset.gender == other.__isset.gender) && ((!__isset.gender) || (System.Object.Equals(Gender, other.Gender))));
+      return ((__isset.idGender == other.__isset.idGender) && ((!__isset.idGender) || (System.Object.Equals(IdGender, other.IdGender))));
     }
 
     public override int GetHashCode() {
       int hashcode = 157;
       unchecked {
-        if(__isset.gender)
-          hashcode = (hashcode * 397) + Gender.GetHashCode();
+        if(__isset.idGender)
+          hashcode = (hashcode * 397) + IdGender.GetHashCode();
       }
       return hashcode;
     }
@@ -8308,12 +8304,12 @@ public partial class TrackService
     {
       var sb = new StringBuilder("GenerateRadioStation_args(");
       bool __first = true;
-      if (__isset.gender)
+      if (__isset.idGender)
       {
         if(!__first) { sb.Append(", "); }
         __first = false;
-        sb.Append("Gender: ");
-        sb.Append(Gender);
+        sb.Append("IdGender: ");
+        sb.Append(IdGender);
       }
       sb.Append(")");
       return sb.ToString();
