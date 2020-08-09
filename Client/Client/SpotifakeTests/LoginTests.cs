@@ -13,7 +13,7 @@ namespace SpotifakeTests {
         public void LoginConsumerWithRegisteredAccountTest() {
             var ConsumerLog = Session.serverConnection.consumerService.LoginConsumerAsync("majohdezmol@gmail.com", "majojojo");
             ConsumerLog.Wait();
-            var consumer = ConsumerLog.Result;
+            //var consumer = ConsumerLog.Result;
             Assert.AreEqual(ConsumerLog.IsFaulted, false);
         }
 

@@ -7,13 +7,12 @@ using Thrift;
 
 namespace SpotifakeTests {
     [TestClass]
-    public class MainWindowTests {
+    public class AlbumPagesTests {
 
         [TestMethod]
         public void GetAlbumsFromLibrary() {
             var albums = Session.serverConnection.albumService.GetAlbumByLibraryIdAsync(1);
             albums.Wait();
-            var album = albums.Result;
             Assert.AreEqual(albums.IsFaulted, false);
         }
 
