@@ -15,30 +15,20 @@ using System.Windows.Shapes;
 
 namespace Client.Pages {
 
-    public partial class ViewQueue : Page {
+    public partial class ViewHistory : Page {
 
-        public ViewQueue() {
+        public ViewHistory() {
             InitializeComponent();
             LoadTracks();
         }
 
         public void LoadTracks() {
             try {
-                datagrid_Track.ItemsSource = StreamingPlayer.queueTracks;
+                datagrid_Track.ItemsSource = StreamingPlayer.historyTracks;
                 datagrid_Track.Items.Refresh();
             } catch (Exception ex) {
                 Console.WriteLine(ex);
             }
-        }
-
-        private void Button_clear_queue_Click(object sender, RoutedEventArgs e) {
-            StreamingPlayer.queueTracks.Clear();
-            LoadTracks();
-        }
-
-        private void button_History_Click(object sender, RoutedEventArgs e) {
-            PopUpWindow popUpWindow = new PopUpWindow(new ViewHistory());
-            popUpWindow.ShowDialog();
         }
     }
 }

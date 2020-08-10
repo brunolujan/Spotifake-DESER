@@ -368,6 +368,9 @@
     <Compile Include="Pages\UploadLocalTrackPage.xaml.cs">
       <DependentUpon>UploadLocalTrackPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ViewHistory.xaml.cs">
+      <DependentUpon>ViewHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ViewQueue.xaml.cs">
       <DependentUpon>ViewQueue.xaml</DependentUpon>
     </Compile>
@@ -470,6 +473,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UploadLocalTrackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ViewHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

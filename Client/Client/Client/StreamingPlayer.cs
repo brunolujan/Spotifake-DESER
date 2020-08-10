@@ -13,6 +13,7 @@ namespace Client {
         public static WaveOutEvent waveOutEvent { set; get; }
         public static WaveStream waveStream { set; get; }
         public static Queue<Track> queueTracks { set; get; }
+        public static Queue<Track> historyTracks { set; get; }
         public static bool isTrackReady { set; get; }
 
         public StreamingPlayer() { }
@@ -21,6 +22,7 @@ namespace Client {
             waveOutEvent = new WaveOutEvent();
             isTrackReady = false;
             queueTracks = new Queue<Track>();
+            historyTracks = new Queue<Track>();
         }
 
         public static async Task<bool> UploadTrackAsync(Track track) {
@@ -46,13 +48,13 @@ namespace Client {
             if (queueTracks.Count > 0) {
                 StreamingPlayer.StopPlayer();
                 Track track = queueTracks.Dequeue();
+                StreamingPlayer.AddTrackToHistory(track);
                 isTrackReady = false;
                 if (await StreamingPlayer.UploadTrackAsync(track)) {
                     return track;
                 } else {
                     return null;
                 }
-
             } else {
                 return null;
             }
@@ -123,8 +125,13 @@ namespace Client {
         public static double GetCurretTimeForSlider() {
             return (waveStream.CurrentTime.TotalSeconds * 100) / waveStream.TotalTime.TotalSeconds;
         }
+
         public static void AddTrackToQueue(Track track) {
             queueTracks.Enqueue(track);
+        }
+
+        public static void AddTrackToHistory(Track track) {
+            historyTracks.Enqueue(track);
         }
 
         public static void AddListTracksToQueue(List<Track> tracks) {
