@@ -52,5 +52,13 @@ namespace Client.ContentCreatorPages {
             PopUpWindow popUpWindow = new PopUpWindow(new AddSinglePage());
             popUpWindow.ShowDialog();
         }
+
+        private void datagrid_Single_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            var singleAux = (Album)datagrid_Single.SelectedItem;
+            if (singleAux != null) {
+                PopUpWindow popUpWindow = new PopUpWindow((new TrackAlbum(singleAux)));
+                popUpWindow.ShowDialog();
+            }
+        }
     }
 }

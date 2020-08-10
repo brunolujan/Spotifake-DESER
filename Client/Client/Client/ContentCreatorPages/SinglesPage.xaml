@@ -8,7 +8,7 @@
       d:DesignHeight="550" d:DesignWidth="800"  Background="#FF181818"
       Title="AlbumsPages">
 
-    <Grid>
+    <Grid Background="#FF181818">
         <Grid.RowDefinitions>
             <RowDefinition Height=".2*">
             </RowDefinition>
@@ -19,7 +19,7 @@
 
         </TextBlock>
 
-        <ListView Grid.Row="1" x:Name="datagrid_Single" Padding="5" Margin="50,10,50,10" >
+        <ListView Grid.Row="1" x:Name="datagrid_Single" Padding="5" Margin="50,10,50,10" MouseDoubleClick="datagrid_Single_MouseDoubleClick" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

@@ -304,6 +304,9 @@
     <Compile Include="ContentCreatorPages\SinglesPage.xaml.cs">
       <DependentUpon>SinglesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentCreatorPages\TrackAlbum.xaml.cs">
+      <DependentUpon>TrackAlbum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="gen-netstd\Album.cs" />
     <Compile Include="gen-netstd\AlbumService.cs" />
     <Compile Include="gen-netstd\Consumer.cs" />
@@ -407,6 +410,10 @@
     <Page Include="ContentCreatorPages\SinglesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentCreatorPages\TrackAlbum.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
