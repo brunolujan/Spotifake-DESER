@@ -173,7 +173,7 @@ namespace Client
                 newContentCreator.Password = passwordBox_Password.Password;
                 newContentCreator.Email = textBox_Email.Text;
                 newContentCreator.Description = null;
-                newContentCreator.ImageStoragePath = null;
+                newContentCreator.ImageStoragePath = "DefaultCover";
                 Session.serverConnection.contentCreatorService.AddContentCreatorAsync(newContentCreator);
             } catch (Exception ex)
             {
