@@ -30,5 +30,9 @@ namespace Client.Pages {
                 Console.WriteLine(ex);
             }
         }
+
+        private void datagrid_Track_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+
+        }
     }
 }

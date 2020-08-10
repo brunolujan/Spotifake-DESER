@@ -14,9 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client.Pages {
-    /// <summary>
-    /// Lógica de interacción para MyOwnTracksPage.xaml
-    /// </summary>
+
     public partial class MyOwnTracksPage : Page {
         public MyOwnTracksPage() {
             InitializeComponent();
@@ -36,14 +34,39 @@ namespace Client.Pages {
             }
         }
 
-        private void datagrid_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-
+        private async void datagrid_MyOwnTracks_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            textBlock_Message.Text = "";
+            var trackAux = (LocalTrack)datagrid_MyOwnTracks.SelectedItem;
+            if (trackAux != null) {
+                Track localTrack = new Track();
+                localTrack.Title = trackAux.Title;
+                localTrack.StoragePath = trackAux.FileName;
+                localTrack.DurationSeconds = 200;
+                await StreamingPlayer.UploadTrackAsync(localTrack);
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
         }
 
         private void Button_AddLocalTrack_Click(object sender, RoutedEventArgs e) {
             PopUpWindow popUpWindow = new PopUpWindow(new UploadLocalTrackPage());
             popUpWindow.ShowDialog();
             LoadLocalTracks();
+        }
+
+        private void Button_AddToQueue_Click(object sender, RoutedEventArgs e) {
+            textBlock_Message.Text = "";
+            var trackAux = (LocalTrack)datagrid_MyOwnTracks.SelectedItem;
+            if (trackAux != null) {
+                Track localTrack = new Track();
+                localTrack.Title = trackAux.Title;
+                localTrack.StoragePath = trackAux.FileName;
+                localTrack.DurationSeconds = 200;
+                StreamingPlayer.AddTrackToQueue(localTrack);
+                textBlock_Message.Text = "*Track added to Queue";
+            } else {
+                textBlock_Message.Text = "*Select a track";
+            }
         }
     }
 }

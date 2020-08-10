@@ -14,7 +14,7 @@
             <RowDefinition Height=".2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="  NEW SINGLE" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold" Margin="16,41,481,23" Width="303"/>
+        <TextBlock Grid.Row="0" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Gotham Bold" Margin="16,41,481,23" Width="303"><Run Text="  NEW "/><Run Text="ALBUM"/></TextBlock>
         <TextBox x:Name="textBox_AlbumTitle" HorizontalAlignment="Left" Height="59" Margin="285,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" Background="#FF4B4B4B" SelectionBrush="#FF1DB954" Foreground="#FFF9F9F9" FontSize="15" BorderBrush="{x:Null}" FontFamily="Gotham Medium" VerticalContentAlignment="Center" AutomationProperties.HelpText="Enter your email" AutomationProperties.IsOffscreenBehavior="Onscreen" mah:TextBoxHelper.Watermark="Put your email" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.IsWaitingForData="True" mah:TextBoxHelper.IsSpellCheckContextMenuEnabled="True" mah:TextBoxHelper.HasText="True" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="287,4,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Foreground="White" Width="73" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="33" FontFamily="Gotham Bold" Grid.Row="1">
             <TextBlock.RenderTransform>

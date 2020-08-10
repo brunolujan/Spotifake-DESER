@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <TextBlock x:Name="textBlock_Message_Copy" HorizontalAlignment="Left" Margin="90,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="129" FontSize="25" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Text="HISTORY"/>
         <DataGrid x:Name="datagrid_Track" HorizontalAlignment="Left" Height="277" Margin="90,46.6,0,0" AutoGenerateColumns="False"
-            Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15">
+            Grid.Row="1" VerticalAlignment="Top" Width="615" FontFamily="Gotham Medium" FontSize="15" MouseDoubleClick="datagrid_Track_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="TITLE" Binding ="{Binding Title}" />
                 <DataGridTextColumn Header="DURATION" Binding ="{Binding DurationSeconds}" />

@@ -40,5 +40,9 @@ namespace Client.Pages {
             PopUpWindow popUpWindow = new PopUpWindow(new ViewHistory());
             popUpWindow.ShowDialog();
         }
+
+        private void datagrid_Track_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+
+        }
     }
 }
