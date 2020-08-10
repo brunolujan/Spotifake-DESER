@@ -76,7 +76,7 @@ namespace Client.ContentCreatorPages {
                 }
                 Session.contentCreator.ImageStoragePath = fileName;
                 await Session.serverConnection.contentCreatorService.AddImageToMediaAsync(fileName, imageBytes);
-                textBlock_Message.Text = "*Configuration has been update";
+                Window.GetWindow(this).Close();
             } else {
                 textBlock_Message.Text = "*Select a pic file";
             }

@@ -283,9 +283,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddAlbum.xaml.cs">
-      <DependentUpon>AddAlbum.xaml</DependentUpon>
-    </Compile>
     <Compile Include="client - stub\RequestTrackAudio.cs" />
     <Compile Include="client - stub\StreamingService.cs" />
     <Compile Include="client - stub\TrackAudio.cs" />
@@ -331,9 +328,6 @@
     <Compile Include="gen-netstd\TrackService.cs" />
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindowContentCreator.xaml.cs">
-      <DependentUpon>MainWindowContentCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddPlaylistPage.xaml.cs">
       <DependentUpon>AddPlaylistPage.xaml</DependentUpon>
@@ -387,10 +381,6 @@
       <DependentUpon>SingUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="StreamingPlayer.cs" />
-    <Page Include="AddAlbum.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ContentCreatorMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -428,10 +418,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Main.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindowContentCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

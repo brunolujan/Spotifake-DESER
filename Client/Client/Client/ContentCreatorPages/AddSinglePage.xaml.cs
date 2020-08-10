@@ -115,7 +115,7 @@ namespace Client.ContentCreatorPages {
         private void button_AddSingle_Click(object sender, RoutedEventArgs e) {
             if (!ValidateBlankSpacesSingle()) {
                 AddAlbumSingle();
-                label_Message.Text = "*Single has been added";
+                Window.GetWindow(this).Close();
             } else {
                 label_Message.Text = "*Complete all fields";
             }

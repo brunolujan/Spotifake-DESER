@@ -36,5 +36,8 @@ namespace Client.Pages {
             LoadTracks();
         }
 
+        private void button_History_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

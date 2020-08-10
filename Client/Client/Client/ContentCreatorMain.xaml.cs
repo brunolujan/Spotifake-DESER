@@ -20,6 +20,7 @@ namespace Client {
         public ContentCreatorMain() {
             InitializeComponent();
             LoadImageBytes();
+            textBlock_StageName.Text = "Hi, " + Session.contentCreator.StageName;
         }
 
         private void button_Albums_Click(object sender, RoutedEventArgs e) {

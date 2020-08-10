@@ -71,7 +71,7 @@ namespace Client.ContentCreatorPages {
         private void button_AddAlbum_Click(object sender, RoutedEventArgs e) {
             if (!ValidateBlankSpacesAlbum()) {
                 AddAlbum();
-                label_Message.Text = "*Album has been added";
+                Window.GetWindow(this).Close();
             } else {
                 label_Message.Text = "*Complete all fields";
             }

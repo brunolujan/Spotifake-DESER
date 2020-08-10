@@ -79,6 +79,7 @@ namespace Client.Pages {
                 }
                 Session.consumer.ImageStoragePath = fileName;
                 await Session.serverConnection.consumerService.AddImageToMediaAsync(fileName, imageBytes);
+                Window.GetWindow(this).Close();
             }
             textBlock_Message.Text = "*Select a pic file";
         }
