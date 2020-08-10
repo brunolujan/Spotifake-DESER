@@ -52,13 +52,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddPlaylistPageTests.cs" />
+    <Compile Include="AddTrackToPlaylistPageTests.cs" />
     <Compile Include="AlbumPagesTests.cs" />
+    <Compile Include="AlbumsContentCreatorPageTests.cs" />
     <Compile Include="ContentCreatorPagesTests.cs" />
+    <Compile Include="MyOwnTracksPageTests.cs" />
     <Compile Include="PlaylistPageTests.cs" />
     <Compile Include="SearchPageTests.cs" />
     <Compile Include="SignUpTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackAlbumPageTests.cs" />
+    <Compile Include="TrackPlaylistPageTests.cs" />
     <Compile Include="TracksPagesTests.cs" />
   </ItemGroup>
   <ItemGroup>
