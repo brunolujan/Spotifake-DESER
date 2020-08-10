@@ -303,22 +303,22 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,179.4,0,0" VerticalAlignment="Top" Width="114" 
+        <Button x:Name="button_Albums" Content="Albums" HorizontalAlignment="Left" Margin="10,167.4,0,0" VerticalAlignment="Top" Width="114" 
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1"
                 MouseDoubleClick="button_Albums_MouseDoubleClick"/>
-        <Button x:Name="button_Tracks" Content="Tracks" HorizontalAlignment="Left" Margin="10,216.4,0,0" VerticalAlignment="Top" Width="114"
+        <Button x:Name="button_Tracks" Content="Tracks" HorizontalAlignment="Left" Margin="10,204.4,0,0" VerticalAlignment="Top" Width="114"
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1"
                 MouseDoubleClick="button_Tracks_MouseDoubleClick"/>
-        <Button x:Name="button_Playlists" Content="Playlists" HorizontalAlignment="Left" Margin="10,257.4,0,0" VerticalAlignment="Top" Width="114" 
+        <Button x:Name="button_Playlists" Content="Playlists" HorizontalAlignment="Left" Margin="10,245.4,0,0" VerticalAlignment="Top" Width="114" 
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}"  Grid.Row="1" 
                 MouseDoubleClick="button_Playlists_MouseDoubleClick"/>
-        <Button x:Name="button_ContentCreators" Content="Artistas" HorizontalAlignment="Left" Margin="10,296.4,0,0" VerticalAlignment="Top" Width="114"
+        <Button x:Name="button_ContentCreators" Content="Artistas" HorizontalAlignment="Left" Margin="10,284.4,0,0" VerticalAlignment="Top" Width="114"
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1" Height="30" 
                 MouseDoubleClick="button_ContentCreators_MouseDoubleClick"/>
-        <Button x:Name="button_Search" Content="Search" HorizontalAlignment="Left" Margin="10,335.4,0,0" VerticalAlignment="Top" Width="114"
+        <Button x:Name="button_Search" Content="Search" HorizontalAlignment="Left" Margin="10,323.4,0,0" VerticalAlignment="Top" Width="114"
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1"
                 Height="30" MouseDoubleClick="button_Search_MouseDoubleClick"/>
-        <Button x:Name="button_MyOwnTracks" Content="My Own Tracks" HorizontalAlignment="Left" Margin="10,374.4,0,0" VerticalAlignment="Top" Width="175"
+        <Button x:Name="button_MyOwnTracks" Content="My Own Tracks" HorizontalAlignment="Left" Margin="10,358.4,0,0" VerticalAlignment="Top" Width="175"
                 Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Gotham Medium" BorderBrush="{x:Null}" Grid.Row="1"
                 Height="30" MouseDoubleClick="button_MyOwnTracks_MouseDoubleClick"/>
         <Image x:Name="image_Consumer" HorizontalAlignment="Left" Height="148" Margin="54,39,0,0" VerticalAlignment="Top" Width="148" Grid.RowSpan="2">

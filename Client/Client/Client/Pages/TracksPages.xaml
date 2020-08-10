@@ -30,6 +30,7 @@
             <Button  x:Name="Button_AddToPLaylist"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Add To Playlist" VerticalAlignment="Center"  Height="30" Width="146" Margin="25,0,0,0" Click="Button_AddToPlaylist_Click" FontFamily="Gotham Medium" FontSize="15" Foreground="White"/>
             <Button  x:Name="Button_AddToQueue"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Add To Queue" VerticalAlignment="Center" Height="30" Width="142" Margin="25,0,0,0" Click="Button_AddToQueue_Click" FontFamily="Gotham Medium" FontSize="15" Foreground="White"/>
             <Button  x:Name="Button_GenerateRadioStation"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Generate Radio Station" VerticalAlignment="Center"  Height="30" Width="211" Margin="25,0,0,0" FontFamily="Gotham Medium" FontSize="15" Foreground="White" Click="Button_GenerateRadioStation_Click"/>
+            <Button  x:Name="Button_DownloadTrack"  Background="{x:Null}"  BorderBrush="#FF707070"  Content="Download Track" VerticalAlignment="Center"  Height="30" Width="163" Margin="25,0,0,0" FontFamily="Gotham Medium" FontSize="15" Foreground="White" Click="ButtonDownloadTrack_Click"/>
         </StackPanel>
         <TextBlock x:Name="textBlock_Message" HorizontalAlignment="Left" Margin="24,72.2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="463" FontSize="20" RenderTransformOrigin="0.5,0.5" Height="27" FontFamily="Gotham Bold" Grid.Row="2"/>
      </Grid>

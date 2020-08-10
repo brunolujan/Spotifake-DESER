@@ -1,5 +1,6 @@
 ﻿    using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,6 +79,30 @@ namespace Client.Pages {
             }
             else
             {
+                textBlock_Message.Text = "*Select a track";
+            }
+        }
+
+        private byte[] GetTrackBytes(string filePath) {
+            return File.ReadAllBytes(filePath);
+        }
+
+        private async void ButtonDownloadTrack_Click(object sender, RoutedEventArgs e) {
+            var trackAux = (Track)datagrid_Track.SelectedItem;
+            if (trackAux != null) {
+                try {
+                    using (FileStream fs = File.Create("..\\LocalTracks\\" + trackAux.StoragePath + ".mp3")) {
+                        RequestTrackAudio newRequestTrackAudio = new RequestTrackAudio();
+                        newRequestTrackAudio.Filename = trackAux.StoragePath;
+
+                        TrackAudio newTrackAudio = await Session.streamingServerConnection.streamingService.GetTrackAudioAsync(newRequestTrackAudio);
+                        fs.Write(newTrackAudio.Song, 0, newTrackAudio.Song.Length);
+                        textBlock_Message.Text = "*Track has been download";
+                    }
+                } catch (Exception ex) {
+                    Console.WriteLine(ex.ToString());
+                }
+            } else {
                 textBlock_Message.Text = "*Select a track";
             }
         }
